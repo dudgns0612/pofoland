@@ -1,24 +1,36 @@
-Spring 
+# 포트폴리오 관리 프로젝트
+- Spring 4.3.3 (JDK 1.8)
+- myBatis
+- MySQL
+- 프로젝트명: pofoland
+- 사명 : HST (Happy Sinchon Toads)
+- Tiles
 
-Mybatis
+## 0. 사용자
+- 회원가입
+- 인증(이메일)
+- 사용자 간 팔로우
+- 쪽지
+- 점수, 레벨(권한 관리)
 
-DB : MySQL
+## 1. 포트폴리오 관리
+- 포트폴리오 작성
+- 포트폴리오 업로드
+- 공유 (카카오톡, 페이스북 등으로 뷰어로 보여줄 수 있게)
+- 미리보기
+- 댓글
+- 좋아요
 
-0. 사용자
-   - 회원가입
-   - 인증 (이메일)
-   - 사용자간 팔로우
-   - 쪽지
 
-1. 포트폴리오
-   - 포트폴리오 작성
-   - 포트폴리오 업로드
-   - 공유
-   - 미리보기
-   - 포트폴리오에 댓글
-   - 좋아요
+## 2. 커뮤니티
+ - CRUD
+ - 답글
+ - 공유
+ 
+ 
+** div 에 id, class 등 잘 달아놓을 것 **
 
-2. 커뮤니티(분야별 Q&A성 게시판)
-   - 게시글 쓰기
-   - 게시글에 답글
-   - 공유
+## UI 설계
+템플릿(SELECT) - http://shapebootstrap.net/item/1525204-cluster-free-creative-portfolio-bootstrap-template/live-demo
+
+## DB 설계
