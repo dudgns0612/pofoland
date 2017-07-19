@@ -34,3 +34,18 @@
 템플릿(SELECT) - http://shapebootstrap.net/item/1525204-cluster-free-creative-portfolio-bootstrap-template/live-demo
 
 ## DB 설계
+- DB Info
+		Amazon RDS
+		DB Engine -v : MariaDB 10.0.24
+		DB name : pofoland
+		Backup Retention Period : 3 days
+		Allocated Storage : 5 GB
+		Storage Type : SSD
+
+
+
+
+## Architecture
+### VO
+- VO
+		BaseVO - 페이징, 검색 정보 등 공통부분을 모아놓고 모든 VO 는 BaseVO 를 상속받는다.
