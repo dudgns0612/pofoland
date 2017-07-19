@@ -32,6 +32,7 @@
 
 ## DB 설계
 - DB Info
+
 		Amazon RDS
 		DB Engine -v : MariaDB 10.0.24
 		DB name : pofoland
