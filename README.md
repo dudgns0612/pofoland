@@ -1,10 +1,8 @@
 # 포트폴리오 관리 프로젝트
-- Spring 4.3.3 (JDK 1.8)
-- myBatis
-- MySQL
-- 프로젝트명: pofoland
-- 사명 : HST (Happy Sinchon Toads)
-- Tiles
+- Framework :  Spring 4.3.3 (JDK 1.8) + myBatis + tiles3
+- DBMS     : MySQL
+- 프로젝트명: Pofoland
+- 사명 : HST (Happy Sinchon Toz)
 
 ## 0. 사용자
 - 회원가입
@@ -26,7 +24,6 @@
  - CRUD
  - 답글
  - 공유
- 
  
 ** div 에 id, class 등 잘 달아놓을 것 **
 
