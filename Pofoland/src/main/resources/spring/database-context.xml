@@ -37,14 +37,14 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
-	<!-- annotationClass를 Repository로 잡고 기본경로를 com.hoon.blog로 잡음 Mapper Interface를 자동으로 Spring이 Scan"-->
+	<!-- Mapper 인터페이스 오토 스캐닝 설정 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.hst.pofoland" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
 	</bean>
 	
 	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-	<constructor-arg ref="dataSourceSpied" />
+		<constructor-arg ref="dataSourceSpied" />
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
 				<property name="loggingType" value="MULTI_LINE" />
