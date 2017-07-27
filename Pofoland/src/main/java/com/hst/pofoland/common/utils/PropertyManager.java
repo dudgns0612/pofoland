@@ -59,9 +59,9 @@ public class PropertyManager {
         String osName = System.getProperty("os.name").toLowerCase();
         
         if(osName.indexOf("win") >= 0) {
-            properties.put("image.path", properties.get("dev.image.path"));
+            properties.put("file.root", properties.get("dev.file.root"));
         } else if(osName.indexOf("linux") >= 0) {
-            properties.put("image.path", properties.get("operate.image.path"));
+            properties.put("file.root", properties.get("operate.file.root"));
         }
     }
     
