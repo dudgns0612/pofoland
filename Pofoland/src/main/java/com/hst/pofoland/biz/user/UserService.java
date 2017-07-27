@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,7 +30,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
 	
 	@Inject
 	UserDAO userDAO;
@@ -37,7 +40,7 @@ public class UserService {
 	 * @param userVO
 	 * @return
 	 */
-	public int crateUser(UserVO userVO) {
+	public int createUser(UserVO userVO) {
 		
 		userVO.setUserAuthKey(getAuthKey());
 		
@@ -82,7 +85,6 @@ public class UserService {
 		return userVO;
 	}
 	
-	
 	/**
 	 * userAuthKey 발급
 	 * @return
@@ -92,6 +94,13 @@ public class UserService {
 		UUID uuid = UUID.randomUUID();
 		
 		return uuid.toString();
+	}
+	
+
+	@Override
+	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

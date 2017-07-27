@@ -1,5 +1,13 @@
 package com.hst.pofoland.biz.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * 
  * 시스템명 : 포트폴리오 관리 시스템
@@ -20,7 +28,7 @@ package com.hst.pofoland.biz.user;
  * </pre>
  */
 
-public class UserVO {
+public class UserVO implements UserDetails{
 	Integer userSeq = null;
 	String userId = null;
 	String userPw = null;
@@ -186,5 +194,43 @@ public class UserVO {
 				+ ", userEmail=" + userEmail + ", userAuthKey=" + userAuthKey + ", userAuthYn=" + userAuthYn
 				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userDelYn=" + userDelYn
 				+ ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn + "]";
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		 List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();    
+		 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		    
+		 return authorities;
+	}
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return userPw;
+	}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return userId;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

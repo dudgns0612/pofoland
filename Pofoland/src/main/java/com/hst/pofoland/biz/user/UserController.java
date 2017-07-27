@@ -49,7 +49,7 @@ public class UserController {
 		
 		LoggerManager.info(getClass(), userVO.toString());
 		
-		int code = userService.crateUser(userVO);
+		int code = userService.createUser(userVO);
 		
 		ResponseVO responseVO = new ResponseVO();
 		
