@@ -37,7 +37,7 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
-	<!-- Mapper 인터페이스 오토 스캐닝 설정 -->
+	<!-- MapperScannerConfigurer 설정 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.hst.pofoland" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
