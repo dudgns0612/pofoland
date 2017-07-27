@@ -13,6 +13,26 @@ import javax.mail.internet.MimeMessage;
 
 import com.hst.pofoland.common.utils.LoggerManager;
 
+/**
+ * 
+ * 시스템명 : 포트폴리오 관리 시스템
+ * $com.hst.pofoland.common.auth.MailAuthentication.java
+ * 클래스 설명 : User 본인에 대한 메일인증처리 class 
+ *
+ * @author 김영훈
+ * @since 2017. 7. 27.
+ * @version 1.0.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ * 수정일			수정자			수정내용
+ * -------------------------------------------------
+ * 2017. 7. 27.		김영훈			최초생성
+ * </pre>
+ */
+
 public class MailAuthentication {
 
 	private String email = null;
@@ -25,9 +45,10 @@ public class MailAuthentication {
 	}
 	
 	public void sendAuthMail() {
+		// smtp host정보와 관련 보낸이 관리자 메일정보
 		String host = "smtp.naver.com";
-		final String user = "dudgns0612";
-		final String password = "dudgns153795!";
+		final String user = "";
+		final String password = "";
 		
 		String receiver = email;
 		
@@ -35,6 +56,7 @@ public class MailAuthentication {
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.auth", "true");
 		
+		//관리자 메일정보 확인
 		Session session = Session.getDefaultInstance(props, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {

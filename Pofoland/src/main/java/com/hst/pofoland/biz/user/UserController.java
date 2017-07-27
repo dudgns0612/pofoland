@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,6 +67,65 @@ public class UserController {
 	public ResponseVO loginUser(UserVO userVO) {
 		
 		return null;
+	}
+	
+	/**
+	 * 유저 아이디중복확인
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value="user/checkid/{userId}", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO duplicateCheckId(@PathVariable String userId) {
+		
+		String checkId = userService.duplicateCheckId(userId);
+		
+		ResponseVO responseVO = new ResponseVO();
+		if (checkId != null) {
+			responseVO.setCode(1);
+		}
+		
+		return responseVO;
+	}
+	
+	/**
+	 * 유저 닉네임중복확인
+	 * @param userNick
+	 * @return
+	 */
+	@RequestMapping(value="user/checknick/{userNick}", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO duplicateCheckNick(@PathVariable String userNick) {
+		
+		String checkNick = userService.duplicateCheckNick(userNick);
+		
+		ResponseVO responseVO = new ResponseVO();
+		if (checkNick != null) {
+			responseVO.setCode(1);
+		}
+		
+		return responseVO;
+	}
+	
+	/**
+	 * 유저 정보조회
+	 * @param userSeq
+	 * @return
+	 */
+	@RequestMapping(value="user/{userSeq}" , method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO searchUser(@PathVariable String userSeq) {
+		
+		UserVO userVO = userService.searchUser(userSeq);
+		
+		ResponseVO responseVO = new ResponseVO();
+		responseVO.setData(userVO);
+
+		if (userVO != null) {
+			responseVO.setCode(1);
+		}
+		
+		return responseVO;
 	}
 	
 }

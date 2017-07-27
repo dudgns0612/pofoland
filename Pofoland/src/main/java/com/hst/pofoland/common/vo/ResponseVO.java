@@ -23,7 +23,7 @@ package com.hst.pofoland.common.vo;
 public class ResponseVO {
 	
 	Object data = null;
-	Integer code = null;
+	Integer code = 0;
 	/**
 	 * @return the data
 	 */

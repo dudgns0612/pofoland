@@ -20,10 +20,26 @@
 			#{userEmail},
 			#{userAuthKey}
 		)
-		
 		<selectKey keyProperty="userSeq" resultType="int">
 			SELECT LAST_INSERT_ID();
 		</selectKey>
 	</insert>
+	
+	<select id="selectDuplicateCheckId" resultType="String">
+		SELECT USER_ID
+		  FROM User
+		 WHERE USER_ID = #{userId}
+	</select>
+	
+	<select id="selectDuplicateCheckNick" resultType="String">
+		SELECT USER_NICK
+		  FROM User
+		 WHERE USER_NICK = #{userNick}
+	</select>
+	
+	<select id="selectUserInfo" resultType="UserVO">
+		SELECT *
+		  FROM User
+	</select>
 
 </mapper>

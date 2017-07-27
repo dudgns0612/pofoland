@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
  * 
  * 시스템명 : 포트폴리오 관리 시스템
  * $com.hst.pofoland.biz.user.UserDAO.java
- * 클래스 설명 : User DB에 대한 작업 연결을 위한 DAO class
+ * 클래스 설명 : User DB에 대한 작업접근 위한 DAO class
  *
  * @author 김영훈
  * @since 2017. 7. 27.
@@ -24,7 +24,33 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDAO {
-	
+	/**
+	 * 유저 회원가입
+	 * @param userVO
+	 * @return
+	 */
 	public int insertUser(UserVO userVO);
+	
+	/**
+	 * 유저 아이디 중복확인
+	 * @param userId
+	 * @return
+	 */
+	public String selectDuplicateCheckId(String userId);
+	
+	/**
+	 * 유저 닉네임 중복확인
+	 * @param userNick
+	 * @return
+	 */
+	public String selectDuplicateCheckNick(String userNick);
+	
+	/**
+	 * 유저 정보조회
+	 * @param userSeq
+	 * @return
+	 */
+	public UserVO selectUserInfo(String userSeq);
+
 	
 }

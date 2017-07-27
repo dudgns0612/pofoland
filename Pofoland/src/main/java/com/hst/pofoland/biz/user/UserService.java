@@ -47,6 +47,43 @@ public class UserService {
 	}
 	
 	/**
+	 * 유저 아이디 중복확인
+	 * @param userId
+	 * @return
+	 */
+	public String duplicateCheckId(String userId) {
+		
+		String checkId = userDAO.selectDuplicateCheckId(userId);
+		
+		return checkId;
+	}
+	
+	/**
+	 * 유저 닉네임 중복확인
+	 * @param userNick
+	 * @return
+	 */
+	public String duplicateCheckNick(String userNick) {
+		
+		String checkNick = userDAO.selectDuplicateCheckNick(userNick);
+		
+		return checkNick;
+	}
+	
+	/**
+	 * 유저 정보조회
+	 * @param userSeq
+	 * @return
+	 */
+	public UserVO searchUser(String userSeq) {
+		
+		UserVO userVO = userDAO.selectUserInfo(userSeq);
+		
+		return userVO;
+	}
+	
+	
+	/**
 	 * userAuthKey 발급
 	 * @return
 	 */
@@ -56,5 +93,6 @@ public class UserService {
 		
 		return uuid.toString();
 	}
+
 
 }
