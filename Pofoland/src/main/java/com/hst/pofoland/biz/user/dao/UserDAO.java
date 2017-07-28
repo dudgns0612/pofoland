@@ -1,6 +1,8 @@
-package com.hst.pofoland.biz.user;
+package com.hst.pofoland.biz.user.dao;
 
 import org.springframework.stereotype.Repository;
+
+import com.hst.pofoland.biz.user.vo.UserVO;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.hst.pofoland.biz.user;
+package com.hst.pofoland.biz.user.ctrl;
 
 import javax.inject.Inject;
 
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
+import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.vo.ResponseVO;
 
@@ -36,7 +38,7 @@ import com.hst.pofoland.common.vo.ResponseVO;
 public class UserController {
 	
 	@Inject
-	UserService userService;
+	UserServiceImpl userServiceImpl;
 	
 	/**
 	 * 유저 회원가입
@@ -49,7 +51,7 @@ public class UserController {
 		
 		LoggerManager.info(getClass(), userVO.toString());
 		
-		int code = userService.createUser(userVO);
+		int code = userServiceImpl.createUser(userVO);
 		
 		ResponseVO responseVO = new ResponseVO();
 		
@@ -78,7 +80,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseVO duplicateCheckId(@PathVariable String userId) {
 		
-		String checkId = userService.duplicateCheckId(userId);
+		String checkId = userServiceImpl.duplicateCheckId(userId);
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkId != null) {
@@ -97,7 +99,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseVO duplicateCheckNick(@PathVariable String userNick) {
 		
-		String checkNick = userService.duplicateCheckNick(userNick);
+		String checkNick = userServiceImpl.duplicateCheckNick(userNick);
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkNick != null) {
@@ -116,7 +118,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseVO searchUser(@PathVariable String userSeq) {
 		
-		UserVO userVO = userService.searchUser(userSeq);
+		UserVO userVO = userServiceImpl.searchUser(userSeq);
 		
 		ResponseVO responseVO = new ResponseVO();
 		responseVO.setData(userVO);

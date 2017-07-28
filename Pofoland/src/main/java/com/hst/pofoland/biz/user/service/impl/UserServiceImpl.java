@@ -1,13 +1,14 @@
-package com.hst.pofoland.biz.user;
+package com.hst.pofoland.biz.user.service.impl;
 
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.hst.pofoland.biz.user.dao.UserDAO;
+import com.hst.pofoland.biz.user.service.UserService;
+import com.hst.pofoland.biz.user.vo.UserVO;
 
 /**
  * 
@@ -30,7 +31,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserServiceImpl implements UserService{
 	
 	@Inject
 	UserDAO userDAO;
@@ -40,6 +41,7 @@ public class UserService implements UserDetailsService{
 	 * @param userVO
 	 * @return
 	 */
+	@Override
 	public int createUser(UserVO userVO) {
 		
 		userVO.setUserAuthKey(getAuthKey());
@@ -54,6 +56,7 @@ public class UserService implements UserDetailsService{
 	 * @param userId
 	 * @return
 	 */
+	@Override
 	public String duplicateCheckId(String userId) {
 		
 		String checkId = userDAO.selectDuplicateCheckId(userId);
@@ -66,6 +69,7 @@ public class UserService implements UserDetailsService{
 	 * @param userNick
 	 * @return
 	 */
+	@Override
 	public String duplicateCheckNick(String userNick) {
 		
 		String checkNick = userDAO.selectDuplicateCheckNick(userNick);
@@ -78,6 +82,7 @@ public class UserService implements UserDetailsService{
 	 * @param userSeq
 	 * @return
 	 */
+	@Override
 	public UserVO searchUser(String userSeq) {
 		
 		UserVO userVO = userDAO.selectUserInfo(userSeq);
@@ -96,12 +101,4 @@ public class UserService implements UserDetailsService{
 		return uuid.toString();
 	}
 	
-
-	@Override
-	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }
