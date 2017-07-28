@@ -35,22 +35,39 @@ import com.hst.pofoland.common.utils.LoggerManager;
 public class ControllerAspect {
 
 	public Object aroundAop(ProceedingJoinPoint joinPoint) throws Throwable {
-		String methodNm = joinPoint.getSignature().toShortString();
-		LoggerManager.info(getClass(), "{} 시작",methodNm);
-		long start = System.currentTimeMillis();
-		
-		try {
-			
-			Object resultData = joinPoint.proceed();
-			return resultData;
-			
-		} finally {
-			
-			long end = System.currentTimeMillis();
-			LoggerManager.info(getClass(), "{} 종료", methodNm);
-			LoggerManager.info(getClass(), "실행시간 : {}ms",(end-start));
-			
-		}
+        
+        long start = System.currentTimeMillis();
+		Object resultData = joinPoint.proceed();
+        long end = System.currentTimeMillis();
+
+        StringBuffer sb = new StringBuffer("\n");
+        sb.append("=================================================================================================\n");
+        sb.append("# Invocation \n  ").append(joinPoint.getSignature().toString()).append("\n\n");
+        
+        Object[] args = joinPoint.getArgs();
+        int len = args.length;
+        
+        sb.append("# Arguments\n");
+        if (len == 0) {
+            sb.append("  The method takes no arguments.\n");
+        } else {
+            Object temp = null;
+            for (int i = 0; i < len; i++) {
+                temp = args[i];
+                sb.append("  args[").append(i).append("] : ").append(temp.toString()).append(" [").append(temp.getClass().getCanonicalName()).append("]").append("\n");
+            }
+        }
+
+		sb.append("\n# Returns\n  ").append(resultData == null ? " - " : resultData.toString()).append(" [").append(resultData.getClass().getCanonicalName()).append("]").append("\n");
+
+		sb.append("                                                                         Elapsed time : ").append(end - start).append("(ms)\n");        
+        sb.append("=================================================================================================\n");
+
+        
+        LoggerManager.info(getClass(), sb.toString());
+        
+		return resultData;
 		
 	}
+	
 }
