@@ -11,11 +11,10 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.hst.pofoland.biz.user.UserService;
-import com.hst.pofoland.biz.user.UserVO;
+import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
+import com.hst.pofoland.biz.user.vo.UserVO;
 
 /**
  * 
@@ -43,7 +42,7 @@ import com.hst.pofoland.biz.user.UserVO;
 public class UserTest {
 
     @Inject
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
     
     @Test
     public void createUserTest() {
@@ -52,7 +51,7 @@ public class UserTest {
         user.setUserPw("cjsrn1992");
         user.setUserNick("나하나쯤이야");
         user.setUserEmail("gusrb0808@naver.com");
-        userService.crateUser(user);
+        userServiceImpl.createUser(user);
     }
     
 }

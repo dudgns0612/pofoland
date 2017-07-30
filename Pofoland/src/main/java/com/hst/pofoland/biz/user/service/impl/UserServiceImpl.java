@@ -1,10 +1,14 @@
-package com.hst.pofoland.biz.user;
+package com.hst.pofoland.biz.user.service.impl;
 
 import java.util.UUID;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+
+import com.hst.pofoland.biz.user.dao.UserDAO;
+import com.hst.pofoland.biz.user.service.UserService;
+import com.hst.pofoland.biz.user.vo.UserVO;
 
 /**
  * 
@@ -27,7 +31,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService{
 	
 	@Inject
 	UserDAO userDAO;
@@ -37,7 +41,8 @@ public class UserService {
 	 * @param userVO
 	 * @return
 	 */
-	public int crateUser(UserVO userVO) {
+	@Override
+	public int createUser(UserVO userVO) {
 		
 		userVO.setUserAuthKey(getAuthKey());
 		
@@ -51,6 +56,7 @@ public class UserService {
 	 * @param userId
 	 * @return
 	 */
+	@Override
 	public String duplicateCheckId(String userId) {
 		
 		String checkId = userDAO.selectDuplicateCheckId(userId);
@@ -63,6 +69,7 @@ public class UserService {
 	 * @param userNick
 	 * @return
 	 */
+	@Override
 	public String duplicateCheckNick(String userNick) {
 		
 		String checkNick = userDAO.selectDuplicateCheckNick(userNick);
@@ -75,13 +82,13 @@ public class UserService {
 	 * @param userSeq
 	 * @return
 	 */
+	@Override
 	public UserVO searchUser(String userSeq) {
 		
 		UserVO userVO = userDAO.selectUserInfo(userSeq);
 		
 		return userVO;
 	}
-	
 	
 	/**
 	 * userAuthKey 발급
@@ -93,6 +100,5 @@ public class UserService {
 		
 		return uuid.toString();
 	}
-
-
+	
 }

@@ -1,4 +1,14 @@
-package com.hst.pofoland.biz.user;
+package com.hst.pofoland.biz.user.vo;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.hst.pofoland.common.auth.security.Role;
 
 /**
  * 
@@ -20,7 +30,8 @@ package com.hst.pofoland.biz.user;
  * </pre>
  */
 
-public class UserVO {
+public class UserVO implements UserDetails{
+	private static final long serialVersionUID = 1L;
 	Integer userSeq = null;
 	String userId = null;
 	String userPw = null;
@@ -33,6 +44,15 @@ public class UserVO {
 	char userDelYn = 'N';
 	char userPublicYn = 'N';
 	char userLoginYn = 'N';
+	
+	
+	//Security
+	private List<Role> authorities;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
+	
 	/**
 	 * @return the userSeq
 	 */
@@ -186,5 +206,75 @@ public class UserVO {
 				+ ", userEmail=" + userEmail + ", userAuthKey=" + userAuthKey + ", userAuthYn=" + userAuthYn
 				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userDelYn=" + userDelYn
 				+ ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn + "]";
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		 List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();    
+		 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		    
+		 return authorities;
+	}
+	
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.userPw;
+	}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.userId;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	/**
+	 * @param authorities the authorities to set
+	 */
+	public void setAuthorities(List<Role> authorities) {
+		this.authorities = authorities;
+	}
+	/**
+	 * @param accountNonExpired the accountNonExpired to set
+	 */
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+	/**
+	 * @param accountNonLocked the accountNonLocked to set
+	 */
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+	/**
+	 * @param credentialsNonExpired the credentialsNonExpired to set
+	 */
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+	/**
+	 * @param enabled the enabled to set
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

@@ -13,15 +13,15 @@ import com.hst.pofoland.common.utils.LoggerManager;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
 		LoggerManager.info(getClass(), "로그테스트");
 		
-		return "home";
+		return "login";
 	}
 	
-	@RequestMapping(value="/tiles")
+	@RequestMapping(value="/home")
 	public String tilesTest() {
 		return "tiles";
 	}
