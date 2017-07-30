@@ -21,8 +21,9 @@
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-		
+<!-- 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" /> -->
+		<intercept-url pattern="/boardMain" access="permitAll"/>
+        
 		<!-- 로그인 성공 / 실패  Handler -->
 		<form-login login-page="/login"
 					username-parameter="userId" 

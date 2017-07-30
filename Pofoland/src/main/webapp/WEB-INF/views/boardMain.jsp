@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!-- PAGE HEADER -->
 <section id="page-header">
     <div class="container">
@@ -20,103 +21,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                <div class="single-blog">
-                    <article>
-                        <div class="post-thumb"><img class="img-responsive" src="images/blog/01.jpg" alt=""></div>
-                        <h4 class="post-title"><a href="">Kpsum dolor sit amet, consectetur adipisicing elit.</a></h4>
-                        <div class="post-meta text-uppercase">
-                            <span>Appril 3, 2014</span>
-                            <span>In <a href="">Design</a></span>
-                            <span>By <a href="">Admin</a></span>
-                        </div>
-                        <div class="post-article">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae eum minus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae
-                        </div>
-                        <a href="" class="btn btn-readmore">Read More</a>
-                    </article>
-                </div>
-                <hr>
-                <div class="single-blog">
-                    <article>
-                        <div class="post-link"><a href="">www.yourdomain.com</a></div>
-                        <h4 class="post-title"><a href="">Kpsum dolor sit amet, consectetur adipisicing elit.</a></h4>
-                        <div class="post-meta text-uppercase">
-                            <span>Appril 3, 2014</span>
-                            <span>In <a href="">Design</a></span>
-                            <span>By <a href="">Admin</a></span>
-                        </div>
-                        <div class="post-article">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae eum minus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae
-                        </div>
-                        <a href="" class="btn btn-readmore">Read More</a>
-                    </article>
-                </div>
-                <hr>
-                <div class="single-blog">
-                    <article>
-                        <div class="post-slider">
-                            <div id="post-carousel" class="carousel slide" data-ride="carousel">            
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img src="images/blog/01.jpg" alt="">
-                                    </div>
-                                    <div class="item">
-                                        <img src="images/blog/02.jpg" alt="">           
-                                    </div>
-                                    <div class="item">
-                                        <img src="images/blog/03.jpg" alt="">           
-                                    </div>
-                                    
-                                    <a class="post-carousel-left" href="#post-carousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-                                    <a class="post-carousel-right" href="#post-carousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
-                                </div>      
-                            </div> 
-                        </div>
-                        <h4 class="post-title"><a href="">Kpsum dolor sit amet, consectetur adipisicing elit.</a></h4>
-                        <div class="post-meta text-uppercase">
-                            <span>Appril 3, 2014</span>
-                            <span>In <a href="">Design</a></span>
-                            <span>By <a href="">Admin</a></span>
-                        </div>
-                        <div class="post-article">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae eum minus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae
-                        </div>
-                        <a href="" class="btn btn-readmore">Read More</a>
-                    </article>
-                </div>
-                <hr>
-                <div class="single-blog">
-                    <article>
-                        <div class="post-quote">âLorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti minus quasi temporibus reiciendis veniam reprehenderit, consequuntur. At blanditiisâ</div>
-                        <h4 class="post-title"><a href="">Kpsum dolor sit amet, consectetur adipisicing elit.</a></h4>
-                        <div class="post-meta text-uppercase">
-                            <span>Appril 3, 2014</span>
-                            <span>In <a href="">Design</a></span>
-                            <span>By <a href="">Admin</a></span>
-                        </div>
-                        <div class="post-article">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae eum minus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae
-                        </div>
-                        <a href="" class="btn btn-readmore">Read More</a>
-                    </article>
-                </div>
-                <hr>
-                <div class="single-blog">
-                    <article>
-                        <div class="post-video"><iframe width="560" height="315" src="https://www.youtube.com/embed/uQBL7pSAXR8" frameborder="0" allowfullscreen></iframe></div>
-                        <h4 class="post-title"><a href="">Kpsum dolor sit amet, consectetur adipisicing elit.</a></h4>
-                        <div class="post-meta text-uppercase">
-                            <span>Appril 3, 2014</span>
-                            <span>In <a href="">Design</a></span>
-                            <span>By <a href="">Admin</a></span>
-                        </div>
-                        <div class="post-article">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae eum minus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error accusamus, repudiandae tenetur itaque rem sapiente inventore vel deserunt officiis, facilis veritatis doloremque debitis id perferendis, eveniet esse molestiae
-                        </div>
-                        <a href="" class="btn btn-readmore">Read More</a>
-                    </article>
-                </div>
-                <hr>
+                <c:forEach items="${boardList}" var="board">
+                    <div class="single-blog">
+                        <article>
+                            <h4 class="post-title"><a href="">${board.boardTitle}</a></h4>
+                            <div class="post-meta text-uppercase">
+                                <span>${board.boardRegDt}</span>
+                                <span>In <a href="">${board.jobCateName}</a></span>
+                                <span>By <a href="/user/${board.userSeq}">${board.userNick}</a></span>
+                            </div>
+                            <div class="post-article">
+                                ${board.boardContent}
+                            </div>
+                        </article>
+                    </div>
+                    <hr>
+                </c:forEach>
                 <ul class="pagination">
                     <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
                     <li class="active"><a href="#">1</a></li>
@@ -126,24 +46,26 @@
                     <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
                 </ul>
             </div>
+
             <div class="col-md-3">
                 <div class="sidebar-widget">
                     <div class="blog-search">
-                        <form>
-                            <input type="text" name="search">
-                            <span>
-                                <button id="submit_btn" class="search-submit" type="submit">
+                    <form:form commandName="condition" method="GET">
+                        <form:input type="hidden" path="searchType" value="content"/>
+                        <form:input path="search"/>
+                        <span>
+                            <form:button id="submit_btn" class="search-submit" type="submit">
                                 <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </form>
+                            </form:button>
+                        </span>
+                    </form:form>
                     </div>
                 </div>
                 <div class="sidebar-widget">
                     <h4 class="sidebar-title">Categories</h4>
                     <ul>
                         <c:forEach items="${boardCategories}" var="categoryItem">
-                            <li><a href="${contextPath}/boardMain/${categoryItem.cateSeq}">${categoryItem.cateName}</a></li>
+                            <li><a href="${contextPath}/boardMain?search=${categoryItem.cateSeq}&searchType=boardCategory">${categoryItem.cateName}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -152,32 +74,32 @@
                     <ul class="content-flickr">
                         <li>
                             <a href="#" title="">
-                                <img class="img-responsive" src="images/img1.png" alt="">
+                                <img class="img-responsive" src="${contextPath}/resources/assets/images/img1.png" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img class="img-responsive" src="images/img2.png" alt="">
+                                <img class="img-responsive" src="${contextPath}/resources/assets/images/img2.png" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img class="img-responsive" src="images/img3.png" alt="">
+                                <img class="img-responsive" src="${contextPath}/resources/assets/images/img3.png" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img class="img-responsive" src="images/img4.png" alt="">
+                                <img class="img-responsive" src="${contextPath}/resources/assets/images/img4.png" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img class="img-responsive" src="images/img5.png" alt="">
+                                <img class="img-responsive" src="${contextPath}/resources/assets/images/img5.png" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img class="img-responsive" src="images/img6.png" alt="">
+                                <img class="img-responsive" src="${contextPath}/resources/assets/images/img6.png" alt="">
                             </a>
                         </li>
                     </ul>
@@ -185,14 +107,9 @@
                 <div class="sidebar-widget">
                     <h4 class="sidebar-title">Tags</h4>
                     <div class="tagcloud">
-                        <a href="">design</a>
-                        <a href="">html</a>
-                        <a href="">php</a>
-                        <a href="">wordpress</a>
-                        <a href="">css</a>
-                        <a href="">development</a>
-                        <a href="">theme</a>
-                        <a href="">plugin</a>
+                        <c:forEach items="${jobCategories}" var="categoryItem">
+                            <a href="${contextPath}/boardMain?search=${categoryItem.cateSeq}&searchType=jobCategory">${categoryItem.cateName}</a>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

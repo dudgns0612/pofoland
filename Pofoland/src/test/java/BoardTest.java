@@ -7,6 +7,8 @@
  * Copyright ((c) 2017 by HST, Inc. All Rights Reserved.
  */
 
+import java.util.Random;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -17,6 +19,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hst.pofoland.biz.board.service.BoardService;
+import com.hst.pofoland.biz.board.vo.BoardVO;
+import com.hst.pofoland.biz.category.service.CategoryService;
 
 /**
  * 
@@ -48,9 +52,36 @@ public class BoardTest {
     @Inject
     private BoardService boardService;
     
+    @Inject
+    private CategoryService categoryService;
+    
+    public void select() {
+        categoryService.getBoardCategoryList();
+    }
+    
+    
     @Test
     public void insert() {
-        logger.info("{}", boardService);
+        BoardVO temp = null;
+        
+        int bCateSeq, jCateSeq;
+        Random r = new Random();
+        
+        for (int i = 11; i < 100; i++) {
+            temp = new BoardVO();
+            
+            bCateSeq = r.nextInt(5) + 1;
+            jCateSeq = r.nextInt(5) + 1;
+            
+            temp.setBoardCateSeq(bCateSeq);
+            temp.setJobCateSeq(jCateSeq);
+            
+            temp.setBoardTitle("[TEST] 게시글 " + (i+1));
+            temp.setBoardContent("안녕하세요! 테스트 게시글입니다.<br> Hello World!");
+            temp.setUserSeq(5);
+            
+            boardService.insertBoard(temp);
+        }
     }
 
 }

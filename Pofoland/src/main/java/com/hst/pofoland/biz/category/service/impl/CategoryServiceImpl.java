@@ -7,6 +7,16 @@
  */
 package com.hst.pofoland.biz.category.service.impl;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
+import com.hst.pofoland.biz.category.dao.CategoryDAO;
+import com.hst.pofoland.biz.category.service.CategoryService;
+import com.hst.pofoland.biz.category.vo.CategoryVO;
+
 /**
  * 
  * 시스템명 : 
@@ -26,6 +36,20 @@ package com.hst.pofoland.biz.category.service.impl;
  * 2017. 7. 28.   이현규  최초생성
  * </pre>
  */
-public class CategoryServiceImpl {
+@Service
+public class CategoryServiceImpl implements CategoryService {
 
+    @Inject
+    private CategoryDAO categoryDao;
+
+    @Override
+    public List<CategoryVO> getBoardCategoryList() {
+        return categoryDao.selectBoardCategory();
+    }
+
+    @Override
+    public List<CategoryVO> getJobCategoryList() {
+        return categoryDao.selectJobCategory();
+    }
+    
 }

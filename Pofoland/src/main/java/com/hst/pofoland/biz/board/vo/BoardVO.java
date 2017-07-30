@@ -42,10 +42,10 @@ public class BoardVO extends BaseVO {
     private String boardCateName;
     
     private int jobCateSeq;
-    private int jobCateName;
+    private String jobCateName;
     
     private int userSeq;
-    private int userNick;
+    private String userNick;
 
     /**
      * 기본 생성자
@@ -196,14 +196,14 @@ public class BoardVO extends BaseVO {
     /**
      * @return the jobCateName
      */
-    public int getJobCateName() {
+    public String getJobCateName() {
         return jobCateName;
     }
 
     /**
      * @param jobCateName the jobCateName to set
      */
-    public void setJobCateName(int jobCateName) {
+    public void setJobCateName(String jobCateName) {
         this.jobCateName = jobCateName;
     }
 
@@ -224,14 +224,14 @@ public class BoardVO extends BaseVO {
     /**
      * @return the userNick
      */
-    public int getUserNick() {
+    public String getUserNick() {
         return userNick;
     }
 
     /**
      * @param userNick the userNick to set
      */
-    public void setUserNick(int userNick) {
+    public void setUserNick(String userNick) {
         this.userNick = userNick;
     }
 

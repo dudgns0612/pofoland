@@ -10,10 +10,13 @@ package com.hst.pofoland.biz.board.ctrl;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hst.pofoland.biz.board.service.BoardService;
+import com.hst.pofoland.biz.board.vo.BoardVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
 
 /**
@@ -41,10 +44,15 @@ public class BoardController {
     @Inject
     private CategoryService categoryService;
 
+    @Inject
+    private BoardService boardService;
+    
     @RequestMapping(value = "/boardMain", method = RequestMethod.GET)
-    public ModelAndView boardMain() {
+    public ModelAndView boardMain(@ModelAttribute("condition")BoardVO condition) {
         ModelAndView mv = new ModelAndView("boardMain");
+        mv.addObject("boardList", boardService.getBoardList(condition));
         mv.addObject("boardCategories", categoryService.getBoardCategoryList());
+        mv.addObject("jobCategories", categoryService.getJobCategoryList());
         return mv;
     }
 

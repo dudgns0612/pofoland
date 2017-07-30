@@ -28,4 +28,88 @@ package com.hst.pofoland.common.vo;
  */
 public class BaseVO {
 
+    private String search;
+    private String searchType;
+    
+    private int startRecord;
+    private int endRecord;
+    
+    public BaseVO() {
+    }
+
+    /**
+     * @param search
+     * @param searchType
+     */
+    public BaseVO(String search, String searchType) {
+        super();
+        this.search = search;
+        this.searchType = searchType;
+    }
+
+    /**
+     * @return the search
+     */
+    public String getSearch() {
+        return search;
+    }
+    /**
+     * @param search the search to set
+     */
+    public void setSearch(String search) {
+        this.search = search;
+    }
+    /**
+     * @return the searchType
+     */
+    public String getSearchType() {
+        return searchType;
+    }
+    /**
+     * @param searchType the searchType to set
+     */
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    /**
+     * @return the startRecord
+     */
+    public int getStartRecord() {
+        return startRecord;
+    }
+
+    /**
+     * @param startRecord the startRecord to set
+     */
+    public void setStartRecord(int startRecord) {
+        this.startRecord = startRecord;
+    }
+
+    /**
+     * @return the endRecord
+     */
+    public int getEndRecord() {
+        return endRecord;
+    }
+
+    /**
+     * @param endRecord the endRecord to set
+     */
+    public void setEndRecord(int endRecord) {
+        this.endRecord = endRecord;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("BaseVO [search=").append(search).append(", searchType=").append(searchType)
+                .append(", startRecord=").append(startRecord).append(", endRecord=").append(endRecord).append("]");
+        return builder.toString();
+    }
+    
+    
 }

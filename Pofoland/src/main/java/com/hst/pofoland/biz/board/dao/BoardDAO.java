@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.hst.pofoland.biz.board.vo.BoardVO;
+
 /**
  * 
  * 시스템명 : 포트폴리오 관리 시스템
@@ -33,4 +35,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardDAO {
 
+    /**
+     * 게시글 등록
+     * 
+     * @param board 등록할 게시글
+     */
+    public int insertBoard(BoardVO board);
+    
+    /**
+     * 게시글 조회 
+     * 
+     * @param board 조회 조건
+     * @return
+     */
+    public List<BoardVO> selectBoard(BoardVO condition);
+    
 }
