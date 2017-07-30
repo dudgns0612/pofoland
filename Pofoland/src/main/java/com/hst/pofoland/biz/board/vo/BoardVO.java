@@ -37,9 +37,15 @@ public class BoardVO extends BaseVO {
     private String boardUdtDt;
     private String boardDelYn;
     private int boardHitCnt;
+    
     private int boardCateSeq;
+    private String boardCateName;
+    
     private int jobCateSeq;
+    private int jobCateName;
+    
     private int userSeq;
+    private int userNick;
 
     /**
      * 기본 생성자
@@ -55,8 +61,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardSeq
-     *            the boardSeq to set
+     * @param boardSeq the boardSeq to set
      */
     public void setBoardSeq(int boardSeq) {
         this.boardSeq = boardSeq;
@@ -70,8 +75,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardTitle
-     *            the boardTitle to set
+     * @param boardTitle the boardTitle to set
      */
     public void setBoardTitle(String boardTitle) {
         this.boardTitle = boardTitle;
@@ -85,8 +89,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardContent
-     *            the boardContent to set
+     * @param boardContent the boardContent to set
      */
     public void setBoardContent(String boardContent) {
         this.boardContent = boardContent;
@@ -100,8 +103,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardRegDt
-     *            the boardRegDt to set
+     * @param boardRegDt the boardRegDt to set
      */
     public void setBoardRegDt(String boardRegDt) {
         this.boardRegDt = boardRegDt;
@@ -115,8 +117,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardUdtDt
-     *            the boardUdtDt to set
+     * @param boardUdtDt the boardUdtDt to set
      */
     public void setBoardUdtDt(String boardUdtDt) {
         this.boardUdtDt = boardUdtDt;
@@ -130,8 +131,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardDelYn
-     *            the boardDelYn to set
+     * @param boardDelYn the boardDelYn to set
      */
     public void setBoardDelYn(String boardDelYn) {
         this.boardDelYn = boardDelYn;
@@ -145,8 +145,7 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardHitCnt
-     *            the boardHitCnt to set
+     * @param boardHitCnt the boardHitCnt to set
      */
     public void setBoardHitCnt(int boardHitCnt) {
         this.boardHitCnt = boardHitCnt;
@@ -160,11 +159,24 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param boardCateSeq
-     *            the boardCateSeq to set
+     * @param boardCateSeq the boardCateSeq to set
      */
     public void setBoardCateSeq(int boardCateSeq) {
         this.boardCateSeq = boardCateSeq;
+    }
+
+    /**
+     * @return the boardCateName
+     */
+    public String getBoardCateName() {
+        return boardCateName;
+    }
+
+    /**
+     * @param boardCateName the boardCateName to set
+     */
+    public void setBoardCateName(String boardCateName) {
+        this.boardCateName = boardCateName;
     }
 
     /**
@@ -175,11 +187,24 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param jobCateSeq
-     *            the jobCateSeq to set
+     * @param jobCateSeq the jobCateSeq to set
      */
     public void setJobCateSeq(int jobCateSeq) {
         this.jobCateSeq = jobCateSeq;
+    }
+
+    /**
+     * @return the jobCateName
+     */
+    public int getJobCateName() {
+        return jobCateName;
+    }
+
+    /**
+     * @param jobCateName the jobCateName to set
+     */
+    public void setJobCateName(int jobCateName) {
+        this.jobCateName = jobCateName;
     }
 
     /**
@@ -190,16 +215,27 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @param userSeq
-     *            the userSeq to set
+     * @param userSeq the userSeq to set
      */
     public void setUserSeq(int userSeq) {
         this.userSeq = userSeq;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /**
+     * @return the userNick
+     */
+    public int getUserNick() {
+        return userNick;
+    }
+
+    /**
+     * @param userNick the userNick to set
+     */
+    public void setUserNick(int userNick) {
+        this.userNick = userNick;
+    }
+
+    /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
@@ -209,7 +245,9 @@ public class BoardVO extends BaseVO {
                 .append(", boardContent=").append(boardContent).append(", boardRegDt=").append(boardRegDt)
                 .append(", boardUdtDt=").append(boardUdtDt).append(", boardDelYn=").append(boardDelYn)
                 .append(", boardHitCnt=").append(boardHitCnt).append(", boardCateSeq=").append(boardCateSeq)
-                .append(", jobCateSeq=").append(jobCateSeq).append(", userSeq=").append(userSeq).append("]");
+                .append(", boardCateName=").append(boardCateName).append(", jobCateSeq=").append(jobCateSeq)
+                .append(", jobCateName=").append(jobCateName).append(", userSeq=").append(userSeq).append(", userNick=")
+                .append(userNick).append("]");
         return builder.toString();
     }
 

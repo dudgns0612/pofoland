@@ -7,9 +7,14 @@
  */
 package com.hst.pofoland.biz.board.ctrl;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 
-import com.hst.pofoland.biz.board.service.BoardService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.hst.pofoland.biz.category.service.CategoryService;
 
 /**
  * 
@@ -30,9 +35,17 @@ import com.hst.pofoland.biz.board.service.BoardService;
  * 2017. 7. 28.   이현규  최초생성
  * </pre>
  */
+@Controller
 public class BoardController {
 
-    @Resource(name = "boardService")
-    private BoardService boardService;
-    
+    @Inject
+    private CategoryService categoryService;
+
+    @RequestMapping(value = "/boardMain", method = RequestMethod.GET)
+    public ModelAndView boardMain() {
+        ModelAndView mv = new ModelAndView("boardMain");
+        mv.addObject("boardCategories", categoryService.getBoardCategoryList());
+        return mv;
+    }
+
 }

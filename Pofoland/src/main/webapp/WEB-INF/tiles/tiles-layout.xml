@@ -8,14 +8,12 @@
 <!-- author YH -->
 
 <tiles-definitions>
-	<!-- default : 템플릿에 설정된 페이지의 구성 요소에 대한 실제 파일을 지정합니다.  -->
 	<definition name="default" template="/WEB-INF/views/layouts/tiles-layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/layouts/tiles-header.jsp" />
-		<put-attribute name="body"  value="/WEB-INF/views/layouts/tiles-body.jsp" />
+		<put-attribute name="body"  value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/layouts/tiles-footer.jsp" />
 	</definition>
  
-	<!--  모든 URL의 호출이 오는 경우 아래 설정에 의해서 페이지를 만들게 됩니다. -->
 	<definition name="*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>

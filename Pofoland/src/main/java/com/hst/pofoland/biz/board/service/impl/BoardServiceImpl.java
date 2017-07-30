@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.hst.pofoland.biz.board.service.BoardService;
 
-@Service("boardService")
+@Service
 public class BoardServiceImpl implements BoardService {
 
+    
+    
 }
