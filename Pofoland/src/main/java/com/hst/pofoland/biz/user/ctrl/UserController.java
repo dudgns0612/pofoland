@@ -61,17 +61,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 유저 로그인
-	 * @param userVO
-	 * @return
-	 */
-	@RequestMapping(value="user/login" , method=RequestMethod.POST)
-	public ResponseVO loginUser(UserVO userVO) {
-		
-		return null;
-	}
-	
-	/**
 	 * 유저 아이디중복확인
 	 * @param userId
 	 * @return

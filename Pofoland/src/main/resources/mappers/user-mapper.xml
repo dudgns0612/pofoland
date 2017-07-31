@@ -4,7 +4,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hst.pofoland.biz.user.UserDAO">
+<mapper namespace="com.hst.pofoland.biz.user.dao.UserDAO">
 
 	<insert id="insertUser" keyProperty="userSeq">
 		INSERT INTO User (
@@ -25,6 +25,22 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectUserLogin" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_PW,
+			   USER_EMAIL,
+			   USER_NICK,
+			   USER_AUTH_YN,
+			   USER_SCORE,
+			   date_format(USER_REG_DT,'%Y-%m-%d %T'),
+			   USER_DEL_YN,
+			   USER_LOGIN_YN
+		  FROM User
+		 WHERE USER_ID = #{userId} 
+	</select>
+	
+	
 	<select id="selectDuplicateCheckId" resultType="String">
 		SELECT USER_ID
 		  FROM User
@@ -38,8 +54,19 @@
 	</select>
 	
 	<select id="selectUserInfo" resultType="UserVO">
-		SELECT *
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_PW,
+			   USER_EMAIL,
+			   USER_NICK,
+			   USER_AUTH_YN,
+			   USER_SCORE,
+			   date_format(USER_REG_DT,'%Y-%m-%d %T'),
+			   USER_DEL_YN,
+			   USER_LOGIN_YN
 		  FROM User
+		 WHERE USER_SEQ = #{userSeq}
+		  
 	</select>
 
 </mapper>

@@ -34,6 +34,13 @@ public interface UserDAO {
 	public int insertUser(UserVO userVO);
 	
 	/**
+	 * 유저 로그인
+	 * @param userVO
+	 * @return
+	 */
+	public UserVO selectUserLogin(String userId);
+	
+	/**
 	 * 유저 아이디 중복확인
 	 * @param userId
 	 * @return
