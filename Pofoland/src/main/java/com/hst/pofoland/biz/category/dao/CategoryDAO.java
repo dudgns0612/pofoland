@@ -47,4 +47,18 @@ public interface CategoryDAO {
      */
     public List<CategoryVO> selectJobCategory();
     
+    /**
+     * 커뮤니티 게시판 카테고리 상세 조회
+     * @param boardCateSeq
+     * @return
+     */
+    public CategoryVO selectBoardCategoryDetail(int boardCateSeq);
+
+    
+    /**
+     * 카테고리 상세 조회
+     * @param jobCateSeq
+     * @return
+     */
+    public CategoryVO selectJobCategoryDetail(int jobCateSeq);
 }

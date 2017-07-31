@@ -48,6 +48,12 @@
                B.USER_SEQ = U.USER_SEQ AND
                B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
                B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
+               <if test="jobCateSeq != 0">
+               AND B.JOB_CATE_SEQ = #{jobCateSeq}
+               </if>
+               <if test="boardCateSeq != 0">
+               AND B.BOARD_CATE_SEQ = #{boardCateSeq}
+               </if>
          LIMIT #{firstRecordIndex}, #{recordCountPerPage} 
     </select>
     
@@ -62,6 +68,12 @@
                B.USER_SEQ = U.USER_SEQ AND
                B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
                B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
+               <if test="jobCateSeq != 0">
+               AND B.JOB_CATE_SEQ = #{jobCateSeq}
+               </if>
+               <if test="boardCateSeq != 0">
+               AND B.BOARD_CATE_SEQ = #{boardCateSeq}
+               </if>
     </select>
 
 </mapper>

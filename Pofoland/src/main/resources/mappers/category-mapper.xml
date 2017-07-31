@@ -18,4 +18,18 @@
           FROM JobCategory
     </select>
     
+    <select id="selectBoardCategoryDetail" resultType="CategoryVO">
+        SELECT BOARD_CATE_SEQ AS CATE_SEQ,
+               BOARD_CATE_NAME AS CATE_NAME
+          FROM BoardCategory
+         WHERE BOARD_CATE_SEQ = #{param1}
+    </select>
+    
+    <select id="selectJobCategoryDetail" resultType="CategoryVO">
+        SELECT JOB_CATE_SEQ AS CATE_SEQ,
+               JOB_CATE_NAME AS CATE_NAME
+          FROM JobCategory
+         WHERE JOB_CATE_SEQ = #{param1}    
+    </select>
+    
 </mapper>

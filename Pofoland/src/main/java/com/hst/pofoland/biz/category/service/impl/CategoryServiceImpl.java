@@ -51,5 +51,19 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryVO> getJobCategoryList() {
         return categoryDao.selectJobCategory();
     }
+
+    @Override
+    public CategoryVO getBoardCategory(int boardCateSeq) {
+        if(boardCateSeq == 0) {
+            return null;
+        }
+        
+        return categoryDao.selectBoardCategoryDetail(boardCateSeq);
+    }
+
+    @Override
+    public CategoryVO getJobCategory(int jobCateSeq) {
+        return categoryDao.selectJobCategoryDetail(jobCateSeq);
+    }
     
 }

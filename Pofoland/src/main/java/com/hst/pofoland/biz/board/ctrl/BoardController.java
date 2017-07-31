@@ -7,8 +7,11 @@
  */
 package com.hst.pofoland.biz.board.ctrl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
+import com.hst.pofoland.biz.category.vo.CategoryVO;
 
 /**
  * 
@@ -39,7 +43,7 @@ import com.hst.pofoland.biz.category.service.CategoryService;
  * </pre>
  */
 @Controller
-public class BoardController {
+public class BoardController implements InitializingBean {
 
     @Inject
     private CategoryService categoryService;
@@ -47,13 +51,26 @@ public class BoardController {
     @Inject
     private BoardService boardService;
     
+    // 캐싱 적용 전 임시 메모리 저장소로 활용할 객체
+    private List<CategoryVO> boardCategories;
+    private List<CategoryVO> jobCategories;
+    
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        boardCategories = categoryService.getBoardCategoryList();
+        jobCategories = categoryService.getJobCategoryList();
+    }
+
+    
     @RequestMapping(value = "/boardMain", method = RequestMethod.GET)
     public ModelAndView boardMain(@ModelAttribute("condition")BoardVO condition) {
         ModelAndView mv = new ModelAndView("boardMain");
         mv.addObject("boardList", boardService.getBoardList(condition));
-        mv.addObject("boardCategories", categoryService.getBoardCategoryList());
-        mv.addObject("jobCategories", categoryService.getJobCategoryList());
+        mv.addObject("boardCategories", boardCategories);
+        mv.addObject("jobCategories", jobCategories);
+        mv.addObject("currentCategory", categoryService.getBoardCategory(condition.getBoardCateSeq()));
         return mv;
     }
+
 
 }

@@ -20,6 +20,12 @@
 <!-- BLOG -->
 <section id="blog">
     <div class="container">
+        <c:if test="${not empty currentCategory}">
+            <h3 class="sidebar-title">${currentCategory.cateName}</h3>
+        </c:if>
+        <c:if test="${empty currentCategory}">
+            <h3 class="sidebar-title">전체보기</h3>
+        </c:if>
         <div class="row">
             <div class="col-md-9">
                 <c:forEach items="${boardList}" var="board">
@@ -47,6 +53,8 @@
                 <div class="sidebar-widget">
                     <div class="blog-search">
                     <form:form commandName="condition" method="GET">
+                        <form:input type="hidden" path="jobCateSeq"/>                    
+                        <form:input type="hidden" path="boardCateSeq"/>                    
                         <form:input type="hidden" path="searchType" value="content"/>
                         <form:input path="search"/>
                         <span>
@@ -61,9 +69,17 @@
                     <h4 class="sidebar-title">Categories</h4>
                     <ul>
                         <c:forEach items="${boardCategories}" var="categoryItem">
-                            <li><a href="${contextPath}/boardMain?search=${categoryItem.cateSeq}&searchType=boardCategory">${categoryItem.cateName}</a></li>
+                            <li><a href="#" onclick="setQuery('boardCateSeq', ${categoryItem.cateSeq})">${categoryItem.cateName}</a></li>
                         </c:forEach>
                     </ul>
+                </div>
+                <div class="sidebar-widget">
+                    <h4 class="sidebar-title">Tags</h4>
+                    <div class="tagcloud">
+                        <c:forEach items="${jobCategories}" var="categoryItem">
+                            <a href="#" onclick="setQuery('jobCateSeq', ${categoryItem.cateSeq})">${categoryItem.cateName}</a>
+                        </c:forEach>
+                    </div>
                 </div>
                 <div class="sidebar-widget">
                     <h4 class="sidebar-title">Flickr</h4>
@@ -100,14 +116,6 @@
                         </li>
                     </ul>
                 </div>
-                <div class="sidebar-widget">
-                    <h4 class="sidebar-title">Tags</h4>
-                    <div class="tagcloud">
-                        <c:forEach items="${jobCategories}" var="categoryItem">
-                            <a href="${contextPath}/boardMain?search=${categoryItem.cateSeq}&searchType=jobCategory">${categoryItem.cateName}</a>
-                        </c:forEach>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -116,7 +124,12 @@
 <script type="text/javascript">
 	function goPage(currentPageNo) {
 		var form = $('#condition');
-		form.append('<input type="hidden" name="currentPageNo" value="'+currentPageNo+'"/>');
+		form.append('<input type="hidden" name="currentPageNo" value="' + currentPageNo + '"/>');
 		form.submit();
+	}
+	
+	function setQuery(name, value) {
+		$('#' + name).val(value);
+		$('#condition').submit();
 	}
 </script>

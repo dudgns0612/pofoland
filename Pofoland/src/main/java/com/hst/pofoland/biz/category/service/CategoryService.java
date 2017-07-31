@@ -46,4 +46,20 @@ public interface CategoryService {
      */
     public List<CategoryVO> getJobCategoryList();
     
+    /**
+     * 커뮤니티 게시판 카테고리 상세 반환
+     * 
+     * @param boardCateSeq
+     * @return
+     */
+    public CategoryVO getBoardCategory(int boardCateSeq);
+    
+    /**
+     * Job 카테고리 상세 반환
+     * 
+     * @param jobCateSeq
+     * @return
+     */
+    public CategoryVO getJobCategory(int jobCateSeq);
+    
 }
