@@ -20,7 +20,7 @@
 			#{userEmail},
 			#{userAuthKey}
 		)
-		<selectKey keyProperty="userSeq" resultType="int">
+		<selectKey keyProperty="userSeq" resultType="Integer">
 			SELECT LAST_INSERT_ID();
 		</selectKey>
 	</insert>
@@ -33,7 +33,7 @@
 			   USER_NICK,
 			   USER_AUTH_YN,
 			   USER_SCORE,
-			   date_format(USER_REG_DT,'%Y-%m-%d %T'),
+			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
 			   USER_DEL_YN,
 			   USER_LOGIN_YN
 		  FROM User
@@ -61,12 +61,28 @@
 			   USER_NICK,
 			   USER_AUTH_YN,
 			   USER_SCORE,
-			   date_format(USER_REG_DT,'%Y-%m-%d %T'),
+			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
 			   USER_DEL_YN,
 			   USER_LOGIN_YN
 		  FROM User
 		 WHERE USER_SEQ = #{userSeq}
-		  
 	</select>
+	
+	<select id="selectUserSeq" resultType="Integer">
+		SELECT USER_SEQ
+		  FROM User
+		 WHERE USER_ID = #{userId}
+	</select>
+	
+	<update id="updateAuthState" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<if test="userSeq != null">
+				USER_AUTH_YN = 'Y'
+				</if>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}
+		   AND USER_AUTH_KEY = #{userAuthKey}
+	</update>
 
 </mapper>

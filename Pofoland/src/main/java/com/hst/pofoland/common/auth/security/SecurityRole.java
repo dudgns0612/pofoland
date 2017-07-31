@@ -1,8 +1,5 @@
 package com.hst.pofoland.common.auth.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -12,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
  * 클래스 설명 : 권한에 대하여 정의하는 class
  *
  * @author 김영훈
- * @since 2017. 7. 27.
+ * @since 2017. 7. 31.
  * @version 1.0.0
  * @see
  *

@@ -12,4 +12,6 @@ public interface UserService {
 	
 	public UserVO searchUser(String userSeq);
 	
+	public int authCheckUser(UserVO userVO);
+	
 }

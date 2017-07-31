@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.constnat.ResponseConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.vo.ResponseVO;
 
@@ -38,7 +39,7 @@ import com.hst.pofoland.common.vo.ResponseVO;
 public class UserController {
 	
 	@Inject
-	UserServiceImpl userServiceImpl;
+	UserServiceImpl userService;
 	
 	/**
 	 * 유저 회원가입
@@ -51,11 +52,13 @@ public class UserController {
 		
 		LoggerManager.info(getClass(), userVO.toString());
 		
-		int code = userServiceImpl.createUser(userVO);
+		int code = userService.createUser(userVO);
 		
 		ResponseVO responseVO = new ResponseVO();
 		
-		responseVO.setCode(code);
+		if (code > 0) {
+			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
+		}
 		
 		return responseVO;
 	}
@@ -69,11 +72,11 @@ public class UserController {
 	@ResponseBody
 	public ResponseVO duplicateCheckId(@PathVariable String userId) {
 		
-		String checkId = userServiceImpl.duplicateCheckId(userId);
+		String checkId = userService.duplicateCheckId(userId);
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkId != null) {
-			responseVO.setCode(1);
+			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -88,11 +91,11 @@ public class UserController {
 	@ResponseBody
 	public ResponseVO duplicateCheckNick(@PathVariable String userNick) {
 		
-		String checkNick = userServiceImpl.duplicateCheckNick(userNick);
+		String checkNick = userService.duplicateCheckNick(userNick);
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkNick != null) {
-			responseVO.setCode(1);
+			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -107,16 +110,40 @@ public class UserController {
 	@ResponseBody
 	public ResponseVO searchUser(@PathVariable String userSeq) {
 		
-		UserVO userVO = userServiceImpl.searchUser(userSeq);
+		UserVO userVO = userService.searchUser(userSeq);
 		
 		ResponseVO responseVO = new ResponseVO();
 		responseVO.setData(userVO);
 
 		if (userVO != null) {
-			responseVO.setCode(1);
+			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
+	}
+	
+	/**
+	 * 유저 메일인증확인
+	 * @param userAuthKey
+	 * @param userSeq
+	 * @return
+	 */
+	@RequestMapping(value="user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
+	public String authCheckUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
+		
+		UserVO userVO = new UserVO();
+		userVO.setUserAuthKey(userAuthKey);
+		userVO.setUserSeq(userSeq);
+		
+		int code = userService.authCheckUser(userVO);
+		
+		if (code == ResponseConstant.COMMUNICATION_SUCCESS_CODE) {
+			//성공처리
+		} else {
+			//비성공 처리
+		}
+		
+		return null;
 	}
 	
 }

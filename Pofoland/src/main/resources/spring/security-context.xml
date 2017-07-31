@@ -13,6 +13,8 @@
 	<beans:bean id="logunFailHandler" class="com.hst.pofoland.common.auth.security.SecurityLoginFailHandler"></beans:bean>
 	
 	<beans:bean id="userService" class="com.hst.pofoland.biz.user.service.impl.UserServiceImpl"></beans:bean>
+	
+	<!-- SHA256 방식을 이용한 암호화 자동으로 salt추가 저장방식 복호화불가능 -->
 	<beans:bean id="pwEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"></beans:bean>
 	
 	

@@ -61,5 +61,17 @@ public interface UserDAO {
 	 */
 	public UserVO selectUserInfo(String userSeq);
 
+	/**
+	 * 유저 시퀀스 조회
+	 * @param userId
+	 * @return
+	 */
+	public Integer selectUserSeq(String userId);
 	
+	/**
+	 * 유저 인증키 검사
+	 * @param userVO
+	 * @return
+	 */
+	public Integer updateAuthState(UserVO userVO);
 }

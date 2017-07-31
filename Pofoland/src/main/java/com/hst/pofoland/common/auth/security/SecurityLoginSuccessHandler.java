@@ -6,12 +6,33 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.LoggerManager;
+
+/**
+ * 
+ * 시스템명 : 포트폴리오 관리 시스템
+ * $com.hst.pofoland.common.auth.security.SecurityLoginSuccessHandler.java
+ * 클래스 설명 : User Login 성공에 대한 처리
+ *
+ * @author 김영훈
+ * @since 2017. 7. 31.
+ * @version 1.0.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ * 수정일			수정자			수정내용
+ * -------------------------------------------------
+ * 2017. 7. 31.		김영훈			최초생성
+ * </pre>
+*/
 
 public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler{
 
@@ -20,6 +41,7 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 			throws IOException, ServletException {
 		
 		UserVO userVO = (UserVO) auth.getPrincipal();
+		@SuppressWarnings("unchecked")
 		List<SecurityRole> roleList = (List<SecurityRole>) auth.getAuthorities();
 		
 		StringBuffer sb = new StringBuffer("\n");
@@ -40,6 +62,12 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 		sb.append("=================================================================================================\n");
 		
 		LoggerManager.info(getClass(), sb.toString());
+		
+		// Session Process
+		HttpSession session = request.getSession();
+		session.setAttribute("User", userVO);
+
+		response.sendRedirect("/home");
 	}
 
 }

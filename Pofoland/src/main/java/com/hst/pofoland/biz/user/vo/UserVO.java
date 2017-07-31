@@ -25,6 +25,7 @@ import com.hst.pofoland.common.auth.security.SecurityRole;
  * 수정일			수정자			수정내용
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
+ * 2017. 7. 31.     김영훈			인증검사에 따른 수정
  * </pre>
  */
 
@@ -43,6 +44,9 @@ public class UserVO implements UserDetails{
 	char userPublicYn = 'N';
 	char userLoginYn = 'N';
 	
+	//생성자
+	public UserVO() {
+	}
 	
 	//Security
 	private List<SecurityRole> authorities;
