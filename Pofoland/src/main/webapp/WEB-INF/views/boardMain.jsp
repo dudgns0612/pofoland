@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://egovframework.gov/ctl/ui" prefix="ui" %>
 <!-- PAGE HEADER -->
 <section id="page-header">
     <div class="container">
@@ -38,12 +39,7 @@
                     <hr>
                 </c:forEach>
                 <ul class="pagination">
-                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                    <ui:pagination paginationInfo="${condition.paginationInfo}" jsFunction="goPage" type="text"/>
                 </ul>
             </div>
 
@@ -117,3 +113,10 @@
     </div>
 </section>
 <!-- /BLOG -->
+<script type="text/javascript">
+	function goPage(currentPageNo) {
+		var form = $('#condition');
+		form.append('<input type="hidden" name="currentPageNo" value="'+currentPageNo+'"/>');
+		form.submit();
+	}
+</script>

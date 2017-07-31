@@ -15,6 +15,18 @@
 		<org.apache.tiles-version>3.0.5</org.apache.tiles-version>
 		<org.security-version>3.2.9.RELEASE</org.security-version>
 	</properties>
+    <repositories>
+        <repository>
+            <id>egovframe</id>
+            <url>http://www.egovframe.go.kr/maven/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -48,6 +60,23 @@
 			<version>1.8.9</version>
 		</dependency>
 		
+        <!-- Dependency for Paging API -->
+        <dependency>
+            <groupId>egovframework.rte</groupId>
+            <artifactId>egovframework.rte.ptl.mvc</artifactId>
+            <version>3.5.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>egovframework.rte</groupId>
+                    <artifactId>egovframework.rte.fdl.cmmn</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
 		<!-- Security -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>

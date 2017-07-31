@@ -48,9 +48,20 @@
                B.USER_SEQ = U.USER_SEQ AND
                B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
                B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
-         LIMIT #{startRecord}, #{endRecord} 
-               
+         LIMIT #{firstRecordIndex}, #{recordCountPerPage} 
     </select>
-
+    
+    <!-- 게시글 갯수 조회 쿼리 -->
+    <select id="selectTotalRecordCount" resultType="int">
+        SELECT COUNT(*)
+          FROM Board B,
+               User U,
+               BoardCategory BC,
+               JobCategory JC
+         WHERE B.BOARD_DEL_YN = 'N' AND
+               B.USER_SEQ = U.USER_SEQ AND
+               B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
+               B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
+    </select>
 
 </mapper>

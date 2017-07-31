@@ -1,8 +1,6 @@
 package com.hst.pofoland.biz.board.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -20,9 +18,10 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<BoardVO> getBoardList(BoardVO condition) {
+        condition.setTotalRecordCount(boardDao.selectTotalRecordCount(condition));
+        condition.createPaginationInfo();
+        
         List<BoardVO> boardList = boardDao.selectBoard(condition);
-        
-        
         return boardList;
     }
 

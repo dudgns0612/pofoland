@@ -55,11 +55,6 @@ public class BoardTest {
     @Inject
     private CategoryService categoryService;
     
-    public void select() {
-        categoryService.getBoardCategoryList();
-    }
-    
-    
     @Test
     public void insert() {
         BoardVO temp = null;
@@ -67,7 +62,7 @@ public class BoardTest {
         int bCateSeq, jCateSeq;
         Random r = new Random();
         
-        for (int i = 11; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             temp = new BoardVO();
             
             bCateSeq = r.nextInt(5) + 1;
@@ -78,7 +73,7 @@ public class BoardTest {
             
             temp.setBoardTitle("[TEST] 게시글 " + (i+1));
             temp.setBoardContent("안녕하세요! 테스트 게시글입니다.<br> Hello World!");
-            temp.setUserSeq(5);
+            temp.setUserSeq(31);
             
             boardService.insertBoard(temp);
         }
