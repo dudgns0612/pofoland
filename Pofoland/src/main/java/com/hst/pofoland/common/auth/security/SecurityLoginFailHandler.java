@@ -1,4 +1,4 @@
-package com.hst.pofoland.common.auth;
+package com.hst.pofoland.common.auth.security;
 
 import java.io.IOException;
 
