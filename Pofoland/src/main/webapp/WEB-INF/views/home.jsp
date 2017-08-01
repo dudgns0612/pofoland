@@ -3,7 +3,7 @@
 	<div id="home-carousel" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="item active"
-				style="background-image: url(${contextPath}/resources/assets/images/slider/01.jpg)">
+				style="background-image: url(${contextPath}/resources/common/images/happyToz.png)">
 				<div class="carousel-caption container">
 					<div class="row">
 						<div class="col-sm-7">
