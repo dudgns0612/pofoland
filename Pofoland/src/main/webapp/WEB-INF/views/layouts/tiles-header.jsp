@@ -29,7 +29,7 @@
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#our-team">Team</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="${contextPath}/boardMain">Blog</a></li>
+                    <li><a href="${contextPath}/boardMain">커뮤니티</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container -->
