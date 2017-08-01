@@ -84,5 +84,20 @@
 		 WHERE USER_SEQ = #{userSeq}
 		   AND USER_AUTH_KEY = #{userAuthKey}
 	</update>
+	
+	<update id="updateLoginState" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<choose>
+					<when test="userLoginYn == N">
+					USER_LOGIN_YN = 'Y'
+					</when>
+					<otherwise>
+					USER_LOGIN_YN = 'N'
+					</otherwise>
+				</choose>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}	
+	</update>
 
 </mapper>

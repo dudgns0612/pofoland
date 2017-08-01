@@ -1,6 +1,7 @@
 package com.hst.pofoland.common.auth.security;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.constnat.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 
 /**
@@ -49,6 +51,18 @@ public class SecurityLoginFailHandler implements AuthenticationFailureHandler{
 		sb.append("=================================================================================================\n");
 		
 		LoggerManager.info(getClass(), sb.toString());
+		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		//StringBuffer 초기화
+		sb.setLength(0);
+		
+		sb.append("<script language='javascript'>");
+		sb.append("		alert('로그인에 실패하셨습니다. 아이디나 비밀번호를 확인하여주세요.');");
+		sb.append("		document.location.href='/';");
+		sb.append("</script>");
+		
+		NetworkConstant.printWrite(pw, sb.toString());
 	}
 
 }

@@ -32,14 +32,14 @@ import com.hst.pofoland.common.auth.security.SecurityRole;
 public class UserVO implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	Integer userSeq = null;
-	String userId = null;
-	String userPw = null;
-	String userNick = null;
-	String userEmail = null;
-	String userAuthKey = null;
-	String userAuthYn = null;
-	String userScore = null;
-	String userRegDt = null;
+	String userId = "";
+	String userPw = "";
+	String userNick = "";
+	String userEmail = "";
+	String userAuthKey = "";
+	char userAuthYn = 'N';
+	String userScore = "";
+	String userRegDt = "";
 	char userDelYn = 'N';
 	char userPublicYn = 'N';
 	char userLoginYn = 'N';
@@ -126,13 +126,13 @@ public class UserVO implements UserDetails{
 	/**
 	 * @return the userAuthYn
 	 */
-	public String getUserAuthYn() {
+	public char getUserAuthYn() {
 		return userAuthYn;
 	}
 	/**
 	 * @param userAuthYn the userAuthYn to set
 	 */
-	public void setUserAuthYn(String userAuthYn) {
+	public void setUserAuthYn(char userAuthYn) {
 		this.userAuthYn = userAuthYn;
 	}
 	/**

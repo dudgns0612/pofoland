@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
-import com.hst.pofoland.common.constnat.ResponseConstant;
+import com.hst.pofoland.common.constnat.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.vo.ResponseVO;
 
@@ -46,7 +46,7 @@ public class UserController {
 	 * @param userVO
 	 * @return
 	 */
-	@RequestMapping(value="user" , method=RequestMethod.POST)
+	@RequestMapping(value="/user" , method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO createUser(@ModelAttribute UserVO userVO) {
 		
@@ -57,7 +57,7 @@ public class UserController {
 		ResponseVO responseVO = new ResponseVO();
 		
 		if (code > 0) {
-			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -68,7 +68,7 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value="user/checkid/{userId}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/checkid/{userId}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO duplicateCheckId(@PathVariable String userId) {
 		
@@ -76,7 +76,7 @@ public class UserController {
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkId != null) {
-			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -87,7 +87,7 @@ public class UserController {
 	 * @param userNick
 	 * @return
 	 */
-	@RequestMapping(value="user/checknick/{userNick}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/checknick/{userNick}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO duplicateCheckNick(@PathVariable String userNick) {
 		
@@ -95,7 +95,7 @@ public class UserController {
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkNick != null) {
-			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -106,7 +106,7 @@ public class UserController {
 	 * @param userSeq
 	 * @return
 	 */
-	@RequestMapping(value="user/{userSeq}" , method=RequestMethod.GET)
+	@RequestMapping(value="/user/{userSeq}" , method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO searchUser(@PathVariable String userSeq) {
 		
@@ -116,7 +116,7 @@ public class UserController {
 		responseVO.setData(userVO);
 
 		if (userVO != null) {
-			responseVO.setCode(ResponseConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -128,7 +128,7 @@ public class UserController {
 	 * @param userSeq
 	 * @return
 	 */
-	@RequestMapping(value="user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
+	@RequestMapping(value="/user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
 	public String authCheckUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
 		
 		UserVO userVO = new UserVO();
@@ -137,7 +137,7 @@ public class UserController {
 		
 		int code = userService.authCheckUser(userVO);
 		
-		if (code == ResponseConstant.COMMUNICATION_SUCCESS_CODE) {
+		if (code == NetworkConstant.COMMUNICATION_SUCCESS_CODE) {
 			//성공처리
 		} else {
 			//비성공 처리

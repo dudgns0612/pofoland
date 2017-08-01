@@ -11,7 +11,7 @@ import com.hst.pofoland.common.utils.LoggerManager;
 
 
 @Controller
-public class HomeController {
+public class PageController {
 
 	@RequestMapping(value = {"/","/login"}, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {

@@ -74,4 +74,11 @@ public interface UserDAO {
 	 * @return
 	 */
 	public Integer updateAuthState(UserVO userVO);
+	
+	/**
+	 * 유저 로그인상태
+	 * @param userSeq
+	 * @return
+	 */
+	public Integer updateLoginState(UserVO userVO);
 }

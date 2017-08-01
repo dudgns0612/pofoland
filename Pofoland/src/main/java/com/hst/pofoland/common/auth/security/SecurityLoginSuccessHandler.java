@@ -3,6 +3,7 @@ package com.hst.pofoland.common.auth.security;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.hst.pofoland.biz.user.dao.UserDAO;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 
@@ -35,7 +37,10 @@ import com.hst.pofoland.common.utils.LoggerManager;
 */
 
 public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler{
-
+	
+	@Inject
+	UserDAO userDao;
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
@@ -63,9 +68,12 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 		
 		LoggerManager.info(getClass(), sb.toString());
 		
+		//유저 로그인 상태 변경
+//		userDao.updateLoginState(userVO);
+		
 		// Session Process
 		HttpSession session = request.getSession();
-		session.setAttribute("User", userVO);
+		session.setAttribute("user", userVO);
 
 		response.sendRedirect("/home");
 	}
