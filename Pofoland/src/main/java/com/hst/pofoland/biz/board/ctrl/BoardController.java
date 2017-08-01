@@ -7,10 +7,14 @@
  */
 package com.hst.pofoland.biz.board.ctrl;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +26,7 @@ import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
 import com.hst.pofoland.biz.category.vo.CategoryVO;
+import com.hst.pofoland.common.utils.LoggerManager;
 
 /**
  * 
@@ -69,6 +74,14 @@ public class BoardController implements InitializingBean {
         mv.addObject("boardCategories", boardCategories);
         mv.addObject("jobCategories", jobCategories);
         mv.addObject("currentCategory", categoryService.getBoardCategory(condition.getBoardCateSeq()));
+        return mv;
+    }
+    
+    @RequestMapping(value = "/boardWrite", method = RequestMethod.GET)
+    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO condition) {
+        ModelAndView mv= new ModelAndView("boardWrite");
+        mv.addObject("boardCategories", boardCategories);
+        mv.addObject("jobCategories", jobCategories);
         return mv;
     }
 
