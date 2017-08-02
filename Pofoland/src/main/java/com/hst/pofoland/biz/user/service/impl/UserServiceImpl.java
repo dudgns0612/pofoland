@@ -43,6 +43,9 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	@Inject
 	UserDAO userDAO;
 	
+	public UserServiceImpl() {
+	}
+	
 	StandardPasswordEncoder spEncoder = new StandardPasswordEncoder();
 	
 	/**

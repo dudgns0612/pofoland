@@ -30,7 +30,6 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
 	
-	
 	<!-- tiles xml설정 -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
@@ -62,7 +61,8 @@
 			<mvc:exclude-mapping path="/file/**" />
 			<mvc:exclude-mapping path="/user/**" />
 			<mvc:exclude-mapping path="/resources/**" />
-			<mvc:exclude-mapping path ="/j_spring_security_check" />
+			<mvc:exclude-mapping path="/j_spring_security_check" />
+			<mvc:exclude-mapping path="/google/**" />
 			<beans:ref bean="authInspectionInterceptor" />	
 		</mvc:interceptor>
 	</mvc:interceptors>

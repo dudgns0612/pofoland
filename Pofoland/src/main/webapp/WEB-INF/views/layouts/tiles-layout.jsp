@@ -24,6 +24,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${contextPath}/resources/assets/images/icon/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="${contextPath}/resources/assets/images/icon/apple-touch-icon-57-precomposed.png">
 	
+	<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.min.js"></script><!-- jQuery -->
+	<script type="text/javascript" src="${contextPath}/resources/assets/js/bootstrap.min.js"></script><!-- Bootstrap -->
 </head>
 <body>
     <tiles:insertAttribute name="header" />

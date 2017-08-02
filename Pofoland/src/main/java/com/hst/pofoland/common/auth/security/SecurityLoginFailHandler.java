@@ -40,6 +40,7 @@ public class SecurityLoginFailHandler implements AuthenticationFailureHandler{
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
 		
+		@SuppressWarnings("deprecation")
 		UserVO userVO = (UserVO) authException.getExtraInformation();
 		
 		StringBuffer sb = new StringBuffer("\n");

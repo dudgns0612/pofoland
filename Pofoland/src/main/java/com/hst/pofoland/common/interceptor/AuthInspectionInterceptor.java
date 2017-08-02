@@ -35,8 +35,6 @@ import com.hst.pofoland.common.constnat.NetworkConstant;
 
 public class AuthInspectionInterceptor extends HandlerInterceptorAdapter{
 	
-	PrintWriter pw = null;
-	
 	/**
 	 *  컨트롤러 메소드 실행 직후
 	 */
@@ -53,7 +51,7 @@ public class AuthInspectionInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		response.setContentType("text/html; charset=utf-8");
 		
-		pw = response.getWriter();
+		PrintWriter pw = response.getWriter();
 		HttpSession session = request.getSession();
 		StringBuffer sb = new StringBuffer();
 		UserVO userVO = (UserVO) session.getAttribute("user");

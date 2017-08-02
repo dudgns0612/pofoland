@@ -27,7 +27,6 @@ public class NetworkConstant {
 	public static final Integer COMMUNICATION_SUCCESS_CODE = 1;
 	public static final Integer COMMUNICATION_FAIL_CODE = 0;
 	
-	
 	public static void printWrite(PrintWriter pw ,String httpStr) {
 		pw.write(httpStr.toString());
 		pw.flush();

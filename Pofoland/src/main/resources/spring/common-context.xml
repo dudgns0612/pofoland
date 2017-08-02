@@ -24,5 +24,20 @@
         </property>
     </bean>
 
+	<!-- Google Login 빈 설정 -->
+	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg value="558213992520-vhndq22kf8d27a88a28ii6b1kq6jm493.apps.googleusercontent.com" />
+		<constructor-arg value="bIvkCDyYx-hMHypjHl8Itaqu" />
+	</bean>
+	
+	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
+		<property name="redirectUri" value="http://127.0.0.1:8080/google/user" />
+	</bean>
+	
+	<bean id="googleAuth" class="com.hst.pofoland.common.auth.GoogleAuthentication">
+		<property name="googleConnectionFactory" ref="googleConnectionFactory" />
+		<property name="oauth2Parameter" ref="googleOAuth2Parameters" />
+	</bean>
 
 </beans>
