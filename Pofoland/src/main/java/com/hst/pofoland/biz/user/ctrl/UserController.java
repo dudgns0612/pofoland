@@ -95,7 +95,7 @@ public class UserController implements InitializingBean{
 	public void googleLogin(HttpServletResponse response) {
 		
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		String url = oauthOperations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		
 		System.out.println(url);
 		try {
@@ -106,7 +106,7 @@ public class UserController implements InitializingBean{
 		}
 	}
 	
-	@RequestMapping(value="/google/user", method=RequestMethod.POST)
+	@RequestMapping(value="/google/user", method=RequestMethod.GET)
 	public String googleLoginCheck (HttpServletRequest request) {
 
 		String code = request.getParameter("code");
@@ -126,14 +126,17 @@ public class UserController implements InitializingBean{
 		PlusOperations plusOperations = google.plusOperations();
 		Person person = plusOperations.getGoogleProfile();
 		
+		System.out.println(person.getAccountEmail());	
+		System.out.println(person.getId());
+		System.out.println(person.getImageUrl());
+		
 		UserVO userVO = new UserVO();
-
+		
 //		HttpSession session = request.getSession();
 //		session.setAttribute("_MEMBER_", member );
 		
-		System.out.println(person.getDisplayName());
 		
-		return "/";
+		return "/home";
 	}
 	
 	

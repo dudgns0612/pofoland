@@ -68,7 +68,7 @@ public class LoggerManager {
      * @param msg
      * @param arrObj
      */
-    public static void info(Class<?> clazz, String msg, Object[] arrObj) {
+    public static void info(Class<?> clazz, String msg, Object... arrObj) {
         Logger logger = LoggerFactory.getLogger(clazz);
         logger.info(msg , arrObj);
     }
@@ -103,7 +103,7 @@ public class LoggerManager {
      * @param msg
      * @param arrObj
      */
-    public static void debug(Class<?> clazz, String msg, Object[] arrObj) {
+    public static void debug(Class<?> clazz, String msg, Object... arrObj) {
         Logger logger = LoggerFactory.getLogger(clazz);
         logger.debug(msg , arrObj);
     }
@@ -138,7 +138,7 @@ public class LoggerManager {
      * @param msg
      * @param arrObj
      */
-    public static void error(Class<?> clazz, String msg, Object[] arrObj) {
+    public static void error(Class<?> clazz, String msg, Object... arrObj) {
         Logger logger = LoggerFactory.getLogger(clazz);
         logger.error(msg , arrObj);
     }

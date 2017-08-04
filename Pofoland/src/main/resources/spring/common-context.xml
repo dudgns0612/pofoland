@@ -31,7 +31,7 @@
 	</bean>
 	
 	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
-		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
+		<property name="scope" value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email" />
 		<property name="redirectUri" value="http://127.0.0.1:8080/google/user" />
 	</bean>
 	
