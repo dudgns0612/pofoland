@@ -28,7 +28,7 @@
             </c:if>
         </div>
         <div class="pull-right">
-            <a href="${contextPath}/boardWrite" class="btn btn-readmore">Write</a>        
+            <a href="${contextPath}/boardWrite" class="btn btn-readmore">새 글 작성</a>        
         </div>
         <div class="clearfix"></div>
         <div class="row">

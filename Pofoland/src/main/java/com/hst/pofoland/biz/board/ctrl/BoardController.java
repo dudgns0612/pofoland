@@ -78,12 +78,16 @@ public class BoardController implements InitializingBean {
     }
     
     @RequestMapping(value = "/boardWrite", method = RequestMethod.GET)
-    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO condition) {
+    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm) {
         ModelAndView mv= new ModelAndView("boardWrite");
         mv.addObject("boardCategories", boardCategories);
         mv.addObject("jobCategories", jobCategories);
         return mv;
     }
 
+    @RequestMapping(value ="/board", method = RequestMethod.POST)
+    public void writeBoard(@ModelAttribute("writeForm")BoardVO writeForm) {
+        LoggerManager.info(getClass(), "{}", writeForm);
+    }
 
 }
