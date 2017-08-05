@@ -47,6 +47,6 @@ public interface BoardService {
      * @param board 등록할 게시글
      * @return 등록 여부
      */
-    public int insertBoard(BoardVO board);
+    public int writeBoard(BoardVO board);
     
 }

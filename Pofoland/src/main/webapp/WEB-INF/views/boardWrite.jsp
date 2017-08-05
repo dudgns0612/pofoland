@@ -18,13 +18,32 @@
 <section class="blog">
     <div class="container">
         <h1>게시글 작성</h1>
-        <form:form commandName="writeForm" action="/board" method="POST" cssClass="form-inline">
-            <form:input path="boardTitle" cssClass="form-control"/>
-            <form:select path="jobCateSeq" cssClass="form-control">
-                <c:forEach items="${jobCategories}" var="categoryItem">
-                    <form:option value="${categoryItem.cateSeq}">${categoryItem.cateName}</form:option>
-                </c:forEach>
-            </form:select>
+        <form:form commandName="writeForm" action="/board" method="POST" onsubmit="return writeBoard()" cssClass="form-inline">
+            <div class="conditions" style="margin-bottom: 15px; margin-top: 15px;">
+                <form:hidden path="userSeq"/>
+                <form:hidden path="boardContent"/>
+                <div class="pull-left">
+                    <form:label path="boardTitle">제목 : </form:label>
+                    <form:input path="boardTitle" cssClass="form-control" style="width: 500px; margin-right:15px;"/>
+                </div>
+                <div class="pull-right">
+                    <form:label path="boardCateSeq">카테고리 : </form:label>
+                    <form:select path="boardCateSeq" cssClass="form-control">
+                        <c:forEach items="${boardCategories}" varStatus="idx" var="categoryItem">
+                            <c:if test="${idx.index != 0}">
+                                <form:option value="${categoryItem.cateSeq}">${categoryItem.cateName}</form:option>
+                            </c:if>
+                        </c:forEach>
+                    </form:select>
+                    <form:label path="jobCateSeq">직업군 : </form:label>
+                    <form:select path="jobCateSeq" cssClass="form-control">
+                        <c:forEach items="${jobCategories}" var="categoryItem">
+                            <form:option value="${categoryItem.cateSeq}">${categoryItem.cateName}</form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+                <div class="clearfix"></div>
+            </div>
             <div id="editor"></div>
             <div class="pull-right" style="margin-bottom: 15px;">
                 <form:button type="submit" class="btn btn-default">작성</form:button>
@@ -36,11 +55,60 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+	    initializeEditor(500);
+	})
+	
+	function initializeEditor(editorHeight) {
 	    $('#editor').summernote({
-			height: 500,
+			height: editorHeight,
 			minHeight: null,
 			maxHeight: null,
-			focus: true
+			focus: true,
+			toolbar: [
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert', ['picture', 'link', 'video', 'table', 'hr']]
+			],
+			callbacks: {
+			    onImageUpload: temporaryImageUpload
+			}
 		});
-	})
+	}
+	
+	function temporaryImageUpload(files) {
+	    for(var i = 0; i < files.length; i++) {
+	        var form = new FormData();
+	        form.append('file', files[i]);
+	        $.ajax({
+	          data: form,
+	          type: "POST",
+	          url: '${contextPath}/file/tempImageUpload',
+	          cache: false,
+	          contentType: false,
+	          enctype: 'multipart/form-data',
+	          processData: false,
+	          success: function(uploadedUrl) {
+	            $('#editor').summernote('editor.insertImage', uploadedUrl);
+	          }
+	        });
+
+	    }
+	}
+	
+	function writeBoard() {
+	    var isValid = true;
+	    var editor = $('#editor');
+	    
+	    $('#writeForm').find('#boardContent').val(editor.summernote('code'));
+	    
+	    /*
+	     * form validation 작업
+	     */
+	    
+	    return isValid;
+	}
 </script>

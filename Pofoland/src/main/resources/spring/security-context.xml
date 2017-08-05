@@ -23,13 +23,12 @@
 		<!-- ROLE_USER 권한이 있어야 접근 가능 없을경우 access-denied-page 리다이렉트 -->
 		<!-- Security를 적용하지 않는 url 패턴 permitAll -->
 		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/home" access="permitAll"/>
 		<intercept-url pattern="/user/**" access="permitAll" />
 		<intercept-url pattern="/google/**" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/board*" access="permitAll"/>
-		<intercept-url pattern="/home" access="permitAll"/>
-		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
         
 		<!-- 로그인 성공 / 실패  Handler -->
 		<form-login login-page="/login"

@@ -39,6 +39,7 @@
                B.JOB_CATE_SEQ,
                JC.JOB_CATE_NAME,
                B.USER_SEQ,
+               U.USER_ID,
                U.USER_NICK               
           FROM Board B,
                User U,
