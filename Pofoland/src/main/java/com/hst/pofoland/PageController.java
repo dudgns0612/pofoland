@@ -4,8 +4,10 @@ import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.common.utils.LoggerManager;
 
@@ -24,6 +26,22 @@ public class PageController {
 	@RequestMapping(value="/home")
 	public String tilesTest() {
 		return "home";
+	}
+	
+	
+	/**
+	 * 유저 메일 인증 화인페이지 이동
+	 * @param userSeq
+	 * @return
+	 */
+	@RequestMapping(value = "/user/mailauth/{userSeq}", method = RequestMethod.GET)
+	public ModelAndView userMailAuthPage(@PathVariable Integer userSeq) {
+		
+		ModelAndView mav = new ModelAndView("페이지명");
+		
+		mav.addObject("userSeq", userSeq);
+		
+		return mav;
 	}
 	
 }

@@ -54,14 +54,13 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	 * @return
 	 */
 	@Override
-	public int createUser(UserVO userVO) {
+	public Integer createUser(UserVO userVO) {
 		
 		userVO.setUserAuthKey(getAuthKey());
 		
 		String userPw = spEncoder.encode(userVO.getPassword());
 		userVO.setUserPw(userPw);
 		
-		//인증메일 전송
 		Integer result = userDAO.insertUser(userVO);
 		
 		if (result > 0) {
@@ -70,12 +69,15 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			String userEmail = userVO.getUserEmail();
 			String userAuthKey = userVO.getUserAuthKey();
 			
+			//인증메일 전송
 			MailAuthentication mailAuth = new MailAuthentication(userEmail, userAuthKey, userSeq);
 			mailAuth.sendAuthMail();
 		}
 		
 		return result;
 	}
+	
+	
 	
 	/**
 	 * 유저 아이디 중복확인
@@ -88,6 +90,17 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		String checkId = userDAO.selectDuplicateCheckId(userId);
 		
 		return checkId;
+	}
+	
+	/**
+	 * 유저 시퀀스 조회
+	 */
+	@Override
+	public Integer seqSearchUser(String userId) {
+		
+		int userSeq = userDAO.selectUserSeq(userId);
+		
+		return userSeq;
 	}
 	
 	/**
@@ -109,7 +122,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	 * @return
 	 */
 	@Override
-	public UserVO searchUser(String userSeq) {
+	public UserVO searchUser(Integer userSeq) {
 		
 		UserVO userVO = userDAO.selectUserInfo(userSeq);
 		
@@ -120,11 +133,33 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	 * 유저 허가인증
 	 */
 	@Override
-	public int authCheckUser(UserVO userVO) {
+	public Integer authProcessUser(UserVO userVO) {
 		
-		int result = userDAO.updateAuthState(userVO);
+		Integer result = userDAO.updateAuthState(userVO);
 		
 		return result;
+	}
+	
+	/**
+	 *  유저메일인증 체크
+	 */
+	@Override
+	public UserVO authCheckUser(Integer userSeq) {
+		
+		UserVO userVO = userDAO.selectAuthState(userSeq);
+		
+		return userVO;
+	}
+	
+	@Override
+	public Integer addInfoUser(UserVO userVO) {
+		
+		Integer nickResult = userDAO.updateAddInfo(userVO);
+		
+		Integer[] jobCate =  userVO.getJobCate();
+		Integer jobResult = userDAO.insertJobCate(jobCate);
+		
+		return null;
 	}
 	
 	/**
@@ -137,8 +172,10 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		return uuid.toString();
 	}
-
-
+	
+	/**
+	 * Security 인증 확인
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		
@@ -158,6 +195,4 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		return userVO;
 	}
-
-	
 }

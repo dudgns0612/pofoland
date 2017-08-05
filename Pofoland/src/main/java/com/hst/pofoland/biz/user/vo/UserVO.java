@@ -40,9 +40,11 @@ public class UserVO implements UserDetails{
 	char userAuthYn = 'N';
 	String userScore = "";
 	String userRegDt = "";
+	String userProfileUrl = "";
 	char userDelYn = 'N';
 	char userPublicYn = 'N';
 	char userLoginYn = 'N';
+	Integer[] jobCate = {};
 	
 	//생성자
 	public UserVO() {
@@ -194,6 +196,22 @@ public class UserVO implements UserDetails{
 	 */
 	public void setUserLoginYn(char userLoginYn) {
 		this.userLoginYn = userLoginYn;
+	}
+	
+	public String getUserProfileUrl() {
+		return userProfileUrl;
+	}
+	
+	public void setUserProfileUrl(String userProfileUrl) {
+		this.userProfileUrl = userProfileUrl;
+	}
+	
+	public Integer[] getJobCate() {
+		return jobCate;
+	}
+	
+	public void setJobCate(Integer[] jobCate) {
+		this.jobCate = jobCate;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

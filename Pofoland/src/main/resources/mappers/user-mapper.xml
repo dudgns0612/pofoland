@@ -12,13 +12,15 @@
 			USER_PW,
 			USER_NICK,
 			USER_EMAIL,
-			USER_AUTH_KEY
+			USER_AUTH_KEY,
+			USER_PROFILE_URL
 		) VALUES (
 			#{userId},
 			#{userPw},
 			#{userNick},
 			#{userEmail},
-			#{userAuthKey}
+			#{userAuthKey},
+			#{userProfileUrl}
 		)
 		<selectKey keyProperty="userSeq" resultType="Integer">
 			SELECT LAST_INSERT_ID();
@@ -35,7 +37,8 @@
 			   USER_SCORE,
 			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
 			   USER_DEL_YN,
-			   USER_LOGIN_YN
+			   USER_LOGIN_YN,
+			   USER_PROFILE_URL
 		  FROM User
 		 WHERE USER_ID = #{userId} 
 	</select>
@@ -63,7 +66,8 @@
 			   USER_SCORE,
 			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
 			   USER_DEL_YN,
-			   USER_LOGIN_YN
+			   USER_LOGIN_YN,
+			   USER_PROFILE_URL
 		  FROM User
 		 WHERE USER_SEQ = #{userSeq}
 	</select>
@@ -98,6 +102,15 @@
 				</choose>
 			</set>
 		 WHERE USER_SEQ = #{userSeq}	
+	</update>
+	
+	<select id="selectAuthState" parameterType="UserVO">
+		SELECT USER_SEQ,
+			   USER_AUTH_YN
+		  FROM User
+	</select> 
+	
+	<update id="updateAddInfoUser" parameterType="UserVO">
 	</update>
 
 </mapper>

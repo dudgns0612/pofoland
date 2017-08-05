@@ -28,6 +28,7 @@
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/board*" access="permitAll"/>
+		<intercept-url pattern="/home" access="permitAll"/>
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
         
 		<!-- 로그인 성공 / 실패  Handler -->
