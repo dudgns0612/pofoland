@@ -19,13 +19,14 @@
     <div class="container">
         <h1>게시글 작성</h1>
         <form:form commandName="writeForm" action="/board" method="POST" cssClass="form-inline">
+            <form:input path="boardTitle" cssClass="form-control"/>
             <form:select path="jobCateSeq" cssClass="form-control">
                 <c:forEach items="${jobCategories}" var="categoryItem">
                     <form:option value="${categoryItem.cateSeq}">${categoryItem.cateName}</form:option>
                 </c:forEach>
             </form:select>
             <div id="editor"></div>
-            <div class="pull-right">
+            <div class="pull-right" style="margin-bottom: 15px;">
                 <form:button type="submit" class="btn btn-default">작성</form:button>
                 <div class="clearfix"></div>
             </div>
