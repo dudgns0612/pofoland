@@ -83,6 +83,7 @@
 	    for(var i = 0; i < files.length; i++) {
 	        var form = new FormData();
 	        form.append('file', files[i]);
+	        form.append('${_csrf.parameterName}', '${_csrf.token}');
 	        $.ajax({
 	          data: form,
 	          type: "POST",
