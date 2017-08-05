@@ -20,6 +20,7 @@
 		<!-- Security를 적용하지 않는 url 패턴 permitAll -->
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		
