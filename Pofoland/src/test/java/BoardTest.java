@@ -75,7 +75,7 @@ public class BoardTest {
             temp.setBoardContent("안녕하세요! 테스트 게시글입니다.<br> Hello World!");
             temp.setUserSeq(31);
             
-            boardService.insertBoard(temp);
+            boardService.writeBoard(temp);
         }
     }
 
