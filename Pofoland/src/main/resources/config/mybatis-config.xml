@@ -16,6 +16,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<typeAliases>
 		<typeAlias type="com.hst.pofoland.biz.user.vo.UserVO" alias="UserVO"></typeAlias>
+        <typeAlias type="com.hst.pofoland.biz.board.vo.BoardVO" alias="BoardVO"></typeAlias>
+        <typeAlias type="com.hst.pofoland.biz.category.vo.CategoryVO" alias="CategoryVO"/>
 	</typeAliases>
 
 </configuration>

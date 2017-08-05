@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- PRELOADER -->
 <div id="st-preloader">
     <div id="pre-status">
@@ -71,6 +72,7 @@
 									</li>
 								</ul>
                     </li>
+                    <li><a href="${contextPath}/boardMain">커뮤니티</a></li>
                 </ul>
                  
             </div><!-- /.navbar-collapse -->

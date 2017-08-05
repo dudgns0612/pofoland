@@ -34,6 +34,13 @@ public interface UserDAO {
 	public int insertUser(UserVO userVO);
 	
 	/**
+	 * 유저 로그인
+	 * @param userVO
+	 * @return
+	 */
+	public UserVO selectUserLogin(String userId);
+	
+	/**
 	 * 유저 아이디 중복확인
 	 * @param userId
 	 * @return
@@ -54,5 +61,24 @@ public interface UserDAO {
 	 */
 	public UserVO selectUserInfo(String userSeq);
 
+	/**
+	 * 유저 시퀀스 조회
+	 * @param userId
+	 * @return
+	 */
+	public Integer selectUserSeq(String userId);
 	
+	/**
+	 * 유저 인증키 검사
+	 * @param userVO
+	 * @return
+	 */
+	public Integer updateAuthState(UserVO userVO);
+	
+	/**
+	 * 유저 로그인상태
+	 * @param userSeq
+	 * @return
+	 */
+	public Integer updateLoginState(UserVO userVO);
 }

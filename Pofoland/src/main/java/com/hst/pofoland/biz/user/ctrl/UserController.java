@@ -1,7 +1,22 @@
 package com.hst.pofoland.biz.user.ctrl;
 
-import javax.inject.Inject;
+import java.io.IOException;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.auth.GoogleAuthentication;
+import com.hst.pofoland.common.constnat.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.vo.ResponseVO;
 
@@ -35,56 +52,108 @@ import com.hst.pofoland.common.vo.ResponseVO;
  */
 
 @Controller
-public class UserController {
+public class UserController implements InitializingBean{
 	
 	@Inject
-	UserServiceImpl userServiceImpl;
+	UserServiceImpl userService;
+	
+	@Inject
+	GoogleAuthentication googleAuth;
+	
+	GoogleConnectionFactory googleConnectionFactory = null;
+	OAuth2Parameters googleOAuth2Parameters = null;
+	
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		googleConnectionFactory = googleAuth.getGoogleConnectionFactory();
+		googleOAuth2Parameters = googleAuth.getOauth2Parameter();
+	}
 	
 	/**
 	 * 유저 회원가입
 	 * @param userVO
 	 * @return
 	 */
-	@RequestMapping(value="user" , method=RequestMethod.POST)
+	@RequestMapping(value="/user" , method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO createUser(@ModelAttribute UserVO userVO) {
 		
 		LoggerManager.info(getClass(), userVO.toString());
 		
-		int code = userServiceImpl.createUser(userVO);
+		int code = userService.createUser(userVO);
 		
 		ResponseVO responseVO = new ResponseVO();
 		
-		responseVO.setCode(code);
+		if (code > 0) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+		}
 		
 		return responseVO;
 	}
 	
-	/**
-	 * 유저 로그인
-	 * @param userVO
-	 * @return
-	 */
-	@RequestMapping(value="user/login" , method=RequestMethod.POST)
-	public ResponseVO loginUser(UserVO userVO) {
+	@RequestMapping(value="/google/login", method=RequestMethod.GET)
+	public void googleLogin(HttpServletResponse response) {
 		
-		return null;
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		String url = oauthOperations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		
+		System.out.println(url);
+		try {
+			response.sendRedirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	@RequestMapping(value="/google/user", method=RequestMethod.GET)
+	public String googleLoginCheck (HttpServletRequest request) {
+
+		String code = request.getParameter("code");
+		
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(), null);
+		
+		String accessToken = accessGrant.getAccessToken();
+		Long expireTime = accessGrant.getExpireTime();
+		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+			accessToken = accessGrant.getRefreshToken();
+			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+		}
+		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		
+		PlusOperations plusOperations = google.plusOperations();
+		Person person = plusOperations.getGoogleProfile();
+		
+		System.out.println(person.getAccountEmail());	
+		System.out.println(person.getId());
+		System.out.println(person.getImageUrl());
+		
+		UserVO userVO = new UserVO();
+		
+//		HttpSession session = request.getSession();
+//		session.setAttribute("_MEMBER_", member );
+		
+		
+		return "/home";
+	}
+	
 	
 	/**
 	 * 유저 아이디중복확인
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value="user/checkid/{userId}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/checkid/{userId}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO duplicateCheckId(@PathVariable String userId) {
 		
-		String checkId = userServiceImpl.duplicateCheckId(userId);
+		String checkId = userService.duplicateCheckId(userId);
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkId != null) {
-			responseVO.setCode(1);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -95,15 +164,15 @@ public class UserController {
 	 * @param userNick
 	 * @return
 	 */
-	@RequestMapping(value="user/checknick/{userNick}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/checknick/{userNick}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO duplicateCheckNick(@PathVariable String userNick) {
 		
-		String checkNick = userServiceImpl.duplicateCheckNick(userNick);
+		String checkNick = userService.duplicateCheckNick(userNick);
 		
 		ResponseVO responseVO = new ResponseVO();
 		if (checkNick != null) {
-			responseVO.setCode(1);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
@@ -114,20 +183,43 @@ public class UserController {
 	 * @param userSeq
 	 * @return
 	 */
-	@RequestMapping(value="user/{userSeq}" , method=RequestMethod.GET)
+	@RequestMapping(value="/user/{userSeq}" , method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO searchUser(@PathVariable String userSeq) {
 		
-		UserVO userVO = userServiceImpl.searchUser(userSeq);
+		UserVO userVO = userService.searchUser(userSeq);
 		
 		ResponseVO responseVO = new ResponseVO();
 		responseVO.setData(userVO);
 
 		if (userVO != null) {
-			responseVO.setCode(1);
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
 		return responseVO;
 	}
 	
+	/**
+	 * 유저 메일인증확인
+	 * @param userAuthKey
+	 * @param userSeq
+	 * @return
+	 */
+	@RequestMapping(value="/user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
+	public String authCheckUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
+		
+		UserVO userVO = new UserVO();
+		userVO.setUserAuthKey(userAuthKey);
+		userVO.setUserSeq(userSeq);
+		
+		int code = userService.authCheckUser(userVO);
+		
+		if (code == NetworkConstant.COMMUNICATION_SUCCESS_CODE) {
+			//성공처리
+		} else {
+			//비성공 처리
+		}
+		
+		return null;
+	}
 }
