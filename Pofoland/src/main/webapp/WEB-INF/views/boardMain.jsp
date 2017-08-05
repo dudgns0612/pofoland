@@ -9,7 +9,6 @@
             <div class="col-md-12">
                 <div class="section-title">
                     <h1>포폴랜드 커뮤니티</h1>
-                    <span class="st-border"></span>
                 </div>
             </div>
         </div>
@@ -20,12 +19,18 @@
 <!-- BLOG -->
 <section id="blog">
     <div class="container">
-        <c:if test="${not empty currentCategory}">
-            <h3 class="sidebar-title">${currentCategory.cateName}</h3>
-        </c:if>
-        <c:if test="${empty currentCategory}">
-            <h3 class="sidebar-title">전체보기</h3>
-        </c:if>
+        <div class="pull-left">
+            <c:if test="${not empty currentCategory}">
+                <h3 class="sidebar-title">${currentCategory.cateName}</h3>
+            </c:if>
+            <c:if test="${empty currentCategory}">
+                <h3 class="sidebar-title">전체보기</h3>
+            </c:if>
+        </div>
+        <div class="pull-right">
+            <a href="${contextPath}/boardWrite" class="btn btn-readmore">새 글 작성</a>        
+        </div>
+        <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-9">
                 <c:forEach items="${boardList}" var="board">
@@ -81,6 +86,7 @@
                         </c:forEach>
                     </div>
                 </div>
+                <!-- 
                 <div class="sidebar-widget">
                     <h4 class="sidebar-title">Flickr</h4>
                     <ul class="content-flickr">
@@ -116,6 +122,7 @@
                         </li>
                     </ul>
                 </div>
+                 -->
             </div>
         </div>
     </div>
