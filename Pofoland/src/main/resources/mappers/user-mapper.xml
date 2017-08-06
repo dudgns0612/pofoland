@@ -4,7 +4,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hst.pofoland.biz.user.UserDAO">
+<mapper namespace="com.hst.pofoland.biz.user.dao.UserDAO">
 
 	<insert id="insertUser" keyProperty="userSeq">
 		INSERT INTO User (
@@ -12,18 +12,37 @@
 			USER_PW,
 			USER_NICK,
 			USER_EMAIL,
-			USER_AUTH_KEY
+			USER_AUTH_KEY,
+			USER_PROFILE_URL
 		) VALUES (
 			#{userId},
 			#{userPw},
 			#{userNick},
 			#{userEmail},
-			#{userAuthKey}
+			#{userAuthKey},
+			#{userProfileUrl}
 		)
-		<selectKey keyProperty="userSeq" resultType="int">
+		<selectKey keyProperty="userSeq" resultType="Integer">
 			SELECT LAST_INSERT_ID();
 		</selectKey>
 	</insert>
+	
+	<select id="selectUserLogin" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_PW,
+			   USER_EMAIL,
+			   USER_NICK,
+			   USER_AUTH_YN,
+			   USER_SCORE,
+			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
+			   USER_DEL_YN,
+			   USER_LOGIN_YN,
+			   USER_PROFILE_URL
+		  FROM User
+		 WHERE USER_ID = #{userId} 
+	</select>
+	
 	
 	<select id="selectDuplicateCheckId" resultType="String">
 		SELECT USER_ID
@@ -38,8 +57,60 @@
 	</select>
 	
 	<select id="selectUserInfo" resultType="UserVO">
-		SELECT *
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_PW,
+			   USER_EMAIL,
+			   USER_NICK,
+			   USER_AUTH_YN,
+			   USER_SCORE,
+			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
+			   USER_DEL_YN,
+			   USER_LOGIN_YN,
+			   USER_PROFILE_URL
 		  FROM User
+		 WHERE USER_SEQ = #{userSeq}
 	</select>
+	
+	<select id="selectUserSeq" resultType="Integer">
+		SELECT USER_SEQ
+		  FROM User
+		 WHERE USER_ID = #{userId}
+	</select>
+	
+	<update id="updateAuthState" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<if test="userSeq != null">
+				USER_AUTH_YN = 'Y'
+				</if>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}
+		   AND USER_AUTH_KEY = #{userAuthKey}
+	</update>
+	
+	<update id="updateLoginState" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<choose>
+					<when test="userLoginYn == N">
+					USER_LOGIN_YN = 'Y'
+					</when>
+					<otherwise>
+					USER_LOGIN_YN = 'N'
+					</otherwise>
+				</choose>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}	
+	</update>
+	
+	<select id="selectAuthState" parameterType="UserVO">
+		SELECT USER_SEQ,
+			   USER_AUTH_YN
+		  FROM User
+	</select> 
+	
+	<update id="updateAddInfoUser" parameterType="UserVO">
+	</update>
 
 </mapper>

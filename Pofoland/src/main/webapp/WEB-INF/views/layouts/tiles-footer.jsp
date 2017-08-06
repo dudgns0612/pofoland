@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- FOOTER -->
 <footer id="footer">
     <div class="container">
@@ -26,8 +27,6 @@
 </div>
 
 <!-- JS -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.min.js"></script><!-- jQuery -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/bootstrap.min.js"></script><!-- Bootstrap -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.parallax.js"></script><!-- Parallax -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/smoothscroll.js"></script><!-- Smooth Scroll -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/masonry.pkgd.min.js"></script><!-- masonry -->
@@ -38,3 +37,5 @@
 <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.isotope.min.js"></script><!-- isotope -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.magnific-popup.min.js"></script><!-- magnific-popup -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- Scripts -->
+<script type="text/javascript" src="${contextpath}/resources/assets/js/join/agreeValid.js"></script><!-- /join/agreValid -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script><!-- bootValid -->

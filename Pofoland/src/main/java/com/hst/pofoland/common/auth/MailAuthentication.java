@@ -37,11 +37,12 @@ public class MailAuthentication {
 
 	private String email = null;
 	private String authKey = null;
+	private Integer userSeq = null;
 	
-	
-	public MailAuthentication(String email,String authKey) {
+	public MailAuthentication(String email, String authKey, Integer userSeq) {
 		this.email = email;
 		this.authKey = authKey;
+		this.userSeq = userSeq;
 	}
 	
 	public void sendAuthMail() {
@@ -77,7 +78,7 @@ public class MailAuthentication {
 			
 			msg.append("<h4>회원가입에 대하여 간단한 본인인증을 위하여 아래의 링크를 클릭하여주세요.</h4>");
 			msg.append("<h4>감사합니다.</h4><br/><br/>");
-			msg.append("<a href='http://localhost:8080'>본인인증</a>");
+			msg.append("<a href='http://localhost:8080/user/"+userSeq+"/auth/"+authKey+"'>본인인증</a>");
 			msg.append(" 클릭 후 메인페이지로 이동합니다.");
 			
 			message.setContent(msg.toString(),"text/html;charset=UTF-8");

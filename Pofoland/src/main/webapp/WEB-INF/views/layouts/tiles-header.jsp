@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- PRELOADER -->
 <div id="st-preloader">
     <div id="pre-status">
@@ -32,9 +33,10 @@
                     <li class="dropdown">
                     	<a href="#" class="dropdown-toggle" data-toggle="dropdown">LOGIN</a>
                     	<ul id="dropdown-dp" class="dropdown-menu">
+							<div class="row" style="width: 300px;">
 									<li>
-										<div class="row">
-											<div class="col-xs-12">
+										<div class="col-xs-1"></div>
+											<div class="col-xs-10">
 												LOGIN
 												<form class="form" role="form" method="post"
 													action="/user/login" accept-charset="UTF-8" id="login-nav">
@@ -47,8 +49,8 @@
 														<label class="sr-only" for="InputPassword">Password</label>
 														<input type="password" class="form-control"
 															id="InputPassword" placeholder="Password" name="m_pw">
-														<div class="help-block text-right">
-															<a href="#">Forget the password ?</a>
+														<div class="help-block text-center">
+															<a href="#">Forget the password?</a>
 														</div>
 													</div>
 													<div class="form-group">
@@ -61,16 +63,20 @@
 														</label>
 													</div>
 												</form>
-											</div>
+											
+											
 											<div class="bottom text-center">
 												New here ? <a
-													href="/user/join"><b>Join
+													href="/join/joinUser"><b>Join
 														Us</b></a>
 											</div>
-										</div>
+											</div>
+										<div class="col-xs-1"></div>
 									</li>
+									</div>
 								</ul>
                     </li>
+                    <li><a href="${contextPath}/boardMain">커뮤니티</a></li>
                 </ul>
                  
             </div><!-- /.navbar-collapse -->

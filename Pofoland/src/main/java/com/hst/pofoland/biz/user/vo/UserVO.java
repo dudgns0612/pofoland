@@ -1,14 +1,12 @@
 package com.hst.pofoland.biz.user.vo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.hst.pofoland.common.auth.security.Role;
+import com.hst.pofoland.common.auth.security.SecurityRole;
 
 /**
  * 
@@ -27,31 +25,33 @@ import com.hst.pofoland.common.auth.security.Role;
  * 수정일			수정자			수정내용
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
+ * 2017. 7. 31.     김영훈			인증검사에 따른 수정
  * </pre>
  */
 
 public class UserVO implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	Integer userSeq = null;
-	String userId = null;
-	String userPw = null;
-	String userNick = null;
-	String userEmail = null;
-	String userAuthKey = null;
-	String userAuthYn = null;
-	String userScore = null;
-	String userRegDt = null;
+	String userId = "";
+	String userPw = "";
+	String userNick = "";
+	String userEmail = "";
+	String userAuthKey = "";
+	char userAuthYn = 'N';
+	String userScore = "";
+	String userRegDt = "";
+	String userProfileUrl = "";
 	char userDelYn = 'N';
 	char userPublicYn = 'N';
 	char userLoginYn = 'N';
+	Integer[] jobCate = {};
 	
+	//생성자
+	public UserVO() {
+	}
 	
 	//Security
-	private List<Role> authorities;
-    private boolean accountNonExpired = true;
-    private boolean accountNonLocked = true;
-    private boolean credentialsNonExpired = true;
-    private boolean enabled = true;
+	private List<SecurityRole> authorities;
 	
 	/**
 	 * @return the userSeq
@@ -128,13 +128,13 @@ public class UserVO implements UserDetails{
 	/**
 	 * @return the userAuthYn
 	 */
-	public String getUserAuthYn() {
+	public char getUserAuthYn() {
 		return userAuthYn;
 	}
 	/**
 	 * @param userAuthYn the userAuthYn to set
 	 */
-	public void setUserAuthYn(String userAuthYn) {
+	public void setUserAuthYn(char userAuthYn) {
 		this.userAuthYn = userAuthYn;
 	}
 	/**
@@ -197,6 +197,22 @@ public class UserVO implements UserDetails{
 	public void setUserLoginYn(char userLoginYn) {
 		this.userLoginYn = userLoginYn;
 	}
+	
+	public String getUserProfileUrl() {
+		return userProfileUrl;
+	}
+	
+	public void setUserProfileUrl(String userProfileUrl) {
+		this.userProfileUrl = userProfileUrl;
+	}
+	
+	public Integer[] getJobCate() {
+		return jobCate;
+	}
+	
+	public void setJobCate(Integer[] jobCate) {
+		this.jobCate = jobCate;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -210,10 +226,7 @@ public class UserVO implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		 List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();    
-		 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		    
-		 return authorities;
+		 return this.authorities;
 	}
 	
 	@Override
@@ -250,31 +263,7 @@ public class UserVO implements UserDetails{
 	/**
 	 * @param authorities the authorities to set
 	 */
-	public void setAuthorities(List<Role> authorities) {
+	public void setAuthorities(List<SecurityRole> authorities) {
 		this.authorities = authorities;
-	}
-	/**
-	 * @param accountNonExpired the accountNonExpired to set
-	 */
-	public void setAccountNonExpired(boolean accountNonExpired) {
-		this.accountNonExpired = accountNonExpired;
-	}
-	/**
-	 * @param accountNonLocked the accountNonLocked to set
-	 */
-	public void setAccountNonLocked(boolean accountNonLocked) {
-		this.accountNonLocked = accountNonLocked;
-	}
-	/**
-	 * @param credentialsNonExpired the credentialsNonExpired to set
-	 */
-	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-		this.credentialsNonExpired = credentialsNonExpired;
-	}
-	/**
-	 * @param enabled the enabled to set
-	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 }

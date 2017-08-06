@@ -34,6 +34,13 @@ public interface UserDAO {
 	public int insertUser(UserVO userVO);
 	
 	/**
+	 * 유저 로그인
+	 * @param userVO
+	 * @return
+	 */
+	public UserVO selectUserLogin(String userId);
+	
+	/**
 	 * 유저 아이디 중복확인
 	 * @param userId
 	 * @return
@@ -52,7 +59,48 @@ public interface UserDAO {
 	 * @param userSeq
 	 * @return
 	 */
-	public UserVO selectUserInfo(String userSeq);
+	public UserVO selectUserInfo(Integer userSeq);
 
+	/**
+	 * 유저 시퀀스 조회
+	 * @param userId
+	 * @return
+	 */
+	public Integer selectUserSeq(String userId);
 	
+	/**
+	 * 유저 인증상태 변경
+	 * @param userVO
+	 * @return
+	 */
+	public Integer updateAuthState(UserVO userVO);
+	
+	/**
+	 * 유저 로그인상태
+	 * @param userSeq
+	 * @return
+	 */
+	public Integer updateLoginState(UserVO userVO);
+	
+	/**
+	 * 유저 인증상태 체크
+	 * @param userSeq
+	 * @return
+	 */
+	public UserVO selectAuthState(Integer userSeq);
+	
+	
+	/**
+	 * 유저 추가정보 입력(닉네임)
+	 * @param userVO
+	 * @return
+	 */
+	public Integer updateAddInfo(UserVO userVO);
+	
+	/**
+	 * job카테고리 추가
+	 * @param jobCate
+	 * @return
+	 */
+	public Integer insertJobCate(Integer[] jobCate);
 }

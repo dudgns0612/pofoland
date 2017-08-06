@@ -17,4 +17,19 @@
 			</tr>
 		</table> 
 	</form>
+	<button type="button" id="googleBtn">구글로 로그인하기</button>
 </div>
+
+<script>
+	
+	$(document).ready(function(){
+		
+		$('#googleBtn').click(function(){
+			location.href="/google/login";
+			
+		});
+		
+		
+	});
+
+</script>

@@ -58,7 +58,7 @@ public class ControllerAspect {
             }
         }
 
-		sb.append("\n# Returns\n  ").append(resultData == null ? " - " : resultData.toString()).append(" [").append(resultData.getClass().getCanonicalName()).append("]").append("\n");
+		sb.append("\n# Returns\n  ").append(resultData == null ? " - " : resultData.toString()).append(" [").append(resultData == null ? "-" : resultData.getClass().getCanonicalName()).append("]").append("\n");
 
 		sb.append("                                                                         Elapsed time : ").append(end - start).append("(ms)\n");        
         sb.append("=================================================================================================\n");

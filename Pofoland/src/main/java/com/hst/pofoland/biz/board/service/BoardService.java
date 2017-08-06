@@ -7,6 +7,10 @@
  */
 package com.hst.pofoland.biz.board.service;
 
+import java.util.List;
+
+import com.hst.pofoland.biz.board.vo.BoardVO;
+
 /**
  * 
  * 시스템명 : 포트폴리오 관리 시스템
@@ -28,4 +32,21 @@ package com.hst.pofoland.biz.board.service;
  */
 public interface BoardService {
 
+    
+    /**
+     * 게시글 목록 반환
+     * 
+     * @param searchVo 검색 / 페이징 조건
+     * @return 게시글 목록
+     */
+    public List<BoardVO> getBoardList(BoardVO searchVo);
+    
+    /**
+     * 게시글 등록
+     * 
+     * @param board 등록할 게시글
+     * @return 등록 여부
+     */
+    public int writeBoard(BoardVO board);
+    
 }

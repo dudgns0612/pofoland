@@ -4,11 +4,17 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hst.pofoland.biz.user.dao.UserDAO;
 import com.hst.pofoland.biz.user.service.UserService;
 import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.auth.MailAuthentication;
+import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
 
 /**
  * 
@@ -27,14 +33,20 @@ import com.hst.pofoland.biz.user.vo.UserVO;
  * 수정일			수정자			수정내용
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
+ * 2017. 7. 31.     김영훈			메일인증추가
  * </pre>
  */
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService , UserDetailsService{
 	
 	@Inject
 	UserDAO userDAO;
+	
+	public UserServiceImpl() {
+	}
+	
+	StandardPasswordEncoder spEncoder = new StandardPasswordEncoder();
 	
 	/**
 	 * 유저 회원가입 서비스
@@ -42,14 +54,30 @@ public class UserServiceImpl implements UserService{
 	 * @return
 	 */
 	@Override
-	public int createUser(UserVO userVO) {
+	public Integer createUser(UserVO userVO) {
 		
 		userVO.setUserAuthKey(getAuthKey());
 		
-		int result = userDAO.insertUser(userVO);
+		String userPw = spEncoder.encode(userVO.getPassword());
+		userVO.setUserPw(userPw);
+		
+		Integer result = userDAO.insertUser(userVO);
+		
+		if (result > 0) {
+			Integer userSeq = userDAO.selectUserSeq(userVO.getUserId());
+			
+			String userEmail = userVO.getUserEmail();
+			String userAuthKey = userVO.getUserAuthKey();
+			
+			//인증메일 전송
+			MailAuthentication mailAuth = new MailAuthentication(userEmail, userAuthKey, userSeq);
+			mailAuth.sendAuthMail();
+		}
 		
 		return result;
 	}
+	
+	
 	
 	/**
 	 * 유저 아이디 중복확인
@@ -62,6 +90,17 @@ public class UserServiceImpl implements UserService{
 		String checkId = userDAO.selectDuplicateCheckId(userId);
 		
 		return checkId;
+	}
+	
+	/**
+	 * 유저 시퀀스 조회
+	 */
+	@Override
+	public Integer seqSearchUser(String userId) {
+		
+		int userSeq = userDAO.selectUserSeq(userId);
+		
+		return userSeq;
 	}
 	
 	/**
@@ -83,11 +122,44 @@ public class UserServiceImpl implements UserService{
 	 * @return
 	 */
 	@Override
-	public UserVO searchUser(String userSeq) {
+	public UserVO searchUser(Integer userSeq) {
 		
 		UserVO userVO = userDAO.selectUserInfo(userSeq);
 		
 		return userVO;
+	}
+	
+	/**
+	 * 유저 허가인증
+	 */
+	@Override
+	public Integer authProcessUser(UserVO userVO) {
+		
+		Integer result = userDAO.updateAuthState(userVO);
+		
+		return result;
+	}
+	
+	/**
+	 *  유저메일인증 체크
+	 */
+	@Override
+	public UserVO authCheckUser(Integer userSeq) {
+		
+		UserVO userVO = userDAO.selectAuthState(userSeq);
+		
+		return userVO;
+	}
+	
+	@Override
+	public Integer addInfoUser(UserVO userVO) {
+		
+		Integer nickResult = userDAO.updateAddInfo(userVO);
+		
+		Integer[] jobCate =  userVO.getJobCate();
+		Integer jobResult = userDAO.insertJobCate(jobCate);
+		
+		return null;
 	}
 	
 	/**
@@ -101,4 +173,26 @@ public class UserServiceImpl implements UserService{
 		return uuid.toString();
 	}
 	
+	/**
+	 * Security 인증 확인
+	 */
+	@Override
+	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+		
+		UserVO userVO = userDAO.selectUserLogin(userId);
+
+		if (userVO == null) {
+			throw new UsernameNotFoundException("userId");
+		}
+		
+		userVO.setUserId(userId);
+		userVO.setUserPw(userVO.getPassword());
+		
+		//User 권한부여
+		SecurityAuthorityManager authManager = new SecurityAuthorityManager();
+		authManager.setAuthorityList("ROLE_USER");
+		userVO.setAuthorities(authManager.getAuthorityList());
+		
+		return userVO;
+	}
 }
