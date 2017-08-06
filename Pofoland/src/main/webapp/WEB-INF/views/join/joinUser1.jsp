@@ -9,16 +9,16 @@
 
 	<br/><br/>
 	<fieldset>
-		<!-- m_id input-->
+		<!-- user_id input-->
 		<div class="form-group has-feedback">
 			<label class="col-md-3 control-label" for="idinput">아이디</label>
 			<div class="col-md-6 inputGroupContainer">
 				<div class="input-group">
 					<span class="input-group-addon"> <i
 						class="glyphicon glyphicon-info-sign"></i></span> <input id="idinput"
-						name="m_id" placeholder="아이디" class="form-control input-md"
+						name="user_id" placeholder="아이디" class="form-control input-md"
 						type="text" pattern="^[_A-z0-9]{1,}$" /> <input type="hidden"
-						name="m_idcheck" value="">
+						name="user_idcheck" value="">
 				</div>    
 			</div>
 			<div class="col-md-1">
@@ -27,25 +27,6 @@
 			</div>
 		</div>
 		<br/>
-
-		<!-- m_nick input-->
-		<!-- <div class="form-group">
-			<label class="col-md-3 control-label" for="nickinput">닉네임</label>
-			<div class="col-md-6 inputGroupContainer">
-				<div class="input-group">
-					<span class="input-group-addon"><i
-						class="glyphicon glyphicon-tag"></i></span> <input type="text"
-						class="form-control input-md" id="nickinput" placeholder="닉네임"
-						name="m_nick"> <input type="hidden" name="m_nickcheck"
-						value="">
-				</div>
-			</div>
-			<div class="col-md-1">
-				<input type='button' class="btn btn-default" value="중복확인"
-					name="nickcheckbtn">
-			</div>
-		</div>
-		<br/> -->
 
 		<!-- 패스워드 확인폼 -->
 		<!-- m_pw input-->
@@ -79,20 +60,6 @@
 		</div>
 		<br/>
 
-		<!-- m_nameinput-->
-		<!-- <div class="form-group has-feedback">
-			<label class="col-md-3 control-label" for="textinput">이름</label>
-			<div class="col-md-6 inputGroupContainer">
-				<div class="input-group">
-					<span class="input-group-addon"><i
-						class="glyphicon glyphicon-user"></i></span> <input id="textinput"
-						name="m_name" placeholder="이름" class="form-control input-md"
-						type="text">
-				</div>
-			</div>
-		</div>
-		<br/> -->
-		
 		<!-- m_email input-->
 		<div class="form-group">
 			<label class="col-md-3 control-label" for="emailinput">이메일</label>
@@ -112,30 +79,11 @@
 		</div>
 		<br/>
 
-		<!-- m_phone input-->
-		<!-- <div class="form-group">
-			<label class="col-md-3 control-label" for="phoneinput">전화번호</label>
-			<div class="col-md-6 inputGroupContainer">
-				<div class="input-group">
-					<span class="input-group-addon"><i
-						class="glyphicon glyphicon-earphone"></i></span> <input type="text"
-						class="form-control input-md" id="phoneinput"
-						placeholder="ex) 010-1234-5678" name="m_phone"> <input
-						type="hidden" name="m_phonecheck" value="">
-				</div>
-			</div>
-			<div class="col-md-1">
-				<input type='button' class="btn btn-default" value="중복확인"
-					name="phonecheckbtn">
-			</div>
-		</div>
-		<br/> -->
-
 		<div class="form-group col-md-8">
 			<div class="col-sm-offset-7 col-sm-3">
 				<button type="submit" class="btn btn-default">Sign in</button>
 				<button type="button" class="btn btn-default"
-					onclick="location.href='../home.do'">Cancel</button>
+					onclick="location.href='#'">Cancel</button>
 			</div>
 		</div>
 	</fieldset>
@@ -153,7 +101,7 @@
 						$('#createForm').bootstrapValidator(
 										{ 
 											fields : {
-												m_id : {
+												user_id : {
 													validators : {
 														notEmpty : {
 															message : 'ID를 입력하세요.'
@@ -168,7 +116,7 @@
 															message : '영문자, 숫자, ., _ 만 사용가능합니다.'
 														},
 														 different : {
-															field : 'm_idcheck', 
+															field : 'user_idcheck', 
 															message : '이미 사용중인 아이디입니다.'
 														}  
 													}
@@ -179,7 +127,7 @@
 															message : '비밀번호를 입력하세요.'
 														},
 														different : {
-															field : 'm_id',
+															field : 'user_id',
 															message : '비밀번호를 ID와 똑같이 할 수 없습니다!'
 														},
 														callback : {
@@ -199,16 +147,6 @@
 																		message : '8글자 이상 사용가능합니다.'
 																	};
 																}
-
-																// The password doesn't contain any uppercase character
-																if (value === value
-																		.toLowerCase()) {
-																	return {
-																		valid : false,
-																		message : '대문자를 하나라도 포함하셔야 합니다.'
-																	}
-																}
-
 																// The password doesn't contain any uppercase character
 																if (value === value
 																		.toUpperCase()) {
@@ -243,35 +181,6 @@
 														}
 													}
 												},
-												m_name : {
-													validators : {
-														notEmpty : {
-															message : '이름을 입력하세요.'
-														},
-														stringLength : {
-															min : 2,
-															max : 10,
-															message : '이름을 제대로입력하세요.'
-														}
-													}
-												},
-												m_nick : {
-													validators : {
-														notEmpty : {
-															message : '닉네임을 입력하세요.'
-														},
-														stringLength : {
-															min : 2,
-															max : 6,
-															message : '닉네임은 2~6 글자입니다.'
-														},
-														 different : {
-																field : 'm_nickcheck', 
-																message : '이미 사용중인 닉네임입니다.'
-															}  
-													}
-
-												},
 												m_email : {
 													validators : {
 														notEmpty : {
@@ -286,49 +195,10 @@
 															}  
 													}
 												},
-												m_phone : {
-													validators : {
-														notEmpty : {
-															message : '전화번호를 입력하세요'
-														},
-														 different : {
-																field : 'm_phonecheck', 
-																message : '이미 사용중인 전화번호입니다.'
-															}  
-													}
-												},
-												m_level : {
-													validators : {
-														notEmpty : {
-															message : '가입유형을 선택하세요'
-														}
-													}
-												},
-												m_job : {
-													validators : {
-														notEmpty : {
-															message : '직업을 선택하세요'
-														}
-													}
-												},
-												m_lang : {
-													validators : {
-														notEmpty : {
-															message : '관심 분야를 선택하세요'
-														}
-													}
-												},
 												idcheckbtn : {
 													validators : {
 														notEmpty : {
 															message : '아이디 중복확인하세요!'
-														}
-													}
-												},
-												nickcheckbtn : {
-													validators : {
-														notEmpty : {
-															message : '닉네임 중복확인하세요!'
 														}
 													}
 												},
@@ -338,35 +208,25 @@
 															message : '이메일 중복확인하세요!'
 														}
 													}
-												},
-												phonecheckbtn : {
-													validators : {
-														notEmpty : {
-															message : '전화번호 중복확인하세요!'
-														}
-													}
 												}
-												
-
 											}
 										});
 						
 						  
 						    $('input[name="idcheckbtn"]').click(function(){  
-						        	var m_id=$('#idinput').val(); 
-						            // ajax 실행
+						        	var user_id=$('#idinput').val(); 
 						        	 $.ajax({ 	 
-									        type: "POST",
-									        url: "./idCheck.do", //이페이지에서 중복체크를 한다
-									        data: "m_id="+ m_id ,//idCheck.do에 id 값을 보낸다`
+									        type: "GET",
+									        url: "/user/checkid"+user_id, 
+									        data: "user_id="+ user_id ,
 									        datatype : "JSON",
-									        success: function(checkInfo){
-									            if(checkInfo.count==1){  
-									            	$('input[name="m_idcheck"]').attr("value",m_id);
+									        success: function(response){
+									            if(response.count==1){  
+									            	$('input[name="user_idcheck"]').attr("value",user_id);
 									            	alert("이미 사용중인 아이디입니다! 다른 아이디를 사용하세요");
 									            	$('#idinput').focus();
 									            	$('#idinput').val("");
-									           	}//중복된 아이디 결과넣고 validator 수행 
+									           	}
 									           	else{
 									           		alert("사용가능한 아이디입니다.")
 									           	}   
@@ -381,53 +241,23 @@
 											} 
 						        	 }); //end ajax
 						    }); // end keyup
-						    
-						    
-						    $('input[name="nickcheckbtn"]').click(function(){
-					        	var m_nick=$('#nickinput').val(); 
-					            // ajax 실행   
-					        	 $.ajax({ 	 
-								        type: "POST",
-								        url: "./nickCheck.do", //이페이지에서 중복체크를 한다
-								        data: "m_nick="+ m_nick ,//nickCheck.do에 m_nick 값을 보낸다`
-								        datatype : "JSON",
-								        success: function(checkInfo){
-								        	  if(checkInfo.count==1){  
-									            	$('input[name="m_nickcheck"]').attr("value",m_nick);
-									            	alert("이미 사용중인 닉네임 입니다! 다른 닉네임을 사용하세요");
-									            	$('#nickinput').focus();
-									            	$('#nickinput').val("");
-									           	}//중복된 아이디 결과넣고 validator 수행 
-									           	else{
-									           		alert("사용가능한 닉네임입니다.")
-									           	}   
-								        }, 
-								        error : function(e) {
-								 			console.log("ERROR: ", e);
-											display(e);
-										},
-										done : function(e) {
-											console.log("DONE");
-										} 
-					        	 }); //end ajax
-					    }); // end keyup
+
 					    
 					    
 						    $('input[name="emailcheckbtn"]').click(function(){
 					        	var m_email=$('#emailinput').val(); 
-					            // ajax 실행
 					        	 $.ajax({ 	 
 								        type: "POST",
-								        url: "./emailCheck.do", //이페이지에서 중복체크를 한다
-								        data: "m_email="+ m_email ,//emailCheck.do에 m_email 값을 보낸다`
+								        url: "./emailCheck.do", 
+								        data: "m_email="+ m_email ,
 								        datatype : "JSON",
-								        success: function(checkInfo){
-								        	  if(checkInfo.count==1){  
+								        success: function(response){
+								        	  if(response.count==1){  
 									            	$('input[name="m_emailcheck"]').attr("value",m_email);
 									            	alert("이미사용중인 이메일입니다! 다른 이메일을 사용하세요");
 									            	$('#emailinput').focus();
 									            	$('#emailinput').val("");
-									           	}//중복된 아이디 결과넣고 validator 수행 
+									           	}
 									           	else{
 									           		alert("사용가능한 이메일입니다.")
 									           	}   
@@ -442,34 +272,6 @@
 					        	 }); //end ajax
 					    }); // end keyup
 					    
-					    $('input[name="phonecheckbtn"]').click(function(){
-				        	var m_phone=$('#phoneinput').val(); 
-				            // ajax 실행
-				        	 $.ajax({ 	 
-							        type: "POST",
-							        url: "./phoneCheck.do", //이페이지에서 중복체크를 한다
-							        data: "m_phone="+ m_phone ,//phoneCheck.do에 m_phone 값을 보낸다`
-							        datatype : "JSON",
-							        success: function(checkInfo){
-							        	  if(checkInfo.count==1){  
-								            	$('input[name="m_phonecheck"]').attr("value",m_phone);
-								            	alert("이미 등록된 전화번호 입니다. 다른 전화번호를 사용하세요");
-								            	$('#phoneinput').focus();
-								            	$('#phoneinput').val("");
-								           	}//중복된 아이디 결과넣고 validator 수행 
-								           	else{
-								           		alert("사용가능한 전화번호입니다.")
-								           	}      
-							        }, 
-							        error : function(e) {
-							 			console.log("ERROR: ", e);
-										display(e);
-									},
-									done : function(e) {
-										console.log("DONE");
-									} 
-				        	 }); //end ajax
-				    }); // end keyup 
 						
 						  
 					}) 

@@ -168,7 +168,7 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/user/checkid/{userId}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO duplicateCheckId(@PathVariable String userId) {
-		
+		System.out.println("userId: " + userId);
 		String checkId = userService.duplicateCheckId(userId);
 		
 		ResponseVO responseVO = new ResponseVO();
