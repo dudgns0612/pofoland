@@ -1,10 +1,12 @@
 package com.hst.pofoland.biz.user.ctrl;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.social.connect.Connection;
@@ -23,7 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.hst.pofoland.biz.category.service.impl.CategoryServiceImpl;
+import com.hst.pofoland.biz.category.vo.CategoryVO;
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.GoogleAuthentication;
@@ -56,6 +61,9 @@ public class UserController implements InitializingBean{
 	
 	@Inject
 	UserServiceImpl userService;
+	
+	@Inject
+	CategoryServiceImpl categoryService;
 	
 	@Inject
 	GoogleAuthentication googleAuth;
@@ -91,13 +99,17 @@ public class UserController implements InitializingBean{
 		return responseVO;
 	}
 	
+	
+	/**
+	 * 구글 가입 화면 추출
+	 * @param response
+	 */
 	@RequestMapping(value="/google/login", method=RequestMethod.GET)
 	public void googleLogin(HttpServletResponse response) {
 		
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 		String url = oauthOperations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		
-		System.out.println(url);
 		try {
 			response.sendRedirect(url);
 		} catch (IOException e) {
@@ -106,8 +118,14 @@ public class UserController implements InitializingBean{
 		}
 	}
 	
+	/**
+	 * 구글 사용자 인증 확인
+	 * @param request
+	 * @return
+	 * @throws IOException 
+	 */
 	@RequestMapping(value="/google/user", method=RequestMethod.GET)
-	public String googleLoginCheck (HttpServletRequest request) {
+	public void googleLoginCheck (HttpServletRequest request , HttpServletResponse response) throws IOException {
 
 		String code = request.getParameter("code");
 		
@@ -118,25 +136,27 @@ public class UserController implements InitializingBean{
 		Long expireTime = accessGrant.getExpireTime();
 		if (expireTime != null && expireTime < System.currentTimeMillis()) {
 			accessToken = accessGrant.getRefreshToken();
-			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+			LoggerManager.info(getClass(),"accessToken is expired. refresh token = {}", accessToken);
 		}
 		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
 		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
 		
 		PlusOperations plusOperations = google.plusOperations();
 		Person person = plusOperations.getGoogleProfile();
+		 
+		Integer userSeq = userService.seqSearchUser(person.getAccountEmail());
 		
-		System.out.println(person.getAccountEmail());	
-		System.out.println(person.getId());
-		System.out.println(person.getImageUrl());
-		
-		UserVO userVO = new UserVO();
-		
-//		HttpSession session = request.getSession();
-//		session.setAttribute("_MEMBER_", member );
-		
-		
-		return "/home";
+		if (userSeq == null || userSeq < 0) {
+			LoggerManager.info(getClass(), "Oauth회원가입 페이지");
+		} else {
+			UserVO userVO = userService.searchUser(userSeq);
+			userVO.setUserProfileUrl(person.getImageUrl());
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("user", userVO);
+			
+			response.sendRedirect("/home");
+		}
 	}
 	
 	
@@ -185,7 +205,7 @@ public class UserController implements InitializingBean{
 	 */
 	@RequestMapping(value="/user/{userSeq}" , method=RequestMethod.GET)
 	@ResponseBody
-	public ResponseVO searchUser(@PathVariable String userSeq) {
+	public ResponseVO searchUser(@PathVariable Integer userSeq) {
 		
 		UserVO userVO = userService.searchUser(userSeq);
 		
@@ -200,26 +220,70 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
-	 * 유저 메일인증확인
+	 * 유저 메일인증처리
 	 * @param userAuthKey
 	 * @param userSeq
 	 * @return
 	 */
 	@RequestMapping(value="/user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
-	public String authCheckUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
+	public void authProcessUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
 		
 		UserVO userVO = new UserVO();
 		userVO.setUserAuthKey(userAuthKey);
 		userVO.setUserSeq(userSeq);
 		
-		int code = userService.authCheckUser(userVO);
+		int code = userService.authProcessUser(userVO);
 		
-		if (code == NetworkConstant.COMMUNICATION_SUCCESS_CODE) {
-			//성공처리
-		} else {
-			//비성공 처리
-		}
-		
-		return null;
+		if (code == NetworkConstant.COMMUNICATION_FAIL_CODE) {
+			//비성공 처리 다시 보내든가 함.
+		} 
 	}
+	
+	/**
+	 * 유저 인증상태 확인
+	 * @param userSeq
+	 * @return
+	 */
+	@RequestMapping(value="/user/checkauth/{userSeq}", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO authCheckUser(@PathVariable Integer userSeq) {
+		
+		UserVO userVO = userService.authCheckUser(userSeq);
+		char userAuthYn = userVO.getUserAuthYn();
+		ResponseVO responseVO = new ResponseVO();
+		if(userAuthYn == 'Y') {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setData(userVO);
+		} 
+		
+		return responseVO;
+	}
+	
+	/**
+	 * 추가정보 입력 페이지 이동
+	 * @return
+	 */
+	@RequestMapping(value="/user/addInfo/{userSeq}", method=RequestMethod.GET)
+	public ModelAndView addInfoPage(@PathVariable Integer userSeq) {
+		
+		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
+		
+		ModelAndView mav = new ModelAndView("추가입력 페이지");
+		
+		mav.addObject("jobList", categoryList);
+		mav.addObject("userSeq", userSeq);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/user/addinformaion", method=RequestMethod.POST)
+	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO) {
+		
+		Integer nickResult = userService.addInfoUser(userVO);
+		
+		ResponseVO responseVO = new ResponseVO();
+		
+		return responseVO;
+	}
+	
 }

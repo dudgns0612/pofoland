@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +21,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
 import com.hst.pofoland.biz.category.vo.CategoryVO;
+import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 
 /**
@@ -78,16 +82,24 @@ public class BoardController implements InitializingBean {
     }
     
     @RequestMapping(value = "/boardWrite", method = RequestMethod.GET)
-    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm) {
+    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm, HttpSession session) {
         ModelAndView mv= new ModelAndView("boardWrite");
         mv.addObject("boardCategories", boardCategories);
         mv.addObject("jobCategories", jobCategories);
+        
+        UserVO loginUser = (UserVO) session.getAttribute("user");
+        writeForm.setUserSeq(loginUser.getUserSeq());
+        
         return mv;
     }
 
     @RequestMapping(value ="/board", method = RequestMethod.POST)
-    public void writeBoard(@ModelAttribute("writeForm")BoardVO writeForm) {
+    public String writeBoard(@ModelAttribute("writeForm")BoardVO writeForm) {
         LoggerManager.info(getClass(), "{}", writeForm);
+        
+        boardService.writeBoard(writeForm);
+        
+        return "redirect:/boardMain";
     }
 
 }

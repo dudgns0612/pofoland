@@ -45,6 +45,7 @@ public class BoardVO extends BaseVO {
     private String jobCateName;
     
     private int userSeq;
+    private String userId;
     private String userNick;
 
     /**
@@ -235,9 +236,20 @@ public class BoardVO extends BaseVO {
         this.userNick = userNick;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
+    /**
+     * @return the userId
      */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -246,9 +258,9 @@ public class BoardVO extends BaseVO {
                 .append(", boardUdtDt=").append(boardUdtDt).append(", boardDelYn=").append(boardDelYn)
                 .append(", boardHitCnt=").append(boardHitCnt).append(", boardCateSeq=").append(boardCateSeq)
                 .append(", boardCateName=").append(boardCateName).append(", jobCateSeq=").append(jobCateSeq)
-                .append(", jobCateName=").append(jobCateName).append(", userSeq=").append(userSeq).append(", userNick=")
-                .append(userNick).append("]");
+                .append(", jobCateName=").append(jobCateName).append(", userSeq=").append(userSeq).append(", userId=")
+                .append(userId).append(", userNick=").append(userNick).append("]");
         return builder.toString();
     }
-
+    
 }
