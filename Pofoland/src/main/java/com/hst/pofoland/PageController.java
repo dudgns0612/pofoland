@@ -28,7 +28,6 @@ public class PageController {
 		return "home";
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value="/join/joinUser", method=RequestMethod.GET)
 	public String joinUser() {
 		
@@ -39,7 +38,6 @@ public class PageController {
 	public String joinUser1() {
 		return "join/joinUser1";
 	}
-=======
 	
 	/**
 	 * 유저 메일 인증 화인페이지 이동
@@ -55,6 +53,5 @@ public class PageController {
 		
 		return mav;
 	}
-	
->>>>>>> 06fae995f00b64428e30550c72010df6f1a122a6
+
 }
