@@ -26,4 +26,14 @@ public class PageController {
 		return "home";
 	}
 	
+	@RequestMapping(value="/join/joinUser", method=RequestMethod.GET)
+	public String joinUser() {
+		
+		return "join/joinUser";
+	}
+	
+	@RequestMapping(value="/join/joinUser1", method={RequestMethod.GET, RequestMethod.POST})
+	public String joinUser1() {
+		return "join/joinUser1";
+	}
 }
