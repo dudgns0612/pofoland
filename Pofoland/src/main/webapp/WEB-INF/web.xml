@@ -39,7 +39,6 @@
             <param-value>utf-8</param-value>
         </init-param>
     </filter>
-    
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -54,5 +53,5 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    
 </web-app>

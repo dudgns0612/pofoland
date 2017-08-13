@@ -9,8 +9,11 @@
 package com.hst.pofoland.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
 
+import com.hst.pofoland.common.annotation.EchoOff;
 import com.hst.pofoland.common.utils.LoggerManager;
+import com.hst.pofoland.common.utils.ReflectionUtils;
 
 
 /**
@@ -35,11 +38,14 @@ import com.hst.pofoland.common.utils.LoggerManager;
 public class ControllerAspect {
 
 	public Object aroundAop(ProceedingJoinPoint joinPoint) throws Throwable {
-        
         long start = System.currentTimeMillis();
 		Object resultData = joinPoint.proceed();
         long end = System.currentTimeMillis();
 
+        if(ReflectionUtils.isAnnotatedBy(((MethodSignature)joinPoint.getSignature()).getMethod(), EchoOff.class)) {
+            return resultData;
+        }
+        
         StringBuffer sb = new StringBuffer("\n");
         sb.append("=================================================================================================\n");
         sb.append("# Invocation \n  ").append(joinPoint.getSignature().toString()).append("\n\n");

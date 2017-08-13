@@ -4,12 +4,18 @@
 
 <link rel="stylesheet" href="${contextPath}/resources/assets/summernote/summernote.css">
 <script type="text/javascript" src="${contextPath}/resources/assets/summernote/summernote.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.form.js"></script>
 <section id="page-header">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="section-title">
                     <h1>포폴랜드 커뮤니티</h1>
+                    
+                    <form action="${contextPath}/file/tempImageUpload" enctype="multipart/form-data" method="post">
+                        <input type="file" name="uploadImage"/>
+                        <input type="submit" value="전송"/>
+                    </form>
                 </div>
             </div>
         </div>
@@ -80,24 +86,21 @@
 	}
 	
 	function temporaryImageUpload(files) {
-	    for(var i = 0; i < files.length; i++) {
-	        var form = new FormData();
-	        form.append('file', files[i]);
-	        form.append('${_csrf.parameterName}', '${_csrf.token}');
-	        $.ajax({
-	          data: form,
-	          type: "POST",
-	          url: '${contextPath}/file/tempImageUpload',
-	          cache: false,
-	          contentType: false,
-	          enctype: 'multipart/form-data',
-	          processData: false,
-	          success: function(uploadedUrl) {
+        var formData = new FormData();
+        formData.append('uploadImage', files[0]);
+        
+        $.ajax({
+            url: '${contextPath}/file/tempImageUpload',
+            type: "post",
+            data: formData,
+	        cache: false,
+	        contentType: false,
+	        enctype: 'multipart/form-data',
+	        processData: false,
+	        success: function(uploadedUrl) {
 	            $('#editor').summernote('editor.insertImage', uploadedUrl);
-	          }
-	        });
-
-	    }
+	        }
+	     });
 	}
 	
 	function writeBoard() {
