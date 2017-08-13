@@ -27,9 +27,12 @@ public class BoardCtrlSH {
     public ModelAndView boardDetail() {
         ModelAndView mv = new ModelAndView("boardDetail");
         
-        List<BoardVO> boardList = boardService.getBoardList(new BoardVO());
+        BoardVO condition = new BoardVO();
+        condition.setCurrentPageNo(11);
         
-        BoardVO b = boardList.get(0);
+        List<BoardVO> boardList = boardService.getBoardList(condition);
+        
+        BoardVO b = boardList.get(2);
         
         //boardService.getBoard(searchVo);
         
