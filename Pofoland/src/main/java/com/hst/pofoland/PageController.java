@@ -28,6 +28,16 @@ public class PageController {
 		return "home";
 	}
 	
+	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
+	public String joinUser() {
+		
+		return "join/joinStep1";
+	}
+	
+	@RequestMapping(value="/join/joinUser1", method={RequestMethod.GET, RequestMethod.POST})
+	public String joinUser1() {
+		return "join/joinUser1";
+	}
 	
 	/**
 	 * 유저 메일 인증 화인페이지 이동
@@ -43,5 +53,5 @@ public class PageController {
 		
 		return mav;
 	}
-	
+
 }
