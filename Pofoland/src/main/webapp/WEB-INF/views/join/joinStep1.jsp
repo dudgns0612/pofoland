@@ -4,17 +4,18 @@
 		<div class="col-xs-12">
 			<div class="col-xs-3"></div>
 			<div class="col-xs-6">
-				<form class="form-horizontal" action="/join/joinUser1" onsubmit="return agreeValid()">
-		<fieldset>
-		<!-- Form Name -->
-			<img src="${contextPath}/resources/assets/images/join/joinStep.png" />
-			<br/><hr>
-		<!-- Multiple Radios (inline) -->
-		<table align="center">
-			<thead>
-				<tr align="center" height="10">
-					<td>
-						<textarea cols="60" rows="30" readonly=true; style="width:837px; text-align:left;">
+			<form class="form-horizontal" action="/join/step2" onsubmit="return agreeValid()">
+					<fieldset>
+					<!-- Form Name -->
+						<img src="${contextPath}/resources/assets/images/join/joinStep.png" />
+						<br/>
+						<hr>
+					<!-- Multiple Radios (inline) -->
+					<table align="center">
+						<thead>
+							<tr align="center" height="10">
+								<td>
+									<textarea cols="60" rows="30" readonly=true; style="width:837px; text-align:left;">
 Pofoland 서비스약관 (2005. 7. 18 부터 유효) 제1조(목적 등) ① Pofoland (hst.co.kr)
 서비스 약관(이하 "본 약관"이라 합니다)은 이용자가 ㈜ www_pilot(이하 "Pofoland"이라 합니다)에서 제공하는
 인터넷 관련 서비스(이하 "서비스"라 합니다)를 이용함에 있 어 이용자와 "Pofoland"의 권리·의무 및 책임사항을 규정함을
@@ -107,18 +108,18 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 서비스 이용에 관한 분쟁에 대하여는 대한민국 법을 적용하며, 본 분쟁으로 인한 소는 민사소송법상의 관할을 가지는 대한민국의 법원에제기합니다. 
 (2001년 12월 18일자 변경) 부 칙 본 약관은 2005. 7. 18. 부터 적용하고, 2004. 10. 11.부터
 적용되던 종전의 약관은 본 약관으로 대체합니다.
-                        </textarea>
-                   </td>
-				</tr>
-			</thead>
-		</table>
-		<br/>
-		<div style="text-align: center">
-			<input type="checkbox" name="agree">약관에 동의합니다 <input type="submit" value="회원가입" class="btn btn-default"> 
-			<input type="button" class="btn btn-default" value="취소" onclick="javascript:history.back();">
-		</div>
-	</fieldset>
-</form>
+				                        </textarea>
+				                   </td>
+								</tr>
+							</thead>
+						</table>
+						<br/>
+						<div style="text-align: center">
+							<input type="checkbox" name="agree">약관에 동의합니다 <input type="submit" value="회원가입" class="btn btn-default"> 
+							<input type="button" class="btn btn-default" value="취소" onclick="javascript:history.back();">
+						</div>
+					</fieldset>
+				</form>
 			</div> <!-- TextArea end -->
 			<div class="col-xs-3"></div>
 		</div>
