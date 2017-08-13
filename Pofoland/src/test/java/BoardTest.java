@@ -1,5 +1,4 @@
 
-
 /*
  * @(#) BoardTest.java
  *
