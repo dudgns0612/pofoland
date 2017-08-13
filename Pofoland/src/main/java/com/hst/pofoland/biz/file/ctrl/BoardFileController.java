@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,7 @@ import com.hst.pofoland.common.annotation.EchoOff;
 import com.hst.pofoland.common.utils.FileUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.utils.StringUtils;
+import com.hst.pofoland.common.view.ImageView;
 
 /**
  * 
@@ -60,18 +62,24 @@ public class BoardFileController {
         
         MultipartFile mFile;
         
-        FileVO t = new FileVO();
+        FileVO fileVo = new FileVO();
         
         while(iter.hasNext()) {
             mFile = request.getFile(iter.next());
-            t = fileUtil.parseMultipartFile(mFile);
-            LoggerManager.info(getClass(), "{}", t);
+            fileVo = fileUtil.parseMultipartFile(mFile);
+            LoggerManager.info(getClass(), "{}", fileVo);
             //mFile.transferTo(DESTINATION);
         }
         
-        String uploadedUrl = "";
         
-        return uploadedUrl;
+        
+        return fileVo.getBoardFilepath();
+    }
+    
+    @RequestMapping(value = "/file/view/{storedFileName.+}", method = RequestMethod.GET)
+    public ImageView imageView(@PathVariable("storedFileName")String storedFileName) {
+        ImageView imageView = new ImageView(storedFileName);
+        return imageView;
     }
     
 }
