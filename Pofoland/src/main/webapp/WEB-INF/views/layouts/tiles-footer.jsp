@@ -46,11 +46,12 @@
 <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.isotope.min.js"></script>
 <!-- magnific-popup -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.magnific-popup.min.js"></script>
-<!-- Scripts -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- /join/agreValid -->
-<script type="text/javascript" src="${contextpath}/resources/common/js/join/joinStep1.js"></script>
 <!-- bootValid -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 <!-- tiles-header -->
 <script type="text/javascript" src="${contextPath}/resources/common/js/tiles-header.js"></script>
+<!--Common Scripts -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- /join/agreValid -->
+<script type="text/javascript" src="${contextpath}/resources/common/js/join/joinStep1.js"></script>
+<script type="text/javascript" src="${contextpath}/resources/common/js/join/joinStep2.js"></script>
 
