@@ -15,6 +15,7 @@ import com.hst.pofoland.biz.user.service.UserService;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.MailAuthentication;
 import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
+import com.hst.pofoland.common.utils.StringUtils;
 
 /**
  * 
@@ -167,10 +168,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	 * @return
 	 */
 	public String getAuthKey() {
-		
-		UUID uuid = UUID.randomUUID();
-		
-		return uuid.toString();
+		return StringUtils.random();
 	}
 	
 	/**

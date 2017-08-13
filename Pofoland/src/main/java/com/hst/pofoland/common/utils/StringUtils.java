@@ -30,6 +30,9 @@ import java.util.UUID;
  */
 public class StringUtils {
 
+    /**
+     * @return
+     */
     public static String random() {
         return UUID.randomUUID().toString().replace("-", "");
     }

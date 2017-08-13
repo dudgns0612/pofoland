@@ -47,13 +47,26 @@ public class FileUtils implements InitializingBean {
     private static final double MB = 1024 * 1024;
     private static final double GB = 1024 * MB;
     
+    // 시스템 파일관리 루트
     private String fileRoot;
+    
+    // 에디터용 템프 이미지 업로드 디렉토리
     private String tempImage;
+    
+    // 게시판, 포트폴리오용 파일 업로드 디렉토리
+    private String atthFiles;
     
     @Override
     public void afterPropertiesSet() throws Exception {
         fileRoot = propertyManager.getProperty("file.root");
         tempImage = fileRoot + File.separator + propertyManager.getProperty("tempImage") + File.separator;
+        atthFiles = fileRoot + File.separator + propertyManager.getProperty("atthFiles") + File.separator;
+        
+        // 디렉토리 존재여부 확인 후 생성
+        File f = new File(tempImage);
+        if (!f.exists()) f.mkdirs();
+        f = new File(atthFiles);
+        if (!f.exists()) f.mkdirs();
     }
     
     
@@ -70,8 +83,8 @@ public class FileUtils implements InitializingBean {
         String storedFileName = null;
         
         // 확장자 인덱스 구하기
-        int extIdx = originalFileName.lastIndexOf("\\.");
-        
+        int extIdx = originalFileName.lastIndexOf(".");
+        System.out.println(originalFileName);
         // 파일명 확장자 분리
         String fileName = originalFileName.substring(0, extIdx);
         String fileType = originalFileName.substring(extIdx + 1, originalFileName.length()); 
