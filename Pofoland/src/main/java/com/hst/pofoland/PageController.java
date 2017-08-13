@@ -34,9 +34,9 @@ public class PageController {
 		return "join/joinStep1";
 	}
 	
-	@RequestMapping(value="/join/joinUser1", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/join/step2", method={RequestMethod.GET, RequestMethod.POST})
 	public String joinUser1() {
-		return "join/joinUser1";
+		return "join/joinStep2";
 	}
 	
 	/**
