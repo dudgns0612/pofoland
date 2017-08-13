@@ -48,12 +48,14 @@ public interface BoardDAO {
      * @param board 조회 조건
      * @return
      */
-    public List<BoardVO> selectBoard(BoardVO condition);
+    public List<BoardVO> selectBoards(BoardVO condition);
 
     /**
      * 총 게시글 건수 조회
      * @param condition 조회 조건
      */
     public int selectTotalRecordCount(BoardVO condition);
+    
+    public BoardVO selectBoard(BoardVO boardSeq);
     
 }

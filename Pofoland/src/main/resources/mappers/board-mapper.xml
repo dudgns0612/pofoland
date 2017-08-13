@@ -27,7 +27,7 @@
     </insert>
 
     <!-- 게시글 조회 쿼리  -->
-    <select id="selectBoard" parameterType="BoardVO" resultType="BoardVO">
+    <select id="selectBoards" parameterType="BoardVO" resultType="BoardVO">
         SELECT B.BOARD_SEQ,
                B.BOARD_TITLE,
                B.BOARD_CONTENT,
@@ -76,5 +76,28 @@
                AND B.BOARD_CATE_SEQ = #{boardCateSeq}
                </if>
     </select>
-
+	<select id="selectBoard" parameterType="BoardVO" resultType="BoardVO">
+        SELECT B.BOARD_SEQ,
+               B.BOARD_TITLE,
+               B.BOARD_CONTENT,
+               B.BOARD_REG_DT,
+               B.BOARD_UDT_DT,
+               B.BOARD_HIT_CNT,
+               B.BOARD_CATE_SEQ,
+               BC.BOARD_CATE_NAME,
+               B.JOB_CATE_SEQ,
+               JC.JOB_CATE_NAME,
+               B.USER_SEQ,
+               U.USER_ID,
+               U.USER_NICK               
+          FROM Board B,
+               User U,
+               BoardCategory BC,
+               JobCategory JC
+         WHERE B.BOARD_DEL_YN = 'N' AND
+               B.USER_SEQ = U.USER_SEQ AND
+               B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
+               B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ AND
+			   B.BOARD_SEQ = #{boardSeq}
+    </select>
 </mapper>
