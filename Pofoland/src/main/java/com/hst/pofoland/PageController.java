@@ -28,10 +28,10 @@ public class PageController {
 		return "home";
 	}
 	
-	@RequestMapping(value="/join/joinUser", method=RequestMethod.GET)
+	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
 	public String joinUser() {
 		
-		return "join/joinUser";
+		return "join/joinStep1";
 	}
 	
 	@RequestMapping(value="/join/joinUser1", method={RequestMethod.GET, RequestMethod.POST})

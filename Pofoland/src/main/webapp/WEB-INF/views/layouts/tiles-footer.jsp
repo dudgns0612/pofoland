@@ -27,15 +27,30 @@
 </div>
 
 <!-- JS -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.parallax.js"></script><!-- Parallax -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/smoothscroll.js"></script><!-- Smooth Scroll -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/masonry.pkgd.min.js"></script><!-- masonry -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.fitvids.js"></script><!-- fitvids -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/owl.carousel.min.js"></script><!-- Owl-Carousel -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.counterup.min.js"></script><!-- CounterUp -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/waypoints.min.js"></script><!-- CounterUp -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.isotope.min.js"></script><!-- isotope -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.magnific-popup.min.js"></script><!-- magnific-popup -->
-<script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- Scripts -->
-<script type="text/javascript" src="${contextpath}/resources/assets/js/join/agreeValid.js"></script><!-- /join/agreValid -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script><!-- bootValid -->
+
+<!-- Parallax -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.parallax.js"></script>
+<!-- Smooth Scroll -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/smoothscroll.js"></script>
+<!-- masonry -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/masonry.pkgd.min.js"></script>
+<!-- fitvids -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.fitvids.js"></script>
+<!-- Owl-Carousel -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/owl.carousel.min.js"></script>
+<!-- CounterUp -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.counterup.min.js"></script>
+<!-- CounterUp -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/waypoints.min.js"></script>
+<!-- isotope -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.isotope.min.js"></script>
+<!-- magnific-popup -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Scripts -->
+<script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- /join/agreValid -->
+<script type="text/javascript" src="${contextpath}/resources/common/js/join/joinStep1.js"></script>
+<!-- bootValid -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+<!-- tiles-header -->
+<script type="text/javascript" src="${contextPath}/resources/common/js/tiles-header.js"></script>
+

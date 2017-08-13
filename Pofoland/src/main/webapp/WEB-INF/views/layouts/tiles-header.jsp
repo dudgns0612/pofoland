@@ -50,26 +50,21 @@
 														<input type="password" class="form-control"
 															id="InputPassword" placeholder="Password" name="m_pw">
 														<div class="help-block text-center">
-															<a href="#">Forget the password?</a>
+															<a href="#" style="font-size:12px;">Forget the password?</a>
 														</div>
 													</div>
 													<div class="form-group">
-														<button type="submit" class="btn btn-block btn-default">Sign
-															in</button>
+														<button type="submit" class="btn btn-block btn-default">Sign in</button>
+													</div>
+													<div class="form-group" style="margin-top : -10px;">
+														<button type="button" id="signUpBtn" class="btn btn-block btn-default">Sign up</button>
 													</div>
 													<div class="checkbox">
-														<label> <input type="checkbox">keep me
-															logged-in
+														<label> 
+															<input type="checkbox">keep me logged-in
 														</label>
 													</div>
 												</form>
-											
-											
-											<div class="bottom text-center">
-												New here ? <a
-													href="/join/joinUser"><b>Join
-														Us</b></a>
-											</div>
 											</div>
 										<div class="col-xs-1"></div>
 									</li>
