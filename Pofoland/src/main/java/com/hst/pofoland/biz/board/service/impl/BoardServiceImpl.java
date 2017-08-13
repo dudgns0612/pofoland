@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
         condition.setTotalRecordCount(boardDao.selectTotalRecordCount(condition));
         condition.createPaginationInfo();
         
-        List<BoardVO> boardList = boardDao.selectBoard(condition);
+        List<BoardVO> boardList = boardDao.selectBoards(condition);
         return boardList;
     }
 
@@ -29,6 +29,12 @@ public class BoardServiceImpl implements BoardService {
     public int writeBoard(BoardVO board) {
         int result = boardDao.insertBoard(board);
         return result;
+    }
+    
+    @Override
+    public BoardVO getBoard(BoardVO boardSeq){
+        BoardVO board = boardDao.selectBoard(boardSeq);
+        return board;
     }
     
 }

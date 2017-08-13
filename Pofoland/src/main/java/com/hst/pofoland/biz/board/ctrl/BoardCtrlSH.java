@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,16 +24,16 @@ public class BoardCtrlSH {
     @Inject
     private BoardService boardService;
     
-    @RequestMapping(value = "/boardDetail", method = RequestMethod.GET)
-    public ModelAndView boardDetail() {
+    @RequestMapping(value = "/boardDetail/{boardSeq}", method = RequestMethod.GET)
+    public ModelAndView boardDetail(@PathVariable("boardSeq") String boardSeq) {
         ModelAndView mv = new ModelAndView("boardDetail");
         
         BoardVO condition = new BoardVO();
-        condition.setCurrentPageNo(11);
+        condition.setBoardSeq(Integer.parseInt(boardSeq));
         
-        List<BoardVO> boardList = boardService.getBoardList(condition);
-        
-        BoardVO b = boardList.get(2);
+        //List<BoardVO> boardList = boardService.getBoardList(condition);
+        BoardVO b = boardService.getBoard(condition);
+        //BoardVO b = boardList.get(2);
         
         //boardService.getBoard(searchVo);
         

@@ -36,7 +36,7 @@
                 <c:forEach items="${boardList}" var="board">
                     <div class="single-blog">
                         <article>
-                            <h4 class="post-title"><a href="">${board.boardTitle}</a></h4>
+                            <h4 class="post-title"><a href="${contextPath}/boardDetail/${board.boardSeq}">${board.boardTitle}</a></h4>
                             <div class="post-meta text-uppercase">
                                 <span>${board.boardRegDt}</span>
                                 <span>In <a href="">${board.jobCateName}</a></span>

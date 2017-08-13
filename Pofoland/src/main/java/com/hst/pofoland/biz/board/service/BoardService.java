@@ -49,4 +49,14 @@ public interface BoardService {
      */
     public int writeBoard(BoardVO board);
     
+    /**
+     * 게시글 등록
+     * 
+     * @param board 등록할 게시글
+     * @return 등록 여부
+     */
+    public BoardVO getBoard(BoardVO searchVO);
+        
+    
+    
 }
