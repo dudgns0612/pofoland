@@ -77,7 +77,8 @@
 			    ['color', ['color']],
 			    ['para', ['ul', 'ol', 'paragraph']],
 			    ['height', ['height']],
-			    ['insert', ['picture', 'link', 'video', 'table', 'hr']]
+			    ['insert', ['picture', 'link', 'video', 'table', 'hr']],
+			    ['view', ['fullscreen', 'codeview']]
 			],
 			callbacks: {
 			    onImageUpload: temporaryImageUpload
@@ -98,7 +99,8 @@
 	        enctype: 'multipart/form-data',
 	        processData: false,
 	        success: function(uploadedUrl) {
-	            $('#editor').summernote('editor.insertImage', uploadedUrl);
+	            console.log(uploadedUrl)
+	            $('#editor').summernote('insertImage', '${contextPath}/file/view/'+uploadedUrl);
 	        }
 	     });
 	}

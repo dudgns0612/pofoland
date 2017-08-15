@@ -7,6 +7,8 @@
  */
 package com.hst.pofoland.biz.file.ctrl;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
@@ -66,19 +68,28 @@ public class BoardFileController {
         
         while(iter.hasNext()) {
             mFile = request.getFile(iter.next());
-            fileVo = fileUtil.parseMultipartFile(mFile);
+            
+            // MultipartFile 파싱
+            fileVo = fileUtil.parseMultipartFile(mFile, fileUtil.getTempImageName());
+            
             LoggerManager.info(getClass(), "{}", fileVo);
-            //mFile.transferTo(DESTINATION);
+            
+            try {
+                // 업로드
+                mFile.transferTo(new File(fileVo.getBoardFilepath()));
+            } catch (IllegalStateException e) {
+                LoggerManager.error(getClass(), e.getMessage());
+            } catch (IOException e) {
+                LoggerManager.error(getClass(), e.getMessage());
+            }
         }
         
-        
-        
-        return fileVo.getBoardFilepath();
+        return fileUtil.getTempImageName() + fileVo.getFilenameExcludeDirectory();
     }
     
-    @RequestMapping(value = "/file/view/{storedFileName.+}", method = RequestMethod.GET)
-    public ImageView imageView(@PathVariable("storedFileName")String storedFileName) {
-        ImageView imageView = new ImageView(storedFileName);
+    @RequestMapping(value = "/file/view/{directory}/{storedFileName.+}", method = RequestMethod.GET)
+    public ImageView imageView(@PathVariable("directory")String directory, @PathVariable("storedFileName")String storedFileName) {
+        ImageView imageView = new ImageView(directory, storedFileName);
         return imageView;
     }
     

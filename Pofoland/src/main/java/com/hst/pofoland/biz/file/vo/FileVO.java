@@ -35,6 +35,9 @@ public class FileVO {
     private String boardFilepath;
     private int boardSeq;
     
+    // 디렉토리명 제외 파일명
+    private String filenameExcludeDirectory;
+    
     public FileVO() {
     }
     
@@ -129,17 +132,42 @@ public class FileVO {
     public void setBoardSeq(int boardSeq) {
         this.boardSeq = boardSeq;
     }
+    /**
+     * @return filenameExcludeDirectory 반환
+     */
+    public String getFilenameExcludeDirectory() {
+        return filenameExcludeDirectory;
+    }
+
+    /**
+     * @param filenameExcludeDirectory 설정할 filenameExcludeDirectory
+     */
+    public void setFilenameExcludeDirectory(String filenameExcludeDirectory) {
+        this.filenameExcludeDirectory = filenameExcludeDirectory;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("FileVo [boardFileSeq=").append(boardFileSeq).append(", boardFilename=").append(boardFilename)
-                .append(", boardFiletype=").append(boardFiletype).append(", boardFilesize=").append(boardFilesize)
-                .append(", boardFilepath=").append(boardFilepath).append(", boardSeq=").append(boardSeq).append("]");
+        builder.append("FileVO [boardFileSeq=");
+        builder.append(boardFileSeq);
+        builder.append(", boardFilename=");
+        builder.append(boardFilename);
+        builder.append(", boardFiletype=");
+        builder.append(boardFiletype);
+        builder.append(", boardFilesize=");
+        builder.append(boardFilesize);
+        builder.append(", boardFilepath=");
+        builder.append(boardFilepath);
+        builder.append(", boardSeq=");
+        builder.append(boardSeq);
+        builder.append(", filenameExcludeDirectory=");
+        builder.append(filenameExcludeDirectory);
+        builder.append("]");
         return builder.toString();
     }
-    
     
 }

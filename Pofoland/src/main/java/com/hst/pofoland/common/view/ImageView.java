@@ -7,6 +7,7 @@
  */
 package com.hst.pofoland.common.view;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Map;
 
@@ -43,12 +44,14 @@ public class ImageView extends AbstractView {
     @Inject
     private FileUtils fileUtils;
     
+    private String directory;
     private String storedFileName;
     
     public ImageView() {
     }
     
-    public ImageView(String storedFileName) {
+    public ImageView(String directory, String storedFileName) {
+        this.directory = directory;
         this.storedFileName = storedFileName;
     }
     
@@ -56,7 +59,7 @@ public class ImageView extends AbstractView {
     @Override
     protected void renderMergedOutputModel(Map<String, Object> modelMap, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        IOUtils.copy(new FileInputStream(storedFileName), response.getOutputStream());
+        IOUtils.copy(new FileInputStream(directory + File.separator + storedFileName), response.getOutputStream());
     }
     
 }

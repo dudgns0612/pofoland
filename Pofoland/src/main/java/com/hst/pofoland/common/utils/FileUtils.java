@@ -50,17 +50,16 @@ public class FileUtils implements InitializingBean {
     // 시스템 파일관리 루트
     private String fileRoot;
     
-    // 에디터용 템프 이미지 업로드 디렉토리
-    private String tempImage;
-    
-    // 게시판, 포트폴리오용 파일 업로드 디렉토리
-    private String atthFiles;
+    private String tempImageName;
+    private String atthFilesName;
     
     @Override
     public void afterPropertiesSet() throws Exception {
         fileRoot = propertyManager.getProperty("file.root");
-        tempImage = fileRoot + File.separator + propertyManager.getProperty("tempImage") + File.separator;
-        atthFiles = fileRoot + File.separator + propertyManager.getProperty("atthFiles") + File.separator;
+        tempImageName = propertyManager.getProperty("tempImage") + File.separator;
+        atthFilesName = fileRoot + File.separator + propertyManager.getProperty("atthFiles") + File.separator;
+        String tempImage = fileRoot + File.separator + propertyManager.getProperty("tempImage") + File.separator;
+        String atthFiles = fileRoot + File.separator + propertyManager.getProperty("atthFiles") + File.separator;
         
         // 디렉토리 존재여부 확인 후 생성
         File f = new File(tempImage);
@@ -71,11 +70,59 @@ public class FileUtils implements InitializingBean {
     
     
     /**
+     * @return fileRoot 반환
+     */
+    public String getFileRoot() {
+        return fileRoot;
+    }
+
+
+    /**
+     * @param fileRoot 설정할 fileRoot
+     */
+    public void setFileRoot(String fileRoot) {
+        this.fileRoot = fileRoot;
+    }
+
+
+    /**
+     * @return tempImageName 반환
+     */
+    public String getTempImageName() {
+        return tempImageName;
+    }
+
+
+    /**
+     * @param tempImageName 설정할 tempImageName
+     */
+    public void setTempImageName(String tempImageName) {
+        this.tempImageName = tempImageName;
+    }
+
+
+    /**
+     * @return atthFilesName 반환
+     */
+    public String getAtthFilesName() {
+        return atthFilesName;
+    }
+
+
+    /**
+     * @param atthFilesName 설정할 atthFilesName
+     */
+    public void setAtthFilesName(String atthFilesName) {
+        this.atthFilesName = atthFilesName;
+    }
+
+
+    /**
      * 업로드된 MultipartFile객체 FileVO로 변환
      * @param mFile 업로드된 파일
      * @return
      */
-    public FileVO parseMultipartFile(MultipartFile mFile) {
+    public FileVO parseMultipartFile(MultipartFile mFile, String useDirectoryName) {
         FileVO fileVo = new FileVO();
         
         // 원본 파일명 추출
@@ -92,13 +139,16 @@ public class FileUtils implements InitializingBean {
         // 저장 파일명 생성
         storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + "." + fileType;
         
+        // 시퀀스말고 파일명으로 파일 참조 시 사용할 값
+        fileVo.setFilenameExcludeDirectory(storedFileName);
+        
         // 파일 크기 구하기
         double fileSize = mFile.getSize();
         
         // 파싱결과값 FileVO에 셋
         fileVo.setBoardFilename(fileName);
         fileVo.setBoardFiletype(fileType);
-        fileVo.setBoardFilepath(tempImage + storedFileName);
+        fileVo.setBoardFilepath(fileRoot + File.separator + useDirectoryName + File.separator + storedFileName);
         fileVo.setBoardFilesize(fileSize / MB);
         
         return fileVo;
