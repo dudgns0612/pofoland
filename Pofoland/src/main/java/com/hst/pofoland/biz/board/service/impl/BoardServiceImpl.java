@@ -18,9 +18,6 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<BoardVO> getBoardList(BoardVO condition) {
-        condition.setTotalRecordCount(boardDao.selectTotalRecordCount(condition));
-        condition.createPaginationInfo();
-        
         List<BoardVO> boardList = boardDao.selectBoards(condition);
         return boardList;
     }
@@ -32,9 +29,17 @@ public class BoardServiceImpl implements BoardService {
     }
     
     @Override
-    public BoardVO getBoard(BoardVO boardSeq){
-        BoardVO board = boardDao.selectBoard(boardSeq);
+    public BoardVO getBoard(BoardVO condition){
+        // 조회수 증가
+        boardDao.increaseHit(condition);
+
+        BoardVO board = boardDao.selectBoard(condition);
         return board;
+    }
+
+    @Override
+    public int getBoardListCount(BoardVO srchVo) {
+        return boardDao.selectTotalRecordCount(srchVo);
     }
     
 }

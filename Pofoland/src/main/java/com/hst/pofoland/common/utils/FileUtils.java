@@ -131,7 +131,7 @@ public class FileUtils implements InitializingBean {
         
         // 확장자 인덱스 구하기
         int extIdx = originalFileName.lastIndexOf(".");
-        System.out.println(originalFileName);
+
         // 파일명 확장자 분리
         String fileName = originalFileName.substring(0, extIdx);
         String fileType = originalFileName.substring(extIdx + 1, originalFileName.length()); 
@@ -148,7 +148,7 @@ public class FileUtils implements InitializingBean {
         // 파싱결과값 FileVO에 셋
         fileVo.setBoardFilename(fileName);
         fileVo.setBoardFiletype(fileType);
-        fileVo.setBoardFilepath(fileRoot + File.separator + useDirectoryName + File.separator + storedFileName);
+        fileVo.setBoardFilepath(fileRoot + File.separator + useDirectoryName + storedFileName);
         fileVo.setBoardFilesize(fileSize / MB);
         
         return fileVo;

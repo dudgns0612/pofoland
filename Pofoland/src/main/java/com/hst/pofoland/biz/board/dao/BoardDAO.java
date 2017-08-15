@@ -43,7 +43,7 @@ public interface BoardDAO {
     public int insertBoard(BoardVO board);
     
     /**
-     * 게시글 조회 
+     * 게시글 목록 조회 
      * 
      * @param board 조회 조건
      * @return
@@ -56,6 +56,16 @@ public interface BoardDAO {
      */
     public int selectTotalRecordCount(BoardVO condition);
     
+    /***
+     * 게시글 조회 
+     * 
+     * @param boardSeq 조회 조건
+     * @return
+     */
     public BoardVO selectBoard(BoardVO boardSeq);
     
+    /**
+     * 게시글 조회수 증가 
+     */
+    public void increaseHit(BoardVO boardSeq);
 }

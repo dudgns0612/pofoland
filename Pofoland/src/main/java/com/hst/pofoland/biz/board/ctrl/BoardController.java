@@ -7,22 +7,19 @@
  */
 package com.hst.pofoland.biz.board.ctrl;
 
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.board.service.BoardService;
@@ -52,6 +49,7 @@ import com.hst.pofoland.common.utils.LoggerManager;
  * </pre>
  */
 @Controller
+@RequestMapping("/board")
 public class BoardController implements InitializingBean {
 
     @Inject
@@ -71,9 +69,13 @@ public class BoardController implements InitializingBean {
     }
 
     
-    @RequestMapping(value = "/boardMain", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView boardMain(@ModelAttribute("condition")BoardVO condition) {
-        ModelAndView mv = new ModelAndView("boardMain");
+        // 페이징처리를 위한 세팅
+        condition.setTotalRecordCount(boardService.getBoardListCount(condition));
+        condition.createPaginationInfo();
+        
+        ModelAndView mv = new ModelAndView("board/list");
         mv.addObject("boardList", boardService.getBoardList(condition));
         mv.addObject("boardCategories", boardCategories);
         mv.addObject("jobCategories", jobCategories);
@@ -81,9 +83,9 @@ public class BoardController implements InitializingBean {
         return mv;
     }
     
-    @RequestMapping(value = "/boardWrite", method = RequestMethod.GET)
+    @RequestMapping(value = "/write", method = RequestMethod.GET)
     public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm, HttpSession session) {
-        ModelAndView mv= new ModelAndView("boardWrite");
+        ModelAndView mv= new ModelAndView("board/write");
         mv.addObject("boardCategories", boardCategories);
         mv.addObject("jobCategories", jobCategories);
         
@@ -93,13 +95,33 @@ public class BoardController implements InitializingBean {
         return mv;
     }
 
-    @RequestMapping(value ="/board", method = RequestMethod.POST)
-    public String writeBoard(@ModelAttribute("writeForm")BoardVO writeForm) {
-        LoggerManager.info(getClass(), "{}", writeForm);
+    @RequestMapping(value ="", method = RequestMethod.POST)
+    public String writeBoard(@ModelAttribute("writeForm")BoardVO writeForm, MultipartHttpServletRequest request) {
+        LoggerManager.info(getClass(), "{}", request);
+        
+        for(MultipartFile mf : request.getFiles("atthFiles")) {
+            LoggerManager.info(getClass(), "{}", mf.getName());            
+        }
+        
+        LoggerManager.info(getClass(), "{}", request.getFile("a"));
         
         boardService.writeBoard(writeForm);
         
-        return "redirect:/boardMain";
+        return "redirect:/board/main";
+    }
+    
+    @RequestMapping(value = "{boardSeq}", method = RequestMethod.GET)
+    public ModelAndView boardDetail(@PathVariable("boardSeq") String boardSeq) {
+        ModelAndView mv = new ModelAndView("board/detail");
+        
+        BoardVO srchVo = new BoardVO();
+        srchVo.setBoardSeq(Integer.parseInt(boardSeq));
+        
+        BoardVO board = boardService.getBoard(srchVo);
+        
+        mv.addObject("board", board);
+        
+        return mv;
     }
 
 }

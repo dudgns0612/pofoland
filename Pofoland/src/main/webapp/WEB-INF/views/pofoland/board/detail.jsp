@@ -23,20 +23,16 @@
 		</div>
 		${board.userNick}(${board.userId})
 		<div class="clearfix"></div>
-		<div style="text-align : center; ">
-		   ${board.boardContent}
-		</div>
-		<div>
-			댓글:60개  | 조회수:${board.boardHitCnt}
-		</div>
+		<div style="margin-top: 20px; margin-bottom: 20px;">${board.boardContent}</div>
+		<div>댓글:60개  | 조회수:${board.boardHitCnt}</div>
 		<div class="panel panel-default">
 		  <div class="panel-body">
 		 	<div>
-		 		Basic panel example
+		 		<h6>댓글</h6>
 		    </div>
 		    <div>
-		    	<form>
-		    		<textarea style="height:80px; width:850px"></textarea><input type="button" value="등록" style="height:80px; width: 100px"/>
+		    	<form class="form-inline">
+		    		<textarea style="height:80px; width:600px; resize: none;" class="form-control"></textarea><input type="button" value="댓글등록" style="height:80px; width: 100px" class="form-control"/>
 		    	</form>
 		    </div>
 		  </div>
