@@ -18,12 +18,12 @@
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
-									<input id="idinput" name="user_id" placeholder="아이디를 입력하여 주세요." class="form-control input-md" type="text" pattern="^[_A-z0-9]{1,}$" style="width:550px;" /> 
+									<input id="idInput" name="user_id" placeholder="아이디를 입력하여 주세요." class="form-control input-md" type="text" pattern="^[_A-z0-9]{1,}$" style="width:550px;" /> 
 									<input type="hidden" name="user_idcheck" value="">
 								</div>    
 							</div>
 							<div class="col-md-1">
-								<input type='button' class="btn btn-default" value="중복확인" name="idcheckbtn" style="margin-left:-10px;">
+								<input type='button' class="btn btn-default" value="중복확인" name="idcheckbtn" style="margin-left:-12px;">
 							</div>
 						</div>
 						<br/>

@@ -114,15 +114,15 @@ $(document).ready( function(){
 						
 						  
     $('input[name="idcheckbtn"]').click(function(){  
-        	var user_id=$('#idinput').val(); 
+        	var userId=$('#idInput').val(); 
         	 $.ajax({ 	 
 			        type: "GET",
-			        url: "/user/checkid"+user_id, 
-			        data: "user_id="+ user_id ,
+			        url: "/user/checkid"+userId, 
 			        datatype : "JSON",
 			        success: function(response){
+			        	console.log(response)
 			            if(response.count==1){  
-			            	$('input[name="user_idcheck"]').attr("value",user_id);
+			            	$('input[name="user_idcheck"]').attr("value",userId);
 			            	alert("이미 사용중인 아이디입니다! 다른 아이디를 사용하세요");
 			            	$('#idinput').focus();
 			            	$('#idinput').val("");

@@ -20,23 +20,23 @@ public class PageController {
 		
 		LoggerManager.info(getClass(), "로그테스트");
 		
-		return "login";
+		return "common/login";
 	}
 	
 	@RequestMapping(value="/home")
 	public String tilesTest() {
-		return "home";
+		return "common/home";
 	}
 	
 	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
 	public String joinUser() {
 		
-		return "join/joinStep1";
+		return "user/joinStep1";
 	}
 	
 	@RequestMapping(value="/join/step2", method={RequestMethod.GET, RequestMethod.POST})
 	public String joinUser1() {
-		return "join/joinStep2";
+		return "user/joinStep2";
 	}
 	
 	/**
