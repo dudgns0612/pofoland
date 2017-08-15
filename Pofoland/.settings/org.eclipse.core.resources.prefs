@@ -1,21 +1,9 @@
-<<<<<<< HEAD
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=branch 'develop' of https\://github.com/dudgns0612/Pofoland.git
+>>>>>>>=refs/heads/SH
 eclipse.preferences.version=1
 encoding//src/main/resources/properties/network.path.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/boardMain.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/login.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/pofoland/common/home.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/pofoland/common/login.jsp=UTF-8
 encoding/<project>=UTF-8
-=======
-=\=\=\=\=\=\=
-<<<<<<<=HEAD
->>>>>>>=branch 'develop' of https\://github.com/dudgns0612/Pofoland.git
-eclipse.preferences.version=1
-encoding//src/main/resources/properties/network.path.properties=UTF-8
-encoding//src/main/webapp/WEB-INF/views/boardMain.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/login.jsp=UTF-8
-encoding/<project>=UTF-8
->>>>>>> refs/heads/SH
