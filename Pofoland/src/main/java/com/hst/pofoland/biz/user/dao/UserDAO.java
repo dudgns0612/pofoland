@@ -55,6 +55,13 @@ public interface UserDAO {
 	public String selectDuplicateCheckNick(String userNick);
 	
 	/**
+	 * 유저 이메일 중복확인
+	 * @param userEmail
+	 * @return
+	 */
+	public String selectDuplicateCheckEmail(String userEmail);
+	
+	/**
 	 * 유저 정보조회
 	 * @param userSeq
 	 * @return

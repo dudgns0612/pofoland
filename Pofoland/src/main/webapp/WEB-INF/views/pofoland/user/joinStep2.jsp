@@ -5,7 +5,7 @@
 			<div class="col-xs-2"></div>
 			<div class="col-xs-8 text-center">
 				<img src="${contextPath}/resources/assets/images/join/joinStep1.png" style="text-align: center;"/>
-				<form id="createForm" class="form-horizontal" method="POST" action="/user/#">
+				<form id="createForm" class="form-horizontal" method="POST" action="${contextPath}/user">
 
 					<hr/>
 					<br/>
@@ -18,8 +18,7 @@
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
-									<input id="idInput" name="user_id" placeholder="아이디를 입력하여 주세요." class="form-control input-md" type="text" pattern="^[_A-z0-9]{1,}$" style="width:550px;" /> 
-									<input type="hidden" name="user_idcheck" value="">
+									<input id="idInput" name="userId" placeholder="아이디를 입력하여 주세요." class="form-control input-md" type="text" pattern="^[_A-z0-9]{1,}$" style="width:550px;" /> 
 								</div>    
 							</div>
 							<div class="col-md-1">
@@ -37,7 +36,7 @@
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
-									<input type="password" class="form-control input-md" id="inputPw" placeholder="비밀번호를 입력하여 주세요." name="m_pw" style="width:550px;">
+									<input type="password" class="form-control input-md" id="inputPw" placeholder="비밀번호를 입력하여 주세요." name="userPw" style="width:550px;">
 								</div>
 							</div>
 						</div>
@@ -50,23 +49,25 @@
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
-										<input type="password" class="form-control input-md" id="inputPwConfirm" placeholder="비밀번호 한번 더 입력하여 주세요." name="rem_pw" style="width:550px;" />
+										<input type="password" class="form-control input-md" id="inputPwConfirm" placeholder="비밀번호 한번 더 입력하여 주세요." name="remPw" style="width:550px;" />
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
 						</div>
 						<br/>
 				
-						<!-- m_email input-->
+						<!-- userEmail input-->
 						<div class="form-group">
 							<label class="col-md-3 control-label" for="emailinput">
 								<img src="${contextPath}/resources/common/images/join/email.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
-									<input type="text" class="form-control input-md" id="emailinput" placeholder="ex) admin@hst.com" name="m_email" style="width:550px;" />
-									<input type="hidden" name="m_emailcheck" value="">
+									<input type="text" class="form-control input-md" id="emailInput" placeholder="ex) admin@hst.com" name="userEmail" style="width:550px;" />
 								</div>
+							</div>
+							<div class="col-md-1">
+								<input type='button' class="btn btn-default" value="중복확인" name="emailcheckbtn" style="margin-left:-12px;">
 							</div>
 						</div>
 						<br/>

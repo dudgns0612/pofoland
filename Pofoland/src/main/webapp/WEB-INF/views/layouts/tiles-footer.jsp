@@ -52,6 +52,6 @@
 <script type="text/javascript" src="${contextPath}/resources/common/js/tiles-header.js"></script>
 <!--Common Scripts -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- /join/agreValid -->
-<script type="text/javascript" src="${contextpath}/resources/common/js/join/joinStep1.js"></script>
-<script type="text/javascript" src="${contextpath}/resources/common/js/join/joinStep2.js"></script>
+<script type="text/javascript" src="${contextpath}/resources/common/js/user/joinStep1.js"></script>
+<script type="text/javascript" src="${contextpath}/resources/common/js/user/joinStep2.js"></script>
 

@@ -10,6 +10,8 @@ public interface UserService {
 	
 	public String duplicateCheckNick(String userNick);
 	
+	public String duplicateCheckEmail(String userEmail);
+	
 	public UserVO searchUser(Integer userSeq);
 	
 	public Integer authProcessUser(UserVO userVO);

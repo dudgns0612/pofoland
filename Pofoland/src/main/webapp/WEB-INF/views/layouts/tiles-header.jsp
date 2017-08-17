@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!-- PRELOADER -->
 <div id="st-preloader">
     <div id="pre-status">
@@ -78,4 +79,5 @@
         </div><!-- /.container -->
     </nav>
 </header>
+
 <!-- /HEADER -->

@@ -116,6 +116,19 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		return checkNick;
 	}
+
+	/**
+	 * 유저 이메일 중복확인
+	 * @param userEmail
+	 * @return
+	 */
+	@Override
+	public String duplicateCheckEmail(String userEmail) {
+		
+		String checkEmail = userDAO.selectDuplicateCheckEmail(userEmail);
+		
+		return checkEmail;
+	}
 	
 	/**
 	 * 유저 정보조회

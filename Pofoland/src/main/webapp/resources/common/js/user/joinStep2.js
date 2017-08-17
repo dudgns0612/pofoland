@@ -1,7 +1,7 @@
 $(document).ready( function(){
 	$('#createForm').bootstrapValidator({ 
 		fields : {
-			user_id : {
+			userId : {
 				validators : {
 					notEmpty : {
 						message : 'ID를 입력하세요.'
@@ -14,14 +14,10 @@ $(document).ready( function(){
 					regexp : {
 						regexp : /^[a-zA-Z0-9_\.]+$/,
 						message : '영문자, 숫자, ., _ 만 사용가능합니다.'
-					},
-					 different : {
-						field : 'user_idcheck', 
-						message : '이미 사용중인 아이디입니다.'
-					}  
+					}
 				}
 			}, 
-			m_pw : {
+			userPw : {
 				validators : {
 					notEmpty : {
 						message : '비밀번호를 입력하세요.'
@@ -70,29 +66,25 @@ $(document).ready( function(){
 					}
 				}
 			},
-			rem_pw : {
+			remPw : {
 				validators : {
 					notEmpty : {
 						message : '비밀번호 다시 입력하세요.'
 					},  
 					identical : {
-						field : 'm_pw',
+						field : 'userPw',
 						message : '비밀번호가 일치하지않습니다.'
 					}
 				}
 			},
-			m_email : {
+			userEmail : {
 				validators : {
 					notEmpty : {
 						message : '이메일을 입력하세요.'
 					},
 					emailAddress : {
 						message : '이메일을 제대로 입력하세요!!'
-					},
-					 different : {
-							field : 'm_emailcheck', 
-							message : '이미 사용중인 이메일입니다.'
-						}  
+					}
 				}
 			},
 			idcheckbtn : {
@@ -113,60 +105,63 @@ $(document).ready( function(){
 	});
 						
 						  
-    $('input[name="idcheckbtn"]').click(function(){  
-        	var userId=$('#idInput').val(); 
-        	 $.ajax({ 	 
-			        type: "GET",
-			        url: "/user/checkid"+userId, 
-			        datatype : "JSON",
-			        success: function(response){
-			        	console.log(response)
-			            if(response.count==1){  
-			            	$('input[name="user_idcheck"]').attr("value",userId);
-			            	alert("이미 사용중인 아이디입니다! 다른 아이디를 사용하세요");
-			            	$('#idinput').focus();
-			            	$('#idinput').val("");
-			           	}
-			           	else{
-			           		alert("사용가능한 아이디입니다.")
-			           	}   
-			           	  
-			        }, 
-			        error : function(e) {
-			 			console.log("ERROR: ", e);
-						display(e);
-					},
-					done : function(e) {
-						console.log("DONE");
-					} 
-        	 }); //end ajax
-    }); // end keyup
-
-    $('input[name="emailcheckbtn"]').click(function(){
-    	var m_email=$('#emailinput').val(); 
-    	 $.ajax({ 	 
-		        type: "POST",
-		        url: "./emailCheck.do", 
-		        data: "m_email="+ m_email ,
-		        datatype : "JSON",
-		        success: function(response){
-		        	  if(response.count==1){  
-			            	$('input[name="m_emailcheck"]').attr("value",m_email);
-			            	alert("이미사용중인 이메일입니다! 다른 이메일을 사용하세요");
-			            	$('#emailinput').focus();
-			            	$('#emailinput').val("");
-			           	}
-			           	else{
-			           		alert("사용가능한 이메일입니다.")
-			           	}   
-		        }, 
-		        error : function(e) {
-		 			console.log("ERROR: ", e);
-					display(e);
+    $('input[name="idcheckbtn"]').click(function(){
+        	var userId=$('#idInput').val();
+        	if(userId == "" || userId == null) {
+        		return;
+        	}
+        	$.ajax({ 	 
+				type: "GET",
+				url: contextPath+"/user/checkid/"+userId, 
+				datatype : "JSON",
+				success: function(response){
+					console.log(response)
+				    if(response.code == 1){  
+						$('input[name="userIdCheck"]').attr("value",userId);
+						alert("이미 사용중인 아이디입니다.");
+						$('#idinput').focus();
+						$('#idinput').val("");
+					}
+					else {
+						alert("사용이 가능한 아이디입니다.");
+					}   
+				}, 
+				error : function(e) {
+					console.log("ERROR: ", e);
 				},
 				done : function(e) {
 					console.log("DONE");
 				} 
-    	 }); //end ajax
-}); // end keyup
+        	}); //end ajax
+    }); // end keyup
+
+    $('input[name="emailcheckbtn"]').click(function(){
+    	var emailId=$('#emailInput').val(); 
+    	if (emailId == null || emailId == "") {
+    		alert("이메일을 입력하여 주세요.");
+    		return;
+    	}
+    	$.ajax({ 	 
+			type: "GET",
+			url: contextPath +"/user/checkemail/"+emailId,
+			datatype : "JSON",
+			success: function(response){
+				if(response.code == 1) {  
+					$('input[name="userEamilCheck"]').attr("value",emailId);
+					alert("이미사용중인 이메일입니다! 다른 이메일을 사용하세요");
+					$('#emailinput').focus();
+					$('#emailinput').val("");
+				}
+				else{
+					alert("사용가능한 이메일입니다.");
+			   	}   
+			}, 
+			error : function(e) {
+				console.log("ERROR: ", e);
+			},
+			done : function(e) {
+				console.log("DONE");
+			} 
+    	}); //end ajax
+    }); // end keyup
 });

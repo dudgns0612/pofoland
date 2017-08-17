@@ -56,6 +56,12 @@
 		 WHERE USER_NICK = #{userNick}
 	</select>
 	
+	<select id="selectDuplicateCheckEmail" resultType="String">
+		SELECT USER_EMAIL
+		  FROM User
+		 WHERE USER_EMAIL = #{userEmail}
+	</select>
+	
 	<select id="selectUserInfo" resultType="UserVO">
 		SELECT USER_SEQ,
 			   USER_ID,

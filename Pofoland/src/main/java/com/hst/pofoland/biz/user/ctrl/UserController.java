@@ -199,6 +199,27 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
+	 * 유저 이메일중복확인
+	 * @param userNick
+	 * @return
+	 */
+	@RequestMapping(value="/user/checkemail/{userEmail:.*}", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO duplicateCheckEmail(@PathVariable String userEmail) {
+		
+		LoggerManager.info(getClass(), "{}", userEmail);
+		
+		String checkEmail = userService.duplicateCheckEmail(userEmail);
+		
+		ResponseVO responseVO = new ResponseVO();
+		if (checkEmail != null) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+		}
+		
+		return responseVO;
+	}
+	
+	/**
 	 * 유저 정보조회
 	 * @param userSeq
 	 * @return
