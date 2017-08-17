@@ -22,7 +22,7 @@
 								</div>    
 							</div>
 							<div class="col-md-1">
-								<input type='button' class="btn btn-default" value="중복확인" name="idcheckbtn" style="margin-left:-12px;">
+								<input type='button' class="btn btn-default" value="중복확인" name="idcheckbtn" style="margin-left:-12px;" disabled="disabled">
 							</div>
 						</div>
 						<br/>
@@ -67,7 +67,7 @@
 								</div>
 							</div>
 							<div class="col-md-1">
-								<input type='button' class="btn btn-default" value="중복확인" name="emailcheckbtn" style="margin-left:-12px;">
+								<input type='button' class="btn btn-default" value="중복확인" name="emailcheckbtn" style="margin-left:-12px;" disabled="disabled">
 							</div>
 						</div>
 						<br/>

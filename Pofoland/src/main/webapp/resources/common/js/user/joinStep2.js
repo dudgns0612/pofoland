@@ -14,6 +14,26 @@ $(document).ready( function(){
 					regexp : {
 						regexp : /^[a-zA-Z0-9_\.]+$/,
 						message : '영문자, 숫자, ., _ 만 사용가능합니다.'
+					},
+					callback : {
+						callback : function(value, validator, $field){
+							var reg = /^[a-zA-Z0-9_\.]+$/;
+							var check = true;
+							
+							if (value == '') {
+								check = false;
+							} else if (!reg.test(value)) {
+								check = false;
+							} else if (value.length < 6 || value.length > 15) {
+								check = false;
+							}
+							if(check) {
+								$('input[name="idcheckbtn"]').removeAttr('disabled');
+							} else {
+								$('input[name="idcheckbtn"]').attr('disabled','disabled');
+							}
+							return  true;
+						}	
 					}
 				}
 			}, 
@@ -28,14 +48,10 @@ $(document).ready( function(){
 					},
 					callback : {
 						message : '제대로 입력하세요',
-						callback : function(
-								value,
-								validator,
-								$field) {
+						callback : function(value, validator, $field) {
 							if (value === '') {
 								return true;
 							}
-	
 							// Check the password strength
 							if (value.length < 8) {
 								return {
@@ -44,8 +60,7 @@ $(document).ready( function(){
 								};
 							}
 							// The password doesn't contain any uppercase character
-							if (value === value
-									.toUpperCase()) {
+							if (value === value.toUpperCase()) {
 								return {
 									valid : false,
 									message : '소문자를 하나라도 포함하셔야 합니다.'
@@ -53,14 +68,12 @@ $(document).ready( function(){
 							}
 	
 							// The password doesn't contain any digit
-							if (value
-									.search(/[0-9]/) < 0) {
+							if (value.search(/[0-9]/) < 0) {
 								return {
 									valid : false,
 									message : '특수문자를 하나라도 포함하셔야 합니다.'
 								}
 							}
-	
 							return true;
 						}
 					}
@@ -84,6 +97,28 @@ $(document).ready( function(){
 					},
 					emailAddress : {
 						message : '이메일을 제대로 입력하세요!!'
+					},
+					callback : {
+						callback : function (value, validator){
+							var check = true;
+							if (value == '') {
+								check = false;
+							} else if (value.indexOf('@') < 0) {
+								check = false;
+							} else if (value.indexOf('@') > 0) {
+								var strCheck = value.split('@');
+								if (strCheck[1] != '') {
+									check = false;
+								}
+							}
+							
+							if (check) {
+								$('input[name="emailcheckbtn"]').removeAttr('disabled');
+							} else {
+								$('input[name="emailcheckbtn"]').attr('disabled','disabled');
+							}
+							return true;
+						}
 					}
 				}
 			},
@@ -106,10 +141,6 @@ $(document).ready( function(){
 						
 						  
     $('input[name="idcheckbtn"]').click(function(){
-        	var userId=$('#idInput').val();
-        	if(userId == "" || userId == null) {
-        		return;
-        	}
         	$.ajax({ 	 
 				type: "GET",
 				url: contextPath+"/user/checkid/"+userId, 
@@ -136,11 +167,6 @@ $(document).ready( function(){
     }); // end keyup
 
     $('input[name="emailcheckbtn"]').click(function(){
-    	var emailId=$('#emailInput').val(); 
-    	if (emailId == null || emailId == "") {
-    		alert("이메일을 입력하여 주세요.");
-    		return;
-    	}
     	$.ajax({ 	 
 			type: "GET",
 			url: contextPath +"/user/checkemail/"+emailId,
