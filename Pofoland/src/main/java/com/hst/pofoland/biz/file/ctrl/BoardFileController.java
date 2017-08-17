@@ -72,23 +72,22 @@ public class BoardFileController {
             // MultipartFile 파싱
             fileVo = fileUtil.parseMultipartFile(mFile, fileUtil.getTempImageName());
             
-            LoggerManager.info(getClass(), "{}", fileVo);
-            
             try {
                 // 업로드
                 mFile.transferTo(new File(fileVo.getBoardFilepath()));
             } catch (IllegalStateException e) {
-                LoggerManager.error(getClass(), e.getMessage());
+                LoggerManager.info(getClass(), e.getMessage());
             } catch (IOException e) {
-                LoggerManager.error(getClass(), e.getMessage());
+                LoggerManager.info(getClass(), e.getMessage());
             }
         }
         
         return fileUtil.getTempImageName() + fileVo.getFilenameExcludeDirectory();
     }
     
-    @RequestMapping(value = "/file/view/{directory}/{storedFileName.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/view/{directory}/{storedFileName:.+}", method = RequestMethod.GET)
     public ImageView imageView(@PathVariable("directory")String directory, @PathVariable("storedFileName")String storedFileName) {
+        LoggerManager.info(getClass(), "{} / {}", directory, storedFileName);
         ImageView imageView = new ImageView(directory, storedFileName);
         return imageView;
     }

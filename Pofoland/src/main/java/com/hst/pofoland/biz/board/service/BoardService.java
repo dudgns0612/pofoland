@@ -31,15 +31,23 @@ import com.hst.pofoland.biz.board.vo.BoardVO;
  * </pre>
  */
 public interface BoardService {
-
+    
+    
+    /**
+     * 게시글 갯수 조회
+     * 
+     * @param srchVo
+     * @return
+     */
+    public int getBoardListCount(BoardVO srchVo);
     
     /**
      * 게시글 목록 반환
      * 
-     * @param searchVo 검색 / 페이징 조건
+     * @param srchVo 검색 / 페이징 조건
      * @return 게시글 목록
      */
-    public List<BoardVO> getBoardList(BoardVO searchVo);
+    public List<BoardVO> getBoardList(BoardVO srchVo);
     
     /**
      * 게시글 등록
@@ -52,11 +60,9 @@ public interface BoardService {
     /**
      * 게시글 등록
      * 
-     * @param board 등록할 게시글
+     * @param srchVo 게시글 조회 조건
      * @return 등록 여부
      */
-    public BoardVO getBoard(BoardVO searchVO);
-        
-    
-    
+    public BoardVO getBoard(BoardVO srchVo);
+
 }

@@ -72,7 +72,7 @@
 									</div>
 								</ul>
                     </li>
-                    <li><a href="${contextPath}/boardMain">커뮤니티</a></li>
+                    <li><a href="${contextPath}/board/main">커뮤니티</a></li>
                 </ul>
                  
             </div><!-- /.navbar-collapse -->

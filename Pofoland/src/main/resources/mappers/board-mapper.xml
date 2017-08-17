@@ -26,7 +26,7 @@
         </selectKey>
     </insert>
 
-    <!-- 게시글 조회 쿼리  -->
+    <!-- 게시글 목록 조회 쿼리  -->
     <select id="selectBoards" parameterType="BoardVO" resultType="BoardVO">
         SELECT B.BOARD_SEQ,
                B.BOARD_TITLE,
@@ -76,6 +76,8 @@
                AND B.BOARD_CATE_SEQ = #{boardCateSeq}
                </if>
     </select>
+    
+    <!-- 게시글 조회 쿼리 -->
 	<select id="selectBoard" parameterType="BoardVO" resultType="BoardVO">
         SELECT B.BOARD_SEQ,
                B.BOARD_TITLE,
@@ -100,4 +102,11 @@
                B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ AND
 			   B.BOARD_SEQ = #{boardSeq}
     </select>
+    
+    <!-- 조회수 증가 쿼리 -->
+    <update id="increaseHit" parameterType="BoardVO">
+        UPDATE Board
+          SET BOARD_HIT_CNT = BOARD_HIT_CNT + 1
+        WHERE BOARD_SEQ = #{boardSeq}
+    </update>
 </mapper>

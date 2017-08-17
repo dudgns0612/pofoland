@@ -28,7 +28,7 @@
             </c:if>
         </div>
         <div class="pull-right">
-            <a href="${contextPath}/boardWrite" class="btn btn-readmore">새 글 작성</a>        
+            <a href="${contextPath}/board/write" class="btn btn-readmore">새 글 작성</a>        
         </div>
         <div class="clearfix"></div>
         <div class="row">
@@ -36,7 +36,7 @@
                 <c:forEach items="${boardList}" var="board">
                     <div class="single-blog">
                         <article>
-                            <h4 class="post-title"><a href="${contextPath}/boardDetail/${board.boardSeq}">${board.boardTitle}</a></h4>
+                            <h4 class="post-title"><a href="${contextPath}/board/${board.boardSeq}">${board.boardTitle}</a></h4>
                             <div class="post-meta text-uppercase">
                                 <span>${board.boardRegDt}</span>
                                 <span>In <a href="">${board.jobCateName}</a></span>
