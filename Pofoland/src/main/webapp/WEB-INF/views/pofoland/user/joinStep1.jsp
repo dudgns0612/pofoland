@@ -115,8 +115,11 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 						</table>
 						<br/>
 						<div style="text-align: center">
-							<input type="checkbox" name="agree">약관에 동의합니다 <input type="submit" value="회원가입" class="btn btn-default"> 
-							<input type="button" class="btn btn-default" value="취소" onclick="javascript:history.back();">
+							<label for="agree">
+								<input type="checkbox" id="agree" name="agree" />약관에 동의합니다 .
+							</label>
+							<input type="submit" value="회원가입" class="btn btn-default" /> 
+							<input type="button" class="btn btn-default" value="취소" onclick="javascript:history.back();" />
 						</div>
 					</fieldset>
 				</form>

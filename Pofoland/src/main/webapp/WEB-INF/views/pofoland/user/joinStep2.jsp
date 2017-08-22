@@ -74,7 +74,7 @@
 				
 						<div class="form-group col-md-9">
 							<div class="col-sm-offset-7 col-sm-3">
-								<button type="submit" class="btn btn-default">Sign in</button>
+								<button type="button" id="submitBtn" class="btn btn-default">Sign in</button>
 								<button type="button" class="btn btn-default" onclick="location.href='#'">Cancel</button>
 							</div>
 						</div>

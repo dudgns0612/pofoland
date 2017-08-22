@@ -203,11 +203,9 @@ public class UserController implements InitializingBean{
 	 * @param userNick
 	 * @return
 	 */
-	@RequestMapping(value="/user/checkemail/{userEmail:.*}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/checkemail", method=RequestMethod.GET)
 	@ResponseBody
-	public ResponseVO duplicateCheckEmail(@PathVariable String userEmail) {
-		
-		LoggerManager.info(getClass(), "{}", userEmail);
+	public ResponseVO duplicateCheckEmail(String userEmail) {
 		
 		String checkEmail = userService.duplicateCheckEmail(userEmail);
 		

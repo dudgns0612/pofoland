@@ -80,6 +80,4 @@
 			<aop:around pointcut-ref="controllerMethod" method="aroundAop" />
 		</aop:aspect>
 	</aop:config>
-	
-	
 </beans:beans>

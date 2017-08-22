@@ -1,4 +1,9 @@
 $(document).ready( function(){
+	var idCheck = "";
+	var emailCheck = "";
+	var isIdCheck = false;
+	var isEmailCheck = false;
+	
 	$('#createForm').bootstrapValidator({ 
 		fields : {
 			userId : {
@@ -107,7 +112,7 @@ $(document).ready( function(){
 								check = false;
 							} else if (value.indexOf('@') > 0) {
 								var strCheck = value.split('@');
-								if (strCheck[1] != '') {
+								if (strCheck[1] == '') {
 									check = false;
 								}
 							}
@@ -141,53 +146,113 @@ $(document).ready( function(){
 						
 						  
     $('input[name="idcheckbtn"]').click(function(){
-        	$.ajax({ 	 
-				type: "GET",
-				url: contextPath+"/user/checkid/"+userId, 
-				datatype : "JSON",
-				success: function(response){
-					console.log(response)
-				    if(response.code == 1){  
-						$('input[name="userIdCheck"]').attr("value",userId);
-						alert("이미 사용중인 아이디입니다.");
-						$('#idinput').focus();
-						$('#idinput').val("");
-					}
-					else {
-						alert("사용이 가능한 아이디입니다.");
-					}   
-				}, 
-				error : function(e) {
-					console.log("ERROR: ", e);
-				},
-				done : function(e) {
-					console.log("DONE");
-				} 
-        	}); //end ajax
+    	var userId = $('#idInput').val();
+    	$.ajax({ 	 
+    		type: "GET",
+    		url: contextPath+"/user/checkid/"+userId, 
+    		dataType : "JSON",
+    		success: function(response){
+    		    if(response.code == 1){  
+    		    	isIdCheck = false;
+    				alert("이미 사용중인 아이디입니다.");
+    				$('#idInput').focus();
+    				$('#idInput').val("");
+    			}
+    			else {
+    				idCheck = userId;
+    				isIdCheck = true;
+    				alert("사용이 가능한 아이디입니다.");
+    			}   
+    		}, 
+    		error : function(e) {
+    			console.log("ERROR: ", e);
+    		},
+    		done : function(e) {
+    			console.log("DONE");
+    		} 
+    	}); //end ajax
     }); // end keyup
 
     $('input[name="emailcheckbtn"]').click(function(){
+    	var userEmail = $('#emailInput').val();
     	$.ajax({ 	 
-			type: "GET",
-			url: contextPath +"/user/checkemail/"+emailId,
-			datatype : "JSON",
-			success: function(response){
-				if(response.code == 1) {  
-					$('input[name="userEamilCheck"]').attr("value",emailId);
-					alert("이미사용중인 이메일입니다! 다른 이메일을 사용하세요");
-					$('#emailinput').focus();
-					$('#emailinput').val("");
-				}
-				else{
-					alert("사용가능한 이메일입니다.");
-			   	}   
-			}, 
-			error : function(e) {
-				console.log("ERROR: ", e);
-			},
-			done : function(e) {
-				console.log("DONE");
-			} 
+    		type: "GET",
+    		url: contextPath +"/user/checkemail?userEmail="+userEmail,
+    		dataType : "JSON",
+    		success: function(response){
+    			if(response.code == 1) {  
+    				isEmailCheck = false;
+    				alert("이미사용중인 이메일입니다! 다른 이메일을 사용하세요");
+    				$('#emailInput').focus();
+    				$('#emailInput').val("");
+    			}
+    			else{
+    				isEmailCheck= true;
+    				emailCheck = userEmail;
+    				alert("사용가능한 이메일입니다.");
+    		   	}   
+    		}, 
+    		error : function(e) {
+    			console.log("ERROR: ", e);
+    		},
+    		done : function(e) {
+    			console.log("DONE");
+    		} 
     	}); //end ajax
     }); // end keyup
+    
+    $('#submitBtn').click(function(){
+    	var userId = $('#idInput').val();
+    	var userEmail = $('#emailInput').val();
+    	
+    	$.ajax({ 	 
+    		type: "GET",
+    		url: contextPath+"/user/checkid/"+userId, 
+    		dataType : "JSON",
+    		async : false,
+    		success: function(response){
+    		    if(response.code == 1){  
+    		    	alert("죄송합니다.다시 한번 아이디 중복확인 해주세요.")
+    		    	isIdCheck = false;
+    				$('#idInput').focus();
+    				$('#idInput').val("");
+    			}
+    		}, 
+    		error : function(e) {
+    			console.log("ERROR: ", e);
+    		}
+    	}); //end ajax
+    	
+    	$.ajax({ 	 
+    		type: "GET",
+    		url: contextPath +"/user/checkemail?userEmail="+userEmail,
+    		dataType : "JSON",
+    		async : false,
+    		success: function(response){
+    			if(response.code == 1) {  
+    				isEmailCheck = false;
+    				alert("죄송합니다. 다시 한번 이메일 중복확인을 다시헤주세요.");
+    				$('#emailInput').focus();
+    				$('#emailInput').val("");
+    			}
+    		}, 
+    		error : function(e) {
+    			console.log("ERROR: ", e);
+    		}
+    	}); //end ajax
+    	
+    	if (!isIdCheck || userId != idCheck) {
+    		alert("아이디 중복확인을 해주세요.");
+    		return;
+    	} else if (!isEmailCheck || userEmail != emailCheck) {
+    		alert("이메일 중복확인을 해주세요.");
+    		return;
+    	} else {
+    		$('#createForm')[0].submit();
+    	}
+    });
 });
+
+
+
+
