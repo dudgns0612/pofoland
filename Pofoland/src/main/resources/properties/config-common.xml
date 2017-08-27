@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <upload>
+        <!-- system use -->
+        <use-setting>dev</use-setting>
+        
+        <!-- template -->
+        <root>${upload.settings.${upload.use-setting}.root}</root>
+        <tempImage>${upload.settings.${upload.use-setting}.tempImage}</tempImage>
+        <atthFiles>${upload.settings.${upload.use-setting}.atthFiles}</atthFiles>
+        
+        <!-- actual path settings -->
+        <settings>
+            <!-- Development system -->
+            <dev>
+                <root>C:\\pofoland\\upload</root>
+                <tempImage>\\tempImage\\</tempImage>
+                <atthFiles>\\atthFiles\\</atthFiles>
+            </dev>
+            
+            <!-- Operation system -->
+            <operation>
+                <root>/usr/local/pofoland/upload</root>
+                <tempImage>/tempImage</tempImage>
+                <atthFiles>/atthFiles</atthFiles>
+            </operation>
+        </settings>
+    </upload>
+</config>

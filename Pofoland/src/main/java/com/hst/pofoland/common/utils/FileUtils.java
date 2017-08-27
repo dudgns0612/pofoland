@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.apache.commons.configuration.Configuration;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,24 +42,26 @@ import com.hst.pofoland.biz.file.vo.FileVO;
 public class FileUtils implements InitializingBean {
     
     @Inject
-    private PropertyManager propertyManager;
+    private Configuration config;
     
     private static final double MB = 1024 * 1024;
-    private static final double GB = 1024 * MB;
+    //private static final double GB = 1024 * MB;
     
     // 시스템 파일관리 루트
     private String fileRoot;
     
-    private String tempImageName;
-    private String atthFilesName;
+    private String tempImage;
+    private String atthFiles;
     
     @Override
     public void afterPropertiesSet() throws Exception {
-        fileRoot = propertyManager.getProperty("file.root");
-        tempImageName = propertyManager.getProperty("tempImage") + File.separator;
-        atthFilesName = fileRoot + File.separator + propertyManager.getProperty("atthFiles") + File.separator;
-        String tempImage = fileRoot + File.separator + propertyManager.getProperty("tempImage") + File.separator;
-        String atthFiles = fileRoot + File.separator + propertyManager.getProperty("atthFiles") + File.separator;
+        fileRoot = config.getString("upload.root");
+        tempImage = fileRoot + config.getString("upload.tempImage");
+        atthFiles = fileRoot + config.getString("upload.atthFiles");
+        
+        LoggerManager.info(getClass(), "{}", fileRoot);
+        LoggerManager.info(getClass(), "{}", tempImage);
+        LoggerManager.info(getClass(), "{}", atthFiles);
         
         // 디렉토리 존재여부 확인 후 생성
         File f = new File(tempImage);
@@ -76,7 +78,6 @@ public class FileUtils implements InitializingBean {
         return fileRoot;
     }
 
-
     /**
      * @param fileRoot 설정할 fileRoot
      */
@@ -84,38 +85,33 @@ public class FileUtils implements InitializingBean {
         this.fileRoot = fileRoot;
     }
 
-
     /**
-     * @return tempImageName 반환
+     * @return tempImage 반환
      */
-    public String getTempImageName() {
-        return tempImageName;
+    public String getTempImage() {
+        return tempImage;
     }
 
-
     /**
-     * @param tempImageName 설정할 tempImageName
+     * @param tempImage 설정할 tempImage
      */
-    public void setTempImageName(String tempImageName) {
-        this.tempImageName = tempImageName;
+    public void setTempImage(String tempImage) {
+        this.tempImage = tempImage;
     }
 
-
     /**
-     * @return atthFilesName 반환
+     * @return atthFiles 반환
      */
-    public String getAtthFilesName() {
-        return atthFilesName;
+    public String getAtthFiles() {
+        return atthFiles;
     }
 
-
     /**
-     * @param atthFilesName 설정할 atthFilesName
+     * @param atthFiles 설정할 atthFiles
      */
-    public void setAtthFilesName(String atthFilesName) {
-        this.atthFilesName = atthFilesName;
+    public void setAtthFiles(String atthFiles) {
+        this.atthFiles = atthFiles;
     }
-
 
     /**
      * 업로드된 MultipartFile객체 FileVO로 변환
@@ -148,7 +144,7 @@ public class FileUtils implements InitializingBean {
         // 파싱결과값 FileVO에 셋
         fileVo.setBoardFilename(fileName);
         fileVo.setBoardFiletype(fileType);
-        fileVo.setBoardFilepath(fileRoot + File.separator + useDirectoryName + storedFileName);
+        fileVo.setBoardFilepath(fileRoot + config.getString(useDirectoryName) + storedFileName);
         fileVo.setBoardFilesize(fileSize / MB);
         
         return fileVo;
