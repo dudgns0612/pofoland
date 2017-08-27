@@ -9,11 +9,9 @@ package com.hst.pofoland.biz.file.ctrl;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.hst.pofoland.biz.file.vo.FileVO;
 import com.hst.pofoland.common.annotation.EchoOff;
 import com.hst.pofoland.common.utils.FileUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
-import com.hst.pofoland.common.utils.StringUtils;
 import com.hst.pofoland.common.view.ImageView;
 
 /**
@@ -70,7 +66,7 @@ public class BoardFileController {
             mFile = request.getFile(iter.next());
             
             // MultipartFile 파싱
-            fileVo = fileUtil.parseMultipartFile(mFile, fileUtil.getTempImageName());
+            fileVo = fileUtil.parseMultipartFile(mFile, fileUtil.getTempImage());
             
             try {
                 // 업로드
@@ -82,7 +78,7 @@ public class BoardFileController {
             }
         }
         
-        return fileUtil.getTempImageName() + fileVo.getFilenameExcludeDirectory();
+        return fileUtil.getTempImage() + fileVo.getFilenameExcludeDirectory();
     }
     
     @RequestMapping(value = "/file/view/{directory}/{storedFileName:.+}", method = RequestMethod.GET)
