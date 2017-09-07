@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	 * @return
 	 */
 	@Override
-	public Integer createUser(UserVO userVO) {
+	public UserVO createUser(UserVO userVO) {
 		
 		userVO.setUserAuthKey(getAuthKey());
 		
@@ -67,6 +67,9 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		if (result > 0) {
 			Integer userSeq = userDAO.selectUserSeq(userVO.getUserId());
 			
+			//등록된 유저번호 입력
+			userVO.setUserSeq(userSeq);
+			
 			String userEmail = userVO.getUserEmail();
 			String userAuthKey = userVO.getUserAuthKey();
 			
@@ -75,7 +78,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			mailAuth.sendAuthMail();
 		}
 		
-		return result;
+		return userVO;
 	}
 	
 	
@@ -166,14 +169,17 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	}
 	
 	@Override
-	public Integer addInfoUser(UserVO userVO) {
+	public boolean addInfoUser(UserVO userVO) {
+		boolean isUpdate = false;
 		
 		Integer nickResult = userDAO.updateAddInfo(userVO);
+		Integer jobResult = userDAO.insertJobCate(userVO);
 		
-		Integer[] jobCate =  userVO.getJobCate();
-		Integer jobResult = userDAO.insertJobCate(jobCate);
+		if(nickResult > 0 && jobResult > 0) {
+			isUpdate = true;
+		}
 		
-		return null;
+		return isUpdate;
 	}
 	
 	/**

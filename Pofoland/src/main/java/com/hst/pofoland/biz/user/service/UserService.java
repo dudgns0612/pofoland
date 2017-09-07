@@ -4,7 +4,7 @@ import com.hst.pofoland.biz.user.vo.UserVO;
 
 public interface UserService {
 	
-	public Integer createUser(UserVO userVO);
+	public UserVO createUser(UserVO userVO);
 	
 	public String duplicateCheckId(String userId);
 	
@@ -20,5 +20,5 @@ public interface UserService {
 	
 	public Integer seqSearchUser(String userId);
 	
-	public Integer addInfoUser(UserVO userVO);
+	public boolean addInfoUser(UserVO userVO);
 }

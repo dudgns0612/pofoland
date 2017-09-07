@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/font-awesome.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/responsive.css" />
+    <link rel="stylesheet" href="${contextPath}/resources/common/css/user/join.css" />
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="${contextPath}/resources/assets/images/icon/favicon.png">

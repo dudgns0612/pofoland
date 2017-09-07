@@ -47,8 +47,7 @@ public class PageController {
 	@RequestMapping(value = "/user/mailauth/{userSeq}", method = RequestMethod.GET)
 	public ModelAndView userMailAuthPage(@PathVariable Integer userSeq) {
 		
-		ModelAndView mav = new ModelAndView("페이지명");
-		
+		ModelAndView mav = new ModelAndView("user/mailAuth");
 		mav.addObject("userSeq", userSeq);
 		
 		return mav;

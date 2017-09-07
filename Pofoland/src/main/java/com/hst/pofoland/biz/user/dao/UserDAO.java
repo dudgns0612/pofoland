@@ -109,5 +109,5 @@ public interface UserDAO {
 	 * @param jobCate
 	 * @return
 	 */
-	public Integer insertJobCate(Integer[] jobCate);
+	public Integer insertJobCate(UserVO userVO);
 }

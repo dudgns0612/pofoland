@@ -23,6 +23,10 @@
             </map>
         </property>
     </bean>
+    
+	<!-- ASE128 암호화 빈 설정 -->    
+    <bean id="ase128Encryption" class="com.hst.pofoland.common.auth.Ase128Encrypt">
+    </bean>
 
 	<!-- Google Login 빈 설정 -->
 	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">

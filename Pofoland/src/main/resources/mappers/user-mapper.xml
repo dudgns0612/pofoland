@@ -110,13 +110,30 @@
 		 WHERE USER_SEQ = #{userSeq}	
 	</update>
 	
-	<select id="selectAuthState" parameterType="UserVO">
+	<select id="selectAuthState" resultType="UserVO">
 		SELECT USER_SEQ,
 			   USER_AUTH_YN
 		  FROM User
+		 WHERE USER_SEQ = #{userSeq} 
 	</select> 
 	
-	<update id="updateAddInfoUser" parameterType="UserVO">
+	<update id="updateAddInfo" parameterType="UserVO">
+		UPDATE User
+		   SET USER_NICK = #{userNick}
+		 WHERE USER_SEQ = #{userSeq}  
 	</update>
+	
+	<insert id="insertJobCate" parameterType="UserVO">
+		INSERT INTO UserInterest( 
+			    JOB_CATE_SEQ,
+			    USER_SEQ
+		) VALUES 
+	    <foreach collection="jobCate" item="item" separator=",">
+		(
+			   #{item},
+			   #{userSeq}
+		)	
+		</foreach>	   
+	</insert>
 
 </mapper>

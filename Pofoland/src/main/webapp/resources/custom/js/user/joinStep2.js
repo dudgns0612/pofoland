@@ -4,7 +4,7 @@ $(document).ready( function(){
 	var isIdCheck = false;
 	var isEmailCheck = false;
 	
-	$('#createForm').bootstrapValidator({ 
+	$('#step2Form').bootstrapValidator({ 
 		fields : {
 			userId : {
 				validators : {
@@ -143,7 +143,6 @@ $(document).ready( function(){
 			}
 		}
 	});
-						
 						  
     $('input[name="idcheckbtn"]').click(function(){
     	var userId = $('#idInput').val();
@@ -201,7 +200,7 @@ $(document).ready( function(){
     	}); //end ajax
     }); // end keyup
     
-    $('#submitBtn').click(function(){
+    $('#step2Btn').click(function(){
     	var userId = $('#idInput').val();
     	var userEmail = $('#emailInput').val();
     	
@@ -248,7 +247,23 @@ $(document).ready( function(){
     		alert("이메일 중복확인을 해주세요.");
     		return;
     	} else {
-    		$('#createForm')[0].submit();
+    		var formData = new FormData($('#step2Form')[0]);
+    		$.ajax({
+    			type : 'POST',
+    			url : contextPath+'/user',
+    			data : formData,
+    			dataType : 'JSON',
+    			contentType: false,
+    			processData: false,
+    			success : function(response){
+    				if (response.code) {
+    					location.href = '/user/mailauth/'+response.data.userSeq;
+    				}
+    			},
+    			error :  function(e){
+    				console.log(e);
+    			}
+    		});
     	}
     });
 });

@@ -1,5 +1,6 @@
 package com.hst.pofoland.biz.user.vo;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -213,17 +214,15 @@ public class UserVO implements UserDetails{
 	public void setJobCate(Integer[] jobCate) {
 		this.jobCate = jobCate;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "UserVO [userSeq=" + userSeq + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userEmail=" + userEmail + ", userAuthKey=" + userAuthKey + ", userAuthYn=" + userAuthYn
-				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userDelYn=" + userDelYn
-				+ ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn + "]";
+				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userProfileUrl=" + userProfileUrl
+				+ ", userDelYn=" + userDelYn + ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn
+				+ ", jobCate=" + Arrays.toString(jobCate) + "]";
 	}
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		 return this.authorities;

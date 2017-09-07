@@ -31,6 +31,7 @@ import com.hst.pofoland.biz.category.service.impl.CategoryServiceImpl;
 import com.hst.pofoland.biz.category.vo.CategoryVO;
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.auth.Ase128Encrypt;
 import com.hst.pofoland.common.auth.GoogleAuthentication;
 import com.hst.pofoland.common.constnat.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
@@ -63,6 +64,9 @@ public class UserController implements InitializingBean{
 	UserServiceImpl userService;
 	
 	@Inject
+	Ase128Encrypt ase128Encrypt;
+	
+	@Inject
 	CategoryServiceImpl categoryService;
 	
 	@Inject
@@ -84,16 +88,14 @@ public class UserController implements InitializingBean{
 	 */
 	@RequestMapping(value="/user" , method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseVO createUser(@ModelAttribute UserVO userVO) {
+	public ResponseVO createUser(@ModelAttribute UserVO userVO , HttpServletResponse response) {
 		
-		LoggerManager.info(getClass(), userVO.toString());
-		
-		int code = userService.createUser(userVO);
-		
+		userVO = userService.createUser(userVO);
 		ResponseVO responseVO = new ResponseVO();
 		
-		if (code > 0) {
+		if (userVO.getUserSeq() > 0) {
 			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setData(userVO);
 		}
 		
 		return responseVO;
@@ -199,7 +201,8 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
-	 * 유저 이메일중복확인
+	 * 유저 이
+중복확인
 	 * @param userNick
 	 * @return
 	 */
@@ -245,18 +248,29 @@ public class UserController implements InitializingBean{
 	 * @return
 	 */
 	@RequestMapping(value="/user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
-	public void authProcessUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
+	public ModelAndView authProcessUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
 		
 		UserVO userVO = new UserVO();
+		ase128Encrypt.createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
+		userAuthKey = ase128Encrypt.decode(userAuthKey);
 		userVO.setUserAuthKey(userAuthKey);
 		userVO.setUserSeq(userSeq);
 		
 		int code = userService.authProcessUser(userVO);
 		
-		if (code == NetworkConstant.COMMUNICATION_FAIL_CODE) {
-			//비성공 처리 다시 보내든가 함.
-		} 
+		ModelAndView mav = new ModelAndView("/user/mailAuthResult");
+		
+		if (code == NetworkConstant.COMMUNICATION_SUCCESS_CODE) {
+			mav.addObject("resultMsg", "메일 인증에 성공하셨습니다. 계속하여 가입해주세요.!");
+			
+		} else {
+			mav.addObject("resultMsg", "메일 인증에 실패하셨씁니다. 다시 시도하여 주세요.!");
+		}
+		mav.addObject("code", code);
+		
+		return mav;
 	}
+	
 	
 	/**
 	 * 유저 인증상태 확인
@@ -287,7 +301,7 @@ public class UserController implements InitializingBean{
 		
 		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
 		
-		ModelAndView mav = new ModelAndView("추가입력 페이지");
+		ModelAndView mav = new ModelAndView("user/joinStep3");
 		
 		mav.addObject("jobList", categoryList);
 		mav.addObject("userSeq", userSeq);
@@ -295,12 +309,19 @@ public class UserController implements InitializingBean{
 		return mav;
 	}
 	
-	@RequestMapping(value="/user/addinformaion", method=RequestMethod.POST)
+	@RequestMapping(value="/user/addinfo", method=RequestMethod.POST)
+	@ResponseBody
 	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO) {
 		
-		Integer nickResult = userService.addInfoUser(userVO);
+		LoggerManager.info(getClass(), "in {}", userVO.toString());
+		
+		boolean nickResult = userService.addInfoUser(userVO);
 		
 		ResponseVO responseVO = new ResponseVO();
+		if (nickResult) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+		}
+		
 		
 		return responseVO;
 	}

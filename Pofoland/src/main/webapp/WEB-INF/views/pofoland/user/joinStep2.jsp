@@ -5,8 +5,7 @@
 			<div class="col-xs-2"></div>
 			<div class="col-xs-8 text-center">
 				<img src="${contextPath}/resources/assets/images/join/joinStep1.png" style="text-align: center;"/>
-				<form id="createForm" class="form-horizontal" method="POST" action="${contextPath}/user">
-
+				<form id="step2Form" class="form-horizontal" method="POST" action="${contextPath}/user">
 					<hr/>
 					<br/>
 					<br/>
@@ -14,7 +13,7 @@
 						<!-- user_id input-->
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="idinput">
-								<img src="${contextPath}/resources/common/images/join/id.png" />
+								<img src="${contextPath}/resources/common/images/user/id.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -32,7 +31,7 @@
 				
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="inputPw">
-								<img src="${contextPath}/resources/common/images/join/password.png" />
+								<img src="${contextPath}/resources/common/images/user/password.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -45,7 +44,7 @@
 						<!-- password check input-->
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="inputPwConfirm">
-								<img src="${contextPath}/resources/common/images/join/password-confirm.png" />
+								<img src="${contextPath}/resources/common/images/user/password-confirm.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -59,7 +58,7 @@
 						<!-- userEmail input-->
 						<div class="form-group">
 							<label class="col-md-3 control-label" for="emailinput">
-								<img src="${contextPath}/resources/common/images/join/email.png" />
+								<img src="${contextPath}/resources/common/images/user/email.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -74,14 +73,13 @@
 				
 						<div class="form-group col-md-9">
 							<div class="col-sm-offset-7 col-sm-3">
-								<button type="button" id="submitBtn" class="btn btn-default">Sign in</button>
+								<button type="button" id="step2Btn" class="btn btn-default">Sign in</button>
 								<button type="button" class="btn btn-default" onclick="location.href='#'">Cancel</button>
 							</div>
 						</div>
 					</fieldset>
 				</form>
 				</div>
-
 			<div class="col-xs-2"></div>
 		</div>
 	</div>
