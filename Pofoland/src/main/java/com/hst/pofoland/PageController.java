@@ -1,37 +1,27 @@
 package com.hst.pofoland;
 
-import java.util.Locale;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hst.pofoland.common.utils.LoggerManager;
-
 
 @Controller
 public class PageController {
 
-	@RequestMapping(value = {"/","/login"}, method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		LoggerManager.info(getClass(), "로그테스트");
-		
-		return "common/login";
-	}
-	
-	@RequestMapping(value="/home")
+	@RequestMapping(value={"/","/home"})
 	public String tilesTest() {
 		return "common/home";
 	}
 	
 	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
-	public String joinUser() {
+	public ModelAndView joinUser() {
 		
-		return "user/joinStep1";
+		ModelAndView mav = new ModelAndView("user/joinStep1");
+		mav.addObject("type", "general");
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/join/step2", method={RequestMethod.GET, RequestMethod.POST})

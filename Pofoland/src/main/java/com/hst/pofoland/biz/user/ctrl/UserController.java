@@ -127,8 +127,9 @@ public class UserController implements InitializingBean{
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/google/user", method=RequestMethod.GET)
-	public void googleLoginCheck (HttpServletRequest request , HttpServletResponse response) throws IOException {
-
+	public ModelAndView googleLoginCheck (HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		ModelAndView mav = new ModelAndView();
 		String code = request.getParameter("code");
 		
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
@@ -145,11 +146,19 @@ public class UserController implements InitializingBean{
 		
 		PlusOperations plusOperations = google.plusOperations();
 		Person person = plusOperations.getGoogleProfile();
-		 
-		Integer userSeq = userService.seqSearchUser(person.getAccountEmail());
+		String googleId = person.getAccountEmail();
+		
+		Integer userSeq = userService.seqSearchUser(googleId);
 		
 		if (userSeq == null || userSeq < 0) {
-			LoggerManager.info(getClass(), "Oauth회원가입 페이지");
+			HttpSession session = request.getSession();
+			
+			UserVO userVO = new UserVO();
+			userVO.setUserId(googleId);
+			session.setAttribute("user",userVO);
+			
+			mav.setViewName("user/joinStep1");
+			mav.addObject("type", "google");
 		} else {
 			UserVO userVO = userService.searchUser(userSeq);
 			userVO.setUserProfileUrl(person.getImageUrl());
@@ -159,6 +168,8 @@ public class UserController implements InitializingBean{
 			
 			response.sendRedirect("/home");
 		}
+		
+		return mav;
 	}
 	
 	
@@ -182,7 +193,7 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
-	 * 유저 닉네임중복확인
+	 * 유저 닉네임 중복확인
 	 * @param userNick
 	 * @return
 	 */
@@ -201,9 +212,8 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
-	 * 유저 이
-중복확인
-	 * @param userNick
+	 * 유저 이메일 중복확인
+	 * @param userEmail
 	 * @return
 	 */
 	@RequestMapping(value="/user/checkemail", method=RequestMethod.GET)
@@ -309,6 +319,11 @@ public class UserController implements InitializingBean{
 		return mav;
 	}
 	
+	/**
+	 * 추가정보 등록
+	 * @param userVO
+	 * @return
+	 */
 	@RequestMapping(value="/user/addinfo", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO) {
@@ -321,7 +336,6 @@ public class UserController implements InitializingBean{
 		if (nickResult) {
 			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
-		
 		
 		return responseVO;
 	}

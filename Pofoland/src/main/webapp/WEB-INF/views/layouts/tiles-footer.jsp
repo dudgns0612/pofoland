@@ -49,10 +49,9 @@
 <!-- bootValid -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 <!-- tiles-header -->
-<script type="text/javascript" src="${contextPath}/resources/custom/js/tiles-header.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/custom/js/layouts/tiles-header.js"></script>
 <!--Common Scripts -->
 <script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- /join/agreValid -->
-<script type="text/javascript" src="${contextpath}/resources/custom/js/user/joinStep1.js"></script>
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/joinStep2.js"></script>
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/joinStep3.js"></script>
 

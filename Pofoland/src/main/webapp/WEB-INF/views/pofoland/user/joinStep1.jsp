@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<input type="hidden" id="joinType" value="${type}" />
 <div style="height: 1250px; padding-top: 120px;">
 	<div class="row">
 		<div class="col-xs-12">
@@ -7,7 +8,7 @@
 			<form class="form-horizontal" action="/join/step2" onsubmit="return agreeValid()">
 					<fieldset>
 					<!-- Form Name -->
-						<img src="${contextPath}/resources/assets/images/join/joinStep.png" />
+						<img src="${contextPath}/resources/custom/images/user/joinStep.png" />
 						<br/>
 						<hr>
 					<!-- Multiple Radios (inline) -->
@@ -128,3 +129,13 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 		</div>
 	</div>
 </div>
+<script>
+	//약관동의 체크
+	function agreeValid() {
+		if(!$("input:checkbox[name='agree']").is(":checked")) {
+			alert('약관에 동의해주세요');
+			return false;
+		} 
+		return true;
+	}
+</script>

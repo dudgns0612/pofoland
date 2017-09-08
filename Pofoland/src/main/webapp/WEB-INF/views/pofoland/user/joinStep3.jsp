@@ -6,7 +6,7 @@
       <div class="col-xs-12">
          <div class="col-xs-2"></div>
          <div class="col-xs-8 text-center">
-            <img src="${contextPath}/resources/assets/images/join/joinStep3.png" style="text-align: center;"/>
+            <img src="${contextPath}/resources/custom/images/user/joinStep3.png" style="text-align: center;"/>
             <form id="step3Form" class="form-horizontal" method="POST">
                <hr/>
                <br/>
@@ -15,7 +15,7 @@
                   <!-- 닉네임 필드 -->
                   <div class="form-group has-feedback">
                      <label class="col-md-3 control-label" for="idinput">
-                        <img src="${contextPath}/resources/common/images/user/nickname.png" />
+                        <img src="${contextPath}/resources/custom/images/user/nickname.png" />
                      </label>
                      <div class="col-md-6 inputGroupContainer">
                         <div class="input-group">
@@ -33,7 +33,7 @@
             
                   <div class="form-group has-feedback">
                      <label class="col-md-3 control-label" for="inputPw">
-                        <img src="${contextPath}/resources/common/images/user/checking.png" />
+                        <img src="${contextPath}/resources/custom/images/user/checking.png" />
                      </label>
                      <div class="col-md-6 inputGroupContainer">
                         <div class="input-group" style="margin-top:-10px;">

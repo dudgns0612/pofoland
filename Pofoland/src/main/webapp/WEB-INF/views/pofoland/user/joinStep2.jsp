@@ -4,7 +4,7 @@
 		<div class="col-xs-12">
 			<div class="col-xs-2"></div>
 			<div class="col-xs-8 text-center">
-				<img src="${contextPath}/resources/assets/images/join/joinStep1.png" style="text-align: center;"/>
+				<img src="${contextPath}/resources/custom/images/user/joinStep1.png" style="text-align: center;"/>
 				<form id="step2Form" class="form-horizontal" method="POST" action="${contextPath}/user">
 					<hr/>
 					<br/>
@@ -13,7 +13,7 @@
 						<!-- user_id input-->
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="idinput">
-								<img src="${contextPath}/resources/common/images/user/id.png" />
+								<img src="${contextPath}/resources/custom/images/user/id.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -28,10 +28,9 @@
 				
 						<!-- 패스워드 확인폼 -->
 						<!-- m_pw input-->
-				
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="inputPw">
-								<img src="${contextPath}/resources/common/images/user/password.png" />
+								<img src="${contextPath}/resources/custom/images/user/password.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -44,7 +43,7 @@
 						<!-- password check input-->
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="inputPwConfirm">
-								<img src="${contextPath}/resources/common/images/user/password-confirm.png" />
+								<img src="${contextPath}/resources/custom/images/user/password-confirm.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
@@ -58,7 +57,7 @@
 						<!-- userEmail input-->
 						<div class="form-group">
 							<label class="col-md-3 control-label" for="emailinput">
-								<img src="${contextPath}/resources/common/images/user/email.png" />
+								<img src="${contextPath}/resources/custom/images/user/email.png" />
 							</label>
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">

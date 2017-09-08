@@ -1,7 +1,5 @@
 package com.hst.pofoland.biz.user.service.impl;
 
-import java.util.UUID;
-
 import javax.inject.Inject;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -102,7 +100,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	@Override
 	public Integer seqSearchUser(String userId) {
 		
-		int userSeq = userDAO.selectUserSeq(userId);
+		Integer userSeq = userDAO.selectUserSeq(userId);
 		
 		return userSeq;
 	}

@@ -119,7 +119,11 @@
 	
 	<update id="updateAddInfo" parameterType="UserVO">
 		UPDATE User
-		   SET USER_NICK = #{userNick}
+			<set>
+				<if test="userNick != null">
+					   USER_NICK = #{userNick}
+				</if>
+			</set>
 		 WHERE USER_SEQ = #{userSeq}  
 	</update>
 	

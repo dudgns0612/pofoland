@@ -17,26 +17,31 @@
 <script>
 	
 	$(document).ready(function(){
-		
+
+		//메일인증 확인버튼 클릭 시
 		$('#authCheckBtn').click(function(){
 			var userSeq = $('#seqHidden').attr('user-seq');
 			
-			//이메일 인증 확인
-			$.ajax({
-				type : 'GET',
-				url : '/user/checkauth/'+userSeq,
-				success : function(response){
-					if(response.code){
-						alert("인증이 완료되었습니다.");
-					} else {
-						alert("인증이 완료되지 않았습니다. 다시 확인하여 주세요.");
+			if (userSeq != null && userSeq > 0) {
+				//이메일 인증 확인
+				$.ajax({
+					type : 'GET',
+					url : '/user/checkauth/'+userSeq,
+					success : function(response){
+						if(response.code){
+							alert("인증이 완료되었습니다.");
+							location.href = contextPath+'/user/addInfo/'+userSeq;
+						} else {
+							alert("인증이 완료되지 않았습니다. 다시 확인하여 주세요.");
+						}
+					},
+					error : function(e){
+						console.log(e);
 					}
-				},
-				error : function(e){
-					console.log(e);
-				}
-				
-			});
+				});
+			} else {
+				alert("죄송합니다. 회원가입을 다시 시도하여 주세요.");
+			}
 		});
 	});
 
