@@ -80,6 +80,9 @@ public class BoardController implements InitializingBean {
         mv.addObject("boardCategories", boardCategories);
         mv.addObject("jobCategories", jobCategories);
         mv.addObject("currentCategory", categoryService.getBoardCategory(condition.getBoardCateSeq()));
+        
+        LoggerManager.info(getClass(), "{}", condition.getPaginationInfo().getTotalPageCount());
+        
         return mv;
     }
     

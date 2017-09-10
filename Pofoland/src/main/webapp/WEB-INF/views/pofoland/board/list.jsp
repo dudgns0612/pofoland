@@ -34,9 +34,11 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-9">
-                <c:forEach items="${boardList}" var="board">
-                    <div class="single-blog">
-                        <article>
+            <div class="single-blog">
+                <article>
+                <c:choose>
+                    <c:when test="${not empty boardList}">
+                        <c:forEach items="${boardList}" var="board">
                             <h4 class="post-title"><a href="${contextPath}/board/${board.boardSeq}">${board.boardTitle}</a></h4>
                             <div class="post-meta text-uppercase">
                                 <span>${board.boardRegDt}</span>
@@ -46,10 +48,15 @@
                             <div class="post-article">
                                 ${board.boardContentSummary}
                             </div>
-                        </article>
-                    </div>
-                    <hr>
-                </c:forEach>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                                        게시글이 없습니다.
+                    </c:otherwise>
+                </c:choose>
+                    </article>
+                </div>
+                <hr>
                 <ul class="pagination">
                     <ui:pagination paginationInfo="${condition.paginationInfo}" jsFunction="goPage" type="text"/>
                 </ul>

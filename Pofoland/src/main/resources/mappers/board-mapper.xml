@@ -48,10 +48,10 @@
                User U,
                BoardCategory BC,
                JobCategory JC
-         WHERE B.BOARD_DEL_YN = 'N' AND
-               B.USER_SEQ = U.USER_SEQ AND
-               B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
-               B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
+         WHERE B.BOARD_DEL_YN = 'N'
+           AND B.USER_SEQ = U.USER_SEQ
+           AND B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ
+           AND B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
                <if test="jobCateSeq != 0">
                AND B.JOB_CATE_SEQ = #{jobCateSeq}
                </if>
@@ -65,13 +65,13 @@
     <select id="selectTotalRecordCount" resultType="int">
         SELECT COUNT(*)
           FROM Board B,
-               User U,
                BoardCategory BC,
-               JobCategory JC
-         WHERE B.BOARD_DEL_YN = 'N' AND
-               B.USER_SEQ = U.USER_SEQ AND
-               B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
-               B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
+               JobCategory JC,
+               User U
+         WHERE B.BOARD_DEL_YN = 'N'
+           AND B.USER_SEQ = U.USER_SEQ
+           AND B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ
+           AND B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
                <if test="jobCateSeq != 0">
                AND B.JOB_CATE_SEQ = #{jobCateSeq}
                </if>
@@ -101,7 +101,6 @@
                BoardCategory BC,
                JobCategory JC
          WHERE B.BOARD_DEL_YN = 'N' AND
-               B.USER_SEQ = U.USER_SEQ AND
                B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
                B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ AND
 			   B.BOARD_SEQ = #{boardSeq}
@@ -113,4 +112,9 @@
           SET BOARD_HIT_CNT = BOARD_HIT_CNT + 1
         WHERE BOARD_SEQ = #{boardSeq}
     </update>
+    
+    <!-- 게시판 전부 삭제 -->
+    <delete id="deleteAll">
+        DELETE FROM Board
+    </delete>
 </mapper>

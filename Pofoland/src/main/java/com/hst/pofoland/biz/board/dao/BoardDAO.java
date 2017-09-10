@@ -68,4 +68,9 @@ public interface BoardDAO {
      * 게시글 조회수 증가 
      */
     public void increaseHit(BoardVO boardSeq);
+    
+    /**
+     * 게시글 전부 삭제
+     */
+    public void deleteAll();
 }

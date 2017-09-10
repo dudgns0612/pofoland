@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.hst.pofoland.biz.board.dao.BoardDAO;
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
@@ -57,9 +58,12 @@ public class BoardTest {
     private BoardService boardService;
     
     @Inject
+    private BoardDAO boardDao;
+    
+    @Inject
     private CategoryService categoryService;
     
-    @Test
+    //@Test
     public void insert() {
         BoardVO temp = null;
         
@@ -83,18 +87,9 @@ public class BoardTest {
         }
     }
     
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        
-        String htmlString = "<div class=\"current\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"></div>"; //Sample HTML
-
-        String[] s = StringUtils.HTMLProcessing.findImgTag(htmlString);
-        
-        for(String ss : s) {
-            logger.info("HIHIHI {}", ss);
-        }
-        
-        System.out.println();
-        
+    //@Test
+    public void deleteAll() {
+        boardDao.deleteAll();
     }
-
+    
 }

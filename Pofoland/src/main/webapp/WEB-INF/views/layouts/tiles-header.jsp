@@ -41,15 +41,14 @@
 										<img src="${contextPath}/resources/custom/images/layouts/login.png" style="width:70px; height:30px; margin-top:10px;"/>
 										<br/>
 										<h6>포포랜드에 오신것을 환영합니다.</h6>
-										<form class="form" role="form" method="post"
-											action="/user/login" accept-charset="UTF-8" id="login-nav">
+										<form class="form" role="form" method="post" action="/j_spring_security_check" accept-charset="UTF-8" id="login-nav">
 											<div class="form-group">
 												<label class="sr-only" for="InputId">ID</label>
-												<input type="text" class="form-control" id="InputId" placeholder="ID" name="m_id" />
+												<input type="text" class="form-control" id="inputId" name="userId" placeholder="ID" name="m_id" />
 											</div>
 											<div class="form-group">
 												<label class="sr-only" for="InputPassword">Password</label>
-												<input type="password" class="form-control" id="InputPassword" placeholder="Password" name="m_pw" />
+												<input type="password" class="form-control" id="InputPassword" name="userPw" placeholder="Password" name="m_pw" />
 												<div class="help-block text-center">
 													<a href="#" style="font-size:12px;">Forget the password?</a>
 												</div>
