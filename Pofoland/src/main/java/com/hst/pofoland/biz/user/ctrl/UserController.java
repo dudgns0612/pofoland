@@ -319,6 +319,17 @@ public class UserController implements InitializingBean{
 		return mav;
 	}
 	
+	@RequestMapping(value="/user/oAuth/addInfo", method=RequestMethod.POST)
+	public ModelAndView OauthAddInfoPage() {
+		
+		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
+		ModelAndView mav = new ModelAndView("user/joinStep3");
+		
+		mav.addObject("jobList", categoryList);
+		
+		return mav;
+	}
+	
 	/**
 	 * 추가정보 등록
 	 * @param userVO
@@ -327,8 +338,6 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/user/addinfo", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO) {
-		
-		LoggerManager.info(getClass(), "in {}", userVO.toString());
 		
 		boolean nickResult = userService.addInfoUser(userVO);
 		

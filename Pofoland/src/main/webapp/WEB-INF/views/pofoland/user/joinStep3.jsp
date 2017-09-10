@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<input type="hidden" id="userSeq" value="${userSeq}" />
+<input type="hidden" id="userSeq" value=<c:if test="${userSeq != '' && userSeq != null}">"${userSeq}"</c:if> />
+<input type="hidden" id="userId" value=<c:if test="${userId != '' && userId != null}">"${userId}"</c:if> />
 <div style="height: 850px; padding-top: 120px; overflow: hidden;">
    <div class="row">
       <div class="col-xs-12">

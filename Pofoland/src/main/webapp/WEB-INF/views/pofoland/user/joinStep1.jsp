@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<input type="hidden" id="joinType" value="${type}" />
+<input type="hidden" name="type" value="${type}" />
 <div style="height: 1250px; padding-top: 120px;">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="col-xs-3"></div>
 			<div class="col-xs-6">
-			<form class="form-horizontal" action="/join/step2" onsubmit="return agreeValid()">
+			<form id="step1From" class="form-horizontal" method="post">
 					<fieldset>
 					<!-- Form Name -->
 						<img src="${contextPath}/resources/custom/images/user/joinStep.png" />
@@ -119,7 +119,7 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 							<label for="agree">
 								<input type="checkbox" id="agree" name="agree" />약관에 동의합니다 .
 							</label>
-							<input type="submit" value="회원가입" class="btn btn-default" /> 
+							<input type="button" id="step1Btn" value="회원가입" class="btn btn-default"/> 
 							<input type="button" class="btn btn-default" value="취소" onclick="javascript:history.back();" />
 						</div>
 					</fieldset>
@@ -131,11 +131,21 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 </div>
 <script>
 	//약관동의 체크
-	function agreeValid() {
+	$(document).on('click','#step1Btn',function(){
+		var from = $('#step1From');
+		var type = $('input[name="type"]').val();
+		
 		if(!$("input:checkbox[name='agree']").is(":checked")) {
 			alert('약관에 동의해주세요');
 			return false;
 		} 
-		return true;
-	}
+		
+		if(type == 'general') {
+			from.attr('action','/join/step2');
+			from.submit();
+		} else {
+			from.attr('action','/user/oAuth/addInfo');
+			from.submit();
+		}
+	});
 </script>
