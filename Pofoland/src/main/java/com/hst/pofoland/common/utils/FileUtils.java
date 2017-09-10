@@ -8,22 +8,19 @@
 package com.hst.pofoland.common.utils;
 
 import java.io.File;
+import java.util.Map;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
-import org.apache.commons.configuration.Configuration;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hst.pofoland.biz.file.vo.FileVO;
 
 /**
  * 
- * 시스템명 : 
+ * 시스템명 : 포트폴리오 관리 시스템
  * $com.hst.pofoland.common.utils.FileUtils.java
- * 클래스 설명 : 
+ * 클래스 설명 : 파일처리 관련 유틸 클래스
  *
  * @author 이현규
  * @since 2017. 8. 13.
@@ -38,11 +35,7 @@ import com.hst.pofoland.biz.file.vo.FileVO;
  * 2017. 8. 13.   이현규  최초생성
  * </pre>
  */
-@Component
 public class FileUtils implements InitializingBean {
-    
-    @Inject
-    private Configuration config;
     
     private static final double MB = 1024 * 1024;
     //private static final double GB = 1024 * MB;
@@ -50,15 +43,12 @@ public class FileUtils implements InitializingBean {
     // 시스템 파일관리 루트
     private String fileRoot;
     
-    private String tempImage;
-    private String atthFiles;
+    private Map<String, String> childDirectory;
     
     @Override
     public void afterPropertiesSet() throws Exception {
-        fileRoot = config.getString("upload.root");
-        tempImage = fileRoot + config.getString("upload.tempImage");
-        atthFiles = fileRoot + config.getString("upload.atthFiles");
-        
+        String tempImage = childDirectory.get("tempImage");
+        String atthFiles = childDirectory.get("atthFiles");
         LoggerManager.info(getClass(), "{}", fileRoot);
         LoggerManager.info(getClass(), "{}", tempImage);
         LoggerManager.info(getClass(), "{}", atthFiles);
@@ -72,6 +62,22 @@ public class FileUtils implements InitializingBean {
     
     
     /**
+     * @return childDirectory 반환
+     */
+    public Map<String, String> getChildDirectory() {
+        return childDirectory;
+    }
+
+
+    /**
+     * @param childDirectory 설정할 childDirectory
+     */
+    public void setChildDirectory(Map<String, String> childDirectory) {
+        this.childDirectory = childDirectory;
+    }
+
+
+    /**
      * @return fileRoot 반환
      */
     public String getFileRoot() {
@@ -84,35 +90,14 @@ public class FileUtils implements InitializingBean {
     public void setFileRoot(String fileRoot) {
         this.fileRoot = fileRoot;
     }
+    
+    public String getDirectory(String name) {
+        if (name == null)
+            return "";
 
-    /**
-     * @return tempImage 반환
-     */
-    public String getTempImage() {
-        return tempImage;
+        return childDirectory.get(name);
     }
-
-    /**
-     * @param tempImage 설정할 tempImage
-     */
-    public void setTempImage(String tempImage) {
-        this.tempImage = tempImage;
-    }
-
-    /**
-     * @return atthFiles 반환
-     */
-    public String getAtthFiles() {
-        return atthFiles;
-    }
-
-    /**
-     * @param atthFiles 설정할 atthFiles
-     */
-    public void setAtthFiles(String atthFiles) {
-        this.atthFiles = atthFiles;
-    }
-
+    
     /**
      * 업로드된 MultipartFile객체 FileVO로 변환
      * @param mFile 업로드된 파일
@@ -144,7 +129,7 @@ public class FileUtils implements InitializingBean {
         // 파싱결과값 FileVO에 셋
         fileVo.setBoardFilename(fileName);
         fileVo.setBoardFiletype(fileType);
-        fileVo.setBoardFilepath(fileRoot + config.getString(useDirectoryName) + storedFileName);
+        fileVo.setBoardFilepath(childDirectory.get(useDirectoryName) + storedFileName);
         fileVo.setBoardFilesize(fileSize / MB);
         
         return fileVo;

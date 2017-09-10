@@ -7,6 +7,9 @@
  * Copyright ((c) 2017 by HST, Inc. All Rights Reserved.
  */
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -21,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
+import com.hst.pofoland.common.utils.StringUtils;
 
 /**
  * 
@@ -77,6 +81,20 @@ public class BoardTest {
             
             boardService.writeBoard(temp);
         }
+    }
+    
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        
+        String htmlString = "<div class=\"current\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"><img src=\"img/HomePageImages/Paris.jpg\"></div>"; //Sample HTML
+
+        String[] s = StringUtils.HTMLProcessing.findImgTag(htmlString);
+        
+        for(String ss : s) {
+            logger.info("HIHIHI {}", ss);
+        }
+        
+        System.out.println();
+        
     }
 
 }

@@ -9,20 +9,25 @@
         <tempImage>${upload.settings.${upload.use-setting}.tempImage}</tempImage>
         <atthFiles>${upload.settings.${upload.use-setting}.atthFiles}</atthFiles>
         
+        <dirNames>
+            <tempImage>tempImage</tempImage>
+            <atthFiles>atthFiles</atthFiles>
+        </dirNames>
+        
         <!-- actual path settings -->
         <settings>
             <!-- Development system -->
             <dev>
                 <root>C:\\pofoland\\upload</root>
-                <tempImage>\\tempImage\\</tempImage>
-                <atthFiles>\\atthFiles\\</atthFiles>
+                <tempImage>${upload.settings.dev.root}\\${upload.dirNames.tempImage}\\</tempImage>
+                <atthFiles>${upload.settings.dev.root}\\${upload.dirNames.atthFiles}\\</atthFiles>
             </dev>
             
             <!-- Operation system -->
             <operation>
                 <root>/usr/local/pofoland/upload</root>
-                <tempImage>/tempImage</tempImage>
-                <atthFiles>/atthFiles</atthFiles>
+                <tempImage>${upload.settings.operation.root}/${upload.dirNames.tempImage}</tempImage>
+                <atthFiles>${upload.settings.operation.root}/${upload.dirNames.atthFiles}</atthFiles>
             </operation>
         </settings>
     </upload>

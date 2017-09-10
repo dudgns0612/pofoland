@@ -7,7 +7,6 @@
  */
 package com.hst.pofoland.common.view;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
@@ -22,13 +21,12 @@ import org.springframework.web.servlet.view.AbstractView;
 
 import com.hst.pofoland.common.utils.FileUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
-import com.hst.pofoland.common.utils.PropertyManager;
 
 /**
  * 
- * 시스템명 : 
+ * 시스템명 : 포트폴리오 관리시스템
  * $com.hst.pofoland.common.view.ImageView.java
- * 클래스 설명 : 
+ * 클래스 설명 : 이미지 랜더링 뷰
  *
  * @author 이현규
  * @since 2017. 8. 13.
@@ -58,10 +56,8 @@ public class ImageView extends AbstractView {
     public ImageView(String directory, String storedFileName) {
         this.directory = directory;
         this.storedFileName = storedFileName;
-        
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
-    
     
     @Override
     protected void renderMergedOutputModel(Map<String, Object> modelMap, HttpServletRequest request, HttpServletResponse response)
@@ -74,7 +70,7 @@ public class ImageView extends AbstractView {
     }
     
     private String getFullpath(String directory, String filename) {
-        return fileUtil.getFileRoot() + File.separator + directory + File.separator + storedFileName;
+        return fileUtil.getChildDirectory().get(directory) + storedFileName;
     }
     
 }

@@ -11,12 +11,14 @@
         INSERT INTO Board (
             BOARD_TITLE,
             BOARD_CONTENT,
+            BOARD_CONTENT_SUMMARY,
             BOARD_CATE_SEQ,
             JOB_CATE_SEQ,
             USER_SEQ
         ) VALUES (
             #{boardTitle},
             #{boardContent},
+            #{boardContentSummary},
             #{boardCateSeq},
             #{jobCateSeq},
             #{userSeq}
@@ -31,7 +33,8 @@
         SELECT B.BOARD_SEQ,
                B.BOARD_TITLE,
                B.BOARD_CONTENT,
-               B.BOARD_REG_DT,
+               B.BOARD_CONTENT_SUMMARY,
+               DATE_FORMAT(B.BOARD_REG_DT, '%Y-%c-%d %r') AS BOARD_REG_DT,
                B.BOARD_UDT_DT,
                B.BOARD_HIT_CNT,
                B.BOARD_CATE_SEQ,
@@ -82,6 +85,7 @@
         SELECT B.BOARD_SEQ,
                B.BOARD_TITLE,
                B.BOARD_CONTENT,
+               B.BOARD_CONTENT_SUMMARY,
                B.BOARD_REG_DT,
                B.BOARD_UDT_DT,
                B.BOARD_HIT_CNT,
