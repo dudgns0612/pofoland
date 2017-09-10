@@ -29,6 +29,11 @@ public class PageController {
 		return "common/home";
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+	    return "common/login";
+	}
+	
 	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
 	public ModelAndView joinUser() {
 		

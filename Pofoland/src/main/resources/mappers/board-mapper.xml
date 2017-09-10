@@ -100,10 +100,11 @@
                User U,
                BoardCategory BC,
                JobCategory JC
-         WHERE B.BOARD_DEL_YN = 'N' AND
-               B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ AND
-               B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ AND
-			   B.BOARD_SEQ = #{boardSeq}
+         WHERE B.BOARD_DEL_YN = 'N'
+           AND B.USER_SEQ = U.USER_SEQ
+           AND B.BOARD_CATE_SEQ = BC.BOARD_CATE_SEQ
+           AND B.JOB_CATE_SEQ = JC.JOB_CATE_SEQ
+           AND B.BOARD_SEQ = #{boardSeq}
     </select>
     
     <!-- 조회수 증가 쿼리 -->

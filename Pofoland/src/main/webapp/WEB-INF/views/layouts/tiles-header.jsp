@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="logo" href="index.html"><img src="${contextPath}/resources/assets/images/logo.png" alt=""></a>
+                <a class="logo" href="${contextPath}/home"><img src="${contextPath}/resources/assets/images/logo.png" alt=""></a>
             </div>
 
             <div class="collapse navbar-collapse" id="st-navbar-collapse">

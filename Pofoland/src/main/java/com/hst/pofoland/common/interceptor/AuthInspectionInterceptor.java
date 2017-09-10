@@ -11,6 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.utils.LoggerManager;
 
 /**
  * 
@@ -56,6 +57,9 @@ public class AuthInspectionInterceptor extends HandlerInterceptorAdapter{
 		StringBuffer sb = new StringBuffer();
 		UserVO userVO = (UserVO) session.getAttribute("user");
 		
+		LoggerManager.info(getClass(), "TEST {}", userVO == null);
+        LoggerManager.info(getClass(), "Request URI : {}", request.getRequestURI());
+        
 		if (userVO == null) {
 			sb.append("<script language='javascript'>");
 			sb.append("		alert('로그인이 필요합니다.');");
