@@ -2,56 +2,54 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Properties;
 
 import javax.inject.Inject;
 
+import org.apache.commons.configuration.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.hst.pofoland.common.utils.LoggerManager;
-import com.hst.pofoland.common.utils.PropertyManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
-		"file:src/main/resources/root-context.xml",
-		"file:src/main/resources/spring/*.xml",
-		"file:src/main/webapp/WEB-INF/spring/servlet-context.xml"
+        "classpath:/root-context.xml"
 })
-
-@WebAppConfiguration
 public class DBConnectionTest {
 	
-	@Inject SqlSessionFactoryBean factoryBean;
+	@Inject
+	private Configuration config;
 	
-	@Inject PropertyManager propertyManager;
-	
-//	@Test
-//	public void propertiesTest() {
-//      Properties properties = propertyManager.getProperties();
-//      
-//      System.out.println("현재 운영체제 : " + System.getProperty("os.name"));
-//      
-//      System.out.println("DB URL : " + properties.get("jdbc.url"));
-//      System.out.println("개발 : " + properties.get("dev.image.path"));
-//      System.out.println("운영 : " + properties.get("operate.image.path"));
-//      
-//      System.out.println("현재 시스템 환경에 따른 이미지 경로 : " + properties.get("image.path"));
-//	}
+	private static final Logger logger = LoggerFactory.getLogger(DBConnectionTest.class);
 	
 	@Test
+	public void configurationTest() {
+	    
+	    String oneDepthConfig = config.getString("database.use-setting");
+	    String twoDepthConfig = config.getString("database.settings.mysql-db.driverClassName");
+	    String useVariableConfig = config.getString("database.driverClassName");
+	    //${database.settings.${database.use-setting}.driverClassName}
+	    logger.info("USE SETTING : {}", oneDepthConfig);
+	    logger.info("DRIVER CLASS NAME : {}", twoDepthConfig);
+	    logger.info("USEVARIABLE : {}", useVariableConfig);
+	}
+	
+	//@Test
 	public void dbConnectionTest() {
 		
-		String driver = propertyManager.getProperty("jdbc.driverClassName");
-		String url = propertyManager.getProperty("jdbc.url");
-		String username = propertyManager.getProperty("jdbc.username");
-		String password = propertyManager.getProperty("jdbc.password");
+		String driver = config.getString("database.driverClassName");
+		String url = config.getString("database.url");
+		String username = config.getString("database.username");
+		String password = config.getString("database.password");
+		
+		LoggerManager.info(getClass(), "{}", driver);
+		LoggerManager.info(getClass(), "{}", url);
+		LoggerManager.info(getClass(), "{}", username);
+		LoggerManager.info(getClass(), "{}", password);
 		
 		try {
 			Class.forName(driver);

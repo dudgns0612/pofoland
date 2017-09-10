@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://egovframework.gov/ctl/ui" prefix="ui" %>
+
 <!-- PAGE HEADER -->
 <section id="page-header">
     <div class="container">
@@ -43,7 +44,7 @@
                                 <span>By <a href="/user/${board.userSeq}">${board.userNick}</a></span>
                             </div>
                             <div class="post-article">
-                                ${board.boardContent}
+                                ${board.boardContentSummary}
                             </div>
                         </article>
                     </div>

@@ -65,4 +65,10 @@ public interface BoardService {
      */
     public BoardVO getBoard(BoardVO srchVo);
 
+    
+    /**
+     * 게시글 조회수 증가 
+     */
+    public void increaseHit(BoardVO board);
+    
 }

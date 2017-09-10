@@ -118,6 +118,7 @@ public class BoardController implements InitializingBean {
         srchVo.setBoardSeq(Integer.parseInt(boardSeq));
         
         BoardVO board = boardService.getBoard(srchVo);
+        boardService.increaseHit(srchVo);
         
         mv.addObject("board", board);
         

@@ -2,17 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<!-- PropertyManager 빈 설정 -->
-	<bean id="propertyManager" class="com.hst.pofoland.common.utils.PropertyManager">
-		<constructor-arg name="locations">
-			<list>
-				<value>db.server.properties</value>
-				<value>network.path.properties</value>
-			</list>
-		</constructor-arg>
-	</bean>
-
+    
+    <!-- FileUtils 빈 설정 -->
+    <bean id="fileUtils" class="com.hst.pofoland.common.utils.FileUtils">
+        <property name="fileRoot" value="${upload.root}"/>
+        <property name="childDirectory">
+            <map>
+                <entry key="tempImage" value="${upload.tempImage}"/>
+                <entry key="atthFiles" value="${upload.atthFiles}"/>
+            </map>
+        </property>
+    </bean>
+    
     <!-- PaginationManager 빈 설정 -->
     <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
         <property name="rendererType">

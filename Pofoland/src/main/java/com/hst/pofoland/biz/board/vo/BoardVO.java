@@ -33,6 +33,7 @@ public class BoardVO extends BaseVO {
     private int boardSeq;
     private String boardTitle;
     private String boardContent;
+    private String boardContentSummary;
     private String boardRegDt;
     private String boardUdtDt;
     private String boardDelYn;
@@ -52,6 +53,20 @@ public class BoardVO extends BaseVO {
      * 기본 생성자
      */
     public BoardVO() {
+    }
+
+    /**
+     * @return boardContentSummary 반환
+     */
+    public String getBoardContentSummary() {
+        return boardContentSummary;
+    }
+
+    /**
+     * @param boardContentSummary 설정할 boardContentSummary
+     */
+    public void setBoardContentSummary(String boardContentSummary) {
+        this.boardContentSummary = boardContentSummary;
     }
 
     /**

@@ -4,7 +4,35 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-
+    
+    <!-- 설정파일 등록 -->
+    <bean id="configuration" class="org.apache.commons.configuration.CompositeConfiguration">
+        <constructor-arg>
+            <list>
+                <bean class="org.apache.commons.configuration.XMLConfiguration">
+                    <constructor-arg type="java.lang.String" value="properties/config-database.xml"/>
+                </bean>
+                <bean class="org.apache.commons.configuration.XMLConfiguration">
+                    <constructor-arg type="java.lang.String" value="properties/config-common.xml"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+    <!-- ConfigurationFactory 빈 설정 -->
+    <bean id="configurationFactory" class="org.springmodules.commons.configuration.CommonsConfigurationFactoryBean">
+        <property name="configurations">
+            <list>
+                <ref bean="configuration"/>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- Configuration사용을 위한 placeholder 설정 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="configurationFactory"/>
+    </bean>
+    
     <!-- Root Context: defines shared resources visible to all other web components -->
     <import resource="classpath:/spring/*-context.xml"/>
     
