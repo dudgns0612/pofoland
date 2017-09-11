@@ -6,6 +6,8 @@ public interface UserService {
 	
 	public UserVO createUser(UserVO userVO);
 	
+	public UserVO createOauthUser(UserVO userVO);
+	
 	public String duplicateCheckId(String userId);
 	
 	public String duplicateCheckNick(String userNick);

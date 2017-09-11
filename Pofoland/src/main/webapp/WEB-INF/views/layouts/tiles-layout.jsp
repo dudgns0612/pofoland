@@ -9,6 +9,7 @@
 <head>
 	<script>
 		var contextPath = "${contextPath}";
+		var userSeq = ${user.userSeq};
 	</script>
 	<title>Insert title here</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

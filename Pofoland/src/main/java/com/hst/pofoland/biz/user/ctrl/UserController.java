@@ -127,9 +127,8 @@ public class UserController implements InitializingBean{
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/google/user", method=RequestMethod.GET)
-	public ModelAndView googleLoginCheck (HttpServletRequest request , HttpServletResponse response) throws IOException {
+	public void googleLoginCheck (HttpServletRequest request , HttpServletResponse response) throws IOException {
 		
-		ModelAndView mav = new ModelAndView();
 		String code = request.getParameter("code");
 		
 		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
@@ -157,19 +156,17 @@ public class UserController implements InitializingBean{
 			userVO.setUserId(googleId);
 			session.setAttribute("user",userVO);
 			
-			mav.setViewName("user/joinStep1");
-			mav.addObject("type", "google");
+			response.sendRedirect("/join/oAuth/step1");
 		} else {
+			LoggerManager.info(getClass(), "구글 로그인 : {}", googleId);
 			UserVO userVO = userService.searchUser(userSeq);
 			userVO.setUserProfileUrl(person.getImageUrl());
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userVO);
-			
+
 			response.sendRedirect("/home");
 		}
-		
-		return mav;
 	}
 	
 	
@@ -319,17 +316,6 @@ public class UserController implements InitializingBean{
 		return mav;
 	}
 	
-	@RequestMapping(value="/user/oAuth/addInfo", method=RequestMethod.POST)
-	public ModelAndView OauthAddInfoPage() {
-		
-		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
-		ModelAndView mav = new ModelAndView("user/joinStep3");
-		
-		mav.addObject("jobList", categoryList);
-		
-		return mav;
-	}
-	
 	/**
 	 * 추가정보 등록
 	 * @param userVO
@@ -349,4 +335,42 @@ public class UserController implements InitializingBean{
 		return responseVO;
 	}
 	
+	/**
+	 * OAuth 추가정보 입력 페이지 이동
+	 * @return
+	 */
+	@RequestMapping(value="/user/oAuth/addInfo", method=RequestMethod.POST)
+	public ModelAndView OauthAddInfoPage(HttpServletRequest request) {
+		
+		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
+		ModelAndView mav = new ModelAndView("user/joinStep3");
+		
+		HttpSession session = request.getSession();
+		UserVO userVO = (UserVO)session.getAttribute("user");
+		String userId = userVO.getUserId();
+		
+		if (userId != "" && userId != null) {
+			mav.addObject("userId",userId);
+		} else {
+			//에러처리
+		}
+		
+		mav.addObject("jobList", categoryList);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/user/oAuth" , method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseVO addOauthInfoUser(@ModelAttribute UserVO userVO) {
+		ResponseVO responseVO = new ResponseVO();
+		userVO = userService.createOauthUser(userVO);
+
+		if (userVO.getUserSeq() > 0) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			responseVO.setData(userVO);
+		}
+		
+		return responseVO;
+	}
 }

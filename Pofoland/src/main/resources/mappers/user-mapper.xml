@@ -139,5 +139,24 @@
 		)	
 		</foreach>	   
 	</insert>
+	
+	<insert id="insertOauthUser" parameterType="UserVO">
+		INSERT INTO User (
+			USER_ID,
+			USER_PW,
+			USER_NICK,
+			USER_EMAIL,
+			USER_AUTH_YN
+		) VALUES (
+			#{userId},
+			#{userId},
+			#{userNick},
+			#{userId},
+			'Y'
+		)
+		<selectKey keyProperty="userSeq" resultType="Integer">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
 
 </mapper>

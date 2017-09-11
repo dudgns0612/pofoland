@@ -64,6 +64,16 @@ $(document).ready(function(){
 		var attentionArray = new Array();
 		var userNick = $('#nickInput').val();
 	    var userSeq = $('#userSeq').val();
+	    var userId = $('#userId').val();
+	    var url = '';
+	    
+	    if (userSeq != '' && userSeq != null && userSeq != undefined && userSeq != 'undefined') {
+	    	url = contextPath+'/user/addinfo';
+	    	formData.append('userSeq',userSeq);
+	    } else {
+	    	url = contextPath+'/user/oAuth';
+	    	formData.append('userId',userId);
+	    }
 		
 		$('input[type="checkbox"]:checked').each(function(){
 			attentionArray.push($(this).val());
@@ -71,7 +81,6 @@ $(document).ready(function(){
 		
 		formData.append('userNick',userNick);
 		formData.append('jobCate',attentionArray);
-		formData.append('userSeq',userSeq);
 		$.ajax({
 			beforeSend : function (){
 				var check = false;
@@ -96,7 +105,7 @@ $(document).ready(function(){
 				});
 				return check;
 			},
-			url : contextPath+'/user/addinfo',
+			url : url,
 			type : 'POST',
 			data :  formData,
 			dataType : 'JSON',

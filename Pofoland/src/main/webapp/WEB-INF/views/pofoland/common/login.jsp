@@ -14,8 +14,7 @@
                 </div>
             </div>
             <div class="wrap">
-                <p class="form-title">
-                    Sign In</p>
+                <p class="form-title">Sign In</p>
                 <form class="login" action="/j_spring_security_check" method="post">
                 <input type="text" name="userId" placeholder="Username" />
                 <input type="password" name="userPw" placeholder="Password" />

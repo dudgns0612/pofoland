@@ -19,7 +19,7 @@ p.form-title {
     letter-spacing: 4px;
 }
 
-form {
+.login {
     width: 300px;
     margin: 0 auto;
 }

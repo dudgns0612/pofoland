@@ -36,17 +36,19 @@ import com.hst.pofoland.common.utils.LoggerManager;
 
 public class SecurityLoginFailHandler implements AuthenticationFailureHandler{
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
 		
-		@SuppressWarnings("deprecation")
 		UserVO userVO = (UserVO) authException.getExtraInformation();
 		
 		StringBuffer sb = new StringBuffer("\n");
 		sb.append("=================================================================================================\n");
 		sb.append("# Login Fail UserInfo \n");
-		sb.append("		UserId = " + userVO.getUserId() + "\n");
+		if (userVO != null) {
+			sb.append("		UserId = " + userVO.getUserId() + "\n");
+		}
 		sb.append("# Login Fail Message \n");
 		sb.append("		Error Message = " + authException.getMessage() + "\n");
 		sb.append("=================================================================================================\n");
@@ -60,7 +62,7 @@ public class SecurityLoginFailHandler implements AuthenticationFailureHandler{
 		
 		sb.append("<script language='javascript'>");
 		sb.append("		alert('로그인에 실패하셨습니다. 아이디나 비밀번호를 확인하여주세요.');");
-		sb.append("		document.location.href='/';");
+		sb.append("		document.location.href='/login';");
 		sb.append("</script>");
 		
 		NetworkConstant.printWrite(pw, sb.toString());

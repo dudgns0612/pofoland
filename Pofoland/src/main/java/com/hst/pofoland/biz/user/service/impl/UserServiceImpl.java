@@ -166,14 +166,19 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		return userVO;
 	}
 	
+	/**
+	 * 유저 추가정보 등록
+	 */
 	@Override
 	public boolean addInfoUser(UserVO userVO) {
 		boolean isUpdate = false;
 		
 		Integer nickResult = userDAO.updateAddInfo(userVO);
-		Integer jobResult = userDAO.insertJobCate(userVO);
+		if(userVO.getJobCate().length > 0) {
+			userDAO.insertJobCate(userVO);
+		}
 		
-		if(nickResult > 0 && jobResult > 0) {
+		if(nickResult > 0) {
 			isUpdate = true;
 		}
 		
@@ -188,6 +193,21 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		return StringUtils.random();
 	}
 	
+	@Override
+	public UserVO createOauthUser(UserVO userVO) {
+		
+		Integer result = userDAO.insertOauthUser(userVO);
+		
+		if (result > 0) {
+			Integer userSeq = userVO.getUserSeq();
+			if(userVO.getJobCate().length > 0 && userSeq > 0) {
+				userDAO.insertJobCate(userVO);
+			}
+		}
+		
+		return userVO;
+	}
+
 	/**
 	 * Security 인증 확인
 	 */

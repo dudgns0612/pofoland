@@ -21,6 +21,7 @@ import com.hst.pofoland.biz.user.vo.UserVO;
  * 수정일			수정자			수정내용
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
+ * 2016. 9. 11.		김영훈			OAuth가입추가
  * </pre>
  */
 
@@ -31,7 +32,7 @@ public interface UserDAO {
 	 * @param userVO
 	 * @return
 	 */
-	public int insertUser(UserVO userVO);
+	public Integer insertUser(UserVO userVO);
 	
 	/**
 	 * 유저 로그인
@@ -110,4 +111,11 @@ public interface UserDAO {
 	 * @return
 	 */
 	public Integer insertJobCate(UserVO userVO);
+	
+	/**
+	 * OAuth 유저 회원가입
+	 * @param userVO
+	 * @return
+	 */
+	public Integer insertOauthUser(UserVO userVO);
 }
