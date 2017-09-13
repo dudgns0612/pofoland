@@ -39,11 +39,11 @@ public class UserVO implements UserDetails{
 	String userEmail = "";
 	String userAuthKey = "";
 	char userAuthYn = 'N';
-	String userScore = "";
+	Integer userScore = 0;
 	String userRegDt = "";
 	String userProfileUrl = "";
 	char userDelYn = 'N';
-	char userPublicYn = 'N';
+	char userPublicYn = 'Y';
 	char userLoginYn = 'N';
 	Integer[] jobCate = {};
 	
@@ -141,13 +141,13 @@ public class UserVO implements UserDetails{
 	/**
 	 * @return the userScore
 	 */
-	public String getUserScore() {
+	public Integer getUserScore() {
 		return userScore;
 	}
 	/**
 	 * @param userScore the userScore to set
 	 */
-	public void setUserScore(String userScore) {
+	public void setUserScore(Integer userScore) {
 		this.userScore = userScore;
 	}
 	/**

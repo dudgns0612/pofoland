@@ -9,18 +9,22 @@
 <head>
 	<script>
 		var contextPath = "${contextPath}";
-		var userSeq = ${user.userSeq};
+		var userSeq = "${user.userSeq}";
 	</script>
 	<title>Insert title here</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${contextPath}/resources/assets/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/owl.carousel.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/magnific-popup.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/font-awesome.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/responsive.css" />
     <link rel="stylesheet" href="${contextPath}/resources/custom/css/user/join.css" />
+    <link rel="stylesheet" href="${contextPath}/resources/custom/css/user/common-user.css" />
+    <link rel="stylesheet" href="${contextPath}/resources/custom/css/layouts/tiles-header.css" />
+    <link rel="stylesheet" href="${contextPath}/resources/custom/css/pofoland/pofoland-info.css" />
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="${contextPath}/resources/assets/images/icon/favicon.png">
@@ -31,6 +35,7 @@
 	
     <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.min.js"></script><!-- jQuery -->
     <script type="text/javascript" src="${contextPath}/resources/assets/js/bootstrap.min.js"></script><!-- Bootstrap -->
+    <script type="text/javascript" src="${contextPath}/resources/assets/js/bootstrap-select.min.js"></script><!-- Bootstrap -->
 </head>
 <body>
     <tiles:insertAttribute name="header" />

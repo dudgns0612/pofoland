@@ -1,4 +1,5 @@
 var nickCheck = false;
+var fileCheck = false;
 
 $(document).ready(function(){
    $('#step3Form').bootstrapValidator({
@@ -65,7 +66,13 @@ $(document).ready(function(){
 		var userNick = $('#nickInput').val();
 	    var userSeq = $('#userSeq').val();
 	    var userId = $('#userId').val();
+	    var userProfile = $('#inputFile')[0].files[0];
 	    var url = '';
+	    
+	    //유저 프로필 추가
+	    if (fileCheck) {
+	    	formData.append('userProfile',userProfile);
+	    } 
 	    
 	    if (userSeq != '' && userSeq != null && userSeq != undefined && userSeq != 'undefined') {
 	    	url = contextPath+'/user/addinfo';
@@ -125,4 +132,26 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
+	$('#inputFile').change(function(e){
+		var reader = new FileReader;
+		var file = $('#inputFile')[0].files[0]; 
+		
+		reader.onload = function(event){
+			$('#userProfile').attr('src', event.target.result);
+		}
+		if(file){
+			reader.readAsDataURL(file);	
+			fileCheck = true;
+		}else {
+			$('#userProfile').attr('src', contextPath+"/resources/custom/images/user/default_profile.jpg");
+			fileCheck = false;
+		}
+	});
 });
+
+function fileProfile() {
+	var fileBtn = $('#inputFile');
+	
+	fileBtn.click();
+}

@@ -209,9 +209,7 @@ $('input[name="emailcheckbtn"]').click(function() {
 		
 		$.ajax({
 			type : "GET",
-			url : contextPath
-					+ "/user/checkid/"
-					+ userId,
+			url : contextPath + "/user/checkid/" + userId,
 			dataType : "JSON",
 			async : false,
 			success : function(response) {

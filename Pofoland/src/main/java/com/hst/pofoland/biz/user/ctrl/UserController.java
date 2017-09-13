@@ -1,5 +1,6 @@
 package com.hst.pofoland.biz.user.ctrl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -8,7 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.configuration.Configuration;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
@@ -25,16 +31,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.category.service.impl.CategoryServiceImpl;
 import com.hst.pofoland.biz.category.vo.CategoryVO;
+import com.hst.pofoland.biz.file.vo.FileVO;
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.Ase128Encrypt;
 import com.hst.pofoland.common.auth.GoogleAuthentication;
+import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
 import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.utils.FileUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
+import com.hst.pofoland.common.view.ImageView;
 import com.hst.pofoland.common.vo.ResponseVO;
 
 /**
@@ -54,6 +65,7 @@ import com.hst.pofoland.common.vo.ResponseVO;
  * 수정일			수정자			수정내용
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
+ * 2017. 9. 13		김영훈			구글사용자/프로필URL추가
  * </pre>
  */
 
@@ -71,6 +83,12 @@ public class UserController implements InitializingBean{
 	
 	@Inject
 	GoogleAuthentication googleAuth;
+	
+	@Inject
+    private FileUtils fileUtil;
+	
+    @Inject
+    private Configuration config;
 	
 	GoogleConnectionFactory googleConnectionFactory = null;
 	OAuth2Parameters googleOAuth2Parameters = null;
@@ -158,9 +176,18 @@ public class UserController implements InitializingBean{
 			
 			response.sendRedirect("/join/oAuth/step1");
 		} else {
-			LoggerManager.info(getClass(), "구글 로그인 : {}", googleId);
 			UserVO userVO = userService.searchUser(userSeq);
 			userVO.setUserProfileUrl(person.getImageUrl());
+			
+			//security 권한설정
+			SecurityAuthorityManager authManager = new SecurityAuthorityManager();
+			authManager.setAuthorityList("ROLE_USER");
+			userVO.setAuthorities(authManager.getAuthorityList());
+			
+			//security 인증처리
+			Authentication authentication = new UsernamePasswordAuthenticationToken(userVO.getUserId(), userVO.getPassword(),userVO.getAuthorities());
+			SecurityContext securityContext = SecurityContextHolder.getContext();
+			securityContext.setAuthentication(authentication);
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userVO);
@@ -323,10 +350,25 @@ public class UserController implements InitializingBean{
 	 */
 	@RequestMapping(value="/user/addinfo", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO) {
+	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO, @ModelAttribute MultipartFile userProfile) {
+		
+		FileVO fileVO = fileUtil.parseMultipartFile(userProfile, "userProfile");
+		
+		String filePath = fileVO.getFilepath();
+		String serverPath = fileVO.getFilenameExcludeDirectory();
+		
+		try {
+			userProfile.transferTo(new File(filePath));
+		} catch (IllegalStateException e) {
+			LoggerManager.error(getClass(), "{}", e.getMessage());
+		} catch (IOException e) {
+			LoggerManager.error(getClass(), "{}", e.getMessage());
+		}
+		
+		userVO.setUserProfileUrl(serverPath);
 		
 		boolean nickResult = userService.addInfoUser(userVO);
-		
+		 
 		ResponseVO responseVO = new ResponseVO();
 		if (nickResult) {
 			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
@@ -360,6 +402,11 @@ public class UserController implements InitializingBean{
 		return mav;
 	}
 	
+	/**
+	 * 인증처리 후 구글 사용자 회원가입
+	 * @param userVO
+	 * @return
+	 */
 	@RequestMapping(value="/user/oAuth" , method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO addOauthInfoUser(@ModelAttribute UserVO userVO) {
@@ -372,5 +419,35 @@ public class UserController implements InitializingBean{
 		}
 		
 		return responseVO;
+	}
+	
+	/**
+	 * 유저 로그아웃
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public String userLogout(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("user");
+		
+		return "/home";
+	}
+	
+	/**
+	 * 유저프로필 이미지 URL 조회
+	 * @param userSeq
+	 * @return
+	 */
+	@RequestMapping(value="/user/{userSeq}/image", method=RequestMethod.GET)
+	public ImageView searchUserProfile(@PathVariable Integer userSeq) {
+		
+		String storedFileName = userService.searchUser(userSeq).getUserProfileUrl();
+		
+		String directoty = config.getString("upload.dirNames.userProfile");
+		
+		return new ImageView(directoty,storedFileName);
 	}
 }

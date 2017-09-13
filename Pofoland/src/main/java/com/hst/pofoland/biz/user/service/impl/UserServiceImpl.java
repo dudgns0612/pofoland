@@ -193,6 +193,9 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		return StringUtils.random();
 	}
 	
+	/**
+	 * 구글 사용자 회원가입
+	 */
 	@Override
 	public UserVO createOauthUser(UserVO userVO) {
 		

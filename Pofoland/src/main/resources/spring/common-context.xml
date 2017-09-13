@@ -10,6 +10,7 @@
             <map>
                 <entry key="tempImage" value="${upload.tempImage}"/>
                 <entry key="atthFiles" value="${upload.atthFiles}"/>
+                <entry key="userProfile" value="${upload.userProfile}"/>
             </map>
         </property>
     </bean>

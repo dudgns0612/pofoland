@@ -6,7 +6,7 @@ $(document).ready(function(){
 });
 
 function loginValidate() {
-	var userId = $('#inputId').val();
+	var userId = $('#inputId').val(); 
 	var userPw = $('#inputPassword').val();
 	
 	if (userId == null || userId == '' || userId == undefined || userId == 'undefined') {

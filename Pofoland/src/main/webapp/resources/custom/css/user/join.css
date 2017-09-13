@@ -53,3 +53,15 @@
 .cfont-weight {
 	font-weight: bold;
 }
+
+/**
+	회원가입 프로필
+*/
+.image-circle{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border: 5px solid #D1D1D1;
+    margin: -35px 10px 15px 10px;
+}
+

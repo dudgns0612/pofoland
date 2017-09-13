@@ -49,14 +49,18 @@ public class FileUtils implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         String tempImage = childDirectory.get("tempImage");
         String atthFiles = childDirectory.get("atthFiles");
+        String userProfile = childDirectory.get("userProfile");
         LoggerManager.info(getClass(), "{}", fileRoot);
         LoggerManager.info(getClass(), "{}", tempImage);
         LoggerManager.info(getClass(), "{}", atthFiles);
+        LoggerManager.info(getClass(), "{}", userProfile);
         
         // 디렉토리 존재여부 확인 후 생성
         File f = new File(tempImage);
         if (!f.exists()) f.mkdirs();
         f = new File(atthFiles);
+        if (!f.exists()) f.mkdirs();
+        f= new File(userProfile);
         if (!f.exists()) f.mkdirs();
     }
     
@@ -127,10 +131,10 @@ public class FileUtils implements InitializingBean {
         double fileSize = mFile.getSize();
         
         // 파싱결과값 FileVO에 셋
-        fileVo.setBoardFilename(fileName);
-        fileVo.setBoardFiletype(fileType);
-        fileVo.setBoardFilepath(childDirectory.get(useDirectoryName) + storedFileName);
-        fileVo.setBoardFilesize(fileSize / MB);
+        fileVo.setFilename(fileName);
+        fileVo.setFiletype(fileType);
+        fileVo.setFilepath(childDirectory.get(useDirectoryName) + storedFileName);
+        fileVo.setFilesize(fileSize / MB);
         
         return fileVo;
     }

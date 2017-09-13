@@ -28,11 +28,11 @@ package com.hst.pofoland.biz.file.vo;
  */
 public class FileVO {
 
-    private int boardFileSeq;
-    private String boardFilename;
-    private String boardFiletype;
-    private double boardFilesize;
-    private String boardFilepath;
+    private int fileSeq;
+    private String filename;
+    private String filetype;
+    private double filesize;
+    private String filepath;
     private int boardSeq;
     
     // 디렉토리명 제외 파일명
@@ -49,90 +49,102 @@ public class FileVO {
      * @param boardFilepath
      * @param boardSeq
      */
-    public FileVO(int boardFileSeq, String boardFilename, String boardFiletype, double boardFilesize,
-            String boardFilepath, int boardSeq) {
+    public FileVO(int fileSeq, String filename, String filetype, double filesize,
+            String filepath, int boardSeq) {
         super();
-        this.boardFileSeq = boardFileSeq;
-        this.boardFilename = boardFilename;
-        this.boardFiletype = boardFiletype;
-        this.boardFilesize = boardFilesize;
-        this.boardFilepath = boardFilepath;
+        this.fileSeq = fileSeq;
+        this.filename = filename;
+        this.filetype = filetype;
+        this.filesize = filesize;
+        this.filepath = filepath;
         this.boardSeq = boardSeq;
     }
 
     /**
-     * @return the boardFileSeq
-     */
-    public int getBoardFileSeq() {
-        return boardFileSeq;
-    }
-    /**
-     * @param boardFileSeq the boardFileSeq to set
-     */
-    public void setBoardFileSeq(int boardFileSeq) {
-        this.boardFileSeq = boardFileSeq;
-    }
-    /**
-     * @return the boardFilename
-     */
-    public String getBoardFilename() {
-        return boardFilename;
-    }
-    /**
-     * @param boardFilename the boardFilename to set
-     */
-    public void setBoardFilename(String boardFilename) {
-        this.boardFilename = boardFilename;
-    }
-    /**
-     * @return the boardFiletype
-     */
-    public String getBoardFiletype() {
-        return boardFiletype;
-    }
-    /**
-     * @param boardFiletype the boardFiletype to set
-     */
-    public void setBoardFiletype(String boardFiletype) {
-        this.boardFiletype = boardFiletype;
-    }
-    /**
-     * @return the boardFilesize
-     */
-    public double getBoardFilesize() {
-        return boardFilesize;
-    }
-    /**
-     * @param boardFilesize the boardFilesize to set
-     */
-    public void setBoardFilesize(double boardFilesize) {
-        this.boardFilesize = boardFilesize;
-    }
-    /**
-     * @return the boardFilepath
-     */
-    public String getBoardFilepath() {
-        return boardFilepath;
-    }
-    /**
-     * @param boardFilepath the boardFilepath to set
-     */
-    public void setBoardFilepath(String boardFilepath) {
-        this.boardFilepath = boardFilepath;
-    }
-    /**
-     * @return the boardSeq
-     */
-    public int getBoardSeq() {
-        return boardSeq;
-    }
-    /**
-     * @param boardSeq the boardSeq to set
-     */
-    public void setBoardSeq(int boardSeq) {
-        this.boardSeq = boardSeq;
-    }
-    /**
+	 * @return the fileSeq
+	 */
+	public int getFileSeq() {
+		return fileSeq;
+	}
+
+	/**
+	 * @param fileSeq the fileSeq to set
+	 */
+	public void setFileSeq(int fileSeq) {
+		this.fileSeq = fileSeq;
+	}
+
+	/**
+	 * @return the filename
+	 */
+	public String getFilename() {
+		return filename;
+	}
+
+	/**
+	 * @param filename the filename to set
+	 */
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	/**
+	 * @return the filetype
+	 */
+	public String getFiletype() {
+		return filetype;
+	}
+
+	/**
+	 * @param filetype the filetype to set
+	 */
+	public void setFiletype(String filetype) {
+		this.filetype = filetype;
+	}
+
+	/**
+	 * @return the filesize
+	 */
+	public double getFilesize() {
+		return filesize;
+	}
+
+	/**
+	 * @param filesize the filesize to set
+	 */
+	public void setFilesize(double filesize) {
+		this.filesize = filesize;
+	}
+
+	/**
+	 * @return the filepath
+	 */
+	public String getFilepath() {
+		return filepath;
+	}
+
+	/**
+	 * @param filepath the filepath to set
+	 */
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	/**
+	 * @return the boardSeq
+	 */
+	public int getBoardSeq() {
+		return boardSeq;
+	}
+
+	/**
+	 * @param boardSeq the boardSeq to set
+	 */
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
+	}
+
+	/**
      * @return filenameExcludeDirectory 반환
      */
     public String getFilenameExcludeDirectory() {
@@ -152,16 +164,16 @@ public class FileVO {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("FileVO [boardFileSeq=");
-        builder.append(boardFileSeq);
-        builder.append(", boardFilename=");
-        builder.append(boardFilename);
-        builder.append(", boardFiletype=");
-        builder.append(boardFiletype);
-        builder.append(", boardFilesize=");
-        builder.append(boardFilesize);
-        builder.append(", boardFilepath=");
-        builder.append(boardFilepath);
+        builder.append("FileVO [fileSeq=");
+        builder.append(fileSeq);
+        builder.append(", filename=");
+        builder.append(filename);
+        builder.append(", filetype=");
+        builder.append(filetype);
+        builder.append(", filesize=");
+        builder.append(filesize);
+        builder.append(", filepath=");
+        builder.append(filepath);
         builder.append(", boardSeq=");
         builder.append(boardSeq);
         builder.append(", filenameExcludeDirectory=");

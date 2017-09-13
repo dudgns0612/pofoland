@@ -74,7 +74,7 @@ public class BoardFileController {
             
             try {
                 // 업로드
-                mFile.transferTo(new File(fileVo.getBoardFilepath()));
+                mFile.transferTo(new File(fileVo.getFilepath()));
             } catch (IllegalStateException e) {
                 LoggerManager.info(getClass(), e.getMessage());
             } catch (IOException e) {

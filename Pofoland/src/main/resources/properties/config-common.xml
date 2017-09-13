@@ -8,10 +8,12 @@
         <root>${upload.settings.${upload.use-setting}.root}</root>
         <tempImage>${upload.settings.${upload.use-setting}.tempImage}</tempImage>
         <atthFiles>${upload.settings.${upload.use-setting}.atthFiles}</atthFiles>
+        <userProfile>${upload.settings.${upload.use-setting}.userProfile}</userProfile>
         
         <dirNames>
             <tempImage>tempImage</tempImage>
             <atthFiles>atthFiles</atthFiles>
+            <userProfile>userProfile</userProfile>
         </dirNames>
         
         <!-- actual path settings -->
@@ -21,6 +23,7 @@
                 <root>C:\\pofoland\\upload</root>
                 <tempImage>${upload.settings.dev.root}\\${upload.dirNames.tempImage}\\</tempImage>
                 <atthFiles>${upload.settings.dev.root}\\${upload.dirNames.atthFiles}\\</atthFiles>
+                <userProfile>${upload.settings.dev.root}\\${upload.dirNames.userProfile}\\</userProfile>
             </dev>
             
             <!-- Operation system -->

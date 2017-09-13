@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PageController {
 
-	@RequestMapping(value={"/","/home"})
+	@RequestMapping(value = {"/","/home"} )
 	public String tilesTest() {
 		return "common/home";
 	}
@@ -20,7 +20,7 @@ public class PageController {
 	    return "common/login";
 	}
 	
-	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
+	@RequestMapping(value = "/join/step1", method=RequestMethod.GET)
 	public ModelAndView joinUser() {
 		
 		ModelAndView mav = new ModelAndView("user/joinStep1");
@@ -29,7 +29,7 @@ public class PageController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/join/oAuth/step1", method=RequestMethod.GET)
+	@RequestMapping(value = "/join/oAuth/step1", method=RequestMethod.GET)
 	public ModelAndView joinOauthUser() {
 		ModelAndView mav = new ModelAndView("user/joinStep1");
 		mav.addObject("type", "google");
@@ -37,7 +37,7 @@ public class PageController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/join/step2", method=RequestMethod.POST)
+	@RequestMapping(value = "/join/step2", method=RequestMethod.POST)
 	public String joinUser1() {
 		return "user/joinStep2";
 	}
@@ -54,6 +54,16 @@ public class PageController {
 		mav.addObject("userSeq", userSeq);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/pofoland/info")
+	public String pofolandInfo() {
+		return "common/pofolandInfo";
+	}
+	
+	@RequestMapping(value = "/user/modify")
+	public String userModify() {
+		return "user/userModify";
 	}
 
 }
