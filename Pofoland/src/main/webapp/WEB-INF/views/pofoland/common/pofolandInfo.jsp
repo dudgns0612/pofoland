@@ -24,11 +24,11 @@
 				<img src="${contextPath}/resources/custom/images/pofoland/it11.jpg" class="img-responsive" alt="">
 			</div>
 		</div>
+		<br />
 		<h2>Our Working Process</h2>
 		<p class="font-kr t_justify">우리 회사에서는 아래의 절차에 따라 고객 서비스를 시행하고 있습니다.</p>
 		<hr>
 		<div class="divide40"></div>
-	
 		<div class="process-step">
 			<span class="process-border"></span>
 	
@@ -70,6 +70,7 @@
 		</div>
 		<!-- /. process-step -->
 	</div>
+	<br />
 	<div class="container">
 		<div class="row">
 			<div class="center-heading">

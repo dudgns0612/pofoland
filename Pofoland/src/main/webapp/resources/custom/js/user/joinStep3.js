@@ -11,8 +11,8 @@ $(document).ready(function(){
 					},
 					stringLength : {
 						min : 2,
-						max : 15,
-						message : '2~15자 닉네임만 가입 가능합니다.'
+						max : 10,
+						message : '2~10자 닉네임만 가입 가능합니다.'
 					},
 					callback : {
 						callback : function(value,validator,$field) {
@@ -39,9 +39,9 @@ $(document).ready(function(){
 	$('input[name="nickCheckBtn"]').click(function() {
 		var userNick = $('#nickInput').val();
 		$.ajax({
-			type : "GET",
-			url : contextPath + "/user/checknick/" + userNick,
-			dataType : "JSON",
+			type : 'GET',
+			url : contextPath + '/user/checknick/' + userNick,
+			dataType : 'JSON',
 			success : function(response) {
 				if (response.code == 1) {
 					alert("이미 존재하는 닉네임 아이디입니다.");
@@ -66,7 +66,7 @@ $(document).ready(function(){
 		var userNick = $('#nickInput').val();
 	    var userSeq = $('#userSeq').val();
 	    var userId = $('#userId').val();
-	    var userProfile = $('#inputFile')[0].files[0];
+	    var userProfile = $('#inputImage')[0].files[0];
 	    var url = '';
 	    
 	    //유저 프로필 추가
@@ -133,9 +133,9 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('#inputFile').change(function(e){
+	$('#inputImage').change(function(e){
 		var reader = new FileReader;
-		var file = $('#inputFile')[0].files[0]; 
+		var file = $('#inputImage')[0].files[0]; 
 		
 		reader.onload = function(event){
 			$('#userProfile').attr('src', event.target.result);
@@ -151,7 +151,7 @@ $(document).ready(function(){
 });
 
 function fileProfile() {
-	var fileBtn = $('#inputFile');
+	var fileBtn = $('#inputImage');
 	
 	fileBtn.click();
 }

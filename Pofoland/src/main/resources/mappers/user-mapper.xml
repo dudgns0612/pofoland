@@ -173,4 +173,16 @@
 			SELECT LAST_INSERT_ID();
 		</selectKey>
 	</insert>
+	
+	<update id="updateModifyUser" parameterType="UserVO">
+		UPDATE User
+			<set>
+				USER_NICK = #{userNick},
+				USER_PUBLIC_YN = #{userPublicYn},
+				<if test="userProfileUrl != null">
+					USER_PROFILE_URL = #{userProfileUrl}
+				</if>
+			</set>
+		 WHERE USER_SEQ = ${userSeq};	
+	</update>
 </mapper>

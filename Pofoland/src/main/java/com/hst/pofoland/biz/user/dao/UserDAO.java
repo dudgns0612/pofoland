@@ -118,4 +118,11 @@ public interface UserDAO {
 	 * @return
 	 */
 	public Integer insertOauthUser(UserVO userVO);
+	
+	/**
+	 * 유저 정보 수정
+	 * @param userVO
+	 * @return
+	 */
+	public Integer updateModifyUser(UserVO userVO);
 }

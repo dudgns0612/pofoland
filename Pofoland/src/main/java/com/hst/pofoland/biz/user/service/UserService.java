@@ -22,5 +22,7 @@ public interface UserService {
 	
 	public Integer seqSearchUser(String userId);
 	
-	public boolean addInfoUser(UserVO userVO);
+	public Integer addInfoUser(UserVO userVO);
+	
+	public Integer modifyUser(UserVO userVO);
 }

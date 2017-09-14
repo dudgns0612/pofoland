@@ -60,7 +60,7 @@ public class ControllerAspect {
             Object temp = null;
             for (int i = 0; i < len; i++) {
                 temp = args[i];
-                sb.append("  args[").append(i).append("] : ").append(temp.toString()).append(" [").append(temp.getClass().getCanonicalName()).append("]").append("\n");
+                sb.append("  args[").append(i).append("] : ").append(temp == null ? "-" : temp.toString()).append(" [").append(temp == null ? "-" : temp.getClass().getCanonicalName()).append("]").append("\n");
             }
         }
 

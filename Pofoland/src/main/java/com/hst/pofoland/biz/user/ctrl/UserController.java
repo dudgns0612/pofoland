@@ -90,6 +90,8 @@ public class UserController implements InitializingBean{
     @Inject
     private Configuration config;
 	
+    private final String DEFUALT_FILE_NAME = "default_profile.jpg"; 
+    
 	GoogleConnectionFactory googleConnectionFactory = null;
 	OAuth2Parameters googleOAuth2Parameters = null;
 	
@@ -352,25 +354,28 @@ public class UserController implements InitializingBean{
 	@ResponseBody
 	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO, @ModelAttribute MultipartFile userProfile) {
 		
-		FileVO fileVO = fileUtil.parseMultipartFile(userProfile, "userProfile");
-		
-		String filePath = fileVO.getFilepath();
-		String serverPath = fileVO.getFilenameExcludeDirectory();
-		
-		try {
-			userProfile.transferTo(new File(filePath));
-		} catch (IllegalStateException e) {
-			LoggerManager.error(getClass(), "{}", e.getMessage());
-		} catch (IOException e) {
-			LoggerManager.error(getClass(), "{}", e.getMessage());
+		if (userProfile != null) {
+			FileVO fileVO = fileUtil.parseMultipartFile(userProfile, "userProfile");
+			
+			String filePath = fileVO.getFilepath();
+			String serverPath = fileVO.getFilenameExcludeDirectory();
+			
+			try {
+				userProfile.transferTo(new File(filePath));
+			} catch (IllegalStateException e) {
+				LoggerManager.error(getClass(), "{}", e.getMessage());
+			} catch (IOException e) {
+				LoggerManager.error(getClass(), "{}", e.getMessage());
+			}
+			
+			userVO.setUserProfileUrl(serverPath);
 		}
 		
-		userVO.setUserProfileUrl(serverPath);
 		
-		boolean nickResult = userService.addInfoUser(userVO);
+		Integer nickResult = userService.addInfoUser(userVO);
 		 
 		ResponseVO responseVO = new ResponseVO();
-		if (nickResult) {
+		if (nickResult > 0) {
 			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
 		}
 		
@@ -449,5 +454,45 @@ public class UserController implements InitializingBean{
 		String directoty = config.getString("upload.dirNames.userProfile");
 		
 		return new ImageView(directoty,storedFileName);
+	}
+	
+	@RequestMapping(value="/user/modify", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseVO modifyUser(@ModelAttribute UserVO userVO,@ModelAttribute("userProfile") MultipartFile userProfile,@ModelAttribute("modifyFileCheck") String fileCheck,
+			HttpServletRequest request) {
+		ResponseVO responseVO = new ResponseVO();
+		
+		if ("1".equals(fileCheck)) {
+			if (userProfile != null) {
+				FileVO fileVO = fileUtil.parseMultipartFile(userProfile, "userProfile");
+				
+				String filePath = fileVO.getFilepath();
+				String serverPath = fileVO.getFilenameExcludeDirectory();
+				
+				try {
+					userProfile.transferTo(new File(filePath));
+				} catch (IllegalStateException e) {
+					LoggerManager.error(getClass(), "{}", e.getMessage());
+				} catch (IOException e) {
+					LoggerManager.error(getClass(), "{}", e.getMessage());
+				}
+				
+				userVO.setUserProfileUrl(serverPath);
+			}
+		} else if ("2".equals(fileCheck)) {
+			userVO.setUserProfileUrl(DEFUALT_FILE_NAME);
+		}
+		
+		Integer isResult = userService.modifyUser(userVO);
+		
+		if (isResult > 0) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			userVO = userService.searchUser(userVO.getUserSeq());
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("user", userVO);
+		}
+		
+		return responseVO;
 	}
 }

@@ -16,7 +16,7 @@
 						<div class="form-group has-feedback">
 							<div class="col-md-12">
 								<img id="userProfile" class="image-circle" src="${contextPath}/resources/custom/images/user/default_profile.jpg" style="cursor: pointer;" onclick="fileProfile()" /> 
-								<input type="file" id="inputFile" class="upload-hidden" accept=".jpg, .png" style="display: none;" /><br/>
+								<input type="file" id="inputImage" class="upload-hidden" accept=".jpg, .png" style="display: none;" /><br/>
 							</div>
 						</div>
 						<!-- 닉네임 필드 -->
