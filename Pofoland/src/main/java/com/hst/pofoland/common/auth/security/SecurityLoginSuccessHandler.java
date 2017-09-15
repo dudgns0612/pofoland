@@ -71,8 +71,9 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 		LoggerManager.info(getClass(), sb.toString());
 		
 		//유저 로그인 상태 변경
-//		userDao.updateLoginState(userVO);
-		
+		if (userDao.updateLoginState(userVO) > 0) {
+			userVO.setUserLoginYn('Y');
+		}
 		// Session Process
 		HttpSession session = request.getSession();
 		session.setAttribute("user", userVO);

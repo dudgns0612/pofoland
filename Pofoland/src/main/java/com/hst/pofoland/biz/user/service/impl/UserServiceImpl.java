@@ -45,8 +45,6 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	public UserServiceImpl() {
 	}
 	
-	StandardPasswordEncoder spEncoder = new StandardPasswordEncoder();
-	
 	/**
 	 * 유저 회원가입 서비스
 	 * @param userVO
@@ -57,6 +55,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		userVO.setUserAuthKey(getAuthKey());
 		
+		StandardPasswordEncoder spEncoder = new StandardPasswordEncoder();
 		String userPw = spEncoder.encode(userVO.getPassword());
 		userVO.setUserPw(userPw);
 		
@@ -205,15 +204,24 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		return userVO;
 	}
-
+	
+	/**
+	 * 유저 정보 수정
+	 */
 	@Override
 	public Integer modifyUser(UserVO userVO) {
-		
-		Integer isUpdate = userDAO.updateModifyUser(userVO);
-
-		
-		return 1;
+		return userDAO.updateModifyUser(userVO);
 	}
+	
+	@Override
+	public Integer dropUser(UserVO userVO) {
+		return userDAO.updateDropUser(userVO);
+	}
+	
+	public Integer loginStateUser(UserVO userVO) {
+		return userDAO.updateLoginState(userVO);
+	}
+	
 	/**
 	 * Security 인증 확인
 	 */
@@ -236,5 +244,4 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		return userVO;
 	}
-
 }

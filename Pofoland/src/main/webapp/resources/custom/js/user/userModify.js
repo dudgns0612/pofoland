@@ -21,13 +21,10 @@ $(document).ready(function(){
 	$('#publicYnSelect').html(element);
 	
 	userOriNick = $('#modifyNickname').val();
-	var ss = 1
-	
-	console.log(ss);
 });
 
 //닉네임 중복체크
-$(document).on('click','#modifyNickCheckBtn',function(){
+$(document).on('click','#modifyNickCheckBtn',function() {
 	var userNick = $('#modifyNickname').val();
 	
 	console.log(userNick+"/"+userOriNick);
@@ -63,7 +60,7 @@ $(document).on('click','#modifyNickCheckBtn',function(){
 });
 
 //회원정보 수정
-$(document).on('click','#modifySuccessBtn',function(){
+$(document).on('click','#modifySuccessBtn',function() {
 	var userNick = $('#modifyNickname').val();
 	
 	if (userNick != userOriNick) {
@@ -135,7 +132,7 @@ $(document).on('click','#modifySuccessBtn',function(){
 
 
 //기본이미지 버튼 클릭
-$(document).on('click','#defaultImageBtn',function(){
+$(document).on('click','#defaultImageBtn',function() {
 	$('#userInfoImage').attr('src',contextPath+'/resources/custom/images/user/default_profile.jpg');
 	modifyFileCheck = 2;
 });
@@ -148,13 +145,48 @@ $(document).on('change','#modifyImage',function(){
 	reader.onload = function(event){
 		$('#userInfoImage').attr('src', event.target.result);
 	}
-	if(file){
+	if (file){
 		reader.readAsDataURL(file);	
 		modifyFileCheck = 1;
-	}else {
+	} else {
 		modifyFileCheck = 0;
 	}
 })
+
+$(document).on('click','#modifyCencleBtn',function(){
+	var isCancel = confirm("수정을 취소하시겠습니까?");
+	
+	if (isCancel) {
+		location.href = contextPath + "/home";
+	}
+});
+
+$(document).on('click','#userDropBtn',function(){
+	var isDrop = confirm("포폴랜드를 정말 탈퇴하시겠습니까?");
+	
+	if (isDrop) {
+		$.ajax({
+			type : 'GET',
+			url : contextPath + '/user/drop',
+			data : {'userSeq' : userSeq},
+			dataType : 'JSON',
+			success : function(response){
+				if (response.code) {
+					alert("회원탈퇴 처리가 정상적으로 수행되었습니다. 감사합니다.");
+					location.href = contextPath+'/home';
+				}
+			},
+			error : function(error) {
+				console.log(error);
+			}
+		});
+	}
+	
+});
+
+//$(document).on('click',"#pwModifyBtn",function(){
+//	
+//});
 
 function modifyProfile() {
 	var fileBtn = $('#modifyImage');

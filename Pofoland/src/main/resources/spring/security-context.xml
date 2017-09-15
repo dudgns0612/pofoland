@@ -39,7 +39,6 @@
 					password-parameter="userPw" 
 					authentication-success-handler-ref="loginSuccessHandler"
 					authentication-failure-handler-ref="logunFailHandler"  />
-		<logout logout-url="/logout" />
 	</http>
 	
 	<authentication-manager id="authenticationManager" alias="authenticationManager">

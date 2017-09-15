@@ -41,28 +41,37 @@
 			   USER_LOGIN_YN,
 			   USER_PROFILE_URL
 		  FROM User
-		 WHERE USER_ID = #{userId} 
+		 WHERE 1=1
+		   AND USER_ID = #{userId}
+		   AND USER_DEL_YN = 'N'
 	</select>
 	
 	<!-- 유저 아이디 중복확인 -->	
 	<select id="selectDuplicateCheckId" resultType="String">
 		SELECT USER_ID
 		  FROM User
-		 WHERE USER_ID = #{userId}
+		 WHERE 1=1
+		   AND USER_ID = #{userId}
+		   AND USER_DEL_YN = 'N'
 	</select>
 	
 	<!-- 유저 닉네임 중복확인 -->
 	<select id="selectDuplicateCheckNick" resultType="String">
 		SELECT USER_NICK
 		  FROM User
-		 WHERE USER_NICK = #{userNick}
+		 WHERE 1=1
+		   AND USER_NICK = #{userNick}
+		   AND USER_DEL_YN = 'N'
+		 
 	</select>
 	
 	<!-- 유저 이메일 중복확인 -->
 	<select id="selectDuplicateCheckEmail" resultType="String">
 		SELECT USER_EMAIL
 		  FROM User
-		 WHERE USER_EMAIL = #{userEmail}
+		 WHERE 1=1
+		   AND USER_EMAIL = #{userEmail}
+		   AND USER_DEL_YN = 'N'
 	</select>
 	
 	<!-- 유저 정보 조회 -->
@@ -80,7 +89,8 @@
 			   USER_LOGIN_YN,
 			   USER_PROFILE_URL
 		  FROM User
-		 WHERE USER_SEQ = #{userSeq}
+		 WHERE 1=1
+		   AND USER_SEQ = #{userSeq}
 	</select>
 	
 	<!-- 유저 시퀀스 조회 -->
@@ -106,14 +116,12 @@
 	<update id="updateLoginState" parameterType="UserVO">
 		UPDATE User
 			<set>
-				<choose>
-					<when test="userLoginYn == N">
-					USER_LOGIN_YN = 'Y'
-					</when>
-					<otherwise>
-					USER_LOGIN_YN = 'N'
-					</otherwise>
-				</choose>
+				<if test="userLoginYn == 'N'">
+				USER_LOGIN_YN = 'Y'
+				</if>
+				<if test="userLoginYn == 'Y'">
+				USER_LOGIN_YN = 'N'
+				</if>
 			</set>
 		 WHERE USER_SEQ = #{userSeq}	
 	</update>
@@ -184,5 +192,13 @@
 				</if>
 			</set>
 		 WHERE USER_SEQ = ${userSeq};	
+	</update>
+	
+	<update id="updateDropUser" parameterType="UserVO">
+		UPDATE User
+			<set>
+				USER_DEL_YN = 'Y'
+			</set>
+		 WHERE USER_SEQ = #{userSeq};	
 	</update>
 </mapper>

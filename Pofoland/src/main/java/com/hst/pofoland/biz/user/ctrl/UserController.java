@@ -66,6 +66,7 @@ import com.hst.pofoland.common.vo.ResponseVO;
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
  * 2017. 9. 13		김영훈			구글사용자/프로필URL추가
+ * 2017. 9. 15		김영훈			유저 정보수정 1차 완료
  * </pre>
  */
 
@@ -135,7 +136,6 @@ public class UserController implements InitializingBean{
 		try {
 			response.sendRedirect(url);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -432,13 +432,20 @@ public class UserController implements InitializingBean{
 	 * @return
 	 */
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
-	public String userLogout(HttpServletRequest request) {
+	@ResponseBody
+	public ResponseVO userLogout(HttpServletRequest request) {
 		
+		ResponseVO responseVO = new ResponseVO();
 		HttpSession session = request.getSession();
-		
+		UserVO userVO = (UserVO) session.getAttribute("user");
+		Integer result = userService.loginStateUser(userVO);
 		session.removeAttribute("user");
 		
-		return "/home";
+		if (result > 0 && session.getAttribute("user") == null) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+		}
+		
+		return responseVO;
 	}
 	
 	/**
@@ -456,6 +463,14 @@ public class UserController implements InitializingBean{
 		return new ImageView(directoty,storedFileName);
 	}
 	
+	/**
+	 * 유저 정보수정
+	 * @param userVO
+	 * @param userProfile
+	 * @param fileCheck
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/user/modify", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO modifyUser(@ModelAttribute UserVO userVO,@ModelAttribute("userProfile") MultipartFile userProfile,@ModelAttribute("modifyFileCheck") String fileCheck,
@@ -491,6 +506,29 @@ public class UserController implements InitializingBean{
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userVO);
+		}
+		
+		return responseVO;
+	}
+	
+	/**
+	 * 유저 탈퇴 처리
+	 * @param userVO
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/user/drop" , method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO dropUser(@ModelAttribute UserVO userVO, HttpServletRequest request) {
+		ResponseVO responseVO = new ResponseVO();
+		
+		Integer result = userService.dropUser(userVO);
+		
+		if(result > 0) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			userService.loginStateUser(userVO);
+			HttpSession session = request.getSession();
+			session.removeAttribute("user");
 		}
 		
 		return responseVO;

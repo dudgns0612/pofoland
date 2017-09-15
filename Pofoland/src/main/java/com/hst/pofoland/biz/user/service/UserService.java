@@ -25,4 +25,6 @@ public interface UserService {
 	public Integer addInfoUser(UserVO userVO);
 	
 	public Integer modifyUser(UserVO userVO);
+	
+	public Integer dropUser(UserVO userVO);
 }

@@ -65,5 +65,10 @@ public class PageController {
 	public String userModify() {
 		return "user/userModify";
 	}
+	
+	@RequestMapping(value = "/user/modify/password")
+	public String userModifyPassword() {
+		return "user/userModifyPw";
+	}
 
 }
