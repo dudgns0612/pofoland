@@ -1,40 +1,43 @@
 package com.hst.pofoland;
 
-import java.util.Locale;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hst.pofoland.common.utils.LoggerManager;
-
 
 @Controller
 public class PageController {
 
-	@RequestMapping(value = {"/","/login"}, method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		
-		LoggerManager.info(getClass(), "로그테스트");
-		
-		return "common/login";
-	}
-	
-	@RequestMapping(value="/home")
+	@RequestMapping(value = {"/","/home"} )
 	public String tilesTest() {
 		return "common/home";
 	}
 	
-	@RequestMapping(value="/join/step1", method=RequestMethod.GET)
-	public String joinUser() {
-		
-		return "user/joinStep1";
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+	    return "common/login";
 	}
 	
-	@RequestMapping(value="/join/step2", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/join/step1", method=RequestMethod.GET)
+	public ModelAndView joinUser() {
+		
+		ModelAndView mav = new ModelAndView("user/joinStep1");
+		mav.addObject("type", "general");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/join/oAuth/step1", method=RequestMethod.GET)
+	public ModelAndView joinOauthUser() {
+		ModelAndView mav = new ModelAndView("user/joinStep1");
+		mav.addObject("type", "google");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/join/step2", method=RequestMethod.POST)
 	public String joinUser1() {
 		return "user/joinStep2";
 	}
@@ -47,11 +50,25 @@ public class PageController {
 	@RequestMapping(value = "/user/mailauth/{userSeq}", method = RequestMethod.GET)
 	public ModelAndView userMailAuthPage(@PathVariable Integer userSeq) {
 		
-		ModelAndView mav = new ModelAndView("페이지명");
-		
+		ModelAndView mav = new ModelAndView("user/mailAuth");
 		mav.addObject("userSeq", userSeq);
 		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/pofoland/info")
+	public String pofolandInfo() {
+		return "common/pofolandInfo";
+	}
+	
+	@RequestMapping(value = "/user/modify")
+	public String userModify() {
+		return "user/userModify";
+	}
+	
+	@RequestMapping(value = "/user/modify/password")
+	public String userModifyPassword() {
+		return "user/userModifyPw";
 	}
 
 }
