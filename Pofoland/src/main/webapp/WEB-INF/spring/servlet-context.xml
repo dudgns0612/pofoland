@@ -66,6 +66,7 @@
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/j_spring_security_check" />
 			<mvc:exclude-mapping path="/google/**" />
+			<mvc:exclude-mapping path="/extJobs/**" />
 			<beans:ref bean="authInspectionInterceptor" />	
 		</mvc:interceptor>
 	</mvc:interceptors>

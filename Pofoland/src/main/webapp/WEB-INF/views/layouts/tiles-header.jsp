@@ -28,7 +28,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/home">홈</a></li>
 					<li><a href="${contextPath}/pofoland/info">포폴랜드</a></li>
-					<li><a href="#our-works">Works</a></li>
+					<li><a href="${contextPath}/extJobs/main">Jobs</a></li>
 					<li><a href="#our-team">Team</a></li>
 					<li><a href="#contact">구인정보</a></li>
 					<li><a href="blog.html">포트폴리오</a></li>

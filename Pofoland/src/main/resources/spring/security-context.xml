@@ -18,6 +18,7 @@
 	<beans:bean id="pwEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"></beans:bean>
 	
 	<http pattern="/file/**" security="none"/>
+	<http pattern="/extJobs/**" security="none" />
     
 	<http auto-config="true" use-expressions="true" pattern="/**" authentication-manager-ref="authenticationManager">
 		<!-- ROLE_USER 권한이 있어야 접근 가능 없을경우 access-denied-page 리다이렉트 -->
