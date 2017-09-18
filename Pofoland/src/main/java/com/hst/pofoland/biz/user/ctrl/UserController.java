@@ -65,8 +65,6 @@ import com.hst.pofoland.common.vo.ResponseVO;
  * 수정일			수정자			수정내용
  * -------------------------------------------------
  * 2017. 7. 27.		김영훈			최초생성
- * 2017. 9. 13		김영훈			구글사용자/프로필URL추가
- * 2017. 9. 15		김영훈			유저 정보수정 1차 완료
  * </pre>
  */
 
@@ -432,20 +430,22 @@ public class UserController implements InitializingBean{
 	 * @return
 	 */
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
-	@ResponseBody
-	public ResponseVO userLogout(HttpServletRequest request) {
+	public void userLogout(HttpServletRequest request,HttpServletResponse response) {
+		System.out.println("=======TODO=====");
 		
-		ResponseVO responseVO = new ResponseVO();
 		HttpSession session = request.getSession();
 		UserVO userVO = (UserVO) session.getAttribute("user");
 		Integer result = userService.loginStateUser(userVO);
-		session.removeAttribute("user");
 		
-		if (result > 0 && session.getAttribute("user") == null) {
-			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+		if (result > 0 && session.getAttribute("user") != null) {
+			session.removeAttribute("user");
 		}
 		
-		return responseVO;
+		try {
+			response.sendRedirect("/home");
+		}catch (Exception e) {
+			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
+		}
 	}
 	
 	/**
@@ -455,7 +455,6 @@ public class UserController implements InitializingBean{
 	 */
 	@RequestMapping(value="/user/{userSeq}/image", method=RequestMethod.GET)
 	public ImageView searchUserProfile(@PathVariable Integer userSeq) {
-		
 		String storedFileName = userService.searchUser(userSeq).getUserProfileUrl();
 		
 		String directoty = config.getString("upload.dirNames.userProfile");

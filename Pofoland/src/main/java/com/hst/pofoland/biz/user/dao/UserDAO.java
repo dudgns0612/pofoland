@@ -1,5 +1,7 @@
 package com.hst.pofoland.biz.user.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.hst.pofoland.biz.user.vo.UserVO;
@@ -133,4 +135,10 @@ public interface UserDAO {
 	 * @return
 	 */
 	public Integer updateDropUser(UserVO userVO);
+	
+	/**
+	 * 유저 프로필 파일명 조회
+	 * @return
+	 */
+	public List<String> selectAllUserProfile();
 }

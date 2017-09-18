@@ -66,7 +66,7 @@
 										<div style="margin-top:17px;">
 											<input id="userPofoBtn" class="btn btn-warning" type="button" value="내 포트폴리오" style="width: 32.90%; height: 40px;" />
 											<input id="userModifyBtn" class="btn btn-warning" type="button" onclick="location.href='${contextPath}/user/modify'" value="정보수정" style="width: 32.45%; height: 40px;" />
-											<input id="userLogoutBtn" class="btn btn-warning" type="button" value="로그아웃" style="width: 32.45%; height: 40px;" />
+											<input id="userLogoutBtn" class="btn btn-warning" type="button" value="로그아웃" onclick="location.href='${contextPath}/user/logout'" style="width: 32.45%; height: 40px;" />
 										</div>
 									</div>
 								</ul>

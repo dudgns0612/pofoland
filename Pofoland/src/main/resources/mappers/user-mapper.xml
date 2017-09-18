@@ -201,4 +201,9 @@
 			</set>
 		 WHERE USER_SEQ = #{userSeq};	
 	</update>
+	
+	<select id="selectAllUserProfile" resultType="String">
+		SELECT USER_PROFILE_URL
+		  FROM User
+	</select>
 </mapper>

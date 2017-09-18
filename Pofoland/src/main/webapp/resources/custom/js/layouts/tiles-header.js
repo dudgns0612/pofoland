@@ -19,25 +19,3 @@ function loginValidate() {
 	
 	return true;
 }
-
-//유저 로그아웃
-$(document).on('click','#userLogoutBtn',function(){
-	$.ajax({
-		type : 'GET',
-		url : contextPath + '/user/logout',
-		dataType : 'JSON',
-		success : function(response){
-			if (response.code) {
-				location.href = contextPath + '/home';
-			} else {
-				alert("죄송합니다. 로그아웃 처리가 되지않았습니다. 다시시도 해주세요.");
-			}
-		},
-		error : function(error) {
-			console.log(error);
-		}
-		
-	});
-});
-
-

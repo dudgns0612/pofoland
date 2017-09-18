@@ -8,6 +8,9 @@
 package com.hst.pofoland.common.utils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.UUID;
 
@@ -62,8 +65,30 @@ public class FileUtils implements InitializingBean {
         if (!f.exists()) f.mkdirs();
         f= new File(userProfile);
         if (!f.exists()) f.mkdirs();
-    }
-    
+        
+        //디폴트 유저이미지 존재여부 확인 후 생성
+        File newFile = new File(userProfile + "/default_profile.jpg");
+        if(!newFile.exists()) {
+        	FileOutputStream writer =  null;
+        	InputStream reader = null;
+        	try {
+        		reader = getClass().getClassLoader().getResourceAsStream("/default_profile.jpg"); 
+        		
+        		writer = new FileOutputStream(newFile);
+        		byte[] bytes = new byte[1024];
+        		
+        		int readBuffer = 0;
+        		while ((readBuffer = reader.read(bytes)) != -1) {
+        			writer.write(bytes, 0, readBuffer);
+        		}
+        	} catch (IOException e) {
+        		LoggerManager.error(getClass(), "ERROR {}", e.getMessage());
+        	} finally {
+        		reader.close();
+        		writer.close();
+        	}
+        }
+	}
     
     /**
      * @return childDirectory 반환
