@@ -26,5 +26,9 @@ public interface UserService {
 	
 	public Integer modifyUser(UserVO userVO);
 	
+	public Integer loginStateUser(UserVO userVO);
+	
 	public Integer dropUser(UserVO userVO);
+	
+	public Integer modifyUserPssword(UserVO userVO);
 }

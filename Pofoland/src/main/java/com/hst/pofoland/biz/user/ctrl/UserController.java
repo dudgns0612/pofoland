@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
@@ -506,6 +507,29 @@ public class UserController implements InitializingBean{
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userVO);
 		}
+		
+		return responseVO;
+	}
+	
+	@RequestMapping(value="/user/modify/password" , method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseVO modifyPwUser(@ModelAttribute("oriPassword") String oriPassword ,
+			@ModelAttribute("newPassword") String newPassword, HttpServletRequest request) {
+		StandardPasswordEncoder spEncoder = new StandardPasswordEncoder();
+		ResponseVO responseVO = new ResponseVO();
+		
+		HttpSession session = request.getSession();
+		UserVO userVO = (UserVO)session.getAttribute("user");
+		String oriEncodePw = userVO.getUserPw();
+		
+		if (spEncoder.matches(oriPassword, oriEncodePw)) {
+			String newEncodePw = spEncoder.encode(newPassword);
+			userVO.setUserPw(newEncodePw);
+			if(userService.modifyUserPssword(userVO) > 0) {
+				session.setAttribute("user", userVO);
+				responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			}
+		} 
 		
 		return responseVO;
 	}

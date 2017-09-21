@@ -8,12 +8,13 @@
 <!-- author YH -->
 
 <tiles-definitions>
+	<!-- tiles 기본설정 header / body / footer -->
 	<definition name="default" template="/WEB-INF/views/layouts/tiles-layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/layouts/tiles-header.jsp" />
 		<put-attribute name="body"  value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/layouts/tiles-footer.jsp" />
 	</definition>
- 
+
 	<definition name="*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/pofoland/{1}.jsp" />
 	</definition>
@@ -22,5 +23,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/pofoland/{1}/{2}.jsp" />
 	</definition>
 	
-	
+	<!-- tiles 에러설정 404error / 500error-->
+	<definition name="error" template="/WEB-INF/views/layouts/empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+ 
+	<definition name="error/*" extends="error">
+		<put-attribute name="content" value="/WEB-INF/views/pofoland/error/{1}.jsp" />
+	</definition>
 </tiles-definitions>

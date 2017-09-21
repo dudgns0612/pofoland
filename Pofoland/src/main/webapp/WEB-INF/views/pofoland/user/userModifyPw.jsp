@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/userModify.js"></script>
+<script>
+	var userPublicYn = "${user.userPublicYn}";
+</script>
 <!-- PAGE HEADER -->
 <section id="page-header">
     <div class="container">
@@ -22,9 +25,9 @@
 				<h2 class="heading">MY INFOMATION</h2>
 				<p class="font-kr t_justify">비밀번호를 변경합니다. 현재 비밀번호와 변경 비밀번호를 입력하세요.</p>
 				<hr>
-				<h5>현재 비밀번호 &nbsp;&nbsp;:&nbsp;&nbsp; <input id="modifyNickname" class="form-control" type="text" value="" style="display:inline; width:27%; "/>
-				<h5>변경 비밀번호 &nbsp;&nbsp;:&nbsp;&nbsp; <input id="modifyNickname" class="form-control" type="text" value="" style="display:inline; width:27%; "/>
-				<h5>변경 비밀번호 확인 &nbsp;&nbsp;:&nbsp;&nbsp; <input id="modifyNickname" class="form-control" type="text" value="" style="display:inline; width:27%; "/>
+				<h5>현재 비밀번호 &nbsp;&nbsp;:&nbsp;&nbsp; <input type="password" id="oriModifyPw" class="form-control" style="display:inline; width:27%; "/></h5>
+				<h5>변경 비밀번호 &nbsp;&nbsp;:&nbsp;&nbsp; <input type="password" id="newModifyPw" class="form-control" style="display:inline; width:27%; "/></h5>
+				<h5>변경 비밀번호 확인 &nbsp;&nbsp;:&nbsp;&nbsp; <input type="password" id="newModifyPwCheck" class="form-control" style="display:inline; width:27%; "/></h5>
 			</div>	
 			<div class="col-md-12">
 				<div class="bottom">

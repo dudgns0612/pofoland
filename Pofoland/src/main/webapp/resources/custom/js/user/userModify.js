@@ -184,9 +184,59 @@ $(document).on('click','#userDropBtn',function(){
 	
 });
 
-//$(document).on('click',"#pwModifyBtn",function(){
-//	
-//});
+$(document).on('click',"#pwModifyBtn",function(){
+	var oriPw = $('#oriModifyPw').val();
+	var newPw = $('#newModifyPw').val();
+	var newPwCheck = $('#newModifyPwCheck').val();
+	
+	if (oriPw == null || oriPw == '' || oriPw == undefined || oriPw == 'undefined') {
+		alert("현재 비밀번호를 입력하여주세요.");
+		return;
+	} else if (newPw == null || newPw == '' || newPw == undefined || newPw == 'undefined') {
+		alert("변경 비밀번호를 입력하여주세요.");
+		return;
+	} else if (newPwCheck == null || newPwCheck == '' || newPwCheck == undefined || newPwCheck == 'undefined') {
+		alert("변경확인 비밀번호를 입력하여주세요.");
+		return;
+	} else if (oriPw == newPw) {
+		alert("비밀번호가 변경되지 않았습니다.");
+		return;
+	} else if (newPw.length < 8) {
+		alert("8글자이상 입력하여주세요.");
+		return;
+	} else if (newPw === newPw.toUpperCase()) {
+		alert("소문자를 하나라도 포함시켜주세요.");
+		return;
+	} else if (newPw.search(/[0-9]/) < 0) {
+		alert("특수문자를 하나라도 입력하여주세요.");
+		return;
+	} else if (newPw != newPwCheck) {
+		alert("변경 비밀번호가 일치하지 않습니다.");
+		return;
+	} 
+	
+	var data = {'oriPassword' : oriPw , 'newPassword' : newPw};
+	
+	
+	$.ajax({
+		type : 'POST',
+		url : contextPath+'/user/modify/password',
+		data : data,
+		dataType : 'JSON',
+		success : function (response) {
+			if (response.code) {
+				alert("비밀번호가 정상적으로 변경되었습니다. 변경 된 정보로 로그인 해주세요.");
+				location.href = contextPath+'/user/logout';
+			} else {
+				alert("현재 비밀번호가 맞지않습니다.");
+			}
+		},
+		error : function (error) {
+			console.log(error);
+		}
+	});
+});
+	
 
 function modifyProfile() {
 	var fileBtn = $('#modifyImage');

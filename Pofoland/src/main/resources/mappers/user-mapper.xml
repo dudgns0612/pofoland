@@ -206,4 +206,12 @@
 		SELECT USER_PROFILE_URL
 		  FROM User
 	</select>
+	
+	<update id="updatePasswordUser" parameterType="UserVO">
+		UPDATE User
+			<set>
+				USER_PW = #{userPw}
+			</set>
+		 WHERE USER_SEQ = #{userSeq}	
+	</update>
 </mapper>

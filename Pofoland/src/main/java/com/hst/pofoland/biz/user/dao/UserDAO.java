@@ -141,4 +141,11 @@ public interface UserDAO {
 	 * @return
 	 */
 	public List<String> selectAllUserProfile();
+	
+	/**
+	 * 유저 비밀번호 변경
+	 * @param newPassword
+	 * @return
+	 */
+	public Integer updatePasswordUser(UserVO userVO);
 }

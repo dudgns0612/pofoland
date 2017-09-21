@@ -218,8 +218,14 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		return userDAO.updateDropUser(userVO);
 	}
 	
+	@Override
 	public Integer loginStateUser(UserVO userVO) {
 		return userDAO.updateLoginState(userVO);
+	}
+	
+	@Override
+	public Integer modifyUserPssword(UserVO userVO) {
+		return userDAO.updatePasswordUser(userVO);
 	}
 	
 	/**

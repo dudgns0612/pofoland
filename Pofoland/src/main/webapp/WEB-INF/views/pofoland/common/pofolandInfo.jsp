@@ -84,7 +84,7 @@
 		<div class="row">
 			<div class="col-md-3 margin20">
 				<div class="team-wrap">
-					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/김영훈.jpg" class="img-responsive" alt="">
+					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/kyh.jpg" class="img-responsive" alt="">
 					<h4 class="bold_NanumGothic_24">김영훈</h4>
 					<span>CEO</span>
 					<p>서버에서 퍼블리셔로 전향한 어리석은 놈.</p>
@@ -100,7 +100,7 @@
 			<!-- team col -->
 			<div class="col-md-3 margin20">
 				<div class="team-wrap">
-					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/이현규.jpg" class="img-responsive" alt="">
+					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/lhg.jpg" class="img-responsive" alt="">
 					<h4 class="bold_NanumGothic_24">이현규</h4>
 					<span>CEO</span>
 					<p>구글 / 삼성 / 애플을 전부 거치고 (주)HST에 전념하고 있는 완벽한놈.</p>
@@ -116,7 +116,7 @@
 			<!-- team col -->
 			<div class="col-md-3 margin20">
 				<div class="team-wrap">
-					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/임유표.jpg" class="img-responsive" alt="">
+					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/iyp.jpg" class="img-responsive" alt="">
 					<h4 class="bold_NanumGothic_24">임유표</h4>
 					<span>CEO</span>
 					<p>(주)HST에서 얼굴 마담과 카카오톡에서 인정 받고 현재 포폴랜드에 전념하고 있는 놈.</p>
@@ -132,7 +132,7 @@
 			<!-- team col -->
 			<div class="col-md-3 margin20">
 				<div class="team-wrap">
-					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/김승환.png" class="img-responsive" alt="">
+					<img class="admin-profile" src="${contextPath}/resources/custom/images/pofoland/admin/ksh.png" class="img-responsive" alt="">
 					<h4 class="bold_NanumGothic_24">김승환</h4>
 					<span>CEO</span>
 					<p>이현규씨와 동일하게 3대 회사 왕좌에 오른 놈</p>

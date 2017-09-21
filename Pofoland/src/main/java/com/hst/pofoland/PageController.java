@@ -1,5 +1,7 @@
 package com.hst.pofoland;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +71,27 @@ public class PageController {
 	@RequestMapping(value = "/user/modify/password")
 	public String userModifyPassword() {
 		return "user/userModifyPw";
+	}
+	
+	// ERROR PAGE 처리
+	@RequestMapping(value = "/error404")
+	public ModelAndView error404Page(HttpServletResponse response) {
+		//ERROR 성공처리
+		response.setStatus(HttpServletResponse.SC_OK);
+		
+		ModelAndView mav = new ModelAndView("error/404page");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/error500")
+	public ModelAndView error500Page(HttpServletResponse response) {
+		//ERROR 성공처리
+		response.setStatus(HttpServletResponse.SC_OK);
+		
+		ModelAndView mav = new ModelAndView("error/500page");
+		
+		return mav;
 	}
 
 }
