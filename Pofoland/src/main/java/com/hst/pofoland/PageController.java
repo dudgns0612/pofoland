@@ -73,6 +73,9 @@ public class PageController {
 		return "user/userModifyPw";
 	}
 	
+	
+	// =========================ERROR PAGE =============================
+	
 	// ERROR PAGE 처리
 	@RequestMapping(value = "/error404")
 	public ModelAndView error404Page(HttpServletResponse response) {
@@ -90,6 +93,16 @@ public class PageController {
 		response.setStatus(HttpServletResponse.SC_OK);
 		
 		ModelAndView mav = new ModelAndView("error/500page");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/error501")
+	public ModelAndView error501Page(HttpServletResponse response) {
+		//ERROR 성공처리
+		response.setStatus(HttpServletResponse.SC_OK);
+		
+		ModelAndView mav = new ModelAndView("error/501page");
 		
 		return mav;
 	}

@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.hst.pofoland.common.auth.security.SecurityRole;
+import com.hst.pofoland.common.vo.BaseVO;
 
 /**
  * 
@@ -30,7 +31,7 @@ import com.hst.pofoland.common.auth.security.SecurityRole;
  * </pre>
  */
 
-public class UserVO implements UserDetails{
+public class UserVO extends BaseVO implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	Integer userSeq = null;
 	String userId = "";

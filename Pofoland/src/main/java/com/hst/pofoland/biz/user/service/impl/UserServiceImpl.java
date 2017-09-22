@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	@Inject
 	UserDAO userDAO;
 	
+	/**
+	 * 생성자
+	 */
 	public UserServiceImpl() {
 	}
 	

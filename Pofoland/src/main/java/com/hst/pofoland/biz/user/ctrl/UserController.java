@@ -477,6 +477,8 @@ public class UserController implements InitializingBean{
 			HttpServletRequest request) {
 		ResponseVO responseVO = new ResponseVO();
 		
+		System.out.println("CHECK :" + fileCheck);
+		
 		if ("1".equals(fileCheck)) {
 			if (userProfile != null) {
 				FileVO fileVO = fileUtil.parseMultipartFile(userProfile, "userProfile");
@@ -556,4 +558,5 @@ public class UserController implements InitializingBean{
 		
 		return responseVO;
 	}
+	
 }

@@ -187,7 +187,7 @@
 			<set>
 				USER_NICK = #{userNick},
 				USER_PUBLIC_YN = #{userPublicYn},
-				<if test="userProfileUrl != null">
+				<if test="userProfileUrl != null and userProfileUrl != ''">
 					USER_PROFILE_URL = #{userProfileUrl}
 				</if>
 			</set>
