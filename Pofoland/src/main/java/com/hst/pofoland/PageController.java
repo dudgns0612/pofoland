@@ -1,5 +1,8 @@
 package com.hst.pofoland;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -8,13 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hst.pofoland.biz.user.dao.UserInfoDAO;
+import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.utils.LoggerManager;
+
 
 @Controller
 public class PageController {
-
+	
+	@Inject
+	UserInfoDAO userInfoDAO;
+	
 	@RequestMapping(value = {"/","/home"} )
-	public String tilesTest() {
-		return "common/home";
+	public ModelAndView home() {
+		
+		ModelAndView mav = new ModelAndView("common/home");
+		List<UserVO> user = userInfoDAO.selectHomeUserInfo();
+		mav.addObject("userList", user);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -81,8 +96,9 @@ public class PageController {
 	public ModelAndView error404Page(HttpServletResponse response) {
 		//ERROR 성공처리
 		response.setStatus(HttpServletResponse.SC_OK);
-		
 		ModelAndView mav = new ModelAndView("error/404page");
+		LoggerManager.info(getClass(),"ERROR PAGE = {}", "404");
+		
 		
 		return mav;
 	}
@@ -91,8 +107,8 @@ public class PageController {
 	public ModelAndView error500Page(HttpServletResponse response) {
 		//ERROR 성공처리
 		response.setStatus(HttpServletResponse.SC_OK);
-		
 		ModelAndView mav = new ModelAndView("error/500page");
+		LoggerManager.info(getClass(),"ERROR PAGE = {}", "500");
 		
 		return mav;
 	}
@@ -101,8 +117,8 @@ public class PageController {
 	public ModelAndView error501Page(HttpServletResponse response) {
 		//ERROR 성공처리
 		response.setStatus(HttpServletResponse.SC_OK);
-		
 		ModelAndView mav = new ModelAndView("error/501page");
+		LoggerManager.info(getClass(),"ERROR PAGE = {}", "501");
 		
 		return mav;
 	}

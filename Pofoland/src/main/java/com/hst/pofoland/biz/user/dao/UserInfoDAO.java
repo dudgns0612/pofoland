@@ -12,4 +12,6 @@ public interface UserInfoDAO {
 	public List<UserVO> selectUserInfo(UserVO userVO);
 	
 	public Integer selectUserTotal(UserVO userVO);
+	
+	public List<UserVO> selectHomeUserInfo();
 }

@@ -63,6 +63,7 @@
 			<mvc:exclude-mapping path="/join/**" />
 			<mvc:exclude-mapping path="/user/**" />
 			<mvc:exclude-mapping path="/pofoland/**" />
+			<mvc:exclude-mapping path="/error**" />
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/j_spring_security_check" />
 			<mvc:exclude-mapping path="/google/**" />

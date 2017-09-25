@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!-- SLIDER -->
 <section id="slider">
 	<div id="home-carousel" class="carousel slide" data-ride="carousel">
@@ -311,108 +314,39 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-title">
-					<h1>Our Team</h1>
+					<h1>최고의 회원</h1>
 					<span class="st-border"></span>
 				</div>
 			</div>
-
-			<div class="col-md-3 col-sm-6">
-				<div class="team-member">
-					<div class="member-image">
-						<img class="img-responsive" src="${contextPath}/resources/assets/images/members/team1.jpg" alt="">
-						<div class="member-social">
-							<a href="">
-								<i class="fa fa-facebook"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-twitter"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-google-plus"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-linkedin"></i>
-							</a>
+			
+			<c:forEach var="user" items="${userList}">
+				<div class="col-md-3 col-sm-6">
+					<div class="team-member">
+						<div class="member-image">
+							<img class="img-responsive" src="${contextPath}/user/${user.userSeq}/image" alt="" style="height: 264px;"/>
+							<div class="member-social">
+								<a href="">
+									<i class="fa fa-facebook"></i>
+								</a> 
+								<a href="">
+									<i class="fa fa-twitter"></i>
+								</a> 
+								<a href="">
+									<i class="fa fa-google-plus"></i>
+								</a> 
+								<a href="">
+									<i class="fa fa-linkedin"></i>
+								</a>
+							</div>
+						</div>
+						<div class="member-info">
+							<h4>${user.userNick}</h4>
+							<span>${user.userEmail}</span><br/>
+							<span>${user.userScore}</span>
 						</div>
 					</div>
-					<div class="member-info">
-						<h4>Khalil Uddin</h4>
-						<span>Designer</span>
-					</div>
 				</div>
-			</div>
-
-			<div class="col-md-3 col-sm-6">
-				<div class="team-member">
-					<div class="member-image">
-						<img class="img-responsive" src="${contextPath}/resources/assets/images/members/team2.jpg" alt="">
-						<div class="member-social">
-							<a href="">
-								<i class="fa fa-facebook"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-twitter"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-google-plus"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-linkedin"></i>
-							</a>
-						</div>
-					</div>
-					<div class="member-info">
-						<h4>Rubel Miah</h4>
-						<span>Lead Developer</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 col-sm-6">
-				<div class="team-member">
-					<div class="member-image">
-						<img class="img-responsive" src="${contextPath}/resources/assets/images/members/team1.jpg" alt="">
-						<div class="member-social">
-							<a href=""><i class="fa fa-facebook"></i></a>
-							<a href="">
-								<i class="fa fa-twitter"></i>
-							</a>
-							<a href="">
-								<i class="fa fa-google-plus"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-linkedin"></i>
-							</a>
-						</div>
-					</div>
-					<div class="member-info">
-						<h4>Shamim Shohag</h4>
-						<span>Developer</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 col-sm-6">
-				<div class="team-member">
-					<div class="member-image">
-						<img class="img-responsive" src="${contextPath}/resources/assets/images/members/team2.jpg" alt="">
-						<div class="member-social">
-							<a href=""><i class="fa fa-facebook"></i></a> <a href="">
-								<i class="fa fa-twitter"></i>
-							</a> 
-							<a href="">
-								<i class="fa fa-google-plus"></i>
-							</a> <a href="">
-								<i class="fa fa-linkedin"></i>
-							</a>
-						</div>
-					</div>
-					<div class="member-info">
-						<h4>Zubayer Rahman</h4>
-						<span>Marketer</span>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </section>
@@ -438,13 +372,13 @@
 					data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="item active">
-							<img src="${contextPath}/resources/assets//office/04.jpg" alt="">
+							<img src="${contextPath}/resources/custom/images/layouts/main-setting1.png" alt="">
 						</div>
 						<div class="item">
-							<img src="${contextPath}/resources/assets//office/02.jpg" alt="">
+							<img src="${contextPath}/resources/custom/images/layouts/main-setting2.png" alt="">
 						</div>
 						<div class="item">
-							<img src="${contextPath}/resources/assets/images/office/03.jpg" alt="">
+							<img src="${contextPath}/resources/custom/images/layouts/main-setting3.png" alt="">
 						</div>
 
 						<a class="office-carousel-left" href="#office-carousel" data-slide="prev">

@@ -27,15 +27,22 @@
 					<article>
 						<c:choose>
 							<c:when test="${not empty userInfoList}">
-								<c:forEach items="${userInfoList}" var="user">
-									<h4 class="post-title">
-										${user.userNick}
+								<c:forEach items="${userInfoList}" var="user" varStatus="status">
+									<h4 class="post-title" style="margin-bottom: 15px;">
+										${condition.totalRecordCount - (condition.totalRecordCount - ((condition.currentPageNo-1) * condition.recordCountPerPage + status.index)-1)}. ${user.userNick}
 									</h4>
-									<div class="post-meta text-uppercase">
-										<span>${user.userId}</span>
-										<span>By <a href="/user/${user.userSeq}">${user.userNick}</a></span>
+									<div class="row">
+										<div class="col-md-3">
+											<img class="image-circle-header" src="${contextPath}/user/${user.userSeq}/image" alt="" ></img>
+										</div>
+										<div class="col-md-6">
+											<div class="post-meta text-uppercase">
+												<span>이메일 : ${user.userEmail}</span><br/>
+												<span>활동점수 : ${user.userScore}</span><br/>
+												<span>포트폴리오 : </span>
+											</div>
+										</div>
 									</div>
-									<div class="post-article">${user.userProfileUrl}</div>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
@@ -49,8 +56,23 @@
 					<ui:pagination paginationInfo="${condition.paginationInfo}" jsFunction="goPage" type="text" />
 				</ul>
 			</div>
+			<div class="col-md-3">
+				<div class="sidebar-widget">
+					<h5>회원 검색하기</h5>
+					<div class="blog-search">
+						<form:form commandName="condition" method="GET">
+							<form:input path="search" />
+							<form:input type="hidden" path="searchType" value="userNick"/>
+							<span> 
+								<form:button id="submit_btn" class="search-submit" type="submit">
+									<i class="fa fa-search"></i>
+								</form:button>
+							</span>
+						</form:form>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
 </section>
 <!-- /USER INFO -->
 
@@ -59,10 +81,5 @@
 		var form = $('#condition');
 		form.append('<input type="hidden" name="currentPageNo" value="' + currentPageNo + '"/>');
 		form.submit();
-	}
-
-	function setQuery(name, value) {
-		$('#' + name).val(value);
-		$('#condition').submit();
 	}
 </script>

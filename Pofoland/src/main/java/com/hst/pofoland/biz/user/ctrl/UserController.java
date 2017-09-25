@@ -513,6 +513,13 @@ public class UserController implements InitializingBean{
 		return responseVO;
 	}
 	
+	/**
+	 * 유저 비밀번호 수정
+	 * @param oriPassword
+	 * @param newPassword
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/user/modify/password" , method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseVO modifyPwUser(@ModelAttribute("oriPassword") String oriPassword ,

@@ -705,7 +705,7 @@
 /* 11. TESTIMONIAL */
 
 	#testimonial{
-		background-image: url(../images/testimonial-bg.jpg);
+		background-image: url(/resources/custom/images/layouts/main-buttom.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-attachment: fixed;

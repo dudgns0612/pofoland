@@ -62,5 +62,8 @@
 		<error-code>500</error-code>
 		<location>/error500</location>
 	</error-page>
-    
+   	<error-page>
+		<error-code>501</error-code>
+		<location>/error501</location>
+	</error-page>
 </web-app>

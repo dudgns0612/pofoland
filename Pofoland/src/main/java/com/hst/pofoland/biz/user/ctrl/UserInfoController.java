@@ -22,7 +22,7 @@ public class UserInfoController {
 	@RequestMapping(value="/user/info")
 	public ModelAndView getUserInfo(@ModelAttribute("condition")UserVO userVO) {
 		
-		LoggerManager.info(getClass(), "userInfo {}", userVO);
+		LoggerManager.info(getClass(), "TODO userInfo {}", userVO);
 		
 		userVO.setTotalRecordCount(userInfoService.getUseInfoTotal(userVO));
 		userVO.createPaginationInfo();

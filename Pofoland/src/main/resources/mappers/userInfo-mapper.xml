@@ -15,24 +15,39 @@
 		       USER_PROFILE_URL
 		  FROM User
 		 WHERE 1=1
-		 <if test="searchType == 'Nick'">
-		   AND USER_NICK LIKE '%#{search}%' 
+		 <if test="searchType == 'userNick'">
+		   AND USER_NICK LIKE '%${search}%' 
 		 </if>
-		 <if test="searchType == 'Id'">
-		   AND USER_ID LIKE '%#{search}%'
+		 <if test="searchType == 'userId'">
+		   AND USER_ID LIKE '%${search}%'
 		 </if>
+		   AND USER_DEL_YN = 'N'
+		   AND USER_PUBLIC_YN = 'Y'
 	  ORDER BY USER_SCORE DESC
+	     LIMIT #{firstRecordIndex}, #{recordCountPerPage}
 	</select>
 	
 	<select id="selectUserTotal" resultType="Integer">
 		SELECT COUNT(*)
 		  FROM User
   		 WHERE 1=1
-		 <if test="searchType == 'Nick'">
-		   AND USER_NICK LIKE '%#{searchUserNick}%' 
+		 <if test="searchType == 'userNick'">
+		   AND USER_NICK LIKE '%${search}%' 
 		 </if>
-		 <if test="searchType == 'Id'">
-		   AND USER_ID LIKE '%#{searchUserId}%'
+		 <if test="searchType == 'userId'">
+		   AND USER_ID LIKE '%${search}%'
 		 </if>
+ 		   AND USER_DEL_YN = 'N'
+		   AND USER_PUBLIC_YN = 'Y'
+	</select>
+	
+	<select id="selectHomeUserInfo" resultType="UserVO">
+		SELECT *
+		  FROM User
+		 WHERE 1=1 
+		  AND USER_DEL_YN = 'N'
+		  AND USER_PUBLIC_YN = 'Y'
+     ORDER BY USER_SCORE DESC
+        LIMIT 0,4
 	</select>
 </mapper>
