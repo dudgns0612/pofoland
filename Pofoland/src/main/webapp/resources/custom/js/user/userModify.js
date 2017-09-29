@@ -236,6 +236,15 @@ $(document).on('click',"#pwModifyBtn",function(){
 		}
 	});
 });
+
+$(document).on('click','#pwModifyCancelBtn',function(){
+	var check = confirm("비밀번호 변경을 취소하시겠습니까?");
+	if (check) {
+		location.href = contextPath + '/user/modify';
+	} else {
+		return;
+	}
+});
 	
 
 function modifyProfile() {

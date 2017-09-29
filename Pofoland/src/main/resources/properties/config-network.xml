@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<network>
+		<!-- naverLogin -->
+		<naver>
+			<api>
+				<loginURI>https://nid.naver.com/oauth2.0/authorize?response_type=code</loginURI>
+				<tokenURI>https://nid.naver.com/oauth2.0/token?grant_type=authorization_code</tokenURI>
+				<profileURI>https://openapi.naver.com/v1/nid/me</profileURI>
+				<refreshTokenURI>https://nid.naver.com/oauth2.0/token?grant_type=refresh_token</refreshTokenURI>
+				<deleteTokenURI>https://nid.naver.com/oauth2.0/token?grant_type=delete</deleteTokenURI>
+			</api>
+			<clientId>TrStIV_PbHgZdfq3yZxi</clientId>
+			<secret>_zrxRcx8fK</secret>
+			<redirectURI>http://localhost:8080/naver/user</redirectURI>
+		</naver>
+	</network>
+</config>

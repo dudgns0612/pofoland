@@ -2,7 +2,9 @@ package com.hst.pofoland.biz.user.ctrl;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -31,19 +33,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hst.pofoland.biz.category.service.impl.CategoryServiceImpl;
 import com.hst.pofoland.biz.category.vo.CategoryVO;
 import com.hst.pofoland.biz.file.vo.FileVO;
+import com.hst.pofoland.biz.user.service.impl.OAuthApiServiceImpl;
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.Ase128Encrypt;
 import com.hst.pofoland.common.auth.GoogleAuthentication;
 import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
 import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.utils.ApiUtils;
 import com.hst.pofoland.common.utils.FileUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.view.ImageView;
@@ -76,10 +83,13 @@ public class UserController implements InitializingBean{
 	UserServiceImpl userService;
 	
 	@Inject
-	Ase128Encrypt ase128Encrypt;
+	OAuthApiServiceImpl oauthApiService;
 	
 	@Inject
 	CategoryServiceImpl categoryService;
+
+	@Inject
+	Ase128Encrypt ase128Encrypt;
 	
 	@Inject
 	GoogleAuthentication googleAuth;
@@ -121,6 +131,90 @@ public class UserController implements InitializingBean{
 		return responseVO;
 	}
 	
+	/**
+	 * 네이버 로그인 화면 추출
+	 * @param response
+	 */
+	@RequestMapping(value="/naver/login", method=RequestMethod.GET)
+	public void naverLogin(HttpServletResponse response) {
+		try {
+			String clientId = config.getString("network.naver.clientId");
+			String redirectURI = URLEncoder.encode(config.getString("network.naver.redirectURI"),"UTF-8");
+			String apiURI = config.getString("network.naver.api.loginURI");
+			
+			StringBuffer uriBuffer = new StringBuffer(apiURI);
+			uriBuffer.append("&client_id=").append(clientId);
+			uriBuffer.append("&redirect_uri=").append(redirectURI);
+			
+			System.out.println("TODO" + uriBuffer.toString());
+			
+			response.sendRedirect(uriBuffer.toString());
+		} catch (IOException e) {
+			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
+		}
+	}
+	
+	/**
+	 * 네이버 사용자 인증 확인
+	 * @param request
+	 * @param response
+	 * @param code
+	 */
+	@RequestMapping(value="/naver/user", method=RequestMethod.GET)
+	public void naverCallback(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code) {
+		
+		String clientId = config.getString("network.naver.clientId");
+		String secret = config.getString("network.naver.secret");
+		String apiURI = config.getString("network.naver.api.tokenURI");
+		String redirectURI = "";
+		
+		
+		try {
+			StringBuffer uriBuffer = new StringBuffer(apiURI);
+			redirectURI = URLEncoder.encode(redirectURI, "UTF-8");
+			uriBuffer.append("&client_id=").append(clientId);
+			uriBuffer.append("&client_secret=").append(secret);
+			uriBuffer.append("&redirect_uri=").append(redirectURI);
+			uriBuffer.append("&code=").append(code);
+			
+			String responseBody = ApiUtils.urlConnResponseStr(uriBuffer.toString());
+		
+			ObjectMapper jsonMapper = new ObjectMapper();
+			Map<String, Object> map = jsonMapper.readValue(responseBody,new TypeReference<Map<String, Object>>() {});
+			
+			String userId = oauthApiService.getNaverUserInfo(String.valueOf(map.get("access_token")));
+			Integer userSeq = userService.seqSearchUser(userId);
+			
+			if (userSeq == null || userSeq < 0) {
+				HttpSession session = request.getSession();
+				
+				UserVO userVO = new UserVO();
+				userVO.setUserId(userId);
+				session.setAttribute("user",userVO);
+				
+				response.sendRedirect("/join/oAuth/step1");
+			} else {
+				UserVO userVO = userService.searchUser(userSeq);
+				
+				//security 권한설정
+				SecurityAuthorityManager authManager = new SecurityAuthorityManager();
+				authManager.setAuthorityList("ROLE_USER");
+				userVO.setAuthorities(authManager.getAuthorityList());
+				
+				//security 인증처리
+				Authentication authentication = new UsernamePasswordAuthenticationToken(userVO.getUserId(), userVO.getPassword(),userVO.getAuthorities());
+				SecurityContext securityContext = SecurityContextHolder.getContext();
+				securityContext.setAuthentication(authentication);
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("user", userVO);
+
+				response.sendRedirect("/home");
+			}
+		} catch (IOException e) {
+			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
+		}
+	}
 	
 	/**
 	 * 구글 가입 화면 추출
@@ -178,7 +272,6 @@ public class UserController implements InitializingBean{
 			response.sendRedirect("/join/oAuth/step1");
 		} else {
 			UserVO userVO = userService.searchUser(userSeq);
-			userVO.setUserProfileUrl(person.getImageUrl());
 			
 			//security 권한설정
 			SecurityAuthorityManager authManager = new SecurityAuthorityManager();

@@ -28,11 +28,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/home">홈</a></li>
 					<li><a href="${contextPath}/pofoland/info">포폴랜드</a></li>
-					<li><a href="${contextPath}/extJobs/main">Jobs</a></li>
 					<li><a href="${contextPath}/user/info">회원정보</a></li>
-					<li><a href="#contact">구인정보</a></li>
 					<li><a href="blog.html">포트폴리오</a></li>
 					<li><a href="${contextPath}/board/main">커뮤니티</a></li>
+					<li><a href="${contextPath}/extJobs/main">구인정보</a></li>
+					<li><a href="">QnA</a></li>
 					<c:choose>
 						<c:when test="${user.userSeq != null}">
 							<li class="dropdown">
@@ -106,7 +106,13 @@
 													</div>
 													<div class="form-group">
 														<a href="/google/login">
-														<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googlelogin.png" style="cursor: pointer;height: 37px;border-radius: 5px;margin-top: -10px;" /></a>
+															<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googleLogin.png" style="cursor: pointer; height: 37px; border-radius: 5px; margin-top: -10px;" />
+														</a>
+													</div>
+													<div class="form-group">
+														<a href="/naver/login">
+															<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/naverLogin.png" style="cursor: pointer; height: 37px; border-radius: 5px; margin-top: -10px;" />
+														</a>
 													</div>
 													<div class="checkbox">
 														<label> 

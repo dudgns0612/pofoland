@@ -49,7 +49,7 @@ public class PageController {
 	@RequestMapping(value = "/join/oAuth/step1", method=RequestMethod.GET)
 	public ModelAndView joinOauthUser() {
 		ModelAndView mav = new ModelAndView("user/joinStep1");
-		mav.addObject("type", "google");
+		mav.addObject("type", "oAuth");
 		
 		return mav;
 	}
