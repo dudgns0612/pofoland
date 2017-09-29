@@ -13,12 +13,38 @@ import com.hst.pofoland.biz.user.service.UserInfoService;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 
+/**
+ * 
+ * 시스템명 : 포트폴리오 관리 시스템
+ * $com.hst.pofoland.biz.user.UserInfoController.java
+ * 클래스 설명 : UserInfo관련 Controller
+ *
+ * @author 김영훈
+ * @since 2017. 9. 25.
+ * @version 1.0.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ * 수정일			수정자			수정내용
+ * -------------------------------------------------
+ * 2017. 9. 25.		김영훈			최초생성
+ * </pre>
+ */
+
 @Controller
 public class UserInfoController {
 	
 	@Inject
 	UserInfoService userInfoService;
 	
+	
+	/**
+	 * 회원정보 조회(페이징처리)
+	 * @param userVO
+	 * @return
+	 */
 	@RequestMapping(value="/user/info")
 	public ModelAndView getUserInfo(@ModelAttribute("condition")UserVO userVO) {
 		

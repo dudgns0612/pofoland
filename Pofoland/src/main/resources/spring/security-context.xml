@@ -27,6 +27,7 @@
 		<intercept-url pattern="/home" access="permitAll"/>
 		<intercept-url pattern="/join/**" access="permitAll" />
 		<intercept-url pattern="/google/**" access="permitAll" />
+		<intercept-url pattern="/naver/**" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/user/**" access="permitAll" />

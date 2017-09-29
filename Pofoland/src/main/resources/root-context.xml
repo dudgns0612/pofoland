@@ -15,6 +15,9 @@
                 <bean class="org.apache.commons.configuration.XMLConfiguration">
                     <constructor-arg type="java.lang.String" value="properties/config-common.xml"/>
                 </bean>
+                <bean class="org.apache.commons.configuration.XMLConfiguration">
+                    <constructor-arg type="java.lang.String" value="properties/config-network.xml"/>
+                </bean>
             </list>
         </constructor-arg>
     </bean>

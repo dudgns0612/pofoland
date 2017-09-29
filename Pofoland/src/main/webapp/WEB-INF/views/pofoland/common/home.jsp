@@ -5,8 +5,7 @@
 <section id="slider">
 	<div id="home-carousel" class="carousel slide" data-ride="carousel">
 		<div class="carousel-inner">
-			<div class="item active"
-				style="background-image: url(${contextPath}/resources/custom/images/happyToz.png)">
+			<div class="item active" style="background-image: url(${contextPath}/resources/custom/images/happyToz.png)">
 				<div class="carousel-caption container">
 					<div class="row">
 						<div class="col-sm-7">
@@ -19,7 +18,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="item" style="background-image: url(${contextPath}/resources/assets/images/slider/02.jpg)">
+			<div class="item" style="background-image: url(${contextPath}/resources/custom/images/pofoland/main1.jpg)">
 				<div class="carousel-caption container">
 					<div class="row">
 						<div class="col-sm-7">
@@ -32,7 +31,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="item" style="background-image: url(${contextPath}/resources/assets/images/slider/03.jpg)">
+			<div class="item" style="background-image: url(${contextPath}/resources/custom/images/pofoland/main2.jpg)">
 				<div class="carousel-caption container">
 					<div class="row">
 						<div class="col-sm-7">
@@ -45,7 +44,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="item" style="background-image: url(${contextPath}/resources/assets/images/slider/04.jpg)">
+			<div class="item" style="background-image: url(${contextPath}/resources/custom/images/pofoland/main3.jpg)">
 				<div class="carousel-caption container">
 					<div class="row">
 						<div class="col-sm-7">
