@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<input type="hidden" name="type" value="${type}" />
 <div style="height: 1250px; padding-top: 120px;">
 	<div class="row">
 		<div class="col-xs-12">
@@ -7,6 +6,8 @@
 			<div class="col-xs-6">
 			<form id="step1From" class="form-horizontal" method="post">
 					<fieldset>
+					<!-- 유저가입타입 -->
+						<input type="hidden" name="userLoginType" value="${type}" />
 					<!-- Form Name -->
 						<img src="${contextPath}/resources/custom/images/user/joinStep.png" />
 						<br/>
@@ -133,14 +134,14 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 	//약관동의 체크
 	$(document).on('click','#step1Btn',function(){
 		var from = $('#step1From');
-		var type = $('input[name="type"]').val();
+		var type = $('input[name="userLoginType"]').val();
 		
 		if(!$("input:checkbox[name='agree']").is(":checked")) {
 			alert('약관에 동의해주세요');
 			return false;
 		} 
 		
-		if(type == 'general') {
+		if(type == 'P') {
 			from.attr('action','/join/step2');
 			from.submit();
 		} else {

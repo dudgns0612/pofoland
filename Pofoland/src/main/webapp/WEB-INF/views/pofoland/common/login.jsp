@@ -20,7 +20,7 @@
                 <input type="password" name="userPw" placeholder="Password" />
                 <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
                 <input type="button" value="Sign Up" class="btn btn-success btn-sm" onclick="location.href='${contextPath}/join/step1';"/>
-                <a href="/google/login"><img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googleLogin.png" style="cursor:pointer; height:40px; margin-bottom: 10px;"/></a>
+                <a href="/google/login"><img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googleLogin1.png" style="cursor:pointer; height:40px; margin-bottom: 10px;"/></a>
                 <a href="/naver/login"><img class="btn-block" src="${contextPath}/resources/custom/images/layouts/naverLogin.png" style="cursor:pointer; height:40px;"/></a>
                 <div class="remember-forgot">
                     <div class="row">

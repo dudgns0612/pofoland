@@ -46,6 +46,7 @@ public class UserVO extends BaseVO implements UserDetails {
 	char userDelYn = 'N';
 	char userPublicYn = 'Y';
 	char userLoginYn = 'N';
+	char userLoginType = 'P';
 	Integer[] jobCate = {};
 	
 	//생성자
@@ -216,13 +217,21 @@ public class UserVO extends BaseVO implements UserDetails {
 		this.jobCate = jobCate;
 	}
 
+	public char getUserLoginType() {
+		return userLoginType;
+	}
+	
+	public void setUserLoginType(char userLoginType) {
+		this.userLoginType = userLoginType;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [userSeq=" + userSeq + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userEmail=" + userEmail + ", userAuthKey=" + userAuthKey + ", userAuthYn=" + userAuthYn
 				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userProfileUrl=" + userProfileUrl
 				+ ", userDelYn=" + userDelYn + ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn
-				+ ", jobCate=" + Arrays.toString(jobCate) + "]";
+				+ ", userLoginType=" + userLoginType + ", jobCate=" + Arrays.toString(jobCate) + "]";
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

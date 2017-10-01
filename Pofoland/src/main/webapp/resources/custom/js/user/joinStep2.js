@@ -250,12 +250,10 @@ $('input[name="emailcheckbtn"]').click(function() {
 			alert("이메일 중복확인을 해주세요.");
 			return;
 		} else {
-			var formData = new FormData(
-					$('#step2Form')[0]);
+			var formData = new FormData($('#step2Form')[0]);
 			$.ajax({
 				type : 'POST',
-				url : contextPath
-						+ '/user',
+				url : contextPath + '/user',
 				data : formData,
 				dataType : 'JSON',
 				contentType : false,

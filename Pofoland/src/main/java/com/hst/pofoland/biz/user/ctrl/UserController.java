@@ -269,7 +269,7 @@ public class UserController implements InitializingBean{
 			userVO.setUserId(googleId);
 			session.setAttribute("user",userVO);
 			
-			response.sendRedirect("/join/oAuth/step1");
+			response.sendRedirect("/join/oAuth/step1/F");
 		} else {
 			UserVO userVO = userService.searchUser(userSeq);
 			
@@ -479,13 +479,15 @@ public class UserController implements InitializingBean{
 	 * @return
 	 */
 	@RequestMapping(value="/user/oAuth/addInfo", method=RequestMethod.POST)
-	public ModelAndView OauthAddInfoPage(HttpServletRequest request) {
+	public ModelAndView OauthAddInfoPage(@ModelAttribute UserVO userVO, HttpServletRequest request) {
+		
+		LoggerManager.info(getClass(), "oauth! : {}", userVO.toString());
 		
 		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
 		ModelAndView mav = new ModelAndView("user/joinStep3");
 		
 		HttpSession session = request.getSession();
-		UserVO userVO = (UserVO)session.getAttribute("user");
+		userVO = (UserVO)session.getAttribute("user");
 		String userId = userVO.getUserId();
 		
 		if (userId != "" && userId != null) {

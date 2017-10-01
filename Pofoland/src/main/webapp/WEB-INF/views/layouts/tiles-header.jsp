@@ -106,7 +106,7 @@
 													</div>
 													<div class="form-group">
 														<a href="/google/login">
-															<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googleLogin.png" style="cursor: pointer; height: 37px; border-radius: 5px; margin-top: -10px;" />
+															<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googleLogin1.png" style="cursor: pointer; height: 37px; border-radius: 5px; margin-top: -10px;" />
 														</a>
 													</div>
 													<div class="form-group">
