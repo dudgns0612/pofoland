@@ -29,7 +29,9 @@ import com.hst.pofoland.common.vo.BaseVO;
  * </pre>
  */
 public class BoardVO extends BaseVO {
-
+    
+    private String boardGbnCode;
+    
     private int boardSeq;
     private String boardTitle;
     private String boardContent;
@@ -38,12 +40,12 @@ public class BoardVO extends BaseVO {
     private String boardUdtDt;
     private String boardDelYn;
     private int boardHitCnt;
+
+    private String boardCategory;
+    private String boardCategoryName;
     
-    private int boardCateSeq;
-    private String boardCateName;
-    
-    private int jobCateSeq;
-    private String jobCateName;
+    private String jobCategory;
+    private String jobCategoryName;
     
     private int userSeq;
     private String userId;
@@ -168,59 +170,59 @@ public class BoardVO extends BaseVO {
     }
 
     /**
-     * @return the boardCateSeq
+     * @return boardCategory 반환
      */
-    public int getBoardCateSeq() {
-        return boardCateSeq;
+    public String getBoardCategory() {
+        return boardCategory;
     }
 
     /**
-     * @param boardCateSeq the boardCateSeq to set
+     * @param boardCategory 설정할 boardCategory
      */
-    public void setBoardCateSeq(int boardCateSeq) {
-        this.boardCateSeq = boardCateSeq;
+    public void setBoardCategory(String boardCategory) {
+        this.boardCategory = boardCategory;
     }
 
     /**
-     * @return the boardCateName
+     * @return boardCategoryName 반환
      */
-    public String getBoardCateName() {
-        return boardCateName;
+    public String getBoardCategoryName() {
+        return boardCategoryName;
     }
 
     /**
-     * @param boardCateName the boardCateName to set
+     * @param boardCategoryName 설정할 boardCategoryName
      */
-    public void setBoardCateName(String boardCateName) {
-        this.boardCateName = boardCateName;
+    public void setBoardCategoryName(String boardCategoryName) {
+        this.boardCategoryName = boardCategoryName;
     }
 
     /**
-     * @return the jobCateSeq
+     * @return jobCategory 반환
      */
-    public int getJobCateSeq() {
-        return jobCateSeq;
+    public String getJobCategory() {
+        return jobCategory;
     }
 
     /**
-     * @param jobCateSeq the jobCateSeq to set
+     * @param jobCategory 설정할 jobCategory
      */
-    public void setJobCateSeq(int jobCateSeq) {
-        this.jobCateSeq = jobCateSeq;
+    public void setJobCategory(String jobCategory) {
+        this.jobCategory = jobCategory;
     }
 
     /**
-     * @return the jobCateName
+     * @return jobCategoryName 반환
      */
-    public String getJobCateName() {
-        return jobCateName;
+    public String getJobCategoryName() {
+        return jobCategoryName;
     }
 
     /**
-     * @param jobCateName the jobCateName to set
+     * @param jobCategoryName 설정할 jobCategoryName
      */
-    public void setJobCateName(String jobCateName) {
-        this.jobCateName = jobCateName;
+    public void setJobCategoryName(String jobCategoryName) {
+        this.jobCategoryName = jobCategoryName;
     }
 
     /**
@@ -265,17 +267,18 @@ public class BoardVO extends BaseVO {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("BoardVO [boardSeq=").append(boardSeq).append(", boardTitle=").append(boardTitle)
-                .append(", boardContent=").append(boardContent).append(", boardRegDt=").append(boardRegDt)
-                .append(", boardUdtDt=").append(boardUdtDt).append(", boardDelYn=").append(boardDelYn)
-                .append(", boardHitCnt=").append(boardHitCnt).append(", boardCateSeq=").append(boardCateSeq)
-                .append(", boardCateName=").append(boardCateName).append(", jobCateSeq=").append(jobCateSeq)
-                .append(", jobCateName=").append(jobCateName).append(", userSeq=").append(userSeq).append(", userId=")
-                .append(userId).append(", userNick=").append(userNick).append("]");
-        return builder.toString();
+    /**
+     * @return boardGbnCode 반환
+     */
+    public String getBoardGbnCode() {
+        return boardGbnCode;
     }
-    
+
+    /**
+     * @param boardGbnCode 설정할 boardGbnCode
+     */
+    public void setBoardGbnCode(String boardGbnCode) {
+        this.boardGbnCode = boardGbnCode;
+    }
+
 }

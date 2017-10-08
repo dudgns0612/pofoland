@@ -7,13 +7,13 @@
 				<hr>
 				<p class="font-kr t_justify">
 					(주)HST는 2017년 12월 31일에 설립하여 한국교통대학교 컴퓨터정보공학과 인재들로 이루어져 있습니다.
-					회사 약자는 HEPPY SINCHON TOZ로 주로 공부하던 스터디룸 명칭을 사용하였으며 여러분들의 커리어를 편리하게
+					회사 약자는 HAPPY SINCHON TOZ로 주로 공부하던 스터디룸 명칭을 사용하였으며 여러분들의 커리어를 편리하게
 					관리하고자 하는 마음으로 POFOLAND를 제작하게 되었습니다. (주)HST는 여러분을 항상 응원합니다.
 				</p>
 				<p>
-					김영훈 : dudgns0612@naver.com
-					이현규 : gusrb0808@naver.com
-					임유표 : dbvy00202@naver.com
+					김영훈 : dudgns0612@naver.com<br>
+					이현규 : gusrb0808@naver.com<br>
+					임유표 : dbvy00202@naver.com<br>
 					김승환 : tmdghks2020@naver.com
 				</p>
 				<p>
