@@ -40,8 +40,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hst.pofoland.biz.category.service.impl.CategoryServiceImpl;
-import com.hst.pofoland.biz.category.vo.CategoryVO;
+import com.hst.pofoland.biz.code.service.CodeService;
+import com.hst.pofoland.biz.code.vo.CodeVO;
 import com.hst.pofoland.biz.file.vo.FileVO;
 import com.hst.pofoland.biz.user.service.impl.OAuthApiServiceImpl;
 import com.hst.pofoland.biz.user.service.impl.UserServiceImpl;
@@ -86,7 +86,7 @@ public class UserController implements InitializingBean{
 	OAuthApiServiceImpl oauthApiService;
 	
 	@Inject
-	CategoryServiceImpl categoryService;
+	CodeService codeService;
 
 	@Inject
 	Ase128Encrypt ase128Encrypt;
@@ -146,8 +146,6 @@ public class UserController implements InitializingBean{
 			uriBuffer.append("&client_id=").append(clientId);
 			uriBuffer.append("&redirect_uri=").append(redirectURI);
 			
-			System.out.println("TODO" + uriBuffer.toString());
-			
 			response.sendRedirect(uriBuffer.toString());
 		} catch (IOException e) {
 			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
@@ -192,7 +190,7 @@ public class UserController implements InitializingBean{
 				userVO.setUserId(userId);
 				session.setAttribute("user",userVO);
 				
-				response.sendRedirect("/join/oAuth/step1");
+				response.sendRedirect("/join/oAuth/step1/N");
 			} else {
 				UserVO userVO = userService.searchUser(userSeq);
 				
@@ -299,7 +297,6 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/user/checkid/{userId}", method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO duplicateCheckId(@PathVariable String userId) {
-		System.out.println("userId: " + userId);
 		String checkId = userService.duplicateCheckId(userId);
 		
 		ResponseVO responseVO = new ResponseVO();
@@ -427,11 +424,11 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/user/addInfo/{userSeq}", method=RequestMethod.GET)
 	public ModelAndView addInfoPage(@PathVariable Integer userSeq) {
 		
-		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
+		List<CodeVO> interestList = codeService.getCodeList("B01");
 		
 		ModelAndView mav = new ModelAndView("user/joinStep3");
 		
-		mav.addObject("jobList", categoryList);
+		mav.addObject("interestList", interestList);
 		mav.addObject("userSeq", userSeq);
 		
 		return mav;
@@ -483,8 +480,10 @@ public class UserController implements InitializingBean{
 		
 		LoggerManager.info(getClass(), "oauth! : {}", userVO.toString());
 		
-		List<CategoryVO> categoryList = categoryService.getJobCategoryList();
+		List<CodeVO> interestList = codeService.getCodeList("B01");
 		ModelAndView mav = new ModelAndView("user/joinStep3");
+		mav.addObject("userJoinType", userVO.getUserJoinType());
+		mav.addObject("interestList", interestList);
 		
 		HttpSession session = request.getSession();
 		userVO = (UserVO)session.getAttribute("user");
@@ -495,8 +494,6 @@ public class UserController implements InitializingBean{
 		} else {
 			//에러처리
 		}
-		
-		mav.addObject("jobList", categoryList);
 		
 		return mav;
 	}
@@ -527,8 +524,6 @@ public class UserController implements InitializingBean{
 	 */
 	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
 	public void userLogout(HttpServletRequest request,HttpServletResponse response) {
-		System.out.println("=======TODO=====");
-		
 		HttpSession session = request.getSession();
 		UserVO userVO = (UserVO) session.getAttribute("user");
 		Integer result = userService.loginStateUser(userVO);
@@ -571,8 +566,6 @@ public class UserController implements InitializingBean{
 	public ResponseVO modifyUser(@ModelAttribute UserVO userVO,@ModelAttribute("userProfile") MultipartFile userProfile,@ModelAttribute("modifyFileCheck") String fileCheck,
 			HttpServletRequest request) {
 		ResponseVO responseVO = new ResponseVO();
-		
-		System.out.println("CHECK :" + fileCheck);
 		
 		if ("1".equals(fileCheck)) {
 			if (userProfile != null) {

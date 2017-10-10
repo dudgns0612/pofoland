@@ -41,7 +41,7 @@ public class PageController {
 	public ModelAndView joinUser() {
 		
 		ModelAndView mav = new ModelAndView("user/joinStep1");
-		mav.addObject("type", "P");
+		mav.addObject("userJoinType", "P");
 		
 		return mav;
 	}
@@ -49,7 +49,7 @@ public class PageController {
 	@RequestMapping(value = "/join/oAuth/step1/{joinType}", method=RequestMethod.GET)
 	public ModelAndView joinOauthUser(@PathVariable("joinType") char type) {
 		ModelAndView mav = new ModelAndView("user/joinStep1");
-		mav.addObject("type", type);
+		mav.addObject("userJoinType", type);
 		
 		return mav;
 	}

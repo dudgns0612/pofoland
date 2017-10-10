@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <input type="hidden" id="userSeq" value=<c:if test="${userSeq != '' && userSeq != null}">"${userSeq}"</c:if> ></input>
 <input type="hidden" id="userId" value=<c:if test="${userId != '' && userId != null}">"${userId}"</c:if> ></input>
+<input type="hidden" id="userJoinType" value=<c:if test="${userJoinType != '' && userJoinType != null}">"${userJoinType}"</c:if> ></input>
 <div style="height: 950px; padding-top: 120px; overflow: hidden;">
 	<div class="row">
 		<div class="col-xs-12">
@@ -43,11 +44,10 @@
 								<div class="input-group" style="margin-top: -10px;">
 									<h3 style="margin-bottom: 30px;">관심 분야를 선택하여 주세요.</h3>
 									<div id="attentionBox" style="margin-left: 35px;">
-										<c:forEach items="${jobList}" var="job">
-											<div class="checks"
-												style="float: left; margin-top: 5px; margin-right: 20px;">
-												<input type="checkbox" name="jabCate" id="${job.cateSeq}" value="${job.cateSeq}"> 
-												<label class="cfont-weight" for="${job.cateSeq}">${job.cateName}</label>
+										<c:forEach items="${interestList}" var="interest">
+											<div class="checks" style="float: left; margin-top: 5px; margin-right: 20px;">
+												<input type="checkbox" name="jabCate" id="${interest.code}" value="${interest.code}"> 
+												<label class="cfont-weight" for="${interest.code}">${interest.codeName}</label>
 											</div>
 										</c:forEach>
 									</div>

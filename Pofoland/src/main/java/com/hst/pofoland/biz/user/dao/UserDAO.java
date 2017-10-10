@@ -107,11 +107,11 @@ public interface UserDAO {
 	public Integer updateAddInfo(UserVO userVO);
 	
 	/**
-	 * job카테고리 추가
-	 * @param jobCate
+	 * InterestCode 추가
+	 * @param userVO
 	 * @return
 	 */
-	public Integer insertJobCate(UserVO userVO);
+	public Integer insertInterestInfo(UserVO userVO);
 	
 	/**
 	 * OAuth 유저 회원가입

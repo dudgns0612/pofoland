@@ -175,8 +175,8 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	public Integer addInfoUser(UserVO userVO) {
 		
 		Integer nickResult = userDAO.updateAddInfo(userVO);
-		if(userVO.getJobCate().length > 0) {
-			userDAO.insertJobCate(userVO);
+		if(userVO.getInterestCode().length > 0) {
+			userDAO.insertInterestInfo(userVO);
 		}
 		
 		return nickResult;
@@ -200,8 +200,8 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		
 		if (result > 0) {
 			Integer userSeq = userVO.getUserSeq();
-			if(userVO.getJobCate().length > 0 && userSeq > 0) {
-				userDAO.insertJobCate(userVO);
+			if(userVO.getInterestCode().length > 0 && userSeq > 0) {
+				userDAO.insertInterestInfo(userVO);
 			}
 		}
 		

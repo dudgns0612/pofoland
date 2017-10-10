@@ -7,7 +7,7 @@
 			<form id="step1From" class="form-horizontal" method="post">
 					<fieldset>
 					<!-- 유저가입타입 -->
-						<input type="hidden" name="userLoginType" value="${type}" />
+						<input type="hidden" name="userJoinType" value="${userJoinType}" />
 					<!-- Form Name -->
 						<img src="${contextPath}/resources/custom/images/user/joinStep.png" />
 						<br/>
@@ -134,7 +134,7 @@ mail), 스팸메일(spam mail), 행운의 편지(chain letters), 피라미드 �
 	//약관동의 체크
 	$(document).on('click','#step1Btn',function(){
 		var from = $('#step1From');
-		var type = $('input[name="userLoginType"]').val();
+		var type = $('input[name="userJoinType"]').val();
 		
 		if(!$("input:checkbox[name='agree']").is(":checked")) {
 			alert('약관에 동의해주세요');

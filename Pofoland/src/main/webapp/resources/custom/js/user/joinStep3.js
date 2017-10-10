@@ -64,6 +64,7 @@ $(document).ready(function(){
 		var formData = new FormData();
 		var attentionArray = new Array();
 		var userNick = $('#nickInput').val();
+		var userJoinType = $('#userJoinType').val();
 	    var userSeq = $('#userSeq').val();
 	    var userId = $('#userId').val();
 	    var userProfile = $('#inputImage')[0].files[0];
@@ -86,8 +87,9 @@ $(document).ready(function(){
 			attentionArray.push($(this).val());
 		});
 		
+		formData.append('userJoinType',userJoinType);
 		formData.append('userNick',userNick);
-		formData.append('jobCate',attentionArray);
+		formData.append('interestCode',attentionArray);
 		$.ajax({
 			beforeSend : function (){
 				var check = false;

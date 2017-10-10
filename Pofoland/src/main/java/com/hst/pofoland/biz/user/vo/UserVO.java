@@ -46,8 +46,8 @@ public class UserVO extends BaseVO implements UserDetails {
 	char userDelYn = 'N';
 	char userPublicYn = 'Y';
 	char userLoginYn = 'N';
-	char userLoginType = 'P';
-	Integer[] jobCate = {};
+	char userJoinType = 'P';
+	String[] interestCode = {};
 	
 	//생성자
 	public UserVO() {
@@ -209,20 +209,19 @@ public class UserVO extends BaseVO implements UserDetails {
 		this.userProfileUrl = userProfileUrl;
 	}
 	
-	public Integer[] getJobCate() {
-		return jobCate;
+	public String[] getInterestCode() {
+		return interestCode;
 	}
 	
-	public void setJobCate(Integer[] jobCate) {
-		this.jobCate = jobCate;
+	public void setInterestCode(String[] interestCode) {
+		this.interestCode = interestCode;
 	}
-
-	public char getUserLoginType() {
-		return userLoginType;
+	public char getUserJoinType() {
+		return userJoinType;
 	}
 	
-	public void setUserLoginType(char userLoginType) {
-		this.userLoginType = userLoginType;
+	public void setUserJoinType(char userJoinType) {
+		this.userJoinType = userJoinType;
 	}
 
 	@Override
@@ -231,7 +230,7 @@ public class UserVO extends BaseVO implements UserDetails {
 				+ ", userEmail=" + userEmail + ", userAuthKey=" + userAuthKey + ", userAuthYn=" + userAuthYn
 				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userProfileUrl=" + userProfileUrl
 				+ ", userDelYn=" + userDelYn + ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn
-				+ ", userLoginType=" + userLoginType + ", jobCate=" + Arrays.toString(jobCate) + "]";
+				+ ", userJoinType=" + userJoinType + ", interestCode=" + Arrays.toString(interestCode) + "]";
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
