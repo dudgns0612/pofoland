@@ -7,12 +7,9 @@
  */
 package com.hst.pofoland.biz.board.ctrl;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
-import com.hst.pofoland.biz.category.service.CategoryService;
-import com.hst.pofoland.biz.category.vo.CategoryVO;
+import com.hst.pofoland.biz.code.service.CodeService;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 
@@ -50,24 +46,13 @@ import com.hst.pofoland.common.utils.LoggerManager;
  */
 @Controller
 @RequestMapping("/board")
-public class BoardController implements InitializingBean {
-
-    @Inject
-    private CategoryService categoryService;
+public class BoardController {
 
     @Inject
     private BoardService boardService;
     
-    // 캐싱 적용 전 임시 메모리 저장소로 활용할 객체
-    private List<CategoryVO> boardCategories;
-    private List<CategoryVO> jobCategories;
-    
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        boardCategories = categoryService.getBoardCategoryList();
-        jobCategories = categoryService.getJobCategoryList();
-    }
-
+    @Inject
+    private CodeService codeService;
     
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView boardMain(@ModelAttribute("condition")BoardVO condition) {
@@ -77,9 +62,9 @@ public class BoardController implements InitializingBean {
         
         ModelAndView mv = new ModelAndView("board/list");
         mv.addObject("boardList", boardService.getBoardList(condition));
-        mv.addObject("boardCategories", boardCategories);
-        mv.addObject("jobCategories", jobCategories);
-        mv.addObject("currentCategory", categoryService.getBoardCategory(condition.getBoardCateSeq()));
+        mv.addObject("boardCategories", codeService.getCodeList("A01"));
+        mv.addObject("jobCategories", codeService.getCodeList("B01"));
+        mv.addObject("currentCategory", codeService.getCode("A01", "01"));
         
         LoggerManager.info(getClass(), "{}", condition.getPaginationInfo().getTotalPageCount());
         
@@ -89,8 +74,8 @@ public class BoardController implements InitializingBean {
     @RequestMapping(value = "/write", method = RequestMethod.GET)
     public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm, HttpSession session) {
         ModelAndView mv= new ModelAndView("board/write");
-        mv.addObject("boardCategories", boardCategories);
-        mv.addObject("jobCategories", jobCategories);
+        mv.addObject("boardCategories", codeService.getCodeList("A01"));
+        mv.addObject("jobCategories", codeService.getCodeList("B01"));
         
         UserVO loginUser = (UserVO) session.getAttribute("user");
         writeForm.setUserSeq(loginUser.getUserSeq());

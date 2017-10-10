@@ -48,7 +48,7 @@ public interface BoardDAO {
      * @param board 조회 조건
      * @return
      */
-    public List<BoardVO> selectBoards(BoardVO condition);
+    public List<BoardVO> selectBoardList(BoardVO condition);
 
     /**
      * 총 게시글 건수 조회

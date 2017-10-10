@@ -20,7 +20,7 @@ public class BoardServiceImpl implements BoardService {
     
     @Override
     public List<BoardVO> getBoardList(BoardVO condition) {
-        List<BoardVO> boardList = boardDao.selectBoards(condition);
+        List<BoardVO> boardList = boardDao.selectBoardList(condition);
         return boardList;
     }
 

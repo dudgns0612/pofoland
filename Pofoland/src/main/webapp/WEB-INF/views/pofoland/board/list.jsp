@@ -22,7 +22,7 @@
     <div class="container">
         <div class="pull-left">
             <c:if test="${not empty currentCategory}">
-                <h3 class="sidebar-title">${currentCategory.cateName}</h3>
+                <h3 class="sidebar-title">${currentCategory.codeName}</h3>
             </c:if>
             <c:if test="${empty currentCategory}">
                 <h3 class="sidebar-title">전체보기</h3>
@@ -42,7 +42,7 @@
                             <h4 class="post-title"><a href="${contextPath}/board/${board.boardSeq}">${board.boardTitle}</a></h4>
                             <div class="post-meta text-uppercase">
                                 <span>${board.boardRegDt}</span>
-                                <span>In <a href="">${board.jobCateName}</a></span>
+                                <span>In <a href="">${board.jobCategoryName}</a></span>
                                 <span>By <a href="/user/${board.userSeq}">${board.userNick}</a></span>
                             </div>
                             <div class="post-article">
@@ -66,8 +66,8 @@
                 <div class="sidebar-widget">
                     <div class="blog-search">
                     <form:form commandName="condition" method="GET">
-                        <form:input type="hidden" path="jobCateSeq"/>                    
-                        <form:input type="hidden" path="boardCateSeq"/>                    
+                        <form:input type="hidden" path="jobCategory"/>                    
+                        <form:input type="hidden" path="boardCategory"/>                    
                         <form:input type="hidden" path="searchType" value="content"/>
                         <form:input path="search"/>
                         <span>
@@ -82,7 +82,7 @@
                     <h4 class="sidebar-title">Categories</h4>
                     <ul>
                         <c:forEach items="${boardCategories}" var="categoryItem">
-                            <li><a href="#" onclick="setQuery('boardCateSeq', ${categoryItem.cateSeq})">${categoryItem.cateName}</a></li>
+                            <li><a href="#" onclick="setQuery('boardCategory', '${categoryItem.code}')">${categoryItem.codeName}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -90,7 +90,7 @@
                     <h4 class="sidebar-title">Tags</h4>
                     <div class="tagcloud">
                         <c:forEach items="${jobCategories}" var="categoryItem">
-                            <a href="#" onclick="setQuery('jobCateSeq', ${categoryItem.cateSeq})">${categoryItem.cateName}</a>
+                            <a href="#" onclick="setQuery('jobCategory', '${categoryItem.code}')">${categoryItem.codeName}</a>
                         </c:forEach>
                     </div>
                 </div>

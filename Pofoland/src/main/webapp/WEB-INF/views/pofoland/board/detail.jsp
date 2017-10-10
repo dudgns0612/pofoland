@@ -15,7 +15,7 @@
 	<div class="container" style="border:1px solid #BDBDBD;margin-bottom:10px">
 		<div class="page-header" style="height: 60px; ">
 			<div class="pull-left">
-				<h4>${board.boardTitle} <small>| ${board.boardCateName},${board.jobCateName}</small></h4>
+				<h4>[ ${board.boardTitle} ] <small>| ${board.boardCategoryName}, ${board.jobCategoryName}</small></h4>
 			</div>
 			<div class="pull-right" style="margin-top:28px">
 				<small>${board.boardUdtDt}</small>

@@ -105,18 +105,18 @@
                     <form:input path="boardTitle" cssClass="form-control" style="width: 500px; margin-right:15px;"/>
                 </div>
                 <div class="pull-right">
-                    <form:label path="boardCateSeq">카테고리 : </form:label>
-                    <form:select path="boardCateSeq" cssClass="form-control">
+                    <form:label path="boardCategory">카테고리 : </form:label>
+                    <form:select path="boardCategory" cssClass="form-control">
                         <c:forEach items="${boardCategories}" varStatus="idx" var="categoryItem">
                             <c:if test="${idx.index != 0}">
-                                <form:option value="${categoryItem.cateSeq}">${categoryItem.cateName}</form:option>
+                                <form:option value="${categoryItem.code}">${categoryItem.codeName}</form:option>    
                             </c:if>
                         </c:forEach>
                     </form:select>
-                    <form:label path="jobCateSeq">직업군 : </form:label>
-                    <form:select path="jobCateSeq" cssClass="form-control">
+                    <form:label path="jobCategory">직업군 : </form:label>
+                    <form:select path="jobCategory" cssClass="form-control">
                         <c:forEach items="${jobCategories}" var="categoryItem">
-                            <form:option value="${categoryItem.cateSeq}">${categoryItem.cateName}</form:option>
+                            <form:option value="${categoryItem.code}">${categoryItem.codeName}</form:option>
                         </c:forEach>
                     </form:select>
                 </div>
@@ -136,23 +136,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 	    initializeEditor(500);
-	    initializeFileUploader();
 	})
-	
-	function initializeFileUploader() {
-	    $('#fileUploader').fineUploader({
-            template: 'qq-template-gallery',
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${contextPath}/resources/assets/fine-uploader/placeholders/waiting-generic.png',
-                    notAvailablePath: '${contextPath}/resources/assets/fine-uploader/placeholders/not_available-generic.png'
-                }
-            },
-            validation: {
-                allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
-            }
-        });
-	}
 	
 	function initializeEditor(editorHeight) {
 	    $('#editor').summernote({
