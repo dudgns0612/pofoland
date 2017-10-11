@@ -120,6 +120,8 @@ public class UserController implements InitializingBean{
 	@ResponseBody
 	public ResponseVO createUser(@ModelAttribute UserVO userVO , HttpServletResponse response) {
 		
+		LoggerManager.info(getClass(), "TODO{}", userVO.toString());
+		
 		userVO = userService.createUser(userVO);
 		ResponseVO responseVO = new ResponseVO();
 		

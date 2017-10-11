@@ -16,7 +16,7 @@
 					<br/>
 					<br/>
 					<h2>${resultMsg}</h2>
-					<c:if test="${code} == 0">
+					<c:if test="${code == 0}">
 					<!-- 보류 메일 다시보내는 api 만들어야함 -->
 						<button type="button">
 							메일 다시 보내기

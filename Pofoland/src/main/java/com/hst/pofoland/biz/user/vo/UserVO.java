@@ -46,6 +46,7 @@ public class UserVO extends BaseVO implements UserDetails {
 	char userDelYn = 'N';
 	char userPublicYn = 'Y';
 	char userLoginYn = 'N';
+	char userEmailYn = 'Y';
 	char userJoinType = 'P';
 	String[] interestCode = {};
 	
@@ -224,13 +225,22 @@ public class UserVO extends BaseVO implements UserDetails {
 		this.userJoinType = userJoinType;
 	}
 
+	public char getUserEmailYn() {
+		return userEmailYn;
+	}
+
+	public void setUserEmailYn(char userEmailYn) {
+		this.userEmailYn = userEmailYn;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserVO [userSeq=" + userSeq + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userEmail=" + userEmail + ", userAuthKey=" + userAuthKey + ", userAuthYn=" + userAuthYn
 				+ ", userScore=" + userScore + ", userRegDt=" + userRegDt + ", userProfileUrl=" + userProfileUrl
 				+ ", userDelYn=" + userDelYn + ", userPublicYn=" + userPublicYn + ", userLoginYn=" + userLoginYn
-				+ ", userJoinType=" + userJoinType + ", interestCode=" + Arrays.toString(interestCode) + "]";
+				+ ", userEmailYn=" + userEmailYn + ", userJoinType=" + userJoinType + ", interestCode="
+				+ Arrays.toString(interestCode) + ", authorities=" + authorities + "]";
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

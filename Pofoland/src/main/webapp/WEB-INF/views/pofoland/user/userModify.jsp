@@ -4,6 +4,7 @@
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/userModify.js"></script>
 <script>
 	var userPublicYn = "${user.userPublicYn}";
+	var userEmailYn = "${user.userEmailYn}";
 </script>
 <!-- PAGE HEADER -->
 <section id="page-header">
@@ -34,6 +35,9 @@
 				<h5>정보 공개여부</h5> 
 				<select id="publicYnSelect"  class="selectpicker">
 				</select>
+				<h5>이메일 수신여부</h5>
+				<select id="emailYnSelect"  class="selectpicker">
+				</select>
 			</div>
 			<div class="col-md-4">
 				<c:choose>
@@ -56,10 +60,20 @@
 			<div class="col-md-12">
 				<div class="bottom">
 					<div style="margin-top:100px;">
-						<input id="modifySuccessBtn" class="btn btn-warning" type="button" value="수정완료" style="width: 24.50%; height: 40px;" />
-						<input id="modifyCencleBtn" class="btn btn-warning" type="button" value="수정취소" style="width: 24.50%; height: 40px;" />
-						<input id="modifyPwBtn" class="btn btn-warning" type="button" onclick="location.href='${contextPath}/user/modify/password'" value="비밀번호 수정" style="width: 24.50%; height: 40px;" />
-						<input id="userDropBtn" class="btn btn-warning" type="button" value="회원탈퇴" style="width: 24.50%; height: 40px;" />
+						<!-- jstl은 조건문에서 char타입을 Long으로 변경함 따라서 아래와 같이 charAt(0)추가 -->
+						<c:choose>
+							<c:when test="${user.userJoinType eq 'P'.charAt(0)}">
+								<input id="modifySuccessBtn" class="btn btn-warning" type="button" value="수정완료" style="width: 24.50%; height: 40px;" />
+								<input id="modifyCencleBtn" class="btn btn-warning" type="button" value="수정취소" style="width: 24.50%; height: 40px;" />
+								<input id="modifyPwBtn" class="btn btn-warning" type="button" onclick="location.href='${contextPath}/user/modify/password'" value="비밀번호 수정" style="width: 24.50%; height: 40px;" />
+								<input id="userDropBtn" class="btn btn-warning" type="button" value="회원탈퇴" style="width: 24.50%; height: 40px;" />
+							</c:when>
+							<c:otherwise>
+								<input id="modifySuccessBtn" class="btn btn-warning" type="button" value="수정완료" style="width: 32.50%; height: 40px;" />
+								<input id="modifyCencleBtn" class="btn btn-warning" type="button" value="수정취소" style="width: 32.50%; height: 40px;" />
+								<input id="userDropBtn" class="btn btn-warning" type="button" value="회원탈퇴" style="width: 32.50%; height: 40px;" />
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

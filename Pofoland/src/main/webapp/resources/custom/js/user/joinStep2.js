@@ -206,6 +206,7 @@ $('input[name="emailcheckbtn"]').click(function() {
 	$('#step2Btn').click(function() {
 		var userId = $('#idInput').val();
 		var userEmail = $('#emailInput').val();
+		var userEmailYn = 'Y';
 		
 		$.ajax({
 			type : "GET",
@@ -251,6 +252,11 @@ $('input[name="emailcheckbtn"]').click(function() {
 			return;
 		} else {
 			var formData = new FormData($('#step2Form')[0]);
+			if(!$('#userEmailYn').is(':checked')) {
+				userEmailYn = 'N';
+			}
+			formData.append('userEmailYn',userEmailYn);
+			
 			$.ajax({
 				type : 'POST',
 				url : contextPath + '/user',

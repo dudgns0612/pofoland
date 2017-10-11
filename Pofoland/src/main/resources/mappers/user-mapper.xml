@@ -13,13 +13,15 @@
 			USER_PW,
 			USER_NICK,
 			USER_EMAIL,
-			USER_AUTH_KEY
+			USER_AUTH_KEY,
+			USER_EMAIL_YN
 		) VALUES (
 			#{userId},
 			#{userPw},
 			#{userNick},
 			#{userEmail},
-			#{userAuthKey}
+			#{userAuthKey},
+			#{userEmailYn}
 		)
 		<selectKey keyProperty="userSeq" resultType="Integer">
 			SELECT LAST_INSERT_ID();
@@ -39,6 +41,8 @@
 			   USER_DEL_YN,
 			   USER_PUBLIC_YN,
 			   USER_LOGIN_YN,
+			   USER_EMAIL_YN,
+			   USER_JOIN_TYPE,
 			   USER_PROFILE_URL
 		  FROM User
 		 WHERE 1=1
@@ -88,7 +92,9 @@
 			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
 			   USER_DEL_YN,
 			   USER_PUBLIC_YN,
+			   USER_JOIN_TYPE,
 			   USER_LOGIN_YN,
+			   USER_EMAIL_YN,
 			   USER_PROFILE_URL
 		  FROM User
 		 WHERE 1=1
@@ -172,13 +178,15 @@
 			USER_NICK,
 			USER_EMAIL,
 			USER_JOIN_TYPE,
-			USER_AUTH_YN
+			USER_AUTH_YN,
+			USER_EMAIL_YN
 		) VALUES (
 			#{userId},
 			#{userId},
 			#{userNick},
 			#{userId},
 			#{userJoinType},
+			'Y',
 			'Y'
 		)
 		<selectKey keyProperty="userSeq" resultType="Integer">

@@ -46,8 +46,8 @@
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
-                                        회원정보가 존재하지 않습니다.
-                    		</c:otherwise>
+								회원정보가 존재하지 않습니다.
+							</c:otherwise>
 						</c:choose>
 					</article>
 				</div>

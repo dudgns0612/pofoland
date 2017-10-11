@@ -20,6 +20,16 @@ $(document).ready(function(){
 	}
 	$('#publicYnSelect').html(element);
 	
+	if (userEmailYn == 'Y') {
+		element += '<option value="Y" selected="selected">공개</option>';
+		element += '<option value="N">비공개</option>';
+	} else {
+		element += '<option value="Y">공개</option>';
+		element += '<option value="N"  selected="selected">비공개</option>';
+	}
+	$('#emailYnSelect').html(element);
+	
+	
 	userOriNick = $('#modifyNickname').val();
 });
 
@@ -98,11 +108,14 @@ $(document).on('click','#modifySuccessBtn',function() {
 		var formData = new FormData();
 		var userProfile = $('#modifyImage')[0].files[0];
 		var userPublicYn = $('#publicYnSelect option:selected').val();
+		var userEmailYn = $('#emailYnSelect option:selected').val();
+		
 		formData.append('userSeq',userSeq);
 		formData.append('modifyFileCheck',modifyFileCheck);
 		formData.append('userNick',userNick);
 		formData.append('userPublicYn',userPublicYn);
-
+		formData.append('userEmailYn',userEmailYn);
+		
 		if (modifyFileCheck == 1) {
 			formData.append('userProfile',userProfile);
 		}

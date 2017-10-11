@@ -59,7 +59,9 @@ public class SecurityLoginSuccessHandler implements AuthenticationSuccessHandler
 		sb.append("		UserEmail = " + userVO.getUserEmail() + "\n");
 		sb.append("		UserRegDate = " + userVO.getUserRegDt() + "\n");
 		sb.append("		UserAuthYn = " + userVO.getUserAuthYn() + "\n");
+		sb.append("		UserJoinType = " + userVO.getUserJoinType() + "\n");
 		sb.append("		UserPublicYn = " + userVO.getUserPublicYn() + "\n");
+		sb.append("		UserEmailYn = " + userVO.getUserEmailYn() + "\n");
 		sb.append("		UserProfileName = " + userVO.getUserProfileUrl() + "\n");
 		sb.append("\n");
 		sb.append("# User Authority \n");
