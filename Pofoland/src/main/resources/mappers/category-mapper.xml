@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hst.pofoland.biz.category.dao.CategoryDAO">
+    
+    <select id="selectBoardCategory" resultType="CategoryVO">
+        SELECT BOARD_CATE_SEQ AS CATE_SEQ,
+               BOARD_CATE_NAME AS CATE_NAME
+          FROM BoardCategory
+    </select>
+        
+    <select id="selectJobCategory" resultType="CategoryVO">
+        SELECT JOB_CATE_SEQ AS CATE_SEQ,
+               JOB_CATE_NAME AS CATE_NAME
+          FROM JobCategory
+    </select>
+    
+    <select id="selectBoardCategoryDetail" resultType="CategoryVO">
+        SELECT BOARD_CATE_SEQ AS CATE_SEQ,
+               BOARD_CATE_NAME AS CATE_NAME
+          FROM BoardCategory
+         WHERE BOARD_CATE_SEQ = #{param1}
+    </select>
+    
+    <select id="selectJobCategoryDetail" resultType="CategoryVO">
+        SELECT JOB_CATE_SEQ AS CATE_SEQ,
+               JOB_CATE_NAME AS CATE_NAME
+          FROM JobCategory
+         WHERE JOB_CATE_SEQ = #{param1}    
+    </select>
+    
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<!-- version 1.0 -->
+<!-- created 2017.07.17 -->
+<!-- updated -->
+<!-- author YH -->
+	
+<configuration>
+	<settings>
+		<!-- 자동으로 카멜케이스 규칙으로 변환 -->
+  		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.hst.pofoland.biz.user.vo.UserVO" alias="UserVO"></typeAlias>
+        <typeAlias type="com.hst.pofoland.biz.board.vo.BoardVO" alias="BoardVO"></typeAlias>
+        <typeAlias type="com.hst.pofoland.biz.category.vo.CategoryVO" alias="CategoryVO"></typeAlias>
+        <typeAlias type="com.hst.pofoland.biz.code.vo.CodeVO" alias="CodeVO"></typeAlias>
+	</typeAliases>
+
+</configuration>

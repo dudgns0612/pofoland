@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hst.pofoland.biz.user.dao.UserInfoDAO">
+	<!-- 회원조회 -->
+	<select id="selectUserInfo" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_EMAIL,
+		       USER_NICK,
+		       USER_SCORE,
+		       USER_PROFILE_URL
+		  FROM User
+		 WHERE 1=1
+		 <if test="searchType == 'userNick'">
+		   AND USER_NICK LIKE '%${search}%' 
+		 </if>
+		 <if test="searchType == 'userId'">
+		   AND USER_ID LIKE '%${search}%'
+		 </if>
+		   AND USER_DEL_YN = 'N'
+		   AND USER_PUBLIC_YN = 'Y'
+	  ORDER BY USER_SCORE DESC
+	     LIMIT #{firstRecordIndex}, #{recordCountPerPage}
+	</select>
+	
+	<select id="selectUserTotal" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM User
+  		 WHERE 1=1
+		 <if test="searchType == 'userNick'">
+		   AND USER_NICK LIKE '%${search}%' 
+		 </if>
+		 <if test="searchType == 'userId'">
+		   AND USER_ID LIKE '%${search}%'
+		 </if>
+ 		   AND USER_DEL_YN = 'N'
+		   AND USER_PUBLIC_YN = 'Y'
+	</select>
+	
+	<select id="selectHomeUserInfo" resultType="UserVO">
+		SELECT *
+		  FROM User
+		 WHERE 1=1 
+		  AND USER_DEL_YN = 'N'
+		  AND USER_PUBLIC_YN = 'Y'
+     ORDER BY USER_SCORE DESC
+        LIMIT 0,4
+	</select>
+</mapper>

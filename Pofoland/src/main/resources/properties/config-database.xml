@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <database>
+        <!-- system use -->
+        <use-setting>mysql-db</use-setting>
+        
+        <!-- template -->
+        <driverClassName>${database.settings.${database.use-setting}.driverClassName}</driverClassName>
+        <url>${database.settings.${database.use-setting}.url}</url>
+        <username>${database.settings.${database.use-setting}.username}</username>
+        <password>${database.settings.${database.use-setting}.password}</password>
+        
+        <!-- DB-specific drivers -->
+        <defaultDriverClassName>
+            <mysql>com.mysql.jdbc.Driver</mysql>
+            <oracle>oracle.jdbc.driver.OracleDriver</oracle>
+        </defaultDriverClassName>
+        
+        <!-- actual DB settings -->
+        <settings>
+            <!-- MySQL -->
+            <mysql-db>
+                <driverClassName>${database.defaultDriverClassName.mysql}</driverClassName>
+                <url>jdbc:mysql://hst-mariadb-instance1.ctfoz2h2iuss.us-east-2.rds.amazonaws.com:3306/pofoland</url>
+                <username>hstAdmin</username>
+                <password>20171231</password>
+            </mysql-db>
+            
+            <!-- Oracle -->
+            <oracle-db>
+                <driverClassName>${database.defaultDriverClassName.oracle}</driverClassName>
+                <url>jdbc:oracle:thin:@localhost:1521:pofoland</url>
+                <username>hstAdmin</username>
+                <password>20171231</password>
+            </oracle-db>
+        </settings>
+        
+    </database>
+</config>

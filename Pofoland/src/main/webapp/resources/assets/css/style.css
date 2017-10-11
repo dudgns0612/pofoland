@@ -48,7 +48,7 @@
 		font-weight: 200;
 		line-height: 1.7857;
 		letter-spacing: 0.075em;
-		color: #333333;
+		color: #000000;
 		background-color: #fff;
 	}
 
@@ -705,7 +705,7 @@
 /* 11. TESTIMONIAL */
 
 	#testimonial{
-		background-image: url(../images/testimonial-bg.jpg);
+		background-image: url(/resources/custom/images/layouts/main-buttom.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-attachment: fixed;
