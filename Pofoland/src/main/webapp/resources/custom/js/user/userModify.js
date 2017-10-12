@@ -20,12 +20,14 @@ $(document).ready(function(){
 	}
 	$('#publicYnSelect').html(element);
 	
+	element = '';
+	
 	if (userEmailYn == 'Y') {
-		element += '<option value="Y" selected="selected">공개</option>';
-		element += '<option value="N">비공개</option>';
+		element += '<option value="Y" selected="selected">수신</option>';
+		element += '<option value="N">비수신</option>';
 	} else {
-		element += '<option value="Y">공개</option>';
-		element += '<option value="N"  selected="selected">비공개</option>';
+		element += '<option value="Y">수신</option>';
+		element += '<option value="N"  selected="selected">비수신</option>';
 	}
 	$('#emailYnSelect').html(element);
 	
@@ -229,7 +231,6 @@ $(document).on('click',"#pwModifyBtn",function(){
 	} 
 	
 	var data = {'oriPassword' : oriPw , 'newPassword' : newPw};
-	
 	
 	$.ajax({
 		type : 'POST',

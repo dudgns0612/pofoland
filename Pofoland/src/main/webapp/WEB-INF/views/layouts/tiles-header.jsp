@@ -83,7 +83,7 @@
 												<img
 													src="${contextPath}/resources/custom/images/layouts/login.png"
 													style="width: 70px; height: 30px; margin-top: 10px;" /> <br />
-												<h6>포포랜드에 오신것을 환영합니다.</h6>
+												<h6>포폴랜드에 오신것을 환영합니다.</h6>
 												<form class="form" role="form" method="post"
 													action="/j_spring_security_check" accept-charset="UTF-8"
 													id="login-nav" onsubmit="return loginValidate();">
@@ -110,9 +110,7 @@
 														</a>
 													</div>
 													<div class="form-group">
-														<a href="/naver/login">
-															<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/naverLogin.png" style="cursor: pointer; height: 37px; border-radius: 5px; margin-top: -10px;" />
-														</a>
+														<img id="naverLoginBtn" class="btn-block" src="${contextPath}/resources/custom/images/layouts/naverLogin.png" style="cursor: pointer; height: 37px; border-radius: 5px; margin-top: -10px;" />
 													</div>
 													<div class="checkbox">
 														<label> 
@@ -136,4 +134,9 @@
 	</nav>
 </header>
 
+<!-- default popup -->
+<div id="popupDialog" title="네이버 가입 시 중요사항">
+	<div class="popup_contents"></div>	
+</div>
+<!-- /default popup -->
 <!-- /HEADER -->

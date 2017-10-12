@@ -18,7 +18,7 @@
         </div>
     </div>
 </section>
-<div style="height: 650px; padding-top: 40px;">
+<div style="height: 720px; padding-top: 40px;">
 	<!-- BODY -->
 	<div class="container">
 		<div class="row">
@@ -59,7 +59,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="bottom">
-					<div style="margin-top:100px;">
+					<div style="margin-top:80px;">
 						<!-- jstl은 조건문에서 char타입을 Long으로 변경함 따라서 아래와 같이 charAt(0)추가 -->
 						<c:choose>
 							<c:when test="${user.userJoinType eq 'P'.charAt(0)}">
