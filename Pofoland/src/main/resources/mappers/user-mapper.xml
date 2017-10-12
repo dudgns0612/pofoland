@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hst.pofoland.biz.user.dao.UserDAO">
+
+	<!-- 유저 정보 등록 -->
+	<insert id="insertUser" keyProperty="userSeq">
+		INSERT INTO User (
+			USER_ID,
+			USER_PW,
+			USER_NICK,
+			USER_EMAIL,
+			USER_AUTH_KEY,
+			USER_EMAIL_YN
+		) VALUES (
+			#{userId},
+			#{userPw},
+			#{userNick},
+			#{userEmail},
+			#{userAuthKey},
+			#{userEmailYn}
+		)
+		<selectKey keyProperty="userSeq" resultType="Integer">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<!-- 로그인한 유저정보 조회 -->
+	<select id="selectUserLogin" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_PW,
+			   USER_EMAIL,
+			   USER_NICK,
+			   USER_AUTH_YN,
+			   USER_SCORE,
+			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
+			   USER_DEL_YN,
+			   USER_PUBLIC_YN,
+			   USER_LOGIN_YN,
+			   USER_EMAIL_YN,
+			   USER_JOIN_TYPE,
+			   USER_PROFILE_URL
+		  FROM User
+		 WHERE 1=1
+		   AND USER_ID = #{userId}
+		   AND USER_DEL_YN = 'N'
+		   AND USER_JOIN_TYPE = 'P'
+	</select>
+	
+	<!-- 유저 아이디 중복확인 -->	
+	<select id="selectDuplicateCheckId" resultType="String">
+		SELECT USER_ID
+		  FROM User
+		 WHERE 1=1
+		   AND USER_ID = #{userId}
+		   AND USER_DEL_YN = 'N'
+		   AND USER_JOIN_TYPE = 'P'
+	</select>
+	
+	<!-- 유저 닉네임 중복확인 -->
+	<select id="selectDuplicateCheckNick" resultType="String">
+		SELECT USER_NICK
+		  FROM User
+		 WHERE 1=1
+		   AND USER_NICK = #{userNick}
+		   AND USER_DEL_YN = 'N'
+		 
+	</select>
+	
+	<!-- 유저 이메일 중복확인 -->
+	<select id="selectDuplicateCheckEmail" resultType="String">
+		SELECT USER_EMAIL
+		  FROM User
+		 WHERE 1=1
+		   AND USER_EMAIL = #{userEmail}
+		   AND USER_DEL_YN = 'N'
+	</select>
+	
+	<!-- 유저 정보 조회 -->
+	<select id="selectUserInfo" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_PW,
+			   USER_EMAIL,
+			   USER_NICK,
+			   USER_AUTH_YN,
+			   USER_SCORE,
+			   date_format(USER_REG_DT,'%Y-%m-%d %T') as USER_REG_DT,
+			   USER_DEL_YN,
+			   USER_PUBLIC_YN,
+			   USER_JOIN_TYPE,
+			   USER_LOGIN_YN,
+			   USER_EMAIL_YN,
+			   USER_PROFILE_URL
+		  FROM User
+		 WHERE 1=1
+		   AND USER_SEQ = #{userSeq}
+	</select>
+	
+	<!-- 유저 시퀀스 조회 -->
+	<select id="selectUserSeq" resultType="Integer">
+		SELECT USER_SEQ
+		  FROM User
+		 WHERE USER_ID = #{userId}
+	</select>
+	
+	<!-- 인증 상태 수정 -->
+	<update id="updateAuthState" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<if test="userSeq != null">
+				USER_AUTH_YN = 'Y'
+				</if>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}
+		   AND USER_AUTH_KEY = #{userAuthKey}
+	</update>
+	
+	<!-- 로그인상태 수정 -->
+	<update id="updateLoginState" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<if test="userLoginYn == 'N'">
+				USER_LOGIN_YN = 'Y'
+				</if>
+				<if test="userLoginYn == 'Y'">
+				USER_LOGIN_YN = 'N'
+				</if>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}	
+	</update>
+	
+	<!-- 인증 상태 조회 -->
+	<select id="selectAuthState" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_AUTH_YN
+		  FROM User
+		 WHERE USER_SEQ = #{userSeq} 
+	</select> 
+	
+	<!-- 일반 사용자 추가 정보 입력 -->
+	<update id="updateAddInfo" parameterType="UserVO">
+		UPDATE User
+			<set>
+				<if test="userNick != null">
+					   USER_NICK = #{userNick},
+				</if>
+				<if test="userProfileUrl != null">
+					   USER_PROFILE_URL = #{userProfileUrl}
+				</if>
+			</set>
+		 WHERE USER_SEQ = #{userSeq}  
+	</update>
+	
+	<!-- 사용자 관심목록 등록 -->
+	<insert id="insertInterestInfo" parameterType="UserVO">
+		INSERT INTO UserInterest( 
+			    INTER_CODE,
+			    USER_SEQ
+		) VALUES 
+	    <foreach collection="interestCode" item="item" separator=",">
+		(
+			   #{item},
+			   #{userSeq}
+		)	
+		</foreach>	   
+	</insert>
+	
+	<!-- 인증처리된 OAuth사용자 등록 -->
+	<insert id="insertOauthUser" parameterType="UserVO">
+		INSERT INTO User (
+			USER_ID,
+			USER_PW,
+			USER_NICK,
+			USER_EMAIL,
+			USER_JOIN_TYPE,
+			USER_AUTH_YN,
+			USER_EMAIL_YN
+		) VALUES (
+			#{userId},
+			#{userId},
+			#{userNick},
+			#{userId},
+			#{userJoinType},
+			'Y',
+			'Y'
+		)
+		<selectKey keyProperty="userSeq" resultType="Integer">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+	
+	<!-- 유저정보 수정 -->
+	<update id="updateModifyUser" parameterType="UserVO">
+		UPDATE User
+			<set>
+				USER_NICK = #{userNick},
+				USER_PUBLIC_YN = #{userPublicYn},
+				USER_EMAIL_YN = #{userEmailYn},
+				<if test="userProfileUrl != null and userProfileUrl != ''">
+					USER_PROFILE_URL = #{userProfileUrl}
+				</if>
+			</set>
+		 WHERE USER_SEQ = ${userSeq};	
+	</update>
+	
+	<!-- 유저 탈퇴 -->
+	<update id="updateDropUser" parameterType="UserVO">
+		UPDATE User
+			<set>
+				USER_DEL_YN = 'Y'
+			</set>
+		 WHERE USER_SEQ = #{userSeq};	
+	</update>
+	
+	<!-- 전체 유저 프로필 조회(Scheduler 사용) -->
+	<select id="selectAllUserProfile" resultType="String">
+		SELECT USER_PROFILE_URL
+		  FROM User
+	</select>
+	
+	<!-- 유저 패스워드 수정 -->
+	<update id="updatePasswordUser" parameterType="UserVO">
+		UPDATE User
+			<set>
+				USER_PW = #{userPw}
+			</set>
+		 WHERE USER_SEQ = #{userSeq}	
+	</update>
+</mapper>

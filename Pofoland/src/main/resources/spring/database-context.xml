@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- version 1.0 -->
+<!-- created 2017.07.17 -->
+<!-- updated -->
+<!-- author YH -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+	
+	<!-- JDBC이용한 DB연결-->
+	<bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${database.driverClassName}"></property>
+		<property name="url" value="${database.url}"></property>
+		<property name="username" value="${database.username}"></property>
+		<property name="password" value="${database.password}"></property>
+	</bean>
+	
+	<!-- SqlSessionFactoryBean 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:mappers/**/*.xml"></property>
+	</bean>
+	
+	<!-- 연결 종료역활의 Template설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" >
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- MapperScannerConfigurer 설정 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hst.pofoland" />
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+	</bean>
+	
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL             :" />
+			</bean>
+		</property>
+	</bean>
+
+</beans>

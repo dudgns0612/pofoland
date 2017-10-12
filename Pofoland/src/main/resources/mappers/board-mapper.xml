@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hst.pofoland.biz.board.dao.BoardDAO">
+    
+    <!-- 검색 설정 쿼리 -->
+    <sql id="conditionQuery">
+        <if test="boardCategory != null and boardCategory != ''">
+            AND B.BOARD_CATEGORY = #{boardCategory}
+        </if>
+        <if test="jobCategory != null and jobCategory != ''">
+            AND B.JOB_CATEGORY = #{jobCategory}
+        </if>
+        <if test="search != null and search != ''">
+            <if test="searchType != null and searchType != ''">
+                <if test="searchType == 'content'">
+                AND B.BOARD_CONTENT LIKE '%' || #{search} || '%'
+                </if>
+            </if>
+        </if>
+    </sql>
+    
+    <!-- 신규 게시글 등록 쿼리 -->
+    <insert id="insertBoard" keyProperty="boardSeq">
+        INSERT INTO Board (
+            BOARD_TITLE,
+            BOARD_CONTENT,
+            BOARD_CONTENT_SUMMARY,
+            BOARD_CATEGORY,
+            JOB_CATEGORY,
+            USER_SEQ,
+            BOARD_GBN_CODE
+        ) VALUES (
+            #{boardTitle},
+            #{boardContent},
+            #{boardContentSummary},
+            #{boardCategory},
+            #{jobCategory},
+            #{userSeq},
+            'A01'
+        )
+        <selectKey keyProperty="boardSeq" resultType="int">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <!-- 게시글 목록 조회 쿼리  -->
+    <select id="selectBoardList" parameterType="BoardVO" resultType="BoardVO">
+        SELECT B.BOARD_SEQ,
+        	   B.BOARD_TITLE,
+        	   B.BOARD_CONTENT,
+        	   B.BOARD_CONTENT_SUMMARY,
+               B.BOARD_CATEGORY,
+               DATE_FORMAT(B.BOARD_REG_DT, '%Y-%c-%d %r') AS BOARD_REG_DT,
+        	   B.BOARD_UDT_DT,
+        	   B.BOARD_HIT_CNT,
+               (SELECT CODE_NAME FROM Code WHERE CODE = B.board_category AND GROUP_CODE = 'A01') AS BOARD_CATEGORY_NAME,
+               B.JOB_CATEGORY,
+               (SELECT CODE_NAME FROM Code WHERE CODE = B.job_category AND GROUP_CODE = 'B01') AS JOB_CATEGORY_NAME,
+               B.USER_SEQ,
+        	   U.USER_ID,
+        	   U.USER_NICK
+          FROM Board B,
+               User U
+         WHERE 1=1
+           AND B.BOARD_GBN_CODE = 'A01'
+           AND B.BOARD_DEL_YN = 'N'
+           AND B.USER_SEQ = U.USER_SEQ
+           <include refid="conditionQuery"/>
+         LIMIT #{firstRecordIndex}, #{recordCountPerPage}
+    </select>
+    
+    <!-- 게시글 갯수 조회 쿼리 -->
+    <select id="selectTotalRecordCount" resultType="int">
+        SELECT COUNT(*)
+          FROM Board B
+         WHERE 1=1
+           AND B.BOARD_GBN_CODE = 'A01'
+           AND B.BOARD_DEL_YN = 'N'
+           <include refid="conditionQuery"/>
+    </select>
+    
+    <!-- 게시글 조회 쿼리 -->
+	<select id="selectBoard" parameterType="BoardVO" resultType="BoardVO">
+        SELECT B.BOARD_SEQ,
+               B.BOARD_TITLE,
+               B.BOARD_CONTENT,
+               B.BOARD_CONTENT_SUMMARY,
+               B.BOARD_REG_DT,
+               B.BOARD_UDT_DT,
+               B.BOARD_HIT_CNT,
+               B.BOARD_CATEGORY,
+               (SELECT CODE_NAME FROM Code WHERE CODE = B.board_category AND GROUP_CODE = 'A01') AS BOARD_CATEGORY_NAME,
+               B.JOB_CATEGORY,
+               (SELECT CODE_NAME FROM Code WHERE CODE = B.job_category AND GROUP_CODE = 'B01') AS JOB_CATEGORY_NAME,
+               B.USER_SEQ,
+               U.USER_ID,
+               U.USER_NICK               
+          FROM Board B,
+               User U
+         WHERE 1=1
+           AND B.BOARD_DEL_YN = 'N'
+           AND B.USER_SEQ = U.USER_SEQ
+           AND B.BOARD_SEQ = #{boardSeq}
+    </select>
+    
+    <!-- 조회수 증가 쿼리 -->
+    <update id="increaseHit" parameterType="BoardVO">
+        UPDATE Board
+          SET BOARD_HIT_CNT = BOARD_HIT_CNT + 1
+        WHERE BOARD_SEQ = #{boardSeq}
+    </update>
+    
+    <!-- 게시판 전부 삭제 -->
+    <delete id="deleteAll">
+        DELETE FROM Board
+    </delete>
+</mapper>

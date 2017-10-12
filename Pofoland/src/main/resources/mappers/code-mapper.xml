@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hst.pofoland.biz.code.dao.CodeDAO">
+    
+    <!-- 코드 목록 조회 -->
+    <select id="selectCodeList" resultType="CodeVO" parameterType="CodeVO">
+        SELECT CODE,
+               CODE_NAME,
+               GROUP_CODE
+          FROM Code
+         WHERE GROUP_CODE = #{groupCode} 
+    </select>
+    
+    <select id="selectCode" resultType="CodeVO" parameterType="CodeVO">
+        SELECT CODE,
+               CODE_NAME,
+               GROUP_CODE
+          FROM Code
+         WHERE GROUP_CODE = #{groupCode}
+           AND CODE = #{code}
+    </select>
+    
+</mapper>

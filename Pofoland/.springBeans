@@ -9,6 +9,9 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/servlet-context.xml</config>
 		<config>src/main/resources/root-context.xml</config>
+		<config>src/main/resources/spring/common-context.xml</config>
+		<config>src/main/resources/spring/database-context.xml</config>
+		<config>src/main/resources/spring/security-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
