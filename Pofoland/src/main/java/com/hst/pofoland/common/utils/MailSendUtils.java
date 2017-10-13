@@ -18,17 +18,10 @@ import org.springframework.beans.factory.InitializingBean;
 
 public class MailSendUtils implements InitializingBean{
 	
-	private Session session = null;
-	private String user = "";
+	Session session = null;
 	
 	@Inject
 	Configuration config;
-
-	/**
-	 * 기본생성자
-	 */
-	public MailSendUtils() {
-	}
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -40,7 +33,7 @@ public class MailSendUtils implements InitializingBean{
 		// smtp.gmail.com 구글
 		// smtp.naver.com 네이버
 		String host = config.getString("network.email.host");
-		user = config.getString("network.email.administratorMail");
+		final String user = config.getString("network.email.administratorMail");
 		final String password = config.getString("network.email.administratorMailPw");
 		
 		Properties props = new Properties();
@@ -67,6 +60,8 @@ public class MailSendUtils implements InitializingBean{
 	 * @param content
 	 */
 	public void sendEmail(String userEmail, String title, StringBuffer content) {
+		final String user = config.getString("network.email.administratorMail");
+		
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(user));
@@ -83,4 +78,5 @@ public class MailSendUtils implements InitializingBean{
 		
 		LoggerManager.info(getClass(), "User Mail : "+userEmail+" Success Mail");
 	}
+
 }

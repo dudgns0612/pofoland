@@ -15,7 +15,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.configuration.Configuration;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.hst.pofoland.common.constnat.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
@@ -47,11 +46,7 @@ public class MailAuthentication {
 	Ase128Encrypt ase128Encrypt;
 	
 	@Inject
-	Configuration config;
-	
-	private String email = null;
-	private String authKey = null;
-	private Integer userSeq = null;
+	Configuration config;	
 	
 	/**
 	 * 기본생성자
@@ -65,14 +60,7 @@ public class MailAuthentication {
 	 * authKey : 발급한 사용자 인증키
 	 * userSeq : 사용자번호
 	 */
-	public MailAuthentication(String email, String authKey, Integer userSeq) {
-		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-		this.email = email;
-		this.authKey = authKey;
-		this.userSeq = userSeq;
-	}
-	
-	public void sendAuthMail() {
+	public void sendAuthMail(String email, String authKey, Integer userSeq) {
 		// smtp host정보와 관련 보낸이 관리자 메일정보
 		// smtp.gmail.com 구글
 		// smtp.naver.com 네이버
@@ -124,5 +112,4 @@ public class MailAuthentication {
 			LoggerManager.error(getClass(), "ERROR : {}", e);
 		}
 	}
-	
 }

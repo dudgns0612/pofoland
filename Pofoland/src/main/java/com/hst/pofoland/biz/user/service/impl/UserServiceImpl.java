@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	@Inject
 	UserDAO userDAO;
 	
+	@Inject
+	MailAuthentication mailAuthentication;
+	
+	@Inject
+	MailSendUtils mailSendUtils;
 	/**
 	 * 생성자
 	 */
@@ -75,8 +80,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			String userAuthKey = userVO.getUserAuthKey();
 			
 			//인증메일 전송
-			MailAuthentication mailAuth = new MailAuthentication(userEmail, userAuthKey, userSeq);
-			mailAuth.sendAuthMail();
+			mailAuthentication.sendAuthMail(userEmail, userAuthKey, userSeq);
 		}
 		
 		return userVO;
@@ -161,12 +165,10 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			userVO = userDAO.selectFindUserInfo(userVO);
 			
 			if (userVO != null) {
-				MailSendUtils mailSendUtils = new MailSendUtils();
-				
 				String title = "[Pofoland]아이디 찾기";
 				StringBuffer content = new StringBuffer();
 				content.append("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
-				content.append("귀하의 아이디는 "+userVO.getUserId()+" 입니다.");
+				content.append("귀하의 아이디는 '"+userVO.getUserId()+"' 입니다.");
 				content.append("즐거운 하루 되세요. 감사합니다.");
 				
 				mailSendUtils.sendEmail(userEmail, title, content);
