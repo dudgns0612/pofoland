@@ -633,6 +633,22 @@ public class UserController implements InitializingBean{
 		return responseVO;
 	}
 	
+	@RequestMapping(value="/user/find/id" , method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO findIdUser(@ModelAttribute UserVO userVO) {
+		userVO = userService.searchEmailUser(userVO);
+		ResponseVO responseVO = new ResponseVO();
+		
+		if (userVO != null) {
+			if (userVO.getUserId() != null && userVO.getUserId() != "") {
+				responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+				return responseVO;
+			}
+		} 
+		
+		return responseVO;
+	}
+	
 	/**
 	 * 유저 탈퇴 처리
 	 * @param userVO
@@ -655,5 +671,4 @@ public class UserController implements InitializingBean{
 		
 		return responseVO;
 	}
-	
 }

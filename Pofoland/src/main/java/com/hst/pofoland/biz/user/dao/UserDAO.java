@@ -68,8 +68,15 @@ public interface UserDAO {
 	 * @param userSeq
 	 * @return
 	 */
-	public UserVO selectUserInfo(Integer userSeq);
-
+	public UserVO selectUserInfo(UserVO userVO);
+	
+	/**
+	 * 유저 아이디/비밀번호 찾기 조회
+	 * @param userVO
+	 * @return
+	 */
+	public UserVO selectFindUserInfo(UserVO userVO);
+	
 	/**
 	 * 유저 시퀀스 조회
 	 * @param userId

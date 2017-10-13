@@ -13,6 +13,7 @@ import com.hst.pofoland.biz.user.service.UserService;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.MailAuthentication;
 import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
+import com.hst.pofoland.common.utils.MailSendUtils;
 import com.hst.pofoland.common.utils.StringUtils;
 
 /**
@@ -140,8 +141,37 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	 */
 	@Override
 	public UserVO searchUser(Integer userSeq) {
+		UserVO userVO = new UserVO();
+		userVO.setUserSeq(userSeq);
 		
-		UserVO userVO = userDAO.selectUserInfo(userSeq);
+		userVO = userDAO.selectUserInfo(userVO);
+		
+		return userVO;
+	}
+	
+	/**
+	 * 유저 아이디 / 비밀번호 찾기
+	 */
+	@Override
+	public UserVO searchEmailUser(UserVO userVO) {
+		
+		String userEmail = userDAO.selectDuplicateCheckEmail(userVO.getUserEmail());
+		
+		if (userEmail != null && userEmail != "") {
+			userVO = userDAO.selectFindUserInfo(userVO);
+			
+			if (userVO != null) {
+				MailSendUtils mailSendUtils = new MailSendUtils();
+				
+				String title = "[Pofoland]아이디 찾기";
+				StringBuffer content = new StringBuffer();
+				content.append("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
+				content.append("귀하의 아이디는 "+userVO.getUserId()+" 입니다.");
+				content.append("즐거운 하루 되세요. 감사합니다.");
+				
+				mailSendUtils.sendEmail(userEmail, title, content);
+			}
+		} 
 		
 		return userVO;
 	}

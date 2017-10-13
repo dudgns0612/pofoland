@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<network>
-		<!-- naverLogin -->
+		<!-- Naver OAuth -->
 		<naver>
 			<api>
 				<loginURI>https://nid.naver.com/oauth2.0/authorize?response_type=code</loginURI>
@@ -14,5 +14,12 @@
 			<secret>_zrxRcx8fK</secret>
 			<redirectURI>http://localhost:8080/naver/user</redirectURI>
 		</naver>
+		
+		<!-- Administrator Email Info -->
+		<email>
+			<host>smtp.gmail.com</host>
+			<administratorMail>dlgusrb0808</administratorMail>
+			<administratorMailPw>cjsrn1992!</administratorMailPw>
+		</email>
 	</network>
 </config>

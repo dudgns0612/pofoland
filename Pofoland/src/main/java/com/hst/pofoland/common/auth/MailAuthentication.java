@@ -14,6 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.configuration.Configuration;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.hst.pofoland.common.constnat.NetworkConstant;
@@ -41,13 +42,29 @@ import com.hst.pofoland.common.utils.LoggerManager;
  */
 
 public class MailAuthentication {
+	
 	@Inject
 	Ase128Encrypt ase128Encrypt;
+	
+	@Inject
+	Configuration config;
 	
 	private String email = null;
 	private String authKey = null;
 	private Integer userSeq = null;
 	
+	/**
+	 * 기본생성자
+	 */
+	public MailAuthentication() {
+	}
+	
+	/**
+	 * 메일 인증관련 정보 선택자
+	 * email : 사용자가입 이메일
+	 * authKey : 발급한 사용자 인증키
+	 * userSeq : 사용자번호
+	 */
 	public MailAuthentication(String email, String authKey, Integer userSeq) {
 		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 		this.email = email;
@@ -59,9 +76,9 @@ public class MailAuthentication {
 		// smtp host정보와 관련 보낸이 관리자 메일정보
 		// smtp.gmail.com 구글
 		// smtp.naver.com 네이버
-		String host = "smtp.gmail.com";
-		final String user = "dlgusrb0808";
-		final String password = "cjsrn1992!";
+		String host = config.getString("network.email.host");
+		final String user = config.getString("network.email.administratorMail");
+		final String password = config.getString("network.email.administratorMailPw");
 		
 		String receiver = email;
 		
@@ -104,7 +121,7 @@ public class MailAuthentication {
 		} catch(MessagingException e) {
 			LoggerManager.error(getClass(), "ERROR : {}", e);
 		} catch (UnsupportedEncodingException e) {
-			LoggerManager.error(getClass(), "ERROR : {}", e);		
+			LoggerManager.error(getClass(), "ERROR : {}", e);
 		}
 	}
 	

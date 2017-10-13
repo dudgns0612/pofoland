@@ -28,7 +28,7 @@
 				<hr>
 				<h5>아아디 &nbsp;&nbsp;:&nbsp;&nbsp; ${user.userId}</h5><br />
 				<h5>닉네임 &nbsp;&nbsp;:&nbsp;&nbsp; <input id="modifyNickname" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:27%; "/>
-				<input id="modifyNickCheckBtn" type="button" class="btn btn-warning" value="중복확인" style="margin-top: -5px;"/>
+					<input id="modifyNickCheckBtn" type="button" class="btn btn-warning" value="중복확인" style="margin-top: -5px;"/>
 				</h5>
 				<br />
 				<h5>이메일 &nbsp;&nbsp;:&nbsp;&nbsp; ${user.userEmail}</h5><br />

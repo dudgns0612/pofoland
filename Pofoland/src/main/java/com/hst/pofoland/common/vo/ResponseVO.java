@@ -22,6 +22,8 @@ package com.hst.pofoland.common.vo;
 
 public class ResponseVO {
 	
+	// code = 1 성공
+	// code = 0 실패
 	Object data = null;
 	Integer code = 0;
 	/**

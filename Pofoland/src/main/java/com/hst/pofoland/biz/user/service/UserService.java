@@ -16,6 +16,8 @@ public interface UserService {
 	
 	public UserVO searchUser(Integer userSeq);
 	
+	public UserVO searchEmailUser(UserVO userVO);
+	
 	public Integer authProcessUser(UserVO userVO);
 	
 	public UserVO authCheckUser(Integer userSeq);
@@ -31,4 +33,5 @@ public interface UserService {
 	public Integer dropUser(UserVO userVO);
 	
 	public Integer modifyUserPssword(UserVO userVO);
+	
 }
