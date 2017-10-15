@@ -374,8 +374,8 @@ public class UserController implements InitializingBean{
 	 * @param userSeq
 	 * @return
 	 */
-	@RequestMapping(value="/user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
-	public ModelAndView authProcessUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
+	@RequestMapping(value="/user/mail/auth" , method=RequestMethod.POST)
+	public ModelAndView authProcessUser(@ModelAttribute("userAuthKey") String userAuthKey ,@ModelAttribute("userSeq") Integer userSeq) {
 		
 		UserVO userVO = new UserVO();
 		ase128Encrypt.createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
@@ -430,6 +430,7 @@ public class UserController implements InitializingBean{
 		
 		ModelAndView mav = new ModelAndView("user/joinStep3");
 		
+		mav.addObject("userJoinType","P");
 		mav.addObject("interestList", interestList);
 		mav.addObject("userSeq", userSeq);
 		
