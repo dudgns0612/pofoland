@@ -11,14 +11,12 @@
 		INSERT INTO User (
 			USER_ID,
 			USER_PW,
-			USER_NICK,
 			USER_EMAIL,
 			USER_AUTH_KEY,
 			USER_EMAIL_YN
 		) VALUES (
 			#{userId},
 			#{userPw},
-			#{userNick},
 			#{userEmail},
 			#{userAuthKey},
 			#{userEmailYn}
@@ -68,7 +66,6 @@
 		 WHERE 1=1
 		   AND USER_NICK = #{userNick}
 		   AND USER_DEL_YN = 'N'
-		 
 	</select>
 	
 	<!-- 유저 이메일 중복확인 -->
@@ -99,6 +96,23 @@
 		  FROM User
 		 WHERE 1=1
 		   AND USER_SEQ = #{userSeq}
+	</select>
+	
+	<!-- 유저 일반유저 아이디/비밀번호 조회 -->
+	<select id="selectFindUserInfo" resultType="UserVO">
+		SELECT USER_SEQ,
+			   USER_ID,
+			   USER_EMAIL
+		  FROM User
+		 WHERE 1=1
+	   	   <if test="userId != null and userId != ''">
+	   	   	   AND USER_SEQ = #{userId}
+	   	   </if>
+	   	   <if test="userEmail != null and userEmail != ''">
+	   	   	   AND USER_EMAIL = #{userEmail}
+	   	   </if>
+		   AND USER_JOIN_TYPE = 'P'
+		   AND USER_DEL_YN = 'N'
 	</select>
 	
 	<!-- 유저 시퀀스 조회 -->

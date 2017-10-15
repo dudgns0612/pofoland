@@ -94,9 +94,7 @@
 													<div class="form-group">
 														<label class="sr-only" for="InputPassword">Password</label>
 														<input type="password" class="form-control" id="inputPassword" name="userPw" placeholder="Password" name="m_pw" />
-														<div class="help-block text-center">
-															<a href="#" style="font-size: 12px;">Forget the password?</a>
-														</div>
+														<a href="${contextPath}/user/find/info" style="font-size: 12px;">아이디/비밀번호 찾기</a>
 													</div>
 													<div class="form-group">
 														<button type="submit" class="btn btn-block btn-warning">Sign in</button>

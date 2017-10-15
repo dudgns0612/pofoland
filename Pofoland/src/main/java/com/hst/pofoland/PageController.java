@@ -88,6 +88,11 @@ public class PageController {
 		return "user/userModifyPw";
 	}
 	
+	@RequestMapping(value = "/user/find/info")
+	public String userFindPw() {
+		return "user/userFindInfo";
+	}
+	
 	
 	// =========================ERROR PAGE =============================
 	
@@ -122,5 +127,4 @@ public class PageController {
 		
 		return mav;
 	}
-
 }

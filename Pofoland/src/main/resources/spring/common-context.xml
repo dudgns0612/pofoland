@@ -29,7 +29,11 @@
 	<!-- ASE128 암호화 빈 설정 -->    
     <bean id="ase128Encryption" class="com.hst.pofoland.common.auth.Ase128Encrypt">
     </bean>
-
+	
+	<!-- 메일전송 빈 설정 -->
+	<bean id="mailSendUtils" class="com.hst.pofoland.common.utils.MailSendUtils">
+	</bean>
+	
 	<!-- Google Login 빈 설정 -->
 	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
 		<constructor-arg value="558213992520-vhndq22kf8d27a88a28ii6b1kq6jm493.apps.googleusercontent.com" />
