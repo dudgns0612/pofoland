@@ -39,15 +39,15 @@ public class UserVO extends BaseVO implements UserDetails {
 	String userNick = "";
 	String userEmail = "";
 	String userAuthKey = "";
-	char userAuthYn = 'N';
+	Character userAuthYn = 'N';
 	Integer userScore = 0;
 	String userRegDt = "";
 	String userProfileUrl = "";
-	char userDelYn = 'N';
-	char userPublicYn = 'Y';
-	char userLoginYn = 'N';
-	char userEmailYn = 'Y';
-	char userJoinType = 'P';
+	Character userDelYn = 'N';
+	Character userPublicYn = 'Y';
+	Character userLoginYn = 'N';
+	Character userEmailYn = 'Y';
+	Character userJoinType = 'P';
 	String[] interestCode = {};
 	
 	//생성자
@@ -132,13 +132,13 @@ public class UserVO extends BaseVO implements UserDetails {
 	/**
 	 * @return the userAuthYn
 	 */
-	public char getUserAuthYn() {
+	public Character getUserAuthYn() {
 		return userAuthYn;
 	}
 	/**
 	 * @param userAuthYn the userAuthYn to set
 	 */
-	public void setUserAuthYn(char userAuthYn) {
+	public void setUserAuthYn(Character userAuthYn) {
 		this.userAuthYn = userAuthYn;
 	}
 	/**
@@ -168,31 +168,31 @@ public class UserVO extends BaseVO implements UserDetails {
 	/**
 	 * @return the userDelYn
 	 */
-	public char getUserDelYn() {
+	public Character getUserDelYn() {
 		return userDelYn;
 	}
 	/**
 	 * @param userDelYn the userDelYn to set
 	 */
-	public void setUserDelYn(char userDelYn) {
+	public void setUserDelYn(Character userDelYn) {
 		this.userDelYn = userDelYn;
 	}
 	/**
 	 * @return the userPublicYn
 	 */
-	public char getUserPublicYn() {
+	public Character getUserPublicYn() {
 		return userPublicYn;
 	}
 	/**
 	 * @param userPublicYn the userPublicYn to set
 	 */
-	public void setUserPublicYn(char userPublicYn) {
+	public void setUserPublicYn(Character userPublicYn) {
 		this.userPublicYn = userPublicYn;
 	}
 	/**
 	 * @return the userLoginYn
 	 */
-	public char getUserLoginYn() {
+	public Character getUserLoginYn() {
 		return userLoginYn;
 	}
 	/**
@@ -217,19 +217,19 @@ public class UserVO extends BaseVO implements UserDetails {
 	public void setInterestCode(String[] interestCode) {
 		this.interestCode = interestCode;
 	}
-	public char getUserJoinType() {
+	public Character getUserJoinType() {
 		return userJoinType;
 	}
 	
-	public void setUserJoinType(char userJoinType) {
+	public void setUserJoinType(Character userJoinType) {
 		this.userJoinType = userJoinType;
 	}
 
-	public char getUserEmailYn() {
+	public Character getUserEmailYn() {
 		return userEmailYn;
 	}
 
-	public void setUserEmailYn(char userEmailYn) {
+	public void setUserEmailYn(Character userEmailYn) {
 		this.userEmailYn = userEmailYn;
 	}
 	
