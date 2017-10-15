@@ -7,6 +7,7 @@
  * Copyright ((c) 2017 by HST, Inc. All Rights Reserved.
  */
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -14,6 +15,14 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -63,33 +72,32 @@ public class BoardTest {
     @Inject
     private CategoryService categoryService;
     
-    //@Test
+    @Test
     public void insert() {
-        BoardVO temp = null;
+        BoardVO board = new BoardVO();
+        board.setBoardGbnCode("A01");
+        board.setBoardTitle("테스트");
+        board.setBoardContent("테스트 게시글입니다.");
+        board.setBoardContentSummary("테스트 게시...");
+        board.setUserSeq(94);
+        board.setBoardCategory("02");
+        board.setJobCategory("01");
         
-        int bCateSeq, jCateSeq;
-        Random r = new Random();
-        
-        for (int i = 0; i < 100; i++) {
-            temp = new BoardVO();
-            
-            bCateSeq = r.nextInt(5) + 1;
-            jCateSeq = r.nextInt(5) + 1;
-            
-            temp.setBoardCateSeq(bCateSeq);
-            temp.setJobCateSeq(jCateSeq);
-            
-            temp.setBoardTitle("[TEST] 게시글 " + (i+1));
-            temp.setBoardContent("안녕하세요! 테스트 게시글입니다.<br> Hello World!");
-            temp.setUserSeq(31);
-            
-            boardService.writeBoard(temp);
-        }
+        boardDao.insertBoard(board);
     }
     
     //@Test
-    public void deleteAll() {
-        boardDao.deleteAll();
+    public void deleteAll() throws ClientProtocolException, IOException {
+        HttpClient client = HttpClients.createDefault();
+        
+        HttpGet get = new HttpGet("http://api.saramin.co.kr/job-search?");
+        
+        HttpResponse response = client.execute(get);
+        BasicResponseHandler handler = new BasicResponseHandler();
+        String body = handler.handleEntity(response.getEntity());
+        
+        System.out.println(body);
+        
     }
     
 }

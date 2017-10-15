@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hst.pofoland.biz.boardreply.dao.BoardReplyDao">
+    
+    <!-- 커뮤니티 댓글 목록 조회 -->
+    <select id="selectBoardReplyList" parameterType="BoardReplyVO" resultType="BoardReplyVO">
+    
+    </select>
+
+    <!-- 커뮤니티 댓글 등록 -->
+    <insert id="insertBoardReply" parameterType="BoardReplyVO">
+    
+    </insert>
+    
+    <!-- 커뮤니티 댓글 수정 -->
+    <update id="updateBoardReply" parameterType="BoardReplyVO">
+    
+    </update>
+    
+    <!-- 커뮤니티 댓글 삭제 -->
+    <delete id="deleteBoardReply" parameterType="BoardReplyVO">
+    
+    </delete>
+    
+</mapper>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <section id="page-header">
     <div class="container">
         <div class="row">
@@ -21,9 +21,17 @@
 				<small>${board.boardUdtDt}</small>
 			</div>		  	
 		</div>
-		${board.userNick}(${board.userId})
+		${board.userNick} (${board.userId})
 		<div class="clearfix"></div>
-		<div style="margin-top: 20px; margin-bottom: 20px;">${board.boardContent}</div>
+		<div style="margin-top: 20px; margin-bottom: 20px;">
+            ${board.boardContent}
+        </div>
+        <c:if test="${user.userSeq == board.userSeq }">
+            <div class="pull-right">
+                <a class="btn btn-send" href="${contextPath}/board/modify?boardSeq=${board.boardSeq}">수정하기</a>
+            </div>
+        </c:if>
+        <div class="clearfix"></div>
 		<div>댓글:60개  | 조회수:${board.boardHitCnt}</div>
 		<div class="panel panel-default">
 		  <div class="panel-body">
@@ -32,7 +40,8 @@
 		    </div>
 		    <div>
 		    	<form class="form-inline">
-		    		<textarea style="height:80px; width:600px; resize: none;" class="form-control"></textarea><input type="button" value="댓글등록" style="height:80px; width: 100px" class="form-control"/>
+		    		<textarea style="height:80px; width:600px; resize: none;" class="form-control"></textarea> 
+                    <input type="button" value="댓글등록" style="height:80px; width: 100px" class="btn btn-send"/>
 		    	</form>
 		    </div>
 		  </div>

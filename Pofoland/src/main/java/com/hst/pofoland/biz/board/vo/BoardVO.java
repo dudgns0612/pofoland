@@ -7,6 +7,9 @@
  */
 package com.hst.pofoland.biz.board.vo;
 
+import java.util.List;
+
+import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 import com.hst.pofoland.common.vo.BaseVO;
 
 /**
@@ -50,7 +53,9 @@ public class BoardVO extends BaseVO {
     private int userSeq;
     private String userId;
     private String userNick;
-
+    
+    private List<BoardReplyVO> boardReplyList;
+    
     /**
      * 기본 생성자
      */
@@ -279,6 +284,20 @@ public class BoardVO extends BaseVO {
      */
     public void setBoardGbnCode(String boardGbnCode) {
         this.boardGbnCode = boardGbnCode;
+    }
+
+    /**
+     * @return boardReplyList 반환
+     */
+    public List<BoardReplyVO> getBoardReplyList() {
+        return boardReplyList;
+    }
+
+    /**
+     * @param boardReplyList 설정할 boardReplyList
+     */
+    public void setBoardReplyList(List<BoardReplyVO> boardReplyList) {
+        this.boardReplyList = boardReplyList;
     }
 
 }

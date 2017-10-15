@@ -21,8 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
-import com.hst.pofoland.biz.code.service.CodeService;
-import com.hst.pofoland.biz.user.vo.UserVO;
+import com.hst.pofoland.common.ctrl.BaseController;
 import com.hst.pofoland.common.utils.LoggerManager;
 
 /**
@@ -46,13 +45,10 @@ import com.hst.pofoland.common.utils.LoggerManager;
  */
 @Controller
 @RequestMapping("/board")
-public class BoardController {
+public class BoardController extends BaseController {
 
     @Inject
     private BoardService boardService;
-    
-    @Inject
-    private CodeService codeService;
     
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView boardMain(@ModelAttribute("condition")BoardVO condition) {
@@ -72,17 +68,41 @@ public class BoardController {
     }
     
     @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm, HttpSession session) {
+    public ModelAndView boardWrite(@ModelAttribute("writeForm")BoardVO writeForm) {
         ModelAndView mv= new ModelAndView("board/write");
         mv.addObject("boardCategories", codeService.getCodeList("A01"));
         mv.addObject("jobCategories", codeService.getCodeList("B01"));
         
-        UserVO loginUser = (UserVO) session.getAttribute("user");
-        writeForm.setUserSeq(loginUser.getUserSeq());
+        writeForm.setUserSeq(getSessionUserSeq());
         
         return mv;
     }
 
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    public ModelAndView boardModify(BoardVO srchVo) {
+        ModelAndView mv= new ModelAndView("board/write");
+        
+        // 현재 게시물 조회
+        BoardVO board = boardService.getBoard(srchVo);
+        
+        // 존재하지 않는 게시물을 수정하려 한 경우
+        if(board == null) {
+            mv.setViewName("redirect:error500");
+            return mv;
+        }
+        // 조회한 게시물의 작성자와 로그인한 사용자의 시퀀스가 일치하지 않는 경우
+        else if(board.getUserSeq() != getSessionUserSeq()) {
+            mv.setViewName("redirect:error401");
+            return mv;
+        }
+        
+        mv.addObject("boardCategories", codeService.getCodeList("A01"));
+        mv.addObject("jobCategories", codeService.getCodeList("B01"));
+        mv.addObject("writeForm", board);
+        
+        return mv;
+    }
+    
     @RequestMapping(value ="", method = RequestMethod.POST)
     public String writeBoard(@ModelAttribute("writeForm")BoardVO writeForm, MultipartHttpServletRequest request) {
         LoggerManager.info(getClass(), "{}", request);

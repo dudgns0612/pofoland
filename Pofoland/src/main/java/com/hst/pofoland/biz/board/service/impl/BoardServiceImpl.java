@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.hst.pofoland.biz.board.dao.BoardDAO;
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
+import com.hst.pofoland.biz.boardreply.dao.BoardReplyDAO;
+import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.utils.StringUtils;
 
@@ -18,9 +20,22 @@ public class BoardServiceImpl implements BoardService {
     @Inject
     private BoardDAO boardDao;
     
+    @Inject
+    private BoardReplyDAO boardReplyDao;
+    
     @Override
     public List<BoardVO> getBoardList(BoardVO condition) {
         List<BoardVO> boardList = boardDao.selectBoardList(condition);
+        
+        
+        BoardReplyVO srchVo = new BoardReplyVO();
+        
+        // 게시글 댓글 조회 및 SET
+        for(BoardVO vo : boardList) {
+            srchVo.setBoardSeq(vo.getBoardSeq());
+            vo.setBoardReplyList(boardReplyDao.selectBoardReplyList(srchVo));
+        }
+        
         return boardList;
     }
 
