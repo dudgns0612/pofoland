@@ -4,26 +4,53 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hst.pofoland.biz.boardreply.dao.BoardReplyDao">
+<mapper namespace="com.hst.pofoland.biz.boardreply.dao.BoardReplyDAO">
     
     <!-- 커뮤니티 댓글 목록 조회 -->
     <select id="selectBoardReplyList" parameterType="BoardReplyVO" resultType="BoardReplyVO">
-    
+        SELECT REPLY.BOARD_REPLY_SEQ,
+               REPLY.BOARD_REPLY_CONTENT,
+               REPLY.BOARD_REPLY_REG_DT,
+               REPLY.BOARD_REPLY_UDT_DT,
+               REPLY.BOARD_SEQ,
+               USER.USER_SEQ,
+               USER.USER_NICK
+          FROM BoardReply REPLY,
+               User USER
+         WHERE REPLY.BOARD_SEQ = #{boardSeq}
+           AND REPLY.USER_SEQ = USER.USER_SEQ
     </select>
 
     <!-- 커뮤니티 댓글 등록 -->
     <insert id="insertBoardReply" parameterType="BoardReplyVO">
-    
+        INSERT INTO BoardReply (
+            BOARD_REPLY_SEQ,
+            BOARD_REPLY_CONTENT,
+            BOARD_SEQ,
+            USER_SEQ
+        ) VALUES (
+            #{boardReplySeq},
+            #{boardReplyContent},
+            #{boardSeq},
+            #{userSeq}
+        )
+        <selectKey keyProperty="boardReplySeq" resultType="int">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
     </insert>
     
     <!-- 커뮤니티 댓글 수정 -->
     <update id="updateBoardReply" parameterType="BoardReplyVO">
-    
+        UPDATE BoardReply
+           SET BOARD_REPLY_CONTENT = #{boardReplyContent},
+               BOARD_REPLY_UDT_DT = CURRENT_TIMESTAMP
+         WHERE BOARD_REPLY_SEQ = #{boardReplySeq}      
     </update>
     
     <!-- 커뮤니티 댓글 삭제 -->
     <delete id="deleteBoardReply" parameterType="BoardReplyVO">
-    
+        DELETE FROM BoardReply
+         WHERE BOARD_REPLY_SEQ = #{boardReplySeq}
     </delete>
     
 </mapper>
