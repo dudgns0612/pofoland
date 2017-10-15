@@ -26,16 +26,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardVO> getBoardList(BoardVO condition) {
         List<BoardVO> boardList = boardDao.selectBoardList(condition);
-        
-        
-        BoardReplyVO srchVo = new BoardReplyVO();
-        
-        // 게시글 댓글 조회 및 SET
-        for(BoardVO vo : boardList) {
-            srchVo.setBoardSeq(vo.getBoardSeq());
-            vo.setBoardReplyList(boardReplyDao.selectBoardReplyList(srchVo));
-        }
-        
         return boardList;
     }
 
@@ -72,6 +62,13 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardVO getBoard(BoardVO condition){
         BoardVO board = boardDao.selectBoard(condition);
+        
+        BoardReplyVO srchVo = new BoardReplyVO();
+        
+        // 게시글 댓글 조회 및 SET
+        srchVo.setBoardSeq(board.getBoardSeq());
+        board.setBoardReplyList(boardReplyDao.selectBoardReplyList(srchVo));
+        
         return board;
     }
 
