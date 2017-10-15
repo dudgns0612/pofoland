@@ -11,14 +11,12 @@
 		INSERT INTO User (
 			USER_ID,
 			USER_PW,
-			USER_NICK,
 			USER_EMAIL,
 			USER_AUTH_KEY,
 			USER_EMAIL_YN
 		) VALUES (
 			#{userId},
 			#{userPw},
-			#{userNick},
 			#{userEmail},
 			#{userAuthKey},
 			#{userEmailYn}

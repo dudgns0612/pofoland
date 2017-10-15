@@ -69,27 +69,26 @@
 							</div>
 						</div>
 						<br/>
-						
-						<div class="form-group">
-							<div class="col-md-3">
-							</div>
-							<div class="col-md-6 inputGroupContainer" style="text-align : left">
-								<div class="checks">
-									<input type="checkbox" name="userEmailYn" id="userEmailYn" checked="checked"> 
-									<label class="cfont-weight" for="userEmailYn">이메일 수신동의 여부</label> <br />
-									<label style="color: red">※ 체크 해제 시 각종 포폴랜드에 대한 이벤트 정보를 받을 수 없습니다.</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group col-md-9">
-							<div class="col-sm-offset-7 col-sm-3">
-								<button type="button" id="step2Btn" class="btn btn-default">Sign in</button>
-								<button type="button" class="btn btn-default" onclick="location.href='#'">Cancel</button>
-							</div>
-						</div>
 					</fieldset>
 				</form>
+				<div class="form-group">
+					<div class="col-md-3">
+					</div>
+					<div class="col-md-6 inputGroupContainer" style="text-align : left">
+						<div class="checks">
+							<input type="checkbox" name="userEmailYn" id="userEmailYn" checked="checked"> 
+							<label class="cfont-weight" for="userEmailYn">이메일 수신동의 여부</label> <br />
+							<label style="color: red">※ 체크 해제 시 각종 포폴랜드에 대한 이벤트 정보를 받을 수 없습니다.</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group col-md-9">
+					<div class="col-sm-offset-7 col-sm-3">
+						<button type="button" id="step2Btn" class="btn btn-default">Sign in</button>
+						<button type="button" class="btn btn-default" onclick="location.href='#'">Cancel</button>
+					</div>
+				</div>
 				</div>
 			<div class="col-xs-2"></div>
 		</div>

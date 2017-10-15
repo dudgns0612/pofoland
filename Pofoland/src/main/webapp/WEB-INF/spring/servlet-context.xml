@@ -24,7 +24,7 @@
 	</beans:bean>
 	
     <!-- Multipart Resolver 빈 -->
-     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     
     <!-- WebContext엔 Controller단만 스캔 -->
 	<context:component-scan base-package="com.hst.pofoland">

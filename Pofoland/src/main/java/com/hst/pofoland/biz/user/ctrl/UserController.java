@@ -443,7 +443,7 @@ public class UserController implements InitializingBean{
 	 */
 	@RequestMapping(value="/user/addinfo", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO, @ModelAttribute MultipartFile userProfile) {
+	public ResponseVO addInfoUser(@ModelAttribute UserVO userVO, @ModelAttribute("userProfile") MultipartFile userProfile) {
 		
 		if (userProfile != null) {
 			FileVO fileVO = fileUtil.parseMultipartFile(userProfile, "userProfile");

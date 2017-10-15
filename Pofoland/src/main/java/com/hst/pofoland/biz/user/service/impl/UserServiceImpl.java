@@ -1,5 +1,8 @@
 package com.hst.pofoland.biz.user.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.inject.Inject;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,8 +14,10 @@ import org.springframework.stereotype.Service;
 import com.hst.pofoland.biz.user.dao.UserDAO;
 import com.hst.pofoland.biz.user.service.UserService;
 import com.hst.pofoland.biz.user.vo.UserVO;
-import com.hst.pofoland.common.auth.MailAuthentication;
+import com.hst.pofoland.common.auth.Ase128Encrypt;
 import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
+import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.utils.MailSendUtils;
 import com.hst.pofoland.common.utils.StringUtils;
 
@@ -44,10 +49,10 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	UserDAO userDAO;
 	
 	@Inject
-	MailAuthentication mailAuthentication;
+	MailSendUtils mailSendUtils;
 	
 	@Inject
-	MailSendUtils mailSendUtils;
+	Ase128Encrypt ase128Encrypt;
 	/**
 	 * 생성자
 	 */
@@ -79,8 +84,23 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			String userEmail = userVO.getUserEmail();
 			String userAuthKey = userVO.getUserAuthKey();
 			
-			//인증메일 전송
-			mailAuthentication.sendAuthMail(userEmail, userAuthKey, userSeq);
+			//인증 키 ase128인코딩
+			ase128Encrypt.createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
+			userAuthKey = ase128Encrypt.encode(userAuthKey);
+			
+			String title = "[Pofoland]본인인증관련";
+			StringBuffer content = new StringBuffer("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
+
+			try {
+				content.append("<h4>회원가입에 대하여 간단한 본인인증을 위하여 아래의 링크를 클릭하여주세요.</h4>");
+				content.append("<h4>감사합니다.</h4><br/><br/>");
+				content.append("<a href='http://localhost:8080/user/"+userSeq+"/auth/"+URLEncoder.encode(userAuthKey,"UTF-8")+"'>본인인증</a>");
+				content.append(" 클릭 후 메인페이지로 이동합니다.");
+			} catch (UnsupportedEncodingException e) {
+				LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
+			}
+			
+			mailSendUtils.sendEmail(userEmail, title, content);
 		}
 		
 		return userVO;

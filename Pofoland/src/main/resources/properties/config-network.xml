@@ -16,6 +16,9 @@
 		</naver>
 		
 		<!-- Administrator Email Info -->
+	    <!-- host정보와 관련 보낸이 관리자 메일정보 -->
+		<!-- smtp.gmail.com 구글 --> 
+		<!-- smtp.naver.com 네이버 -->
 		<email>
 			<host>smtp.gmail.com</host>
 			<administratorMail>dlgusrb0808</administratorMail>
