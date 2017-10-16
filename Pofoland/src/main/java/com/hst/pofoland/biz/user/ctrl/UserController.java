@@ -374,7 +374,7 @@ public class UserController implements InitializingBean{
 	 * @param userSeq
 	 * @return
 	 */
-	@RequestMapping(value="/user/mail/auth" , method=RequestMethod.POST)
+	@RequestMapping(value="/user/mail/auth" , method=RequestMethod.GET)
 	public ModelAndView authProcessUser(@ModelAttribute("userAuthKey") String userAuthKey ,@ModelAttribute("userSeq") Integer userSeq) {
 		
 		UserVO userVO = new UserVO();

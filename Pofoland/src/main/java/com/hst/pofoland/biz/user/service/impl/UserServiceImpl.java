@@ -88,31 +88,19 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			ase128Encrypt.createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
 			userAuthKey = ase128Encrypt.encode(userAuthKey);
 			
+			LoggerManager.info(getClass(), "SEND AUTH KEY : {}", userAuthKey);
+			
 			String title = "[Pofoland]본인인증관련";
 			StringBuffer content = new StringBuffer("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
 			
-//			content.append("<script src='http://code.jquery.com/jquery-latest.min.js'></script>");
-//			content.append("<h4>회원가입에 대하여 간단한 본인인증을 위하여 아래의 링크를 클릭하여주세요.</h4>");
-//			content.append("<h4>감사합니다.</h4><br/><br/>");
-//			content.append("<a  href='#' onclick='authMailSend()'>본인인증</a>");
-//			content.append(" 클릭 후 메인페이지로 이동합니다.");
-//			content.append("<script>");
-//			content.append("function authMailSend() {");
-//			content.append("	$.ajax({");
-//			content.append("		url : 'http://localhost:8080/user/mail/auth'");
-//			content.append("		type : 'POST'");
-//			content.append("		dataType : 'JSON'");
-//			content.append("		data : {userSeq : "+userSeq+" , userAuthKey : "+userAuthKey+"}");
-//			content.append("		success : function(response) {");
-//			content.append("			if(response.code) {");
-//			content.append("				location.href = 'http://localhost:8080/user/mailAuthResult'");
-//			content.append("			}");
-//			content.append("		},");
-//			content.append("		error : function(error) {");
-//			content.append("			console.log('ERROR' + error)");
-//			content.append("		}");
-//			content.append("}");
-//			content.append("</script>");
+			try {
+				content.append("<h4>회원가입에 대하여 간단한 본인인증을 위하여 아래의 링크를 클릭하여주세요.</h4>");
+				content.append("<h4>감사합니다.</h4><br/><br/>");
+				content.append("<a href='http://localhost:8080/user/mail/auth?userSeq="+userSeq+"&userAuthKey="+URLEncoder.encode(userAuthKey,"UTF-8")+"'>본인인증</a>");
+				content.append(" 클릭 후 메인페이지로 이동합니다.");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 			
 			mailSendUtils.sendEmail(userEmail, title, content);
 		}
@@ -193,21 +181,38 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	@Override
 	public UserVO searchEmailUser(UserVO userVO) {
 		
+		String userId = userVO.getUserId();
 		String userEmail = userDAO.selectDuplicateCheckEmail(userVO.getUserEmail());
-		
 		if (userEmail != null && userEmail != "") {
 			userVO = userDAO.selectFindUserInfo(userVO);
-			
-			if (userVO != null) {
-				String title = "[Pofoland]아이디 찾기";
-				StringBuffer content = new StringBuffer();
-				content.append("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
-				content.append("귀하의 아이디는 '"+userVO.getUserId()+"' 입니다.");
-				content.append("즐거운 하루 되세요. 감사합니다.");
-				
-				mailSendUtils.sendEmail(userEmail, title, content);
+			if (userId != null && userId != "") {
+				if (userVO != null) {
+					
+					//임시비밀번호 생성 및 인코딩SHA256(security인증방식)
+					//추가해야함
+					
+					String title = "[Pofoland]비밀번호 찾기";
+					StringBuffer content = new StringBuffer();
+					content.append("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
+					//content.append("귀하의 임시비밀번호는 '"++"' 입니다.<br/>");
+					content.append("즐거운 하루 되세요. 감사합니다.");
+					
+					mailSendUtils.sendEmail(userEmail, title, content);
+				}
+			} else {
+				if (userVO != null) {
+					String title = "[Pofoland]아이디 찾기";
+					StringBuffer content = new StringBuffer();
+					content.append("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
+					content.append("귀하의 아이디는 '"+userVO.getUserId()+"' 입니다.<br/>");
+					content.append("즐거운 하루 되세요. 감사합니다.");
+					
+					mailSendUtils.sendEmail(userEmail, title, content);
+				}
 			}
-		} 
+		}
+		
+		
 		
 		return userVO;
 	}
