@@ -182,19 +182,16 @@ public class UserController implements InitializingBean{
 			ObjectMapper jsonMapper = new ObjectMapper();
 			Map<String, Object> map = jsonMapper.readValue(responseBody,new TypeReference<Map<String, Object>>() {});
 			
-			String userId = oauthApiService.getNaverUserInfo(String.valueOf(map.get("access_token")));
-			Integer userSeq = userService.seqSearchUser(userId);
+			UserVO userVO = oauthApiService.getNaverUserInfo(String.valueOf(map.get("access_token")));
+			Integer userSeq = userService.seqSearchUser(userVO.getUserId());
 			
 			if (userSeq == null || userSeq < 0) {
 				HttpSession session = request.getSession();
-				
-				UserVO userVO = new UserVO();
-				userVO.setUserId(userId);
 				session.setAttribute("user",userVO);
 				
 				response.sendRedirect("/join/oAuth/step1/N");
 			} else {
-				UserVO userVO = userService.searchUser(userSeq);
+				userVO = userService.searchUser(userSeq);
 				
 				//security 권한설정
 				SecurityAuthorityManager authManager = new SecurityAuthorityManager();
@@ -502,13 +499,20 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
-	 * 인증처리 후 구글 사용자 회원가입
+	 * 인증처리 후 OAuth 사용자 회원가입
 	 * @param userVO
 	 * @return
 	 */
 	@RequestMapping(value="/user/oAuth" , method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseVO addOauthInfoUser(@ModelAttribute UserVO userVO) {
+	public ResponseVO addOauthInfoUser(@ModelAttribute UserVO userVO, HttpServletRequest request) {
+		
+		if (userVO.getUserJoinType() == 'N') {
+			HttpSession session = request.getSession();
+			UserVO naverUserVO = (UserVO) session.getAttribute("user");
+			userVO.setUserEmail(naverUserVO.getUserEmail());
+		}
+		
 		ResponseVO responseVO = new ResponseVO();
 		userVO = userService.createOauthUser(userVO);
 
@@ -633,11 +637,15 @@ public class UserController implements InitializingBean{
 		
 		return responseVO;
 	}
-	
+	/**
+	 * 유저 아이디 찾기
+	 * @param userVO
+	 * @return
+	 */
 	@RequestMapping(value="/user/find/id" , method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO findIdUser(@ModelAttribute UserVO userVO) {
-		userVO = userService.searchEmailUser(userVO);
+		userVO = userService.findIdUser(userVO);
 		ResponseVO responseVO = new ResponseVO();
 		
 		if (userVO != null) {
@@ -649,6 +657,26 @@ public class UserController implements InitializingBean{
 		
 		return responseVO;
 	}
+	
+	/**
+	 * 유저 비밀번호 찾기
+	 * @param userVO
+	 * @return
+	 */
+	@RequestMapping(value="/user/find/password" , method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO findPwUser(@ModelAttribute UserVO userVO) {
+		userVO = userService.findPwUser(userVO);
+		ResponseVO responseVO = new ResponseVO();
+		
+		if (userVO != null) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			return responseVO;
+		} 
+		
+		return responseVO;
+	}
+	
 	
 	/**
 	 * 유저 탈퇴 처리

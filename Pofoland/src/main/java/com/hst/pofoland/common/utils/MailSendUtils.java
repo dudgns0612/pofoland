@@ -16,6 +16,26 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.configuration.Configuration;
 import org.springframework.beans.factory.InitializingBean;
 
+/**
+ * 
+ * 시스템명 : 
+ * $com.hst.pofoland.common.utils.MailSendUtils.java
+ * 클래스 설명 : 유저에게 이메일을 전송하는 Util성 클래스
+ *
+ * @author 김영훈
+ * @since 2017. 10. 15.
+ * @version 1.0.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ * 수정일			수정자			수정내용
+ * -------------------------------------------------
+ * 2017. 10. 15		김영훈			최초생성
+ * </pre>
+ */
+
 public class MailSendUtils implements InitializingBean{
 	
 	Session session = null;

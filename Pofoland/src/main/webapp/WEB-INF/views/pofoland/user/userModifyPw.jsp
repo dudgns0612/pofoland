@@ -3,6 +3,7 @@
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/userModify.js"></script>
 <script>
 	var userPublicYn = "${user.userPublicYn}";
+	var userEmailYn = "${user.userEmailYn}";
 </script>
 <!-- PAGE HEADER -->
 <section id="page-header">
