@@ -63,6 +63,8 @@ public interface UserDAO {
 	 */
 	public String selectDuplicateCheckEmail(String userEmail);
 	
+	public String selectCheckIdEmail(UserVO userVO);
+	
 	/**
 	 * 유저 정보조회
 	 * @param userSeq

@@ -16,7 +16,9 @@ public interface UserService {
 	
 	public UserVO searchUser(Integer userSeq);
 	
-	public UserVO searchEmailUser(UserVO userVO);
+	public UserVO findIdUser(UserVO userVO);
+	
+	public UserVO findPwUser(UserVO userVO);
 	
 	public Integer authProcessUser(UserVO userVO);
 	

@@ -98,19 +98,14 @@
 		   AND USER_SEQ = #{userSeq}
 	</select>
 	
-	<!-- 유저 일반유저 아이디/비밀번호 조회 -->
+	<!-- 유저 일반유저 아이디 조회 -->
 	<select id="selectFindUserInfo" resultType="UserVO">
 		SELECT USER_SEQ,
 			   USER_ID,
 			   USER_EMAIL
 		  FROM User
 		 WHERE 1=1
-	   	   <if test="userId != null and userId != ''">
-	   	   	   AND USER_SEQ = #{userId}
-	   	   </if>
-	   	   <if test="userEmail != null and userEmail != ''">
-	   	   	   AND USER_EMAIL = #{userEmail}
-	   	   </if>
+   	   	   AND USER_EMAIL = #{userEmail}
 		   AND USER_JOIN_TYPE = 'P'
 		   AND USER_DEL_YN = 'N'
 	</select>
@@ -198,7 +193,14 @@
 			#{userId},
 			#{userId},
 			#{userNick},
-			#{userId},
+			<choose>
+				<when test = "userEmail != null and userEmail != ''">
+					#{userEmail},
+				</when>
+				<otherwise>
+					#{userId},
+				</otherwise>
+			</choose>
 			#{userJoinType},
 			'Y',
 			'Y'
@@ -243,6 +245,27 @@
 			<set>
 				USER_PW = #{userPw}
 			</set>
-		 WHERE USER_SEQ = #{userSeq}	
+		 WHERE 1=1
+		   <choose>
+		   	   <when test = "userSeq != null and userSeq != ''">
+		   	   		AND USER_SEQ = #{userSeq}
+		   	   </when>
+		   	   <otherwise>
+		   	   		AND USER_ID = #{userId}
+		   	   		AND USER_EMAIL = #{userEmail}
+		   	   </otherwise>
+		   </choose>
 	</update>
+	
+	<!--  유저 비밀번호 찾기 조회 -->
+	<select id="selectCheckIdEmail" resultType="String">
+		SELECT USER_EMAIL
+		  FROM User
+		 WHERE 1=1
+		   AND USER_EMAIL = #{userEmail}
+		   AND USER_ID = #{userId}
+		   AND USER_DEL_YN = 'N'
+		   AND USER_JOIN_TYPE = 'P'
+	</select>
+	
 </mapper>
