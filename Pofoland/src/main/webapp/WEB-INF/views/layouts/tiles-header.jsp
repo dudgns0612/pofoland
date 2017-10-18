@@ -36,7 +36,7 @@
 						<c:when test="${user.userSeq != null}">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">내정보</a>
-								<ul id="userInfo" class="dropdown-menu" style="min-height:260px;">
+								<ul id="userInfo" class="dropdown-menu" style="min-height:260px; height:261px;">
 									<div class="row" style="width: 470px;">
 										<li>
 											<div class="col-xs-1"></div>
@@ -82,9 +82,8 @@
 												<img src="${contextPath}/resources/custom/images/layouts/login.png" style="width: 70px; height: 30px; margin-top: 10px;" />
 												<br />
 												<h6>포폴랜드에 오신것을 환영합니다.</h6>
-												<form class="form" role="form" method="post"
-													action="/j_spring_security_check" accept-charset="UTF-8"
-													id="login-nav" onsubmit="return loginValidate();">
+												<form class="form" role="form" method="post" action="/j_spring_security_check" accept-charset="UTF-8" 
+														id="login-nav" onsubmit="return loginValidate();">
 													<div class="form-group">
 														<label class="sr-only" for="InputId">ID</label> 
 														<input type="text" class="form-control" id="inputId" name="userId" placeholder="ID" name="m_id" />

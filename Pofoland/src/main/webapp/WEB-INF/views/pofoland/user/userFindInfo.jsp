@@ -1,30 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div style="height: 800px; padding-top: 230px;">
-	<div class="container process">
-		<div class="row">
-			<div class="col-md-6 margin20">
-				<h2 class="heading">아이디 찾기</h2>
-				<hr>
-				<div style="min-height:170px;">
-					<h5 style="padding-top: 20px;">이메일 &nbsp;&nbsp;:&nbsp;&nbsp; 
-						<input id="idFindEmail" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:50%; "/>
-					</h5>
-				</div>
-				<input id="findIdBtn" type="button" class="btn btn-warning btn-lg" value="찾 기" style="margin-top: -5px;"/>
+<div class="container process">
+	<div class="row" style="margin-top : 195px; margin-bottom:265px;">
+		<div class="col-md-6 margin20">
+			<h2 class="heading">아이디 찾기</h2>
+			<hr>
+			<div style="min-height:170px;">
+				<h5 style="padding-top: 20px;">이메일 &nbsp;&nbsp;:&nbsp;&nbsp; 
+					<input id="idFindEmail" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:50%; "/>
+				</h5>
 			</div>
-			<div class="col-md-6">
-				<h2 class="heading">비밀번호 찾기</h2>
-				<hr>
-				<div style="min-height:170px;">
-					<h5 style="padding-top: 20px;">아이디 &nbsp;&nbsp;:&nbsp;&nbsp; 
-						<input id="pwFindId" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:50%; "/>
-					</h5>
-					<h5 style="padding-top: 20px;">이메일 &nbsp;&nbsp;:&nbsp;&nbsp; 
-						<input id="pwFindEmail" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:50%; "/>
-					</h5>
-				</div>
-				<input id="findPwBtn" type="button" class="btn btn-warning btn-lg" value="찾 기" style="margin-top: -5px;"/>
+			<input id="findIdBtn" type="button" class="btn btn-warning btn-lg" value="찾 기" style="margin-top: -5px;"/>
+		</div>
+		<div class="col-md-6">
+			<h2 class="heading">비밀번호 찾기</h2>
+			<hr>
+			<div style="min-height:170px;">
+				<h5 style="padding-top: 20px;">아이디 &nbsp;&nbsp;:&nbsp;&nbsp; 
+					<input id="pwFindId" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:50%; "/>
+				</h5>
+				<h5 style="padding-top: 20px;">이메일 &nbsp;&nbsp;:&nbsp;&nbsp; 
+					<input id="pwFindEmail" class="form-control" type="text" value="${user.userNick}" style="display:inline; width:50%; "/>
+				</h5>
 			</div>
+			<input id="findPwBtn" type="button" class="btn btn-warning btn-lg" value="찾 기" style="margin-top: -5px;"/>
 		</div>
 	</div>
 </div>
