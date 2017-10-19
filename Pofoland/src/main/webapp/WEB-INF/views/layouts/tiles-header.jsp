@@ -36,7 +36,7 @@
 						<c:when test="${user.userSeq != null}">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">내정보</a>
-								<ul id="userInfo" class="dropdown-menu" style="min-height:260px; height:261px;">
+								<ul id="userInfo" class="dropdown-menu" style="min-height:260px; height:263px;">
 									<div class="row" style="width: 470px;">
 										<li>
 											<div class="col-xs-1"></div>

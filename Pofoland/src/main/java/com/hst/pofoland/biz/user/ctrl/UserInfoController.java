@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.user.service.UserInfoService;
 import com.hst.pofoland.biz.user.vo.UserVO;
-import com.hst.pofoland.common.utils.LoggerManager;
 
 /**
  * 
@@ -39,7 +38,6 @@ public class UserInfoController {
 	@Inject
 	UserInfoService userInfoService;
 	
-	
 	/**
 	 * 회원정보 조회(페이징처리)
 	 * @param userVO
@@ -47,9 +45,6 @@ public class UserInfoController {
 	 */
 	@RequestMapping(value="/user/info")
 	public ModelAndView getUserInfo(@ModelAttribute("condition")UserVO userVO) {
-		
-		LoggerManager.info(getClass(), "TODO userInfo {}", userVO);
-		
 		userVO.setTotalRecordCount(userInfoService.getUseInfoTotal(userVO));
 		userVO.createPaginationInfo();
 		

@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.hst.pofoland.common.utils.LoggerManager;
+import com.hst.pofoland.viewer.server.LogViewerTcpServer;
 
 /**
  * 
@@ -25,15 +26,15 @@ import com.hst.pofoland.common.utils.LoggerManager;
  * </pre>
 */
 
-public class ContextLoadListener implements ServletContextListener{
+public class ContextLoadListener implements ServletContextListener {
 	
 	/**
 	 * 웹 컨테이너 시작
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		//TODO NETTY 이용한 LOGVIEWER 서버시작 개발
 		LoggerManager.info(getClass(), "TCP LOGVIEWER START");
+		new LogViewerTcpServer(8088);
 	}
 	
 	/**
@@ -41,6 +42,6 @@ public class ContextLoadListener implements ServletContextListener{
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		
 	}
+
 }
