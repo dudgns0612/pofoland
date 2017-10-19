@@ -52,9 +52,9 @@ public class MailSendUtils implements InitializingBean{
 		// smtp host정보와 관련 보낸이 관리자 메일정보
 		// smtp.gmail.com 구글
 		// smtp.naver.com 네이버
-		String host = config.getString("network.email.host");
-		final String user = config.getString("network.email.administratorMail");
-		final String password = config.getString("network.email.administratorMailPw");
+		String host = config.getString("network.http.email.host");
+		final String user = config.getString("network.http.email.administratorMail");
+		final String password = config.getString("network.http.email.administratorMailPw");
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");

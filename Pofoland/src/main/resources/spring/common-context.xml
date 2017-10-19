@@ -49,5 +49,5 @@
 		<property name="googleConnectionFactory" ref="googleConnectionFactory" />
 		<property name="oauth2Parameter" ref="googleOAuth2Parameters" />
 	</bean>
-
+	
 </beans>

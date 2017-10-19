@@ -120,8 +120,6 @@ public class UserController implements InitializingBean{
 	@ResponseBody
 	public ResponseVO createUser(@ModelAttribute UserVO userVO , HttpServletResponse response) {
 		
-		LoggerManager.info(getClass(), "TODO{}", userVO.toString());
-		
 		userVO = userService.createUser(userVO);
 		ResponseVO responseVO = new ResponseVO();
 		
@@ -140,9 +138,9 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/naver/login", method=RequestMethod.GET)
 	public void naverLogin(HttpServletResponse response) {
 		try {
-			String clientId = config.getString("network.naver.clientId");
-			String redirectURI = URLEncoder.encode(config.getString("network.naver.redirectURI"),"UTF-8");
-			String apiURI = config.getString("network.naver.api.loginURI");
+			String clientId = config.getString("network.http.naver.clientId");
+			String redirectURI = URLEncoder.encode(config.getString("network.http.naver.redirectURI"),"UTF-8");
+			String apiURI = config.getString("network.http.naver.api.loginURI");
 			
 			StringBuffer uriBuffer = new StringBuffer(apiURI);
 			uriBuffer.append("&client_id=").append(clientId);
@@ -163,9 +161,9 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/naver/user", method=RequestMethod.GET)
 	public void naverCallback(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code) {
 		
-		String clientId = config.getString("network.naver.clientId");
-		String secret = config.getString("network.naver.secret");
-		String apiURI = config.getString("network.naver.api.tokenURI");
+		String clientId = config.getString("network.http.naver.clientId");
+		String secret = config.getString("network.http.naver.secret");
+		String apiURI = config.getString("network.http.naver.api.tokenURI");
 		String redirectURI = "";
 		
 		
