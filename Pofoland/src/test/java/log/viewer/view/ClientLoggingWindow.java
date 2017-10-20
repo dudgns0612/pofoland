@@ -12,17 +12,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import io.netty.channel.ChannelHandlerContext;
+import log.viewer.client.LogViewerTcpClientHandler;
 
 public class ClientLoggingWindow {
 	
+	
 	ChannelHandlerContext ctx  = null;
 	JTextArea logArea = null;
+	public JButton startBtn = null;
+	public JButton endBtn = null;
 	
 	public ClientLoggingWindow() {
-	}
-	
-	public ClientLoggingWindow(ChannelHandlerContext ctx) {
-		this.ctx = ctx;
+		this.ctx = LogViewerTcpClientHandler.ctx;
 		showWindow();
 	}
 	
@@ -32,8 +33,10 @@ public class ClientLoggingWindow {
 		mainPanel.setLayout(new BorderLayout());
 		
 		JPanel headerPanel = new JPanel(new GridLayout(1, 1));
-		JButton startBtn = new JButton("시작");
-		JButton endBtn = new JButton("중지");
+		startBtn= new JButton("시작");
+		endBtn = new JButton("중지");
+		startBtn.addActionListener(new ClientWindwActionListener());
+		endBtn.addActionListener(new ClientWindwActionListener());
 		headerPanel.add(startBtn);
 		headerPanel.add(endBtn);
 		
@@ -49,10 +52,10 @@ public class ClientLoggingWindow {
 		
 		container.add(mainPanel);
 		container.setTitle("Pofoland LogView(Ver 0.1)");
-		container.setSize(1000,600);
+		container.setSize(1400,800);
 		container.setVisible(true);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		container.addWindowListener(new ClientWindowEvent(ctx));
+		container.addWindowListener(new ClientWindowEventListener(ctx));
 	}
 	
 	public void writeLogger(String msg) {

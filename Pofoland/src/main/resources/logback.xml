@@ -6,6 +6,8 @@
 <!-- updated -->
 <!-- author YH -->
 <configuration>
+	<property name="LOGS_ABSOLUTE_PATH" value="C://pofoland/logs" />
+
 	<!-- 콘솔로그 -->
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -16,13 +18,14 @@
 	
 	<!-- 저장로그 -->
 	<appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<!-- <file>/home/mydir/logs/my-web.log</file> -->
-		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
-		<!-- <fileNamePattern>my-web.%d{yyyy-MM-dd}.log</fileNamePattern> -->
-		<!-- 30일 지난 파일은 삭제한다. -->
-		<!-- <maxHistory>30</maxHistory> -->
-		<!-- </rollingPolicy> -->
-		<encoder>
+		<append>true</append>
+		<file>${LOGS_ABSOLUTE_PATH}/pofoland.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOGS_ABSOLUTE_PATH}/pofoland.%d{yyyy-MM-dd}.log</fileNamePattern>
+	<!-- 		30일 지난 파일은 삭제한다. -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-4level %logger.%method:%line >> %msg %n</pattern>
 		</encoder>
 	</appender>
@@ -42,6 +45,11 @@
 	<logger name="jdbc.sqlonly" additivity="false">
 		<level value="INFO" />
 		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="LOGFILE" />
 	</logger>
 
 	<logger name="jdbc.sqltiming" additivity="false">
@@ -63,6 +71,6 @@
      <root>
         <level value="INFO" />
         <appender-ref ref="CONSOLE" />
+		<appender-ref ref="LOGFILE" />
     </root>
-
 </configuration>

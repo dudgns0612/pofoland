@@ -1,5 +1,8 @@
 package com.hst.pofoland.viewer.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.netty.channel.ChannelHandlerContext;
 
 /**
@@ -31,9 +34,11 @@ import io.netty.channel.ChannelHandlerContext;
  *
  */
 public class ChannelVO {
+	public static List<ChannelVO> channelList = new ArrayList<ChannelVO>();
 	ChannelHandlerContext ctx;
 	String userId;
 	String userPw;
+	String workStateYn = "Y";
 	/**
 	 * @return the ctx
 	 */
@@ -70,11 +75,34 @@ public class ChannelVO {
 	public void setUserPw(String userPw) {
 		this.userPw = userPw;
 	}
+	/**
+	 * @return the workState
+	 */
+	public String getWorkStateYn() {
+		return workStateYn;
+	}
+	/**
+	 * @param workState the workState to set
+	 */
+	public void setWorkStateYn(String workStateYn) {
+		this.workStateYn = workStateYn;
+	}
+	
+	public static ChannelVO getChannelVO(ChannelHandlerContext ctx) {
+		for (ChannelVO channelVO : channelList) {
+			if (channelVO.getCtx() == ctx) {
+				return channelVO;
+			}
+		}
+		return null;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "ChannelVO [ctx=" + ctx + ", userId=" + userId + ", userPw=" + userPw + "]";
+		return "ChannelVO [ctx=" + ctx + ", userId=" + userId + ", userPw=" + userPw + ", workState=" + workStateYn + "]";
 	}
+	
 }

@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import com.hst.pofoland.common.constnat.NetworkProtocolConstant;
 import com.hst.pofoland.common.utils.JsonUtils;
+import com.hst.pofoland.viewer.vo.ChannelVO;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -36,13 +37,29 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		this.ctx = ctx;
-		sendMessage();
+		ChannelVO channel = new ChannelVO();
+		channel.setCtx(ctx);
+		ChannelVO.channelList.add(channel);
 	}
 	
 	//  이벤트 발생 시 채널 동작
 	@Override
-	public void channelRead (ChannelHandlerContext ctx, Object msg) {
+	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		JSONObject commuObject = (JSONObject) msg;
+		String protocol = String.valueOf(commuObject.get("PROTOCOL"));
+		if (NetworkProtocolConstant.CLINET_SEND_START.equals(protocol)) {
+			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
+			channelVO.setWorkStateYn("Y");
+			JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.CLINET_SEND_START, 
+					"VALUE", "======================================================================LogViewer(Ver_0.1) Start======================================================================");
+			ctx.writeAndFlush(sendJsonObject);
+		} else if (NetworkProtocolConstant.CLINET_SEND_STOP.equals(protocol)) {
+			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
+			channelVO.setWorkStateYn("N");
+			JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.CLINET_SEND_START, 
+					"VALUE", "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
+			ctx.writeAndFlush(sendJsonObject);
+		}
 	}
 	
 	// 이벤트 동작 완료
@@ -55,10 +72,18 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 	}
 	
-	private void sendMessage() {
-		JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.TEST_PROTOCOL, "msg", "클라야 환영한다.");
-		ctx.writeAndFlush(sendJsonObject);
+	private void sendMessage(JSONObject sendJsonMessage) {
+		ctx.writeAndFlush(sendJsonMessage);
 	}
 	
+	public static void logSendMessage(String logMessage) {
+		for (ChannelVO channelVO : ChannelVO.channelList) {
+			if (!channelVO.getWorkStateYn().equals("N")) {
+				ChannelHandlerContext ctx = channelVO.getCtx();
+				JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE, "VALUE", logMessage);
+				ctx.writeAndFlush(sendJsonObject);
+			}
+		}
+	}
 	
 }

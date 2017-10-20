@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.hst.pofoland.common.utils.LoggerManager;
+import com.hst.pofoland.viewer.reader.RealTimeFileAccess;
 import com.hst.pofoland.viewer.server.LogViewerTcpServer;
 
 /**
@@ -35,6 +36,7 @@ public class ContextLoadListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		LoggerManager.info(getClass(), "TCP LOGVIEWER START");
 		new LogViewerTcpServer(8088);
+		new RealTimeFileAccess().start();
 	}
 	
 	/**

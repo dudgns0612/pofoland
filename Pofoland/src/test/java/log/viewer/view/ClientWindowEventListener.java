@@ -5,11 +5,11 @@ import java.awt.event.WindowEvent;
 
 import io.netty.channel.ChannelHandlerContext;
 
-public class ClientWindowEvent extends WindowAdapter{
+public class ClientWindowEventListener extends WindowAdapter{
 	
 	ChannelHandlerContext ctx = null;
 	
-	public ClientWindowEvent(ChannelHandlerContext ctx) {
+	public ClientWindowEventListener(ChannelHandlerContext ctx) {
 		this.ctx = ctx;
 	}
 	
