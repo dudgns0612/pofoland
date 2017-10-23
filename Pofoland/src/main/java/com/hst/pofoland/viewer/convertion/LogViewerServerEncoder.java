@@ -1,12 +1,7 @@
 package com.hst.pofoland.viewer.convertion;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 import org.json.simple.JSONObject;
 
@@ -35,8 +30,10 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * </pre>
 */
 
-public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject>{
+public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject> {
 
+	private static final long serialVersionUID = 12358903454875L;
+	
 	/**
 	 * 데이터 인코딩
 	 * object를 byte[]로 전송 (직렬화과정)
@@ -48,8 +45,9 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject>{
 		
 		//JsonObject -> 바이트 
 		objectOutStream.writeObject(commuObject);
-		byte[] objectByte = byteArrayOutStream.toByteArray();
+		objectOutStream.flush();
 		
+		byte[] objectByte = byteArrayOutStream.toByteArray();
 		//직접 버퍼 생성
 		out = Unpooled.directBuffer();
 		out.writeBytes(objectByte);

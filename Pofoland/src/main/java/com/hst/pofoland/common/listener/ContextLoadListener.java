@@ -29,6 +29,8 @@ import com.hst.pofoland.viewer.server.LogViewerTcpServer;
 
 public class ContextLoadListener implements ServletContextListener {
 	
+	RealTimeFileAccess realTimeFileAccess = null;
+	
 	/**
 	 * 웹 컨테이너 시작
 	 */
@@ -36,7 +38,8 @@ public class ContextLoadListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		LoggerManager.info(getClass(), "TCP LOGVIEWER START");
 		new LogViewerTcpServer(8088);
-		new RealTimeFileAccess().start();
+		realTimeFileAccess = new RealTimeFileAccess();
+		realTimeFileAccess.start();
 	}
 	
 	/**
@@ -44,6 +47,7 @@ public class ContextLoadListener implements ServletContextListener {
 	 */
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
+//		realTimeFileAccess.end();
 	}
 
 }

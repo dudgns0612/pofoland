@@ -126,4 +126,37 @@ public class CommonTest {
 		return null;
 		
 	}
+	
+	@Test
+	public void serializationTest () {
+		
+		String value="ddddddddddddddddddddxxxxxxxxxxxxxxxxxxxxx";
+		int size = 40;
+		String[] subString = null;
+		
+		byte[] bytes = value.getBytes();
+		int bytesLength = bytes.length;
+		int offset = 0;
+		
+		int count = bytesLength/size;
+		int remainder = bytesLength%size;
+		if (remainder > 0) {
+			subString = new String[count+1];
+		} else {
+			subString = new String[count];
+
+		}
+		
+		for (int i = 0; i < count ; i++) {
+			subString[i] = new String(bytes, offset, size);
+			offset += size;
+		}
+		if (remainder > 0) {
+			subString[count] =  new String(bytes, offset, remainder);
+		}
+		
+		for (int i = 0 ; i < subString.length ; i++) {
+			System.out.println(subString[i]);
+		}
+	}
 }
