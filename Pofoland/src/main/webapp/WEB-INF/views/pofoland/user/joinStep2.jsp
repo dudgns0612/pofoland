@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div style="height: 900px; padding-top: 120px; overflow: hidden;">
+<div style="height: 1100px; padding-top: 120px; overflow: hidden;">
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="col-xs-2"></div>

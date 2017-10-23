@@ -80,7 +80,7 @@ public class MailSendUtils implements InitializingBean{
 	 * @param content
 	 */
 	public void sendEmail(String userEmail, String title, StringBuffer content) {
-		final String user = config.getString("network.email.administratorMail");
+		final String user = config.getString("network.http.email.administratorMail");
 		
 		MimeMessage message = new MimeMessage(session);
 		try {

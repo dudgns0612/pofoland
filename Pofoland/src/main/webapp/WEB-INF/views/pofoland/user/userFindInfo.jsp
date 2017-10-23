@@ -28,7 +28,7 @@
 </div>
 <script>
 	$(document).on('click','#findIdBtn',function(){
-		var idFindEmail = $('#pwFindEmail').val();
+		var idFindEmail = $('#idFindEmail').val();
 		
 		if (idFindEmail == "") {
 			alert("메일을 입력하여 주세요.");
@@ -39,7 +39,7 @@
 		$.ajax({
 			url : contextPath + '/user/find/id',
 			type : 'GET',
-			data : {'userEmail' : pwFindEmail},
+			data : {'userEmail' : idFindEmail},
 			dataType : 'JSON',
 			success : function(response) {
 				if (response.code) {
