@@ -31,9 +31,19 @@ import io.netty.handler.codec.MessageToByteEncoder;
 */
 
 public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject> {
-
-	private static final long serialVersionUID = 12358903454875L;
 	
+	public static String byteToHexString(byte buf[]) {
+		String format = "0x%02X, ";
+		StringBuffer packet = new StringBuffer();
+		for (int i = 0; i < buf.length; i++) {
+			if (i == buf.length - 1) {
+				format = format.replace(", ", "");
+			}
+			packet.append(String.format(format, buf[i]));
+		}
+		return packet.toString();
+	}
+
 	/**
 	 * 데이터 인코딩
 	 * object를 byte[]로 전송 (직렬화과정)
@@ -48,9 +58,12 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject> {
 		objectOutStream.flush();
 		
 		byte[] objectByte = byteArrayOutStream.toByteArray();
+		
 		//직접 버퍼 생성
 		out = Unpooled.directBuffer();
 		out.writeBytes(objectByte);
+		System.out.println(byteToHexString(objectByte));
+		System.out.println(objectByte.length);
 		ctx.writeAndFlush(out);
 	}
 

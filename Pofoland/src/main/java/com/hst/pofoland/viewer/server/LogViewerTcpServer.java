@@ -13,10 +13,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.util.CharsetUtil;
 
 /**
  * 
@@ -70,8 +68,9 @@ public class LogViewerTcpServer {
 					bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						protected void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new LogViewerServerEncoder(), new LogViewerServerDecoder(), new LogViewerTcpServerHandler());
-							ch.pipeline().addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8));
+							ch.pipeline().addLast(new LogViewerServerEncoder());
+							ch.pipeline().addLast(new LogViewerServerDecoder());
+							ch.pipeline().addLast(new LogViewerTcpServerHandler());
 						}
 					});
 					

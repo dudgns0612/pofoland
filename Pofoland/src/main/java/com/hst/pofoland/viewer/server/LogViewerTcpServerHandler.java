@@ -81,6 +81,7 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 			if (!channelVO.getWorkStateYn().equals("N")) {
 				ChannelHandlerContext ctx = channelVO.getCtx();
 				JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE, "VALUE", logMessage);
+				System.out.println("JSON OBJECT : " + sendJsonObject.toJSONString());
 				ctx.writeAndFlush(sendJsonObject);
 			}
 		}

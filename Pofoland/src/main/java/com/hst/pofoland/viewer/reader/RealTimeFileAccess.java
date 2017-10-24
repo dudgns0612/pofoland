@@ -1,6 +1,5 @@
 package com.hst.pofoland.viewer.reader;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -24,32 +23,32 @@ public class RealTimeFileAccess {
 					randomAccessFile.seek(fileLength);
 					
 					String line = "";
-					
 					while (true) {
-						if ((line = randomAccessFile.readLine()) != null) {
+						line = randomAccessFile.readLine();
+						if (line != null && line != "") {
 							byte[] lineByte = line.getBytes();
 							if (lineByte.length > 190) {
 								String[] subValue = byteSubString(lineByte,190);
 								for (int i = 0 ; i < subValue.length ; i++) {
 									LogViewerTcpServerHandler.logSendMessage(subValue[i]);
-									Thread.sleep(150);
+									Thread.sleep(200);
 								}
 							} else {
 								LogViewerTcpServerHandler.logSendMessage(line);
-								Thread.sleep(150);
+								Thread.sleep(200);
 							}
 						} else {
 							fileLength = randomAccessFile.length();
 							randomAccessFile.seek(fileLength);
+							Thread.sleep(500);
 						}
 					}
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				} 
 			}
 		};
 		
