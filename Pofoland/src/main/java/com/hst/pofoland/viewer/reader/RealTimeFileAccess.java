@@ -21,21 +21,23 @@ public class RealTimeFileAccess {
 					
 					long fileLength = randomAccessFile.length();
 					randomAccessFile.seek(fileLength);
-					
 					String line = "";
+					
+					Thread.sleep(200);
 					while (true) {
-						line = randomAccessFile.readLine();
+						line = new String(randomAccessFile.readLine().getBytes("8859_1"), "KSC5601");
+
 						if (line != null && line != "") {
 							byte[] lineByte = line.getBytes();
 							if (lineByte.length > 190) {
 								String[] subValue = byteSubString(lineByte,190);
 								for (int i = 0 ; i < subValue.length ; i++) {
 									LogViewerTcpServerHandler.logSendMessage(subValue[i]);
-									Thread.sleep(200);
+									Thread.sleep(150);
 								}
 							} else {
 								LogViewerTcpServerHandler.logSendMessage(line);
-								Thread.sleep(200);
+								Thread.sleep(150);
 							}
 						} else {
 							fileLength = randomAccessFile.length();

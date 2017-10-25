@@ -30,7 +30,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * </pre>
 */
 
-public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject> {
+public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
 	
 	public static String byteToHexString(byte buf[]) {
 		String format = "0x%02X, ";
@@ -49,22 +49,32 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<JSONObject> {
 	 * object를 byte[]로 전송 (직렬화과정)
 	 */
 	@Override
-	protected void encode(ChannelHandlerContext ctx, JSONObject commuObject, ByteBuf out) throws Exception {
-		ByteArrayOutputStream byteArrayOutStream = new ByteArrayOutputStream();
-		ObjectOutputStream objectOutStream = new ObjectOutputStream(byteArrayOutStream);
+	protected void encode(ChannelHandlerContext ctx, String sendStr, ByteBuf out) throws Exception {
 		
-		//JsonObject -> 바이트 
-		objectOutStream.writeObject(commuObject);
-		objectOutStream.flush();
-		
-		byte[] objectByte = byteArrayOutStream.toByteArray();
-		
-		//직접 버퍼 생성
+		// String - >> byte[] 변환
 		out = Unpooled.directBuffer();
-		out.writeBytes(objectByte);
-		System.out.println(byteToHexString(objectByte));
-		System.out.println(objectByte.length);
+		byte[] sendByteEncoding = sendStr.getBytes("UTF-8");
+		out.writeBytes(sendByteEncoding);
+		
 		ctx.writeAndFlush(out);
+		
+		
+		// object - >> byte[]로변환했을경우 
+//		ByteArrayOutputStream byteArrayOutStream = new ByteArrayOutputStream();
+//		ObjectOutputStream objectOutStream = new ObjectOutputStream(byteArrayOutStream);
+//		
+//		//JsonObject -> 바이트 
+//		objectOutStream.writeObject(commuObject);
+//		objectOutStream.flush();
+//		
+//		byte[] objectByte = byteArrayOutStream.toByteArray();
+//		
+//		//직접 버퍼 생성
+//		out = Unpooled.directBuffer();
+//		out.writeBytes(objectByte);
+//		System.out.println(byteToHexString(objectByte));
+//		System.out.println(objectByte.length);
+//		ctx.writeAndFlush(out);
 	}
 
 }

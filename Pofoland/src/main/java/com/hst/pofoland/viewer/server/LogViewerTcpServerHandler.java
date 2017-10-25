@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import com.hst.pofoland.common.constnat.NetworkProtocolConstant;
 import com.hst.pofoland.common.utils.JsonUtils;
+import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.viewer.vo.ChannelVO;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -80,9 +81,9 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 		for (ChannelVO channelVO : ChannelVO.channelList) {
 			if (!channelVO.getWorkStateYn().equals("N")) {
 				ChannelHandlerContext ctx = channelVO.getCtx();
-				JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE, "VALUE", logMessage);
-				System.out.println("JSON OBJECT : " + sendJsonObject.toJSONString());
-				ctx.writeAndFlush(sendJsonObject);
+				String logSendValue = NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE + "," + logMessage;
+				//LoggerManager.info(LogViewerTcpServerHandler.class, "CLIENT SEND LOG = {}", logSendValue);
+				ctx.writeAndFlush(logSendValue);
 			}
 		}
 	}
