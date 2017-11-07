@@ -49,7 +49,7 @@ import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.Ase128Encrypt;
 import com.hst.pofoland.common.auth.GoogleAuthentication;
 import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
-import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.constant.NetworkConstant;
 import com.hst.pofoland.common.utils.ApiUtils;
 import com.hst.pofoland.common.utils.FileUtils;
 import com.hst.pofoland.common.utils.LoggerManager;

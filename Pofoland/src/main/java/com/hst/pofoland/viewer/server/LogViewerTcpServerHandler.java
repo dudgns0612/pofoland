@@ -2,9 +2,10 @@ package com.hst.pofoland.viewer.server;
 
 import org.json.simple.JSONObject;
 
-import com.hst.pofoland.common.constnat.NetworkProtocolConstant;
 import com.hst.pofoland.common.utils.JsonUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
+import com.hst.pofoland.viewer.constant.NetworkProtocolConstant;
+import com.hst.pofoland.viewer.utils.ByteUtils;
 import com.hst.pofoland.viewer.vo.ChannelVO;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -81,8 +82,10 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 		for (ChannelVO channelVO : ChannelVO.channelList) {
 			if (!channelVO.getWorkStateYn().equals("N")) {
 				ChannelHandlerContext ctx = channelVO.getCtx();
-				String logSendValue = NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE + "," + logMessage;
-				//LoggerManager.info(LogViewerTcpServerHandler.class, "CLIENT SEND LOG = {}", logSendValue);
+				if (logMessage.length() <= 0) {
+					logMessage = " ";
+				}
+				String logSendValue = NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE + "$" + logMessage;
 				ctx.writeAndFlush(logSendValue);
 			}
 		}

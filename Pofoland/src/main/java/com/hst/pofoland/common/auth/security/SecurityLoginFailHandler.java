@@ -11,7 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.hst.pofoland.biz.user.vo.UserVO;
-import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.constant.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 
 /**

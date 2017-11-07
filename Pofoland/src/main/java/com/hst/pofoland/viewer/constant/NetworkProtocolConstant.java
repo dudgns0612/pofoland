@@ -1,4 +1,4 @@
-package com.hst.pofoland.common.constnat;
+package com.hst.pofoland.viewer.constant;
 
 public class NetworkProtocolConstant {
 	

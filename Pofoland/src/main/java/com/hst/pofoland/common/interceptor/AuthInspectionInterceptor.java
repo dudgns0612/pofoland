@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.hst.pofoland.biz.user.vo.UserVO;
-import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.constant.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 
 /**

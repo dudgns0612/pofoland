@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 
-import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.constant.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 
 public class CommonTest {
@@ -27,33 +27,9 @@ public class CommonTest {
 	
 	@Test
 	public void Main() {
-			
 		createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
-		
-		
-		
 	}
 	
-	@Test
-	public void testTempPw() {
-//		StringBuffer tempPw = new StringBuffer();
-//		Random random = new Random();
-//		
-//		for(int i = 0 ; i < 8 ; i++) {
-//			if(random.nextBoolean()){
-//				tempPw.append((char)(random.nextInt(26)+65));
-//	        }else{
-//	        	tempPw.append((random.nextInt(10)));
-//	        }
-//		}
-//		
-//		System.out.println(tempPw);
-		
-		
-		Character c = 'N';
-		
-		System.out.println('N' == c);
-	}
 	
 	public void createEncryptKey(String key) {
 		try {

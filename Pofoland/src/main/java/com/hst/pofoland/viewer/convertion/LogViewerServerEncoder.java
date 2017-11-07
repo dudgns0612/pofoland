@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 
 import org.json.simple.JSONObject;
 
+import com.hst.pofoland.viewer.utils.ByteUtils;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -32,17 +34,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
 	
-	public static String byteToHexString(byte buf[]) {
-		String format = "0x%02X, ";
-		StringBuffer packet = new StringBuffer();
-		for (int i = 0; i < buf.length; i++) {
-			if (i == buf.length - 1) {
-				format = format.replace(", ", "");
-			}
-			packet.append(String.format(format, buf[i]));
-		}
-		return packet.toString();
-	}
 
 	/**
 	 * 데이터 인코딩
@@ -53,7 +44,9 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
 		
 		// String - >> byte[] 변환
 		out = Unpooled.directBuffer();
-		byte[] sendByteEncoding = sendStr.getBytes("UTF-8");
+		byte[] sendByteEncoding = ByteUtils.makeSendPacket(sendStr.getBytes("UTF-8"));
+		
+		//System.out.println(ByteUtils.byteToHexString(sendByteEncoding));
 		out.writeBytes(sendByteEncoding);
 		
 		ctx.writeAndFlush(out);

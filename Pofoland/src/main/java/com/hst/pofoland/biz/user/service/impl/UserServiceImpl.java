@@ -17,7 +17,7 @@ import com.hst.pofoland.biz.user.service.UserService;
 import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.auth.Ase128Encrypt;
 import com.hst.pofoland.common.auth.security.SecurityAuthorityManager;
-import com.hst.pofoland.common.constnat.NetworkConstant;
+import com.hst.pofoland.common.constant.NetworkConstant;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.utils.MailSendUtils;
 import com.hst.pofoland.common.utils.StringUtils;

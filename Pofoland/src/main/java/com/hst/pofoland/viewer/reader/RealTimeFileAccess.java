@@ -25,20 +25,21 @@ public class RealTimeFileAccess {
 					
 					Thread.sleep(200);
 					while (true) {
-						line = new String(randomAccessFile.readLine().getBytes("8859_1"), "KSC5601");
+						line = randomAccessFile.readLine();
 
 						if (line != null && line != "") {
-							byte[] lineByte = line.getBytes();
-							if (lineByte.length > 190) {
-								String[] subValue = byteSubString(lineByte,190);
-								for (int i = 0 ; i < subValue.length ; i++) {
-									LogViewerTcpServerHandler.logSendMessage(subValue[i]);
-									Thread.sleep(150);
-								}
-							} else {
+							line = new String(line.getBytes("8859_1"), "KSC5601");
+//							byte[] lineByte = line.getBytes();
+//							if (lineByte.length > 190) {
+//								String[] subValue = byteSubString(lineByte,190);
+//								for (int i = 0 ; i < subValue.length ; i++) {
+//									LogViewerTcpServerHandler.logSendMessage(subValue[i]);
+//									Thread.sleep(150);
+//								}
+//							} else {
 								LogViewerTcpServerHandler.logSendMessage(line);
-								Thread.sleep(150);
-							}
+								Thread.sleep(200);
+//							}
 						} else {
 							fileLength = randomAccessFile.length();
 							randomAccessFile.seek(fileLength);

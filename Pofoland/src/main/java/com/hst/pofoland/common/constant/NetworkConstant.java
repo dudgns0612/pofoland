@@ -1,4 +1,4 @@
-package com.hst.pofoland.common.constnat;
+package com.hst.pofoland.common.constant;
 
 import java.io.PrintWriter;
 

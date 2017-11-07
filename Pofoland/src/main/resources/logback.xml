@@ -31,7 +31,7 @@
 	</appender>
 
 	<logger name="com.hst.pofoland" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="CONSOLE" />
 	</logger>
 	 
@@ -81,7 +81,11 @@
 		<appender-ref ref="LOGFILE" />
 	</logger>
 	
-
+	<logger name="com.hst.pofoland" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="LOGFILE" />
+	</logger>
+	
 
      <root>
         <level value="INFO" />
