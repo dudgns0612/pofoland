@@ -54,4 +54,4 @@
 <script type="text/javascript" src="${contextPath}/resources/assets/js/scripts.js"></script><!-- /join/agreValid -->
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/joinStep2.js"></script>
 <script type="text/javascript" src="${contextpath}/resources/custom/js/user/joinStep3.js"></script>
-<script type="text/javascript" src="${contextpath}/resources/common/js/extJobs/main.js"></script>
+<%-- <script type="text/javascript" src="${contextpath}/resources/common/js/extJobs/main.js"></script> --%>

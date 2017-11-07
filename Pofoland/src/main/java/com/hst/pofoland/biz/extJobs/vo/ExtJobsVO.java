@@ -1,82 +1,34 @@
 package com.hst.pofoland.biz.extJobs.vo;
 
+import org.springframework.stereotype.Component;
+
 import com.hst.pofoland.common.vo.BaseVO;
+
 
 public class ExtJobsVO extends BaseVO {
 
-	private String companyNm; 	// 기업명	
-	private String locCd;		// 지역명
-	private String locMcd;		//
+	private String id;
+	private String url;
+	private String company; 				// 기업명	
+	private String title;					// 게시글 제목
+	private String location;				// 지역명
+	private String jobType;					// 정규,계약직 구분
+	private String experienceLevel; 		// 요구경력
+	private String requiredEducadtionLevel;	// 최종학력
+	private String keyword;					// 키워드
+	private String salary;					// 연봉
+	/*
+	private String locMcd;		
 	private String locBcd;
 	private String jobTypeCd;
 	private String jobCategory;
-	private String experienceLevel;
 	private String eduLv;
-	private String salaryCd;
-	private String keyword;
-	private String url;
-	
-	public ExtJobsVO() {}
-	
-	public String getCompanyNm() {
-		return companyNm;
+	*/
+	public String getId() {
+		return id;
 	}
-	public void setCompanyNm(String companyNm) {
-		this.companyNm = companyNm;
-	}
-	public String getLocCd() {
-		return locCd;
-	}
-	public void setLocCd(String locCd) {
-		this.locCd = locCd;
-	}
-	public String getLocMcd() {
-		return locMcd;
-	}
-	public void setLocMcd(String locMcd) {
-		this.locMcd = locMcd;
-	}
-	public String getLocBcd() {
-		return locBcd;
-	}
-	public void setLocBcd(String locBcd) {
-		this.locBcd = locBcd;
-	}
-	public String getJobTypeCd() {
-		return jobTypeCd;
-	}
-	public void setJobTypeCd(String jobTypeCd) {
-		this.jobTypeCd = jobTypeCd;
-	}
-	public String getJobCategory() {
-		return jobCategory;
-	}
-	public void setJobCategory(String jobCategory) {
-		this.jobCategory = jobCategory;
-	}
-	public String getExperienceLevel() {
-		return experienceLevel;
-	}
-	public void setExperienceLevel(String experienceLevel) {
-		this.experienceLevel = experienceLevel;
-	}
-	public String getEduLv() {
-		return eduLv;
-	}
-	public void setEduLv(String eduLv) {
-		this.eduLv = eduLv;
-	}
-	public String getSalaryCd() {
-		return salaryCd;
-	}
-	public void setSalaryCd(String salaryCd) {
-		this.salaryCd = salaryCd;
-	}
-	public String getKeyword() {
-		return keyword;
-	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getUrl() {
 		return url;
@@ -84,6 +36,61 @@ public class ExtJobsVO extends BaseVO {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getJobType() {
+		return jobType;
+	}
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
+	public String getExperienceLevel() {
+		return experienceLevel;
+	}
+	public void setExperienceLevel(String experienceLevel) {
+		this.experienceLevel = experienceLevel;
+	}
+	public String getRequiredEducadtionLevel() {
+		return requiredEducadtionLevel;
+	}
+	public void setRequiredEducadtionLevel(String requiredEducadtionLevel) {
+		this.requiredEducadtionLevel = requiredEducadtionLevel;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getSalary() {
+		return salary;
+	}
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

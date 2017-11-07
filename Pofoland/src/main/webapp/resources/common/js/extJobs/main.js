@@ -1,4 +1,4 @@
-// searchJobs 클릭 시
+/*// searchJobs 클릭 시
 // api-url 전역변수로 빼기 ('http://api.saramin.co.kr/job-search')
 $('#searchJobs').on('click', function() {
 	var keyword = $('#keywords').val();
@@ -14,6 +14,11 @@ $('#searchJobs').on('click', function() {
 		dataType: 'JSON',
 		success: function(response) {
 			alert('resonponse: ' + response);
+			for(var i=0; i<response.size; i++) {
+				var vo = response.get(i);
+				
+			}
+			console.log(JSON.stringify(response));
 		},
 		error(e) {
 			console.log(e);
@@ -21,4 +26,4 @@ $('#searchJobs').on('click', function() {
 		
 		
 	}) 
-});
+});*/

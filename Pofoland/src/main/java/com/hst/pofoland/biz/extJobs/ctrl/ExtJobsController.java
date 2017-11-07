@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hst.pofoland.biz.extJobs.service.ExtJobsService;
@@ -56,12 +57,15 @@ public class ExtJobsController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/search", method=RequestMethod.POST)
-	public List<ExtJobsVO> jobsSearch(ExtJobsVO params) {
+	@RequestMapping(value="/search", method={RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView jobsSearch(ExtJobsVO params) {
+		ModelAndView mv = new ModelAndView();
 		List<ExtJobsVO> extJobsList = null;
 		
 		/* Saramin Api 요청 */
 		extJobsList = extJobsService.searchJobs(params);
-		return extJobsList;
+		mv.setViewName("extJobs/main");
+		mv.addObject("extJobsList", extJobsList);
+		return mv;
 	}
 }
