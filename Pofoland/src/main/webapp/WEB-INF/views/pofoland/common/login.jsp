@@ -18,8 +18,9 @@
                 <form class="login" action="/j_spring_security_check" method="post">
                 <input type="text" name="userId" placeholder="Username" />
                 <input type="password" name="userPw" placeholder="Password" />
-                <input type="submit" value="Sign In" class="btn btn-success btn-sm" />
-                <input type="button" value="Sign Up" class="btn btn-success btn-sm" onclick="location.href='${contextPath}/join/step1';"/>
+                <a href="${contextPath}/user/find/info" style="font-size: 12px;">아이디/비밀번호 찾기</a>
+                <input type="submit" value="로그인" class="btn btn-success btn-sm" />
+                <input type="button" value="회원가입" class="btn btn-success btn-sm" onclick="location.href='${contextPath}/join/step1';"/>
                 <a href="/google/login">
                 	<img class="btn-block" src="${contextPath}/resources/custom/images/layouts/googleLogin1.png" style="cursor:pointer; height:40px; margin-bottom: 10px;"/>
                 </a>
@@ -33,9 +34,6 @@
                                     Remember Me
                                 </label>
                             </div>
-                        </div>
-                        <div class="col-md-6 forgot-pass-content">
-                            <a href="javascript:void(0)" class="forgot-pass">Sign Up</a>
                         </div>
                     </div>
                 </div>

@@ -14,8 +14,7 @@
 	<nav class="navbar st-navbar navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#st-navbar-collapse">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#st-navbar-collapse">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 					<span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
@@ -37,7 +36,7 @@
 						<c:when test="${user.userSeq != null}">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">내정보</a>
-								<ul id="userInfo" class="dropdown-menu" style="height:260px;">
+								<ul id="userInfo" class="dropdown-menu" style="min-height:260px; height:263px;">
 									<div class="row" style="width: 470px;">
 										<li>
 											<div class="col-xs-1"></div>
@@ -80,13 +79,11 @@
 										<li>
 											<div class="col-xs-1"></div>
 											<div class="col-xs-10">
-												<img
-													src="${contextPath}/resources/custom/images/layouts/login.png"
-													style="width: 70px; height: 30px; margin-top: 10px;" /> <br />
+												<img src="${contextPath}/resources/custom/images/layouts/login.png" style="width: 70px; height: 30px; margin-top: 10px;" />
+												<br />
 												<h6>포폴랜드에 오신것을 환영합니다.</h6>
-												<form class="form" role="form" method="post"
-													action="/j_spring_security_check" accept-charset="UTF-8"
-													id="login-nav" onsubmit="return loginValidate();">
+												<form class="form" role="form" method="post" action="/j_spring_security_check" accept-charset="UTF-8" 
+														id="login-nav" onsubmit="return loginValidate();">
 													<div class="form-group">
 														<label class="sr-only" for="InputId">ID</label> 
 														<input type="text" class="form-control" id="inputId" name="userId" placeholder="ID" name="m_id" />
@@ -97,10 +94,10 @@
 														<a href="${contextPath}/user/find/info" style="font-size: 12px;">아이디/비밀번호 찾기</a>
 													</div>
 													<div class="form-group">
-														<button type="submit" class="btn btn-block btn-warning">Sign in</button>
+														<button type="submit" class="btn btn-block btn-warning">로그인</button>
 													</div>
 													<div class="form-group" style="margin-top: -10px;">
-														<button type="button" id="signUpBtn" class="btn btn-block btn-warning">Sign up</button>
+														<button type="button" id="signUpBtn" class="btn btn-block btn-warning">회원가입</button>
 													</div>
 													<div class="form-group">
 														<a href="/google/login">

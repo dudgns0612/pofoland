@@ -1,7 +1,6 @@
 package common;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -33,6 +32,27 @@ public class CommonTest {
 		
 		
 		
+	}
+	
+	@Test
+	public void testTempPw() {
+//		StringBuffer tempPw = new StringBuffer();
+//		Random random = new Random();
+//		
+//		for(int i = 0 ; i < 8 ; i++) {
+//			if(random.nextBoolean()){
+//				tempPw.append((char)(random.nextInt(26)+65));
+//	        }else{
+//	        	tempPw.append((random.nextInt(10)));
+//	        }
+//		}
+//		
+//		System.out.println(tempPw);
+		
+		
+		Character c = 'N';
+		
+		System.out.println('N' == c);
 	}
 	
 	public void createEncryptKey(String key) {

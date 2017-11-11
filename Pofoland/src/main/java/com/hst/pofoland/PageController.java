@@ -97,16 +97,16 @@ public class PageController {
 	// =========================ERROR PAGE =============================
 	
 	// ERROR PAGE 처리
-	@RequestMapping(value = "/error404")
-	public ModelAndView error404Page(HttpServletResponse response) {
-		//ERROR 성공처리
-		response.setStatus(HttpServletResponse.SC_OK);
-		ModelAndView mav = new ModelAndView("error/404page");
-		LoggerManager.info(getClass(),"ERROR PAGE = {}", "404");
-		
-		
-		return mav;
-	}
+//	@RequestMapping(value = "/error404")
+//	public ModelAndView error404Page(HttpServletResponse response) {
+//		//ERROR 성공처리
+//		response.setStatus(HttpServletResponse.SC_OK);
+//		ModelAndView mav = new ModelAndView("error/404page");
+//		LoggerManager.info(getClass(),"ERROR PAGE = {}", "404");
+//		
+//		
+//		return mav;
+//	}
 	
 	@RequestMapping(value = "/error500")
 	public ModelAndView error500Page(HttpServletResponse response) {

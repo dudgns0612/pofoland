@@ -123,7 +123,7 @@ $(document).ready(function(){
 			success : function(response){
 				if(response.code) {
 					alert("회원가입이 완료되었습니다.");
-					//location.href = contextPath+'/home';
+					location.href = contextPath+'/home';
 				} else {
 					alert("회원가입이 정상처리되지않았습니다.");
 					return;
