@@ -33,6 +33,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.hst.pofoland.biz.board.dao.BoardDAO;
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
+import com.hst.pofoland.biz.boardreply.service.BoardReplyService;
+import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 import com.hst.pofoland.biz.category.service.CategoryService;
 import com.hst.pofoland.common.utils.StringUtils;
 
@@ -67,12 +69,16 @@ public class BoardTest {
     private BoardService boardService;
     
     @Inject
-    private BoardDAO boardDao;
+    private BoardReplyService boardReplyService;
     
     @Inject
-    private CategoryService categoryService;
+    private BoardDAO boardDao;
     
-    @Test
+    public void replyInsert() {
+        
+    }
+    
+    //@Test
     public void insert() {
         BoardVO board = new BoardVO();
         board.setBoardGbnCode("A01");
