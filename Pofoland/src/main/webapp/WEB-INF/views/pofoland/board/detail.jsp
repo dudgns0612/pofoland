@@ -23,29 +23,38 @@
 		</div>
 		${board.userNick} (${board.userId})
 		<div class="clearfix"></div>
-		<div style="margin-top: 20px; margin-bottom: 20px;">
-            ${board.boardContent}
+		<div class="panel panel-default no-rounded" align="center">
+            <div class="panel-body">
+                ${board.boardContent}
+            </div>
         </div>
         <c:if test="${user.userSeq == board.userSeq }">
             <div class="pull-right">
-                <a class="btn btn-send" href="${contextPath}/board/modify?boardSeq=${board.boardSeq}">수정하기</a>
+                <a class="btn btn-send" href="${contextPath}/board/modify?boardSeq=${board.boardSeq}">수정</a>
+                <a class="btn btn-send" href="${contextPath}/board/modify?boardSeq=${board.boardSeq}">삭제</a>
             </div>
         </c:if>
         <div class="clearfix"></div>
-		<div>댓글:60개  | 조회수:${board.boardHitCnt}</div>
-		<div class="panel panel-default">
-		  <div class="panel-body">
-		 	<div>
-		 		<h6>댓글</h6>
-		    </div>
-		    <div>
-		    	<form class="form-inline">
-		    		<textarea style="height:80px; width:600px; resize: none;" class="form-control"></textarea> 
-                    <input type="button" value="댓글등록" style="height:80px; width: 100px" class="btn btn-send"/>
-		    	</form>
-		    </div>
-		  </div>
-		  
+        <hr>
+		<div class="panel panel-default no-rounded">
+            <div class="panel-heading">
+                <small>댓글</small>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <form class="form-inline">
+                        <textarea rows="2" style="width: 70%" class="form-control no-rounded"></textarea> 
+                        <input type="button" value="댓글등록" style="height:54px" class="btn btn-send"/>
+                    </form>
+                </div>
+                <div style="margin-top: 10px;">
+                    <ul>
+                        <c:forEach items="${board.boardReplyList}" var="reply">
+                            <li><h5>[${reply.userNick}] <small>${reply.boardReplyContent} - ${reply.boardReplyUdtDt}</small></h5></li>
+                        </c:forEach> 
+                    </ul>
+                </div>
+            </div>
 		</div>
 	</div>		
 	

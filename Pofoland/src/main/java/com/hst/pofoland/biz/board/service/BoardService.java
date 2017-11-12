@@ -10,6 +10,7 @@ package com.hst.pofoland.biz.board.service;
 import java.util.List;
 
 import com.hst.pofoland.biz.board.vo.BoardVO;
+import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 
 /**
  * 
@@ -70,5 +71,11 @@ public interface BoardService {
      * 게시글 조회수 증가 
      */
     public void increaseHit(BoardVO board);
+
+    /**
+     * 댓글 등록
+     * @param boardReplyVO 등록할 댓글
+     */
+    public void writeReply(BoardReplyVO boardReplyVO);
     
 }

@@ -81,5 +81,10 @@ public class BoardServiceImpl implements BoardService {
     public void increaseHit(BoardVO board) {
         boardDao.increaseHit(board);
     }
+
+    @Override
+    public void writeReply(BoardReplyVO boardReplyVO) {
+        boardReplyDao.insertBoardReply(boardReplyVO);
+    }
     
 }
