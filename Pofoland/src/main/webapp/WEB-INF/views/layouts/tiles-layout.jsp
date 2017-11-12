@@ -11,9 +11,10 @@
 		var contextPath = "${contextPath}";
 		var userSeq = "${user.userSeq}";
 	</script>
-	<title>Insert title here</title>
+	<title>Pofoland - World Best Portfolio, Jobs sharing platform</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    
+    <!-- Define Vendor CSS -->
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/owl.carousel.css" />
@@ -22,6 +23,9 @@
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/style.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/css/responsive.css" />
     <link rel="stylesheet" href="${contextPath}/resources/assets/jquery-ui/jquery-ui.css" />
+    
+    <!-- Define Custom CSS -->
+    <link rel="stylesheet" href="${contextPath}/resources/custom/css/default.css" />
     <link rel="stylesheet" href="${contextPath}/resources/custom/css/user/join.css" />
     <link rel="stylesheet" href="${contextPath}/resources/custom/css/user/common-user.css" />
     <link rel="stylesheet" href="${contextPath}/resources/custom/css/layouts/tiles-header.css" />
@@ -34,6 +38,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${contextPath}/resources/assets/images/icon/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="${contextPath}/resources/assets/images/icon/apple-touch-icon-57-precomposed.png">
 	
+    <!-- Define Vendor Javascript -->
     <script type="text/javascript" src="${contextPath}/resources/assets/js/jquery.min.js"></script><!-- jQuery -->
     <script type="text/javascript" src="${contextPath}/resources/assets/jquery-ui/jquery-ui.min.js"></script><!-- jQuery UI -->
     <script type="text/javascript" src="${contextPath}/resources/assets/js/bootstrap.min.js"></script><!-- Bootstrap -->
