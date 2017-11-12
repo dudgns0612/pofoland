@@ -36,6 +36,9 @@
 			<div class="col-xs-1"></div>
 
 		</div>
+	<div class="row">
+		채용정보 167건
+	</div>
 	</form>
 		<div class="row">
 				<div class="col-md-9">
@@ -44,19 +47,19 @@
 					<c:choose>
 					<c:when test="${extJobsList != null }">
 						<c:forEach items="${extJobsList}" var="extJobsVO">
-									<h4 class="post-title" style="margin-bottom: 15px;">
-										${extJobsVO.title }
-									</h4>
+									<a href=${extJobsVO.url }><h4 class="post-title" style="margin-bottom: 15px;">
+										${extJobsVO.company }
+									</h4></a>
 									<div class="row">
-										<div class="col-md-3">
+										<!-- <div class="col-md-3">
 											<img class="image-circle-header" src="/user/94/image" alt="" ></img>
-										</div>
-										<div class="col-md-6">
+										</div> -->
+										<div class="col-md-12">
 											<div class="post-meta text-uppercase">
-												<span>CompanyName : ${extJobsVO.company }</span><br/>
-												<span>Salary : ${extJobsVO.salary }</span><br/>
-												<span>Keyword : ${extJobsVO.keyword }</span>
-												${extJobsVO.title }
+												<a href=${extJobsVO.name }><span>${extJobsVO.title }</span></a><br/>
+												<span>${extJobsVO.experiencelevel } | ${extJobsVO.requirededucationlevel } | ${extJobsVO.jobtype } | ${extJobsVO.location }</span><br/>
+												<span>연봉 : ${extJobsVO.salary }</span><br/>
+												<span>키워드  ${extJobsVO.keyword }</span>
 											</div>
 										</div>
 									</div>

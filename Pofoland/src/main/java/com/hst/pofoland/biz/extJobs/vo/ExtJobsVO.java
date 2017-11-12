@@ -10,22 +10,32 @@ public class ExtJobsVO extends BaseVO {
 	private String id;
 	private String url;
 	private String company; 				// 기업명	
+	private String name;					// 기업명 url
 	private String title;					// 게시글 제목
 	private String location;				// 지역명
-	private String jobType;					// 정규,계약직 구분
-	private String experienceLevel; 		// 요구경력
-	private String requiredEducadtionLevel;	// 최종학력
+	private String jobtype;					// 정규,계약직 구분
+	private String experiencelevel; 		// 요구경력
+	private String requirededucationlevel;	// 최종학력
 	private String keyword;					// 키워드
 	private String salary;					// 연봉
 	/*
+	 *  <experience-level code="0" min="0" max="0">경력무관</experience-level>
+        <required-education-level code="0">학력무관</required-education-level>
 	private String locMcd;		
 	private String locBcd;
 	private String jobTypeCd;
 	private String jobCategory;
 	private String eduLv;
 	*/
+	
 	public String getId() {
 		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public void setId(String id) {
 		this.id = id;
@@ -54,23 +64,24 @@ public class ExtJobsVO extends BaseVO {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getJobType() {
-		return jobType;
+	
+	public String getJobtype() {
+		return jobtype;
 	}
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
+	public void setJobtype(String jobtype) {
+		this.jobtype = jobtype;
 	}
-	public String getExperienceLevel() {
-		return experienceLevel;
+	public String getExperiencelevel() {
+		return experiencelevel;
 	}
-	public void setExperienceLevel(String experienceLevel) {
-		this.experienceLevel = experienceLevel;
+	public void setExperiencelevel(String experiencelevel) {
+		this.experiencelevel = experiencelevel;
 	}
-	public String getRequiredEducadtionLevel() {
-		return requiredEducadtionLevel;
+	public String getRequirededucationlevel() {
+		return requirededucationlevel;
 	}
-	public void setRequiredEducadtionLevel(String requiredEducadtionLevel) {
-		this.requiredEducadtionLevel = requiredEducadtionLevel;
+	public void setRequirededucationlevel(String requirededucationlevel) {
+		this.requirededucationlevel = requirededucationlevel;
 	}
 	public String getKeyword() {
 		return keyword;

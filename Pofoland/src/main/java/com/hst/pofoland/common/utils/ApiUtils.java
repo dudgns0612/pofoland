@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -59,28 +61,22 @@ public class ApiUtils {
 	List<ExtJobsVO> extJobsList = new ArrayList<ExtJobsVO>(); // 구인구직 데이터 리스트
 
 	
-	public Class methodInvoke(ExtJobsVO vo, String nodeName, String value) throws Exception {
-		Method[] methodList = null;
-		String methodNm = null;
+	public void methodInvoke(ExtJobsVO vo, String nodeName, String value) throws Exception {
 		
-		Class extJobsVO = ExtJobsVO.class;
-		extJobsVO.newInstance();
-		methodList = extJobsVO.getMethods();
+		Class<?> extJobsVO = vo.getClass();
+		Method tgMethod = null;
 		
-		for(Method method : methodList) {
-			methodNm = method.getName().substring(3);
-			LoggerManager.info(getClass(), "============= methodNm: {}", methodNm);
-
-			if(methodNm.equals(nodeName) && "set".equals(method.getName().substring(0, 3))) {
-				method.invoke(value);
-			}
-			
+		try {
+			tgMethod = extJobsVO.getDeclaredMethod("set" + nodeName.toUpperCase().charAt(0) + nodeName.substring(1), String.class);
+		} catch(NoSuchMethodException e) {
+			LoggerManager.info(getClass(), "================= No Search Field: {}", nodeName);
 		}
-		return extJobsVO;
+		
+		if(tgMethod != null)
+			tgMethod.invoke(vo, value);
 	}
 	
 	
-	@SuppressWarnings("null")
 	public List<ExtJobsVO> parseXml(String xml) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder domBuilder = null;
@@ -106,7 +102,7 @@ public class ApiUtils {
 				
 				for(int j=0; j<jobList.getLength(); j++) {
 					Node jobNode = jobList.item(j);
-					String nodeName = jobNode.getNodeName();
+					String nodeName = jobNode.getNodeName().replaceAll("-", "");
 					String value = jobNode.getTextContent();
 				
 					//
@@ -115,32 +111,18 @@ public class ApiUtils {
 						// <position> 태그 추출 작업
 						if("position".equals(nodeName)) {
 							NodeList postList = jobNode.getChildNodes();
+							for(int idx=0; idx<postList.getLength(); idx++) {
+								Node postNode = postList.item(idx);
+								String postNodeNm = postNode.getNodeName().replaceAll("-", "");
+								String postValue = postNode.getTextContent();
+								methodInvoke(extJobsVO, postNodeNm, postValue);
+							}
 						}
 						methodInvoke(extJobsVO, nodeName, value);
 					}
-					//
 				}
 				extJobsList.add(extJobsVO);
 			}
-		} catch (ParserConfigurationException e) {
-			LoggerManager.info(getClass(), "=================== domBuilder: {}", domBuilder);
-			e.printStackTrace();
-		} catch (SAXException e) {
-			LoggerManager.info(getClass(), "=================== doc: {} ", doc);
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			LoggerManager.info(getClass(), "=================== Method Not find: {}");
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -151,7 +133,7 @@ public class ApiUtils {
 	public List<ExtJobsVO> searchJobs(String url, String keyword) {
 		String xml = null;
 		HttpClient client = HttpClients.createDefault();
-		HttpGet getRequest = new HttpGet(url+"?keywords="+keyword);
+		HttpGet getRequest = new HttpGet(url+"?keywords="+URLEncoder.encode(keyword));
 		try {
 			HttpResponse response = client.execute(getRequest);
 			BasicResponseHandler handler = new BasicResponseHandler();
