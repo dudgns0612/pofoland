@@ -78,6 +78,8 @@ public class ApiUtils {
 		}
 		return extJobsVO;
 	}
+	
+	
 	@SuppressWarnings("null")
 	public List<ExtJobsVO> parseXml(String xml) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -132,23 +134,20 @@ public class ApiUtils {
 			LoggerManager.info(getClass(), "=================== Method Not find: {}");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return extJobsList;
 	}
+	
+	
 	public List<ExtJobsVO> searchJobs(String url, String keyword) {
 		String xml = null;
 		HttpClient client = HttpClients.createDefault();
