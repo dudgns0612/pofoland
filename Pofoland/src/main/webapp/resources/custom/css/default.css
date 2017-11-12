@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";
+
+/* SET not rounded Border */
+.no-rounded {
+    border-radius: 0 !important;
+}
