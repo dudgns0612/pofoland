@@ -322,7 +322,7 @@
 				<div class="col-md-3 col-sm-6">
 					<div class="team-member">
 						<div class="member-image">
-							<img class="img-responsive" src="${contextPath}/user/${user.userSeq}/image" alt="" style="height: 264px;"/>
+							<img class="img-responsive" src="${contextPath}/user/${user.userSeq}/image" alt="" style="width:262px; height: 285px;"/>
 							<div class="member-social">
 								<a href="">
 									<i class="fa fa-facebook"></i>

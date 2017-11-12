@@ -120,8 +120,6 @@ public class UserController implements InitializingBean{
 	@ResponseBody
 	public ResponseVO createUser(@ModelAttribute UserVO userVO , HttpServletResponse response) {
 		
-		LoggerManager.info(getClass(), "TODO{}", userVO.toString());
-		
 		userVO = userService.createUser(userVO);
 		ResponseVO responseVO = new ResponseVO();
 		
@@ -140,9 +138,9 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/naver/login", method=RequestMethod.GET)
 	public void naverLogin(HttpServletResponse response) {
 		try {
-			String clientId = config.getString("network.naver.clientId");
-			String redirectURI = URLEncoder.encode(config.getString("network.naver.redirectURI"),"UTF-8");
-			String apiURI = config.getString("network.naver.api.loginURI");
+			String clientId = config.getString("network.http.naver.clientId");
+			String redirectURI = URLEncoder.encode(config.getString("network.http.naver.redirectURI"),"UTF-8");
+			String apiURI = config.getString("network.http.naver.api.loginURI");
 			
 			StringBuffer uriBuffer = new StringBuffer(apiURI);
 			uriBuffer.append("&client_id=").append(clientId);
@@ -163,9 +161,9 @@ public class UserController implements InitializingBean{
 	@RequestMapping(value="/naver/user", method=RequestMethod.GET)
 	public void naverCallback(HttpServletRequest request, HttpServletResponse response, @RequestParam("code") String code) {
 		
-		String clientId = config.getString("network.naver.clientId");
-		String secret = config.getString("network.naver.secret");
-		String apiURI = config.getString("network.naver.api.tokenURI");
+		String clientId = config.getString("network.http.naver.clientId");
+		String secret = config.getString("network.http.naver.secret");
+		String apiURI = config.getString("network.http.naver.api.tokenURI");
 		String redirectURI = "";
 		
 		
@@ -182,19 +180,16 @@ public class UserController implements InitializingBean{
 			ObjectMapper jsonMapper = new ObjectMapper();
 			Map<String, Object> map = jsonMapper.readValue(responseBody,new TypeReference<Map<String, Object>>() {});
 			
-			String userId = oauthApiService.getNaverUserInfo(String.valueOf(map.get("access_token")));
-			Integer userSeq = userService.seqSearchUser(userId);
+			UserVO userVO = oauthApiService.getNaverUserInfo(String.valueOf(map.get("access_token")));
+			Integer userSeq = userService.seqSearchUser(userVO.getUserId());
 			
 			if (userSeq == null || userSeq < 0) {
 				HttpSession session = request.getSession();
-				
-				UserVO userVO = new UserVO();
-				userVO.setUserId(userId);
 				session.setAttribute("user",userVO);
 				
 				response.sendRedirect("/join/oAuth/step1/N");
 			} else {
-				UserVO userVO = userService.searchUser(userSeq);
+				userVO = userService.searchUser(userSeq);
 				
 				//security 권한설정
 				SecurityAuthorityManager authManager = new SecurityAuthorityManager();
@@ -374,8 +369,8 @@ public class UserController implements InitializingBean{
 	 * @param userSeq
 	 * @return
 	 */
-	@RequestMapping(value="/user/{userSeq}/auth/{userAuthKey}" , method=RequestMethod.GET)
-	public ModelAndView authProcessUser(@PathVariable String userAuthKey ,@PathVariable Integer userSeq) {
+	@RequestMapping(value="/user/mail/auth" , method=RequestMethod.GET)
+	public ModelAndView authProcessUser(@ModelAttribute("userAuthKey") String userAuthKey ,@ModelAttribute("userSeq") Integer userSeq) {
 		
 		UserVO userVO = new UserVO();
 		ase128Encrypt.createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
@@ -430,6 +425,7 @@ public class UserController implements InitializingBean{
 		
 		ModelAndView mav = new ModelAndView("user/joinStep3");
 		
+		mav.addObject("userJoinType","P");
 		mav.addObject("interestList", interestList);
 		mav.addObject("userSeq", userSeq);
 		
@@ -501,13 +497,20 @@ public class UserController implements InitializingBean{
 	}
 	
 	/**
-	 * 인증처리 후 구글 사용자 회원가입
+	 * 인증처리 후 OAuth 사용자 회원가입
 	 * @param userVO
 	 * @return
 	 */
 	@RequestMapping(value="/user/oAuth" , method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseVO addOauthInfoUser(@ModelAttribute UserVO userVO) {
+	public ResponseVO addOauthInfoUser(@ModelAttribute UserVO userVO, HttpServletRequest request) {
+		
+		if (userVO.getUserJoinType() == 'N') {
+			HttpSession session = request.getSession();
+			UserVO naverUserVO = (UserVO) session.getAttribute("user");
+			userVO.setUserEmail(naverUserVO.getUserEmail());
+		}
+		
 		ResponseVO responseVO = new ResponseVO();
 		userVO = userService.createOauthUser(userVO);
 
@@ -632,11 +635,15 @@ public class UserController implements InitializingBean{
 		
 		return responseVO;
 	}
-	
+	/**
+	 * 유저 아이디 찾기
+	 * @param userVO
+	 * @return
+	 */
 	@RequestMapping(value="/user/find/id" , method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseVO findIdUser(@ModelAttribute UserVO userVO) {
-		userVO = userService.searchEmailUser(userVO);
+		userVO = userService.findIdUser(userVO);
 		ResponseVO responseVO = new ResponseVO();
 		
 		if (userVO != null) {
@@ -648,6 +655,26 @@ public class UserController implements InitializingBean{
 		
 		return responseVO;
 	}
+	
+	/**
+	 * 유저 비밀번호 찾기
+	 * @param userVO
+	 * @return
+	 */
+	@RequestMapping(value="/user/find/password" , method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseVO findPwUser(@ModelAttribute UserVO userVO) {
+		userVO = userService.findPwUser(userVO);
+		ResponseVO responseVO = new ResponseVO();
+		
+		if (userVO != null) {
+			responseVO.setCode(NetworkConstant.COMMUNICATION_SUCCESS_CODE);
+			return responseVO;
+		} 
+		
+		return responseVO;
+	}
+	
 	
 	/**
 	 * 유저 탈퇴 처리

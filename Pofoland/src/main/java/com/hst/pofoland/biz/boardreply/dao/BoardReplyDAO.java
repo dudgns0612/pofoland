@@ -1,5 +1,5 @@
 /*
- * @(#) BoardReplyDao.java
+ * @(#) BoardReplyDAO.java
  *
  * v1.0.0 / 2017. 10. 15.
  *
@@ -16,7 +16,7 @@ import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 /**
  * 
  * 시스템명 : 포트폴리오 관리 시스템
- * com.hst.pofoland.biz.boardreply.dao.BoardReplyDao.java
+ * com.hst.pofoland.biz.boardreply.dao.BoardReplyDAO.java
  * 클래스 설명 : 커뮤니티 댓글 DAO 인터페이스 
  *
  * @author 이현규

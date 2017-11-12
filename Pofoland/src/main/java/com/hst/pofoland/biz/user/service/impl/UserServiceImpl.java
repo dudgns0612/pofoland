@@ -2,6 +2,7 @@ package com.hst.pofoland.biz.user.service.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -88,16 +89,18 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 			ase128Encrypt.createEncryptKey(NetworkConstant.ENCRYPTION_MAILAUTH_KEY);
 			userAuthKey = ase128Encrypt.encode(userAuthKey);
 			
+			LoggerManager.info(getClass(), "SEND AUTH KEY : {}", userAuthKey);
+			
 			String title = "[Pofoland]본인인증관련";
 			StringBuffer content = new StringBuffer("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
-
+			
 			try {
 				content.append("<h4>회원가입에 대하여 간단한 본인인증을 위하여 아래의 링크를 클릭하여주세요.</h4>");
 				content.append("<h4>감사합니다.</h4><br/><br/>");
-				content.append("<a href='http://localhost:8080/user/"+userSeq+"/auth/"+URLEncoder.encode(userAuthKey,"UTF-8")+"'>본인인증</a>");
+				content.append("<a href='http://localhost:8080/user/mail/auth?userSeq="+userSeq+"&userAuthKey="+URLEncoder.encode(userAuthKey,"UTF-8")+"'>본인인증</a>");
 				content.append(" 클릭 후 메인페이지로 이동합니다.");
 			} catch (UnsupportedEncodingException e) {
-				LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
+				e.printStackTrace();
 			}
 			
 			mailSendUtils.sendEmail(userEmail, title, content);
@@ -174,13 +177,13 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	}
 	
 	/**
-	 * 유저 아이디 / 비밀번호 찾기
+	 * 유저 아이디 찾기
 	 */
 	@Override
-	public UserVO searchEmailUser(UserVO userVO) {
-		
+	public UserVO findIdUser(UserVO userVO) {
 		String userEmail = userDAO.selectDuplicateCheckEmail(userVO.getUserEmail());
 		
+		//존재하는 이메일 확인
 		if (userEmail != null && userEmail != "") {
 			userVO = userDAO.selectFindUserInfo(userVO);
 			
@@ -194,7 +197,50 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 				mailSendUtils.sendEmail(userEmail, title, content);
 			}
 		} 
+		return userVO;
+	}
+	
+	public UserVO findPwUser(UserVO userVO) {
+		String userEmail = userDAO.selectCheckIdEmail(userVO);
 		
+		//존재하는 유저 정보일 경우
+		if (userEmail != null && userEmail != "") {
+			StringBuffer tempPw = new StringBuffer();
+			Random random = new Random();
+			
+			//8자리 숫자/영어 조합
+			for(int i = 0 ; i < 8 ; i++) {
+				if(random.nextBoolean()){
+					tempPw.append((char)(random.nextInt(26)+65));
+		        }else{
+		        	tempPw.append((random.nextInt(10)));
+		        }
+			}
+			
+			//임시비밀번호 생성 및 인코딩SHA256(security인증방식)
+			StandardPasswordEncoder spEncoder = new StandardPasswordEncoder();
+			String userPw = spEncoder.encode(tempPw.toString());
+			
+			userVO.setUserPw(userPw);
+			
+			//임시비밀번호로 비밀번호 업데이트
+			Integer isUpdatePw = userDAO.updatePasswordUser(userVO);
+			
+			if (isUpdatePw > 0) {
+				String title = "[Pofoland]임시비밀번호 안내";
+				StringBuffer content = new StringBuffer();
+				content.append("<h2>안녕하세요. Pofoland입니다.</h2><br/><br/>");
+				content.append("귀하의 임시비밀번호는 '"+tempPw.toString()+"' 입니다.<br/>");
+				content.append("비밀번호 수정 후 사용하여 주세요. <br/>");
+				content.append("즐거운 하루 되세요. 감사합니다.");
+				
+				mailSendUtils.sendEmail(userEmail, title, content);
+			} else {
+				userVO = null;
+			}
+		} else {
+			userVO = null;
+		}
 		return userVO;
 	}
 	
@@ -243,7 +289,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	}
 	
 	/**
-	 * 구글 사용자 회원가입
+	 * OAuth 사용자 회원가입
 	 */
 	@Override
 	public UserVO createOauthUser(UserVO userVO) {
@@ -268,16 +314,26 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 		return userDAO.updateModifyUser(userVO);
 	}
 	
+	/**
+	 * 유저 탈퇴
+	 */
 	@Override
 	public Integer dropUser(UserVO userVO) {
 		return userDAO.updateDropUser(userVO);
 	}
 	
+	/**
+	 * 유저 로그인 상태 수정
+	 * USER_DEL_YN  :  삭제유무
+	 */
 	@Override
 	public Integer loginStateUser(UserVO userVO) {
 		return userDAO.updateLoginState(userVO);
 	}
 	
+	/**
+	 * 유저 패스워드 수정
+	 */
 	@Override
 	public Integer modifyUserPssword(UserVO userVO) {
 		return userDAO.updatePasswordUser(userVO);

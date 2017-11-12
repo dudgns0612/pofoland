@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hst.pofoland.biz.user.service.OAuthApiService;
+import com.hst.pofoland.biz.user.vo.UserVO;
 import com.hst.pofoland.common.utils.ApiUtils;
 import com.hst.pofoland.common.utils.LoggerManager;
 
@@ -51,9 +52,9 @@ public class OAuthApiServiceImpl implements OAuthApiService{
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public String getNaverUserInfo(String accessToken) {
+	public UserVO getNaverUserInfo(String accessToken) {
 		String header = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String apiURI = config.getString("network.naver.api.profileURI");
+		String apiURI = config.getString("network.http.naver.api.profileURI");
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("Authorization", header);
 
@@ -61,6 +62,8 @@ public class OAuthApiServiceImpl implements OAuthApiService{
 		ObjectMapper jsonMapper = new ObjectMapper();
 		Map<String, Object> map = null;
 		String userId = "";
+		String userEmail = "";
+		UserVO userVO = new UserVO();
 		
 		try {
 			map = jsonMapper.readValue(responseBody,new TypeReference<Map<String, Object>>() {});
@@ -68,8 +71,12 @@ public class OAuthApiServiceImpl implements OAuthApiService{
 			map = (Map<String, Object>) map.get("response");
 			
 			LoggerManager.info(getClass(), "네이버로그인 유저 프로필 {}", map.toString());
-			
 			userId = String.valueOf(map.get("id"));
+			userEmail = String.valueOf(map.get("email"));
+			
+			userVO.setUserId(userId);
+			userVO.setUserEmail(userEmail);
+			
 		} catch (JsonParseException e) {
 			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
 		} catch (JsonMappingException e) {
@@ -78,7 +85,7 @@ public class OAuthApiServiceImpl implements OAuthApiService{
 			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
 		}
 		
-		return userId;
+		return userVO;
 	}
 	
 	/**
@@ -88,9 +95,9 @@ public class OAuthApiServiceImpl implements OAuthApiService{
 	 */
 	@Override
 	public String refreshNaverUserToken(String refreshToken) {
-		String clientId = config.getString("network.naver.clientId");
-		String secret = config.getString("network.naver.secret");
-		String refreshTokenURI = config.getString("network.naver.api.refreshTokenURI");
+		String clientId = config.getString("network.http.naver.clientId");
+		String secret = config.getString("network.http.naver.secret");
+		String refreshTokenURI = config.getString("network.http.naver.api.refreshTokenURI");
 		String accessToken = "";
 		
 		StringBuffer uriBuffer = new StringBuffer(refreshTokenURI);
@@ -122,9 +129,9 @@ public class OAuthApiServiceImpl implements OAuthApiService{
 	public void deleteNaverUserToken(String refreshToken) {
 		String accessToken = refreshNaverUserToken(refreshToken);
 		
-		String clientId = config.getString("network.naver.clientId");
-		String secret = config.getString("network.naver.secret");
-		String deleteTokenURI = config.getString("network.naver.api.deleteTokenURI");
+		String clientId = config.getString("network.http.naver.clientId");
+		String secret = config.getString("network.http.naver.secret");
+		String deleteTokenURI = config.getString("network.http.naver.api.deleteTokenURI");
 		
 		StringBuffer uriBuffer = new StringBuffer(deleteTokenURI);
 		uriBuffer.append("&client_id=").append(clientId);

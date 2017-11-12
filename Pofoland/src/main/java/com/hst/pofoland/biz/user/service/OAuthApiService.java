@@ -1,8 +1,10 @@
 package com.hst.pofoland.biz.user.service;
 
+import com.hst.pofoland.biz.user.vo.UserVO;
+
 public interface OAuthApiService {
 	
-	public String getNaverUserInfo(String accessToken);
+	public UserVO getNaverUserInfo(String accessToken);
 	
 	public String refreshNaverUserToken(String refreshToken);
 	
