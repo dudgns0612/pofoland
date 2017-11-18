@@ -9,8 +9,8 @@ package com.hst.pofoland.biz.board.service;
 
 import java.util.List;
 
+import com.hst.pofoland.biz.board.vo.BoardReplyVO;
 import com.hst.pofoland.biz.board.vo.BoardVO;
-import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 
 /**
  * 

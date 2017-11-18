@@ -5,13 +5,13 @@
  *
  * Copyright ((c) 2017 by HST, Inc. All Rights Reserved.
  */
-package com.hst.pofoland.biz.boardreply.dao;
+package com.hst.pofoland.biz.board.dao;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
+import com.hst.pofoland.biz.board.vo.BoardReplyVO;
 
 /**
  * 

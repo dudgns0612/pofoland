@@ -1,7 +1,5 @@
 package com.hst.pofoland.common.interceptor;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -52,7 +50,6 @@ public class AuthInspectionInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		response.setContentType("text/html; charset=utf-8");
 		
-		PrintWriter pw = response.getWriter();
 		HttpSession session = request.getSession();
 		StringBuffer sb = new StringBuffer();
 		UserVO userVO = (UserVO) session.getAttribute("user");
@@ -66,7 +63,7 @@ public class AuthInspectionInterceptor extends HandlerInterceptorAdapter{
 			sb.append("		document.location.href='/';");
 			sb.append("</script>");
 			
-			NetworkConstant.printWrite(pw, sb.toString());
+			NetworkConstant.printWrite(response.getWriter(), sb.toString());
 			
 			return false;
 		} else {
@@ -78,7 +75,7 @@ public class AuthInspectionInterceptor extends HandlerInterceptorAdapter{
 				sb.append("		document.location.href='/home';");
 				sb.append("</script>");
 				
-				NetworkConstant.printWrite(pw, sb.toString());
+				NetworkConstant.printWrite(response.getWriter(), sb.toString());
 				return false;
 			}
 		}

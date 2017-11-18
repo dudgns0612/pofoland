@@ -1,20 +1,20 @@
 /*
  * @(#) BoardReplyVO.java
  *
- * v1.0.0 / 2017. 10. 15.
+ * v1.0.0 / 2017. 11. 18.
  *
  * Copyright ((c) 2017 by HST, Inc. All Rights Reserved.
  */
-package com.hst.pofoland.biz.boardreply.vo;
+package com.hst.pofoland.biz.board.vo;
 
 /**
  * 
  * 시스템명 : 포트폴리오 관리 시스템
- * com.hst.pofoland.biz.boardreply.vo.BoardReplyVO.java
- * 클래스 설명 : 커뮤니티 댓글 VO 클래스
+ * com.hst.pofoland.biz.board.vo.BoardReplyVO.java
+ * 클래스 설명 : 댓글 Vo
  *
  * @author 이현규
- * @since 2017. 10. 15.
+ * @since 2017. 11. 18.
  * @version 1.0.0
  * @see
  *
@@ -23,36 +23,46 @@ package com.hst.pofoland.biz.boardreply.vo;
  *
  * 수정일          수정자         수정내용
  * -------------------------------------------------
- * 2017. 10. 15.   이현규          최초생성
+ * 2017. 11. 18.   이현규          최초생성
  * </pre>
  */
 public class BoardReplyVO {
 
+    /**
+     * 댓글번호
+     */
     private int boardReplySeq;
+
+    /**
+     * 댓글내용
+     */
     private String boardReplyContent;
+
+    /**
+     * 댓글등록일시
+     */
     private String boardReplyRegDt;
+
+    /**
+     * 댓글수정일시
+     */
     private String boardReplyUdtDt;
 
+    /**
+     * 게시글번호
+     */
     private int boardSeq;
 
+    /**
+     * 댓글작성자 시퀀스
+     */
     private int userSeq;
-    private String userNick;
-
-    public BoardReplyVO() {
-    }
     
-    public BoardReplyVO(int boardReplySeq, String boardReplyContent, String boardReplyRegDt, String boardReplyUdtDt,
-            int boardSeq, int userSeq, String userNick) {
-        super();
-        this.boardReplySeq = boardReplySeq;
-        this.boardReplyContent = boardReplyContent;
-        this.boardReplyRegDt = boardReplyRegDt;
-        this.boardReplyUdtDt = boardReplyUdtDt;
-        this.boardSeq = boardSeq;
-        this.userSeq = userSeq;
-        this.userNick = userNick;
-    }
-
+    /**
+     * 댓글작성자명 
+     */
+    private String userNick;
+    
     /**
      * @return boardReplySeq 반환
      */
@@ -151,8 +161,7 @@ public class BoardReplyVO {
     }
 
     /**
-     * @param userNick
-     *            설정할 userNick
+     * @param userNick 설정할 userNick
      */
     public void setUserNick(String userNick) {
         this.userNick = userNick;

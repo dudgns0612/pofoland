@@ -1,5 +1,6 @@
 package com.hst.pofoland.biz.extJobs.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +23,13 @@ public class ExtJobsServiceImpl implements ExtJobsService {
 	public List<ExtJobsVO> searchJobs(ExtJobsVO params) {
 		String url = StatusUtils.SARAMIN_API_URL.getFirstValue();
 		String keyword = params.getKeyword();
-		List<ExtJobsVO> extJobsList = apiUtils.searchJobs(url, keyword);
+		List<ExtJobsVO> extJobsList = null;
+        try {
+            extJobsList = apiUtils.searchJobs(url, keyword);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		return extJobsList;
 	}
 

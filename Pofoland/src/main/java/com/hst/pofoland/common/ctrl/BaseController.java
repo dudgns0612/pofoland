@@ -7,9 +7,16 @@
  */
 package com.hst.pofoland.common.ctrl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -63,6 +70,35 @@ public class BaseController {
        }
        
        return null;
-   }
+    }
+    
+    /**
+     * viewName으로 리다이렉트
+     * 
+     * @param viewName
+     * @return
+     */
+    protected String redirectTo(String viewName) {
+        return "redirect:" + viewName;
+    }
+    
+    /**
+     * Ajax 요청 공통 응답 엔티티 생성
+     * 
+     * @param status HTTP 응답코드
+     * @param data BODY 데이터
+     * @param message 응답 메세지
+     * @return
+     */
+    protected ResponseEntity<?> buildResponseEntity(HttpStatus status, Object data, String message) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", data);
+        map.put("message", message);
+        
+        HttpHeaders headers = new org.springframework.http.HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        return new ResponseEntity<>(map, headers, status);
+    }
     
 }

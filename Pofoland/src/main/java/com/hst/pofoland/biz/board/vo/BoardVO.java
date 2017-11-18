@@ -9,7 +9,6 @@ package com.hst.pofoland.biz.board.vo;
 
 import java.util.List;
 
-import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 import com.hst.pofoland.common.vo.BaseVO;
 
 /**

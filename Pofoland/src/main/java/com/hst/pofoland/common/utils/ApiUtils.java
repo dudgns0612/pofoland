@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -58,25 +60,69 @@ public class ApiUtils {
 	
 	List<ExtJobsVO> extJobsList = new ArrayList<ExtJobsVO>(); // 구인구직 데이터 리스트
 
-	
-	public Class methodInvoke(ExtJobsVO vo, String nodeName, String value) throws Exception {
-		Method[] methodList = null;
-		String methodNm = null;
-		
-		Class extJobsVO = ExtJobsVO.class;
-		extJobsVO.newInstance();
-		methodList = extJobsVO.getMethods();
-		
-		for(Method method : methodList) {
-			methodNm = method.getName().substring(3);
-			LoggerManager.info(getClass(), "============= methodNm: {}", methodNm);
+	public <T> T parseVo(NodeList jobList, Class<T> voType) throws Exception {
+        T instance = voType.newInstance();
 
-			if(methodNm.equals(nodeName) && "set".equals(method.getName().substring(0, 3))) {
-				method.invoke(value);
-			}
-			
-		}
-		return extJobsVO;
+        Field targetField = null;
+
+        for (int j = 0; j < jobList.getLength(); j++) {
+            Node jobNode = jobList.item(j);
+            String nodeName = jobNode.getNodeName();
+            String value = jobNode.getTextContent();
+
+            if (!("#text".equals(nodeName))) {
+                LoggerManager.info(getClass(), "Current Node Name : {} - {}", nodeName, value);
+
+                // <position> 태그 추출 작업
+                if ("position".equals(nodeName)) {
+                    NodeList postList = jobNode.getChildNodes();
+                }
+
+                try {
+                    targetField = voType.getDeclaredField(nodeName);
+                    targetField.setAccessible(true);
+                    targetField.set(instance, value);
+                } catch (NoSuchFieldException e) {
+                    LoggerManager.debug(getClass(), "No such field error : {}", nodeName);
+                }
+            }
+        }
+	    
+      return instance;
+	}
+	
+	
+	public void methodInvoke(ExtJobsVO vo, String nodeName, String value) throws Exception {
+//		Method[] methodList = null;
+//		String methodNm = null;
+		
+		Class<?> extJobsVO = vo.getClass();
+		
+		Method targetMethod = null;
+		
+        try {
+            targetMethod = extJobsVO.getDeclaredMethod("set" + nodeName.toUpperCase().charAt(0) + nodeName.substring(1), String.class);
+        } catch (NoSuchMethodException e) {
+            LoggerManager.info(getClass(), "{} is not exist field. Ignore this.", nodeName);
+        }
+		
+        if(targetMethod != null) {
+            targetMethod.invoke(vo, value);
+        }
+		
+
+        
+//		extJobsVO.newInstance();
+//		methodList = extJobsVO.getMethods();
+//
+//		for(Method method : methodList) {
+//			methodNm = method.getName().substring(3).toLowerCase();
+//			
+//			if(methodNm.equals(nodeName) && "set".equals(method.getName().substring(0, 3))) {
+//				method.invoke(vo, value);
+//			}
+//		}
+
 	}
 	
 	
@@ -85,11 +131,10 @@ public class ApiUtils {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder domBuilder = null;
 		Document doc = null;
-		ExtJobsVO extJobsVO = null;
 		
 		try {
 			domBuilder = factory.newDocumentBuilder();
-			InputStream in = new ByteArrayInputStream(xml.getBytes());
+			InputStream in = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 			doc = domBuilder.parse(in);
 			Element element = doc.getDocumentElement();
 			
@@ -99,48 +144,11 @@ public class ApiUtils {
 			 * To-Be : reflection 적용할?
 			 */
 			NodeList nodeList = element.getElementsByTagName("job");	// Length = 10, <job> 태그 10개
-			LoggerManager.info(getClass(), "=============== nodeList.length: [{}]", nodeList.getLength());
-			for(int i=0; i<nodeList.getLength(); i++) {
-				extJobsVO = new ExtJobsVO();
-				NodeList jobList = nodeList.item(i).getChildNodes();
-				
-				for(int j=0; j<jobList.getLength(); j++) {
-					Node jobNode = jobList.item(j);
-					String nodeName = jobNode.getNodeName();
-					String value = jobNode.getTextContent();
-				
-					//
-					if(!("#text".equals(nodeName))) {
-						
-						// <position> 태그 추출 작업
-						if("position".equals(nodeName)) {
-							NodeList postList = jobNode.getChildNodes();
-						}
-						methodInvoke(extJobsVO, nodeName, value);
-					}
-					//
-				}
-				extJobsList.add(extJobsVO);
-			}
-		} catch (ParserConfigurationException e) {
-			LoggerManager.info(getClass(), "=================== domBuilder: {}", domBuilder);
-			e.printStackTrace();
-		} catch (SAXException e) {
-			LoggerManager.info(getClass(), "=================== doc: {} ", doc);
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			LoggerManager.info(getClass(), "=================== Method Not find: {}");
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+            LoggerManager.info(getClass(), "=============== nodeList.length: [{}]", nodeList.getLength());
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                NodeList jobList = nodeList.item(i).getChildNodes();
+                extJobsList.add(parseVo(jobList, ExtJobsVO.class));
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -148,10 +156,10 @@ public class ApiUtils {
 	}
 	
 	
-	public List<ExtJobsVO> searchJobs(String url, String keyword) {
+	public List<ExtJobsVO> searchJobs(String url, String keyword) throws UnsupportedEncodingException {
 		String xml = null;
 		HttpClient client = HttpClients.createDefault();
-		HttpGet getRequest = new HttpGet(url+"?keywords="+keyword);
+		HttpGet getRequest = new HttpGet(url+"?keywords="+URLEncoder.encode(keyword, "UTF-8"));
 		try {
 			HttpResponse response = client.execute(getRequest);
 			BasicResponseHandler handler = new BasicResponseHandler();

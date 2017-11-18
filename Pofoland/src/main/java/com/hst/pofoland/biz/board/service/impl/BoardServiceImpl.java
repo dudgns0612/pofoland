@@ -7,10 +7,10 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.hst.pofoland.biz.board.dao.BoardDAO;
+import com.hst.pofoland.biz.board.dao.BoardReplyDAO;
 import com.hst.pofoland.biz.board.service.BoardService;
+import com.hst.pofoland.biz.board.vo.BoardReplyVO;
 import com.hst.pofoland.biz.board.vo.BoardVO;
-import com.hst.pofoland.biz.boardreply.dao.BoardReplyDAO;
-import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.common.utils.StringUtils;
 

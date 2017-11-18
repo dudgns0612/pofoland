@@ -8,22 +8,15 @@
  */
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Random;
 
 import javax.inject.Inject;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.hst.pofoland.biz.board.dao.BoardDAO;
 import com.hst.pofoland.biz.board.service.BoardService;
 import com.hst.pofoland.biz.board.vo.BoardVO;
-import com.hst.pofoland.biz.boardreply.service.BoardReplyService;
-import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
-import com.hst.pofoland.biz.category.service.CategoryService;
-import com.hst.pofoland.common.utils.StringUtils;
 
 /**
  * 
@@ -67,9 +56,6 @@ public class BoardTest {
     
     @Inject
     private BoardService boardService;
-    
-    @Inject
-    private BoardReplyService boardReplyService;
     
     @Inject
     private BoardDAO boardDao;

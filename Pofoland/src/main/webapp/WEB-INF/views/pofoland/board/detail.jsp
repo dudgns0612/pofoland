@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<script type="text/javascript" src="${contextPath}/resources/custom/js/board/detail.js"></script>
+
 <section id="page-header">
     <div class="container">
         <div class="row">
@@ -36,26 +39,29 @@
         </c:if>
         <div class="clearfix"></div>
         <hr>
-		<div class="panel panel-default no-rounded">
-            <div class="panel-heading">
-                <small>댓글</small>
-            </div>
-            <div class="panel-body">
-                <div>
-                    <form class="form-inline">
-                        <textarea rows="2" style="width: 70%" class="form-control no-rounded"></textarea> 
-                        <input type="button" value="댓글등록" style="height:54px" class="btn btn-send"/>
-                    </form>
+		<div class="replyWrap">
+            <div class="panel panel-default no-rounded">
+                <div class="panel-heading">
+                    <small>댓글</small>
                 </div>
-                <div style="margin-top: 10px;">
-                    <ul>
-                        <c:forEach items="${board.boardReplyList}" var="reply">
-                            <li><h5>[${reply.userNick}] <small>${reply.boardReplyContent} - ${reply.boardReplyUdtDt}</small></h5></li>
-                        </c:forEach> 
-                    </ul>
+                <div class="panel-body">
+                    <div>
+                        <form class="form-inline" id="replyForm">
+                            <input type="hidden" name="boardSeq" value="${board.boardSeq}">
+                            <input type="hidden" name="userSeq" value="${user.userSeq}">                            
+                            <textarea rows="2" style="width: 70%" class="form-control no-rounded" name="boardReplyContent"></textarea> 
+                            <input type="button" value="댓글등록" style="height:54px" class="btn btn-send" onclick="addReply(); return false;"/>
+                        </form>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <ul>
+                            <c:forEach items="${board.boardReplyList}" var="reply">
+                                <li><h5>[${reply.userNick}] <small>${reply.boardReplyContent} - ${reply.boardReplyUdtDt}</small></h5></li>
+                            </c:forEach> 
+                        </ul>
+                    </div>
                 </div>
             </div>
-		</div>
+        </div>
 	</div>		
-	
 </section>

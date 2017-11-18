@@ -18,7 +18,7 @@
 </section>
 <section class="blog">
     <div class="container">
-        <form:form commandName="writeForm" action="/board" method="POST" onsubmit="return writeBoard()" cssClass="form-inline" enctype="multipart/form-data">
+        <form:form commandName="writeForm" action="/api/board" method="POST" onsubmit="return writeBoard()" cssClass="form-inline" enctype="multipart/form-data">
             <div class="conditions" style="margin-bottom: 15px; margin-top: 15px;">
                 <form:hidden path="userSeq"/>
                 <form:hidden path="boardContent"/>

@@ -61,7 +61,7 @@ public class ExtJobsController {
 	public ModelAndView jobsSearch(ExtJobsVO params) {
 		ModelAndView mv = new ModelAndView();
 		List<ExtJobsVO> extJobsList = null;
-		
+
 		/* Saramin Api 요청 */
 		extJobsList = extJobsService.searchJobs(params);
 		mv.setViewName("extJobs/main");

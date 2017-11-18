@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hst.pofoland.biz.board.service.BoardService;
+import com.hst.pofoland.biz.board.vo.BoardReplyVO;
 import com.hst.pofoland.biz.board.vo.BoardVO;
-import com.hst.pofoland.biz.boardreply.vo.BoardReplyVO;
 
 /*
  * @(#) BoardReplyTest.java
