@@ -50,13 +50,21 @@
                             <input type="hidden" name="boardSeq" value="${board.boardSeq}">
                             <input type="hidden" name="userSeq" value="${user.userSeq}">                            
                             <textarea rows="2" style="width: 70%" class="form-control no-rounded" name="boardReplyContent"></textarea> 
-                            <input type="button" value="댓글등록" style="height:54px" class="btn btn-send" onclick="addReply(); return false;"/>
+                            <button type="button" style="height:54px" class="btn btn-send" onclick="addReply(); return false;">댓글등록</button>
                         </form>
                     </div>
                     <div style="margin-top: 10px;">
                         <ul>
                             <c:forEach items="${board.boardReplyList}" var="reply">
-                                <li><h5>[${reply.userNick}] <small>${reply.boardReplyContent} - ${reply.boardReplyUdtDt}</small></h5></li>
+                                <li>
+                                    <div>
+                                        <h5>[${reply.userNick}] <small>${reply.boardReplyContent} - ${reply.boardReplyUdtDt}</small></h5>
+                                        <c:if test="${reply.userSeq == user.userSeq}">
+                                            <button type="button" onclick="editReply(); return false;">수정</button>
+                                            <button type="button" onclick="deleteReply('${reply.boardReplySeq}'); return false;">삭제</button>                                        
+                                        </c:if>
+                                    </div>
+                                </li>
                             </c:forEach> 
                         </ul>
                     </div>

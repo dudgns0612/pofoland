@@ -78,4 +78,10 @@ public interface BoardService {
      */
     public void writeReply(BoardReplyVO boardReplyVO);
     
+    /**
+     * 댓글 삭제
+     * @param boardReplyVO
+     */
+    public void deleteReply(BoardReplyVO boardReplyVO);
+    
 }

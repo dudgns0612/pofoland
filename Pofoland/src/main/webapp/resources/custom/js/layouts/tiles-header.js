@@ -1,5 +1,25 @@
-//회원가입 버튼 클릭
 $(document).ready(function(){
+    // Form객체를 Object로 Serialize
+    // input, textarea 태그를 기준으로 수행
+    $.fn.serializeObject = function() {
+        var obj = {};
+        
+        $.each(this.find("input,textarea"), function(){
+            if(obj[this.name]) {
+                if(!(obj[this.name] instanceof Array)) {
+                    var tmp = obj[this.name];
+                    obj[this.name] = [tmp];
+                }
+                obj[this.name].push(this.value);
+            } else {
+                obj[this.name] = this.value;
+            }
+        });
+        
+        return obj;
+    }
+    
+    //회원가입 버튼 클릭
 	$('#signUpBtn').click(function(){
 		location.href="/join/step1";
 	});
