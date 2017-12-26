@@ -28,7 +28,7 @@
 ** div 에 id, class 등 잘 달아놓을 것 **
 
 ## UI 설계
-템플릿(SELECT) - http://shapebootstrap.net/item/1525204-cluster-free-creative-portfolio-bootstrap-template/live-demo
+템플릿(SELECT) - http://themehunt.com/item/1526065-volvox-responsive-html5-bootstrap-template/preview
 
 ## DB 설계
 - DB Info
