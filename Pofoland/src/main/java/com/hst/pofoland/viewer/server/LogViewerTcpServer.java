@@ -80,13 +80,11 @@ public class LogViewerTcpServer {
 					channelFuture.channel().closeFuture().sync();
 				} catch (Exception e) {
 					LoggerManager.error(getClass(), "ERROR : {}",  e.getMessage());
-					e.printStackTrace();
 				} finally {
 					try {
 						group.shutdownGracefully().sync();
 					} catch (InterruptedException e) {
 						LoggerManager.error(getClass(), "ERROR : {}",  e.getMessage());
-						e.printStackTrace();
 					}
 				}
 			}

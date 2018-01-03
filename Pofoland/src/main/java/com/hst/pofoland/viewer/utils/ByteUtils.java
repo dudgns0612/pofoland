@@ -17,27 +17,32 @@ public class ByteUtils {
 	
 	/**
 	 * stx - 시작 세그먼트 1byte 
-	 * value = value 가변
+	 * note - 비고 1byte
+	 * value size - 패킷 사이즈 4byte
+	 * value - 데이터 가변
 	 * etx = 종료 세그먼트 1byte 
 	 * @return
 	 */
 	public static byte[] makeSendPacket(byte[] sendValue) {
 		int valueLength = sendValue.length;
 		
-		byte[] sendPacket = new byte[valueLength+6];
+		byte[] sendPacket = new byte[valueLength+7];
 		
-		//2 = 0x02 STX
+		//2 = 0x02 STX : 시작 세그먼트
 		sendPacket[0] = 0x02;
+
+		//0 = 0x00 NUL: note
+		sendPacket[1] = 0x00;
 		
-		//빅인디안 
-		byte[] valueLengthBytes = intToByteBigEndian(valueLength);
-		System.arraycopy(valueLengthBytes, 0, sendPacket, 1, 4);
+		// Big Endian 패킷 size 4byte
+		byte[] valueLengthBytes = intToByteBigEndian(sendPacket.length);
+		System.arraycopy(valueLengthBytes, 0, sendPacket, 2, valueLengthBytes.length);
 		
 		//value 가변
-		System.arraycopy(sendValue, 0, sendPacket, 5, valueLength);
+		System.arraycopy(sendValue, 0, sendPacket, 6, valueLength);
 		
-		//3 = 0x03 ETX
-		sendPacket[sendPacket.length+1] = 0x03;
+		//3 = 0x03 ETX : 종료 세그먼트
+		sendPacket[sendPacket.length-1] = 0x03;
 		
 		return sendPacket;
 	}
@@ -56,10 +61,10 @@ public class ByteUtils {
 	public static byte[] intToByteLittleEndian(int num) {
 		byte[] byteArray = new byte[4];
 		
-		byteArray[3] = (byte) (num >> 24);
-		byteArray[2] = (byte) (num >> 16);
-		byteArray[1] = (byte) (num >> 8);
-		byteArray[0] = (byte) (num);
+		byteArray[3] = (byte) (num);
+		byteArray[2] = (byte) (num >> 8);
+		byteArray[1] = (byte) (num >> 16);
+		byteArray[0] = (byte) (num >> 24);
 
 		return byteArray;
 	}
@@ -68,10 +73,10 @@ public class ByteUtils {
 	public static byte[] intToByteBigEndian(int num) {
 		byte[] byteArray = new byte[4];
 		
-		byteArray[0] = (byte) (num);
-		byteArray[1] = (byte) (num >> 8);
-		byteArray[2] = (byte) (num >> 16);
-		byteArray[3] = (byte) (num >> 24);
+		byteArray[3] = (byte) (num);
+		byteArray[2] = (byte) (num >> 8);
+		byteArray[1] = (byte) (num >> 16);
+		byteArray[0] = (byte) (num >> 24);
 		
 		return byteArray;
 	}

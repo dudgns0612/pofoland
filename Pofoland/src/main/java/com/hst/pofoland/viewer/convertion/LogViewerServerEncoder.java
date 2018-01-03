@@ -1,10 +1,5 @@
 package com.hst.pofoland.viewer.convertion;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-
-import org.json.simple.JSONObject;
-
 import com.hst.pofoland.viewer.utils.ByteUtils;
 
 import io.netty.buffer.ByteBuf;
@@ -45,14 +40,14 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
 		// String - >> byte[] 변환
 		out = Unpooled.directBuffer();
 		byte[] sendByteEncoding = ByteUtils.makeSendPacket(sendStr.getBytes("UTF-8"));
-		
-		//System.out.println(ByteUtils.byteToHexString(sendByteEncoding));
 		out.writeBytes(sendByteEncoding);
 		
 		ctx.writeAndFlush(out);
 		
-		
-		// object - >> byte[]로변환했을경우 
+	}
+
+}
+// object - >> byte[]로변환했을경우 
 //		ByteArrayOutputStream byteArrayOutStream = new ByteArrayOutputStream();
 //		ObjectOutputStream objectOutStream = new ObjectOutputStream(byteArrayOutStream);
 //		
@@ -68,6 +63,3 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
 //		System.out.println(byteToHexString(objectByte));
 //		System.out.println(objectByte.length);
 //		ctx.writeAndFlush(out);
-	}
-
-}

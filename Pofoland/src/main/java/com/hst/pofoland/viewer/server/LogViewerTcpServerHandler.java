@@ -2,10 +2,7 @@ package com.hst.pofoland.viewer.server;
 
 import org.json.simple.JSONObject;
 
-import com.hst.pofoland.common.utils.JsonUtils;
-import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.viewer.constant.NetworkProtocolConstant;
-import com.hst.pofoland.viewer.utils.ByteUtils;
 import com.hst.pofoland.viewer.vo.ChannelVO;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -52,15 +49,11 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 		if (NetworkProtocolConstant.CLINET_SEND_START.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("Y");
-			JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.CLINET_SEND_START, 
-					"VALUE", "======================================================================LogViewer(Ver_0.1) Start======================================================================");
-			ctx.writeAndFlush(sendJsonObject);
+			sendMessage(NetworkProtocolConstant.CLINET_SEND_START, "======================================================================LogViewer(Ver_0.1) Start======================================================================");
 		} else if (NetworkProtocolConstant.CLINET_SEND_STOP.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("N");
-			JSONObject sendJsonObject = JsonUtils.setJsonValue(NetworkProtocolConstant.CLINET_SEND_START, 
-					"VALUE", "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
-			ctx.writeAndFlush(sendJsonObject);
+			sendMessage(NetworkProtocolConstant.CLINET_SEND_STOP, "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
 		}
 	}
 	
@@ -74,18 +67,23 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 	}
 	
-	private void sendMessage(JSONObject sendJsonMessage) {
-		ctx.writeAndFlush(sendJsonMessage);
-	}
-	
-	public static void logSendMessage(String logMessage) {
+	public static void sendMessage(String protocol, String value) {
 		for (ChannelVO channelVO : ChannelVO.channelList) {
-			if (!channelVO.getWorkStateYn().equals("N")) {
-				ChannelHandlerContext ctx = channelVO.getCtx();
-				if (logMessage.length() <= 0) {
-					logMessage = " ";
+			if (NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE.equals(protocol)) {
+				if (!channelVO.getWorkStateYn().equals("N")) {
+					ChannelHandlerContext ctx = channelVO.getCtx();
+					if (value.length() <= 0) {
+						value = " ";
+					}
+					String logSendValue = protocol + "$" + value;
+					ctx.writeAndFlush(logSendValue);
 				}
-				String logSendValue = NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE + "$" + logMessage;
+			} else {
+				ChannelHandlerContext ctx = channelVO.getCtx();
+				if (value.length() <= 0) {
+					value = " ";
+				}
+				String logSendValue = protocol + "$" + value;
 				ctx.writeAndFlush(logSendValue);
 			}
 		}

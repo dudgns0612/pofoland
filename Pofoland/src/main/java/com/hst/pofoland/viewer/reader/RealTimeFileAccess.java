@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import com.hst.pofoland.common.utils.LoggerManager;
+import com.hst.pofoland.viewer.constant.NetworkProtocolConstant;
 import com.hst.pofoland.viewer.server.LogViewerTcpServerHandler;
 
 public class RealTimeFileAccess {
@@ -23,33 +24,22 @@ public class RealTimeFileAccess {
 					randomAccessFile.seek(fileLength);
 					String line = "";
 					
-					Thread.sleep(200);
 					while (true) {
 						line = randomAccessFile.readLine();
 
 						if (line != null && line != "") {
-							line = new String(line.getBytes("8859_1"), "KSC5601");
-//							byte[] lineByte = line.getBytes();
-//							if (lineByte.length > 190) {
-//								String[] subValue = byteSubString(lineByte,190);
-//								for (int i = 0 ; i < subValue.length ; i++) {
-//									LogViewerTcpServerHandler.logSendMessage(subValue[i]);
-//									Thread.sleep(150);
-//								}
-//							} else {
-								LogViewerTcpServerHandler.logSendMessage(line);
-								Thread.sleep(200);
-//							}
+							line = new String(line.getBytes("ISO-8859-1"), "UTF-8");
+							LogViewerTcpServerHandler.sendMessage(NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE, line);
+							Thread.sleep(80);
 						} else {
 							fileLength = randomAccessFile.length();
 							randomAccessFile.seek(fileLength);
-							Thread.sleep(500);
+							Thread.sleep(120);
 						}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			}
