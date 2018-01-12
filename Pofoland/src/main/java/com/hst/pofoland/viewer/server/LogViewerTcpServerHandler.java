@@ -2,6 +2,7 @@ package com.hst.pofoland.viewer.server;
 
 import org.json.simple.JSONObject;
 
+import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.viewer.constant.NetworkProtocolConstant;
 import com.hst.pofoland.viewer.vo.ChannelVO;
 
@@ -46,6 +47,7 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		JSONObject commuObject = (JSONObject) msg;
 		String protocol = String.valueOf(commuObject.get("PROTOCOL"));
+		Object value = commuObject.get("VALUE");
 		if (NetworkProtocolConstant.CLINET_SEND_START.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("Y");
@@ -54,6 +56,9 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("N");
 			sendMessage(NetworkProtocolConstant.CLINET_SEND_STOP, "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
+		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE_CHANGE.equals(protocol)) {
+			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
+			channelVO.setLogSize((Integer)value);
 		}
 	}
 	
@@ -72,11 +77,43 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 			if (NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE.equals(protocol)) {
 				if (!channelVO.getWorkStateYn().equals("N")) {
 					ChannelHandlerContext ctx = channelVO.getCtx();
-					if (value.length() <= 0) {
-						value = " ";
+					int valueLength = value.length();
+					int clientSize = channelVO.getLogSize(); 
+					
+					if (valueLength < clientSize) {
+						if (valueLength <= 0) {
+							value = " ";
+						} 
+						
+						String logSendValue = protocol + "$" + value;
+						ctx.writeAndFlush(logSendValue);
+					} else {
+						int arrlength = (valueLength / clientSize) + 1;
+						String [] arrLogMsg = new String[arrlength];
+						
+						arrLogMsg[0] = value.substring(0, clientSize);
+						for (int i=1 ; arrlength > i ; i++) {
+							if (i == arrlength-1) {
+								arrLogMsg[i] = value.substring((i*clientSize)+1, valueLength);
+							} else {
+								arrLogMsg[i] = value.substring((i*clientSize)+1, (i+1)*clientSize);
+							}
+						}
+						
+						for (int i=0; arrlength > i; i++) {
+							if (value.length() <= 0) {
+								value = " ";
+							}
+							try {
+								String logSendValue = protocol + "$" + arrLogMsg[i];
+								ctx.writeAndFlush(logSendValue);
+								
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								LoggerManager.debug(LogViewerTcpServerHandler.class, "ERROR {}", e.getMessage());
+							}
+						}
 					}
-					String logSendValue = protocol + "$" + value;
-					ctx.writeAndFlush(logSendValue);
 				}
 			} else {
 				ChannelHandlerContext ctx = channelVO.getCtx();
@@ -88,5 +125,4 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 			}
 		}
 	}
-	
 }

@@ -34,7 +34,7 @@ public class RealTimeFileAccess {
 						} else {
 							fileLength = randomAccessFile.length();
 							randomAccessFile.seek(fileLength);
-							Thread.sleep(120);
+							Thread.sleep(150);
 						}
 					}
 				} catch (IOException e) {

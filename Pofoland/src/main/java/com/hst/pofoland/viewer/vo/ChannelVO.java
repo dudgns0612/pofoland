@@ -39,6 +39,7 @@ public class ChannelVO {
 	String userId;
 	String userPw;
 	String workStateYn = "Y";
+	int logSize = 170;
 	/**
 	 * @return the ctx
 	 */
@@ -86,6 +87,19 @@ public class ChannelVO {
 	 */
 	public void setWorkStateYn(String workStateYn) {
 		this.workStateYn = workStateYn;
+	}
+	
+	/**
+	 * @return the logSize
+	 */
+	public int getLogSize() {
+		return logSize;
+	}
+	/**
+	 * @param logSize the logSize to set
+	 */
+	public void setLogSize(int logSize) {
+		this.logSize = logSize;
 	}
 	
 	public static ChannelVO getChannelVO(ChannelHandlerContext ctx) {

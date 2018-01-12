@@ -26,13 +26,14 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss} %-4level %logger.%method:%line >> %msg %n</pattern>
+			<pattern>[%d{MM-dd HH:mm:ss}][%-4level]%logger.%method:%line >> %msg %n</pattern>
 		</encoder>
 	</appender>
 
 	<logger name="com.hst.pofoland" additivity="false">
 		<level value="INFO" />
 		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="LOGFILE" />
 	</logger>
 	 
 	<logger name="jdbc.connection" additivity="false">
@@ -46,8 +47,9 @@
 	</logger>
 
 	<logger name="jdbc.sqlonly" additivity="false">
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="LOGFILE" />
 	</logger>
 	
 	<logger name="jdbc.sqltiming" additivity="false">
@@ -64,32 +66,10 @@
 		<level value="INFO" />
 		<appender-ref ref="CONSOLE" />
 	</logger>
-	
-	<logger name="jdbc.resultsettable" additivity="false">
+
+	<root>
 		<level value="INFO" />
 		<appender-ref ref="CONSOLE" />
-	</logger>
-	
-	
-	<logger name="jdbc.sqlonly" additivity="false">
-		<level value="INFO" />
 		<appender-ref ref="LOGFILE" />
-	</logger>
-	
-	<logger name="jdbc.resultsettable" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="LOGFILE" />
-	</logger>
-	
-	<logger name="com.hst.pofoland" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="LOGFILE" />
-	</logger>
-	
-
-     <root>
-        <level value="INFO" />
-        <appender-ref ref="CONSOLE" />
-		<appender-ref ref="LOGFILE" />
-    </root>
+	</root>
 </configuration>
