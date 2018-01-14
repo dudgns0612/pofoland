@@ -59,6 +59,12 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE_CHANGE.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setLogSize((Integer)value);
+		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE_DEFUALT.equals(protocol)) {
+			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
+			channelVO.setLogSize((Integer)value);
+		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE.equals(protocol)) {
+			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
+			sendMessage(NetworkProtocolConstant.CLIENT_LOG_SIZE, String.valueOf(channelVO.getLogSize()));
 		}
 	}
 	
