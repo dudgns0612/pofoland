@@ -28,38 +28,17 @@ import io.netty.handler.codec.MessageToByteEncoder;
 */
 
 public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
-	
-
 	/**
 	 * 데이터 인코딩
 	 * object를 byte[]로 전송 (직렬화과정)
 	 */
 	@Override
 	protected void encode(ChannelHandlerContext ctx, String sendStr, ByteBuf out) throws Exception {
-		
 		// String - >> byte[] 변환
 		out = Unpooled.directBuffer();
 		byte[] sendByteEncoding = ByteUtils.makeSendPacket(sendStr.getBytes("UTF-8"));
 		out.writeBytes(sendByteEncoding);
 		
 		ctx.writeAndFlush(out);
-		
 	}
-
 }
-// object - >> byte[]로변환했을경우 
-//		ByteArrayOutputStream byteArrayOutStream = new ByteArrayOutputStream();
-//		ObjectOutputStream objectOutStream = new ObjectOutputStream(byteArrayOutStream);
-//		
-//		//JsonObject -> 바이트 
-//		objectOutStream.writeObject(commuObject);
-//		objectOutStream.flush();
-//		
-//		byte[] objectByte = byteArrayOutStream.toByteArray();
-//		
-//		//직접 버퍼 생성
-//		out = Unpooled.directBuffer();
-//		out.writeBytes(objectByte);
-//		System.out.println(byteToHexString(objectByte));
-//		System.out.println(objectByte.length);
-//		ctx.writeAndFlush(out);

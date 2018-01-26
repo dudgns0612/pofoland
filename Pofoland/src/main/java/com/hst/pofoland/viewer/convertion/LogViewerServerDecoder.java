@@ -1,10 +1,8 @@
 package com.hst.pofoland.viewer.convertion;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
 import java.util.List;
 
-import org.json.simple.JSONObject;
+import com.hst.pofoland.viewer.utils.ByteUtils;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -34,16 +32,41 @@ public class LogViewerServerDecoder extends ByteToMessageDecoder{
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-		int dataLength = in.readableBytes();
-		byte[] read = new byte[dataLength];
-		for (int i = 0 ; i < dataLength ; i++) {
+		int packetAllSize = in.readableBytes();
+		
+		//최소사이즈 판별
+		if (packetAllSize < 4) {
+			return;
+		}
+		
+		byte[] read = new byte[packetAllSize];
+		
+		for (int i = 0 ; i < packetAllSize ; i++) {
 			read[i] = in.readByte();
 		}
 		
-		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(read);
-		ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-		JSONObject commuObject = (JSONObject)objectInputStream.readObject();
-		out.add(commuObject);
+		//중간에 끊길 시 기존 인덱스 저장
+		if (!ByteUtils.byteToHexString(read).contains("0x02") || !ByteUtils.byteToHexString(read).contains("0x03")) {
+			in.resetReaderIndex();
+			return;
+		} 
+		byte[] packetDataSize = new byte[4];
+		System.arraycopy(read, 2, packetDataSize, 0, 4);
+		int dataSize = ByteUtils.byteToIntBigEndian(packetDataSize);
+		
+		
+		byte[] packetMessageData = new byte[dataSize];
+		System.arraycopy(read,6, packetMessageData, 0, read.length-6);
+		System.arraycopy(packetMessageData, 0, packetMessageData, 0, packetMessageData.length-1);
+		
+		String reciveMsg = new String(packetMessageData,"UTF-8");
+		
+		String msg = reciveMsg.split("[$]")[1];
+		
+		if (msg.trim().length() > 0) {
+			out.add(reciveMsg.trim());
+		} else {
+			out.add(reciveMsg);
+		}
 	}
-
 }
