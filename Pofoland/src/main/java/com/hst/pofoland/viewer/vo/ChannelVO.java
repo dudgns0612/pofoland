@@ -39,7 +39,7 @@ public class ChannelVO {
 	String userId;
 	String userPw;
 	String workStateYn = "Y";
-	int logSize = 170;
+	String logSize = "170";
 	/**
 	 * @return the ctx
 	 */
@@ -89,16 +89,11 @@ public class ChannelVO {
 		this.workStateYn = workStateYn;
 	}
 	
-	/**
-	 * @return the logSize
-	 */
-	public int getLogSize() {
+	public String getLogSize() {
 		return logSize;
 	}
-	/**
-	 * @param logSize the logSize to set
-	 */
-	public void setLogSize(int logSize) {
+	
+	public void setLogSize(String logSize) {
 		this.logSize = logSize;
 	}
 	

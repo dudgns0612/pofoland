@@ -48,12 +48,12 @@ public class ByteUtils {
 	}
 	
 	// 리틀인디안 바이트 -> 인트
-	public int littleEndianBytesToInt(byte[] byteArray) {
+	public static int byteToIntLittleEndian(byte[] byteArray) {
 		return (byteArray[0] & 0xff) | (byteArray[1] & 0xff) << 8 | (byteArray[2] & 0xff) << 16 | (byteArray[3] & 0xff) << 24;
 	}
 	
 	// 빅인디안 바이트 -> 인트
-	public int bigEndianBytesToInt(byte[] byteArray) {
+	public static int byteToIntBigEndian(byte[] byteArray) {
 		return (byteArray[0] & 0xff) << 24 | (byteArray[1] & 0xff) << 16 | (byteArray[2] & 0xff) << 8 | (byteArray[3] & 0xff);
 	}
 	

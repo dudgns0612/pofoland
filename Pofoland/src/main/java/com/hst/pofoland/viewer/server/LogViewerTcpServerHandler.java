@@ -8,6 +8,7 @@ import com.hst.pofoland.viewer.vo.ChannelVO;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * 
@@ -29,7 +30,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * </pre>
 */
 
-public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
+public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<String>{
 	
 	ChannelHandlerContext ctx;
 	
@@ -42,12 +43,11 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 		ChannelVO.channelList.add(channel);
 	}
 	
-	//  이벤트 발생 시 채널 동작
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-		JSONObject commuObject = (JSONObject) msg;
-		String protocol = String.valueOf(commuObject.get("PROTOCOL"));
-		Object value = commuObject.get("VALUE");
+	protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+		String[] clinetMsg = msg.split("[$]");
+		String protocol = clinetMsg[0];
+		String value = clinetMsg[1].trim();
 		if (NetworkProtocolConstant.CLINET_SEND_START.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("Y");
@@ -58,21 +58,15 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 			sendMessage(NetworkProtocolConstant.CLINET_SEND_STOP, "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE_CHANGE.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
-			channelVO.setLogSize((Integer)value);
+			channelVO.setLogSize(value);
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE_DEFUALT.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
-			channelVO.setLogSize((Integer)value);
+			channelVO.setLogSize(value);
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			sendMessage(NetworkProtocolConstant.CLIENT_LOG_SIZE, String.valueOf(channelVO.getLogSize()));
 		}
 	}
-	
-	// 이벤트 동작 완료
-	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx) {
-	}
-	
 	//오류 발생
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -84,7 +78,7 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 				if (!channelVO.getWorkStateYn().equals("N")) {
 					ChannelHandlerContext ctx = channelVO.getCtx();
 					int valueLength = value.length();
-					int clientSize = channelVO.getLogSize(); 
+					int clientSize = Integer.parseInt(channelVO.getLogSize()); 
 					
 					if (valueLength < clientSize) {
 						if (valueLength <= 0) {
@@ -131,4 +125,5 @@ public class LogViewerTcpServerHandler extends ChannelInboundHandlerAdapter{
 			}
 		}
 	}
+
 }
