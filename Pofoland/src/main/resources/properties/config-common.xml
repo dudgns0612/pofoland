@@ -34,4 +34,7 @@
             </operation>
         </settings>
     </upload>
+    <logging>
+    	<root>C:\\pofoland\\logs</root>
+    </logging>
 </config>

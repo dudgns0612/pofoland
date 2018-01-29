@@ -1,13 +1,15 @@
 package com.hst.pofoland.viewer.server;
 
-import org.json.simple.JSONObject;
+import javax.inject.Inject;
+
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.viewer.constant.NetworkProtocolConstant;
+import com.hst.pofoland.viewer.utils.FileUtils;
 import com.hst.pofoland.viewer.vo.ChannelVO;
 
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
@@ -30,9 +32,16 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * </pre>
 */
 
-public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<String>{
+public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Object> {
+	
+	@Inject
+	FileUtils fileUtils;
 	
 	ChannelHandlerContext ctx;
+	
+	public LogViewerTcpServerHandler() {
+		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+	}
 	
 	//channel 연결 (클라이언트 접속)
 	@Override
@@ -44,8 +53,8 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Strin
 	}
 	
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-		String[] clinetMsg = msg.split("[$]");
+	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+		String[] clinetMsg = String.valueOf(msg).split("[$]");
 		String protocol = clinetMsg[0];
 		String value = clinetMsg[1].trim();
 		if (NetworkProtocolConstant.CLINET_SEND_START.equals(protocol)) {
@@ -65,8 +74,16 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Strin
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			sendMessage(NetworkProtocolConstant.CLIENT_LOG_SIZE, String.valueOf(channelVO.getLogSize()));
+		} else if (NetworkProtocolConstant.CLIENT_LOG_DATE.equals(protocol)) {
+			try {
+				String sendMsg = fileUtils.getLogContent("pofoland."+value, ctx);
+				sendMessage(NetworkProtocolConstant.CLIENT_LOG_DATE, sendMsg);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
+	
 	//오류 발생
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -125,5 +142,4 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Strin
 			}
 		}
 	}
-
 }

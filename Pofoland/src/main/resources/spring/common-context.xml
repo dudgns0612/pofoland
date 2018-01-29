@@ -15,6 +15,10 @@
         </property>
     </bean>
     
+    <bean id="fileUtilesViewer" class="com.hst.pofoland.viewer.utils.FileUtils">
+    	<property name="logFileRoot" value="${logging.root}" />
+    </bean>
+    
     <!-- PaginationManager 빈 설정 -->
     <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
         <property name="rendererType">

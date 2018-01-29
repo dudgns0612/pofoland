@@ -3,7 +3,6 @@ package com.hst.pofoland.viewer.reader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import com.hst.pofoland.common.utils.LoggerManager;
 import com.hst.pofoland.viewer.constant.NetworkProtocolConstant;
 import com.hst.pofoland.viewer.server.LogViewerTcpServerHandler;
 
@@ -49,38 +48,5 @@ public class RealTimeFileAccess {
 		fileThread.start();
 	}
 	
-	public void end() {
-		try {
-			if (fileThread != null) {
-				randomAccessFile.close();
-				fileThread.interrupt();
-			}
-		} catch (IOException e) {
-			LoggerManager.error(getClass(), "ERROR : {}", e.getMessage());
-		}
-	}
 	
-	public String[] byteSubString(byte[] bytes, int size) {
-		String[] subString = null;
-		int bytesLength = bytes.length;
-		int offset = 0;
-		
-		int count = bytesLength/size;
-		int remainder = bytesLength%size;
-		if (remainder > 0) {
-			subString = new String[count+1];
-		} else {
-			subString = new String[count];
-
-		}
-		for (int i = 0; i < count ; i++) {
-			subString[i] = new String(bytes, offset, size);
-			offset += size;
-		}
-		if (remainder > 0) {
-			subString[count] =  new String(bytes, offset, remainder);
-		}
- 		
-		return subString;
-	}
 }

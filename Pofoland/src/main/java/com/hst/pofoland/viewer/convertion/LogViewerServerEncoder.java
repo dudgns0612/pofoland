@@ -27,16 +27,16 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * </pre>
 */
 
-public class LogViewerServerEncoder extends MessageToByteEncoder<String> {
+public class LogViewerServerEncoder extends MessageToByteEncoder<Object> {
 	/**
 	 * 데이터 인코딩
 	 * object를 byte[]로 전송 (직렬화과정)
 	 */
 	@Override
-	protected void encode(ChannelHandlerContext ctx, String sendStr, ByteBuf out) throws Exception {
+	protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
 		// String - >> byte[] 변환
 		out = Unpooled.directBuffer();
-		byte[] sendByteEncoding = ByteUtils.makeSendPacket(sendStr.getBytes("UTF-8"));
+		byte[] sendByteEncoding = ByteUtils.makeSendPacket(String.valueOf(msg).getBytes("UTF-8"));
 		out.writeBytes(sendByteEncoding);
 		
 		ctx.writeAndFlush(out);
