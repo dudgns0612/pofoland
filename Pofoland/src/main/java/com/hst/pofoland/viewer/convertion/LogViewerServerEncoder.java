@@ -1,5 +1,8 @@
 package com.hst.pofoland.viewer.convertion;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+
 import com.hst.pofoland.viewer.utils.ByteUtils;
 
 import io.netty.buffer.ByteBuf;
@@ -34,11 +37,26 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<Object> {
 	 */
 	@Override
 	protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
-		// String - >> byte[] 변환
-		out = Unpooled.directBuffer();
-		byte[] sendByteEncoding = ByteUtils.makeSendPacket(String.valueOf(msg).getBytes("UTF-8"));
-		out.writeBytes(sendByteEncoding);
+		String returnType = msg.getClass().getName();
 		
-		ctx.writeAndFlush(out);
+		if (returnType.contains("String")) {
+			// String - >> byte[] 변환
+			byte[] sendByteEncoding = ByteUtils.makeSendPacket(String.valueOf(msg).getBytes("UTF-8"), (byte)0x00);
+			out = Unpooled.directBuffer();
+			out.writeBytes(sendByteEncoding);
+			
+			ctx.writeAndFlush(out);
+		} else {
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+			objectOutputStream.writeObject(msg);
+			objectOutputStream.flush();
+			
+			byte[] objectBytes = ByteUtils.makeSendPacket(byteArrayOutputStream.toByteArray(), (byte)0x01);
+			out = Unpooled.directBuffer();
+			out.writeBytes(objectBytes);
+			
+			ctx.writeAndFlush(out);
+		}
 	}
 }

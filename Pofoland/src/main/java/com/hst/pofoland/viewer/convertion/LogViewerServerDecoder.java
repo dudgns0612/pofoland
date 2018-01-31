@@ -61,7 +61,7 @@ public class LogViewerServerDecoder extends ByteToMessageDecoder{
 		
 		String reciveMsg = new String(packetMessageData,"UTF-8");
 		
-		String msg = reciveMsg.split("[$]")[1];
+		String msg = reciveMsg.split("[&]")[1];
 		
 		if (msg.trim().length() > 0) {
 			out.add(reciveMsg.trim());

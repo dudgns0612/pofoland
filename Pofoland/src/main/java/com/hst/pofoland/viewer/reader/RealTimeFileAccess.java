@@ -28,7 +28,7 @@ public class RealTimeFileAccess {
 
 						if (line != null && line != "") {
 							line = new String(line.getBytes("ISO-8859-1"), "UTF-8");
-							LogViewerTcpServerHandler.sendMessage(NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE, line);
+							LogViewerTcpServerHandler.sendBroadcastMessage(NetworkProtocolConstant.SERVER_SEND_LOG_MESSAGE, line);
 							Thread.sleep(80);
 						} else {
 							fileLength = randomAccessFile.length();

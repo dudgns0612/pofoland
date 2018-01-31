@@ -39,7 +39,7 @@ public class ChannelVO {
 	String userId;
 	String userPw;
 	String workStateYn = "Y";
-	String logSize = "170";
+	String logSize = "165";
 	/**
 	 * @return the ctx
 	 */

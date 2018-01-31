@@ -18,19 +18,33 @@ public class byteTest {
 	@Test
 	public void byteTest() {
 		
-		byte dd = 0x02;
-		int size = 1024;
+		double a = 3 % 10;
 		
-		String aaa = String.valueOf(size);
+		System.out.println(a);
 		
-		char[] aa = aaa.toCharArray();
+	}
+	
+	// 리틀인디안 인트 -> 바이트
+	public static byte[] intToByteLittleEndian(int num) {
+		byte[] byteArray = new byte[4];
 		
-		System.out.println(aa.length);
-		
-		byte[] a = {1,2,5};
-		
-		System.out.println(byteToHexString(a));
-		
+		byteArray[3] = (byte) (num >> 24);
+		byteArray[2] = (byte) (num >> 16);
+		byteArray[1] = (byte) (num >> 8);
+		byteArray[0] = (byte) (num);
 
+		return byteArray;
+	}
+	
+	// 빅인디안 인트 -> 바이트
+	public static byte[] intToByteBigEndian(int num) {
+		byte[] byteArray = new byte[4];
+		
+		byteArray[3] = (byte) (num);
+		byteArray[2] = (byte) (num >> 8);
+		byteArray[1] = (byte) (num >> 16);
+		byteArray[0] = (byte) (num >> 24);
+		
+		return byteArray;
 	}
 }
