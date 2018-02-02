@@ -46,7 +46,7 @@ public class LogViewerServerDecoder extends ByteToMessageDecoder{
 		}
 		
 		//중간에 끊길 시 기존 인덱스 저장
-		if (!ByteUtils.byteToHexString(read).contains("0x02") || !ByteUtils.byteToHexString(read).contains("0x03")) {
+		if (0x02 != read[0] || 0x03 != read[packetAllSize-1]) {
 			in.resetReaderIndex();
 			return;
 		} 

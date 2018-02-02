@@ -57,6 +57,9 @@ public class LogViewerServerEncoder extends MessageToByteEncoder<Object> {
 			out.writeBytes(objectBytes);
 			
 			ctx.writeAndFlush(out);
+			
+			objectOutputStream.close();
+			byteArrayOutputStream.close();
 		}
 	}
 }

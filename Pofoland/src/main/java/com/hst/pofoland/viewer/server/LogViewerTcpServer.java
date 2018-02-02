@@ -37,6 +37,7 @@ import io.netty.handler.logging.LoggingHandler;
 */
 
 public class LogViewerTcpServer {
+	private final int MAX_FRAME_LENGTH = 1024 * 30;
 	
 	int port;
 	
