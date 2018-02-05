@@ -49,7 +49,6 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Objec
 	//channel 연결 (클라이언트 접속)
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		ctx.alloc().buffer(1024);
 		this.ctx = ctx;
 		ChannelVO channel = new ChannelVO();
 		channel.setCtx(ctx);
