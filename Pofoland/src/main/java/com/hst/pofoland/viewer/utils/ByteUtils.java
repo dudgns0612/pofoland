@@ -44,10 +44,6 @@ public class ByteUtils {
 		//3 = 0x03 ETX : 종료 세그먼트
 		sendPacket[sendPacket.length-1] = 0x03;
 		
-		
-		System.out.println(ByteUtils.byteToHexString(sendPacket));
-		System.out.println(sendPacket.length);
-		
 		return sendPacket;
 	}
 	

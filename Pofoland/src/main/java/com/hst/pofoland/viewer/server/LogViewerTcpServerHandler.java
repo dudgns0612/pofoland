@@ -1,5 +1,6 @@
 package com.hst.pofoland.viewer.server;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -63,11 +64,11 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Objec
 		if (NetworkProtocolConstant.CLINET_SEND_START.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("Y");
-			sendBroadcastMessage(NetworkProtocolConstant.CLINET_SEND_START, "======================================================================LogViewer(Ver_0.1) Start======================================================================");
+			sendMessage(NetworkProtocolConstant.CLINET_SEND_START, "======================================================================LogViewer(Ver_0.1) Start======================================================================");
 		} else if (NetworkProtocolConstant.CLINET_SEND_STOP.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setWorkStateYn("N");
-			sendBroadcastMessage(NetworkProtocolConstant.CLINET_SEND_STOP, "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
+			sendMessage(NetworkProtocolConstant.CLINET_SEND_STOP, "======================================================================LogViewer(Ver_0.1) Stop======================================================================");
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE_CHANGE.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
 			channelVO.setLogSize(value);
@@ -76,7 +77,7 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Objec
 			channelVO.setLogSize(value);
 		} else if (NetworkProtocolConstant.CLIENT_LOG_SIZE.equals(protocol)) {
 			ChannelVO channelVO = ChannelVO.getChannelVO(ctx);
-			sendBroadcastMessage(NetworkProtocolConstant.CLIENT_LOG_SIZE, String.valueOf(channelVO.getLogSize()));
+			sendMessage(NetworkProtocolConstant.CLIENT_LOG_SIZE, String.valueOf(channelVO.getLogSize()));
 		} else if (NetworkProtocolConstant.CLIENT_LOG_DATE.equals(protocol)) {
 			try {
 				double fileSize = fileUtils.getFileSize(value);
@@ -84,11 +85,11 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Objec
 					StringBuffer resBuffer = new StringBuffer();
 					resBuffer.append("WANNING>>1MB가 넘는 로그파일은 볼 수 없습니다.").append("\n");
 					resBuffer.append("WANNING>>옵션 -d 이용하여 다운로드하여 로깅하여 주시기 바랍니다.").append("\n");
-					sendBroadcastMessage(NetworkProtocolConstant.CLIENT_LOG_DATE, resBuffer.toString());
+					sendMessage(NetworkProtocolConstant.CLIENT_LOG_DATE, resBuffer.toString());
 					return;
 				}
 				String sendMsg = fileUtils.getLogContent(value, ctx);
-				sendBroadcastMessage(NetworkProtocolConstant.CLIENT_LOG_DATE, sendMsg);
+				sendMessage(NetworkProtocolConstant.CLIENT_LOG_DATE, sendMsg);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -99,7 +100,13 @@ public class LogViewerTcpServerHandler extends SimpleChannelInboundHandler<Objec
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-				
+		} else if (NetworkProtocolConstant.CLIENT_LOG_FILE_DOWN.equals(protocol)) {
+			File file = fileUtils.getFile(value);
+			if (file.length() > 0) {
+				sendMessage(JsonUtils.setJsonValue(NetworkProtocolConstant.CLIENT_LOG_FILE_DOWN, file));
+			} else {
+				sendMessage(NetworkProtocolConstant.SERVER_ERROR_MESSAGE,"파일이 존재하지 않습니다.");
+			}
 		}
 	}
 	
